@@ -41,10 +41,10 @@ class IndexController extends CController
                 
         $baseUrl = Yii::app()->request->baseUrl;
         // Css:
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/screen.css', 'screen, projection');
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/print.css', 'print');
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/main.css');
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/form.css');
+        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/screen.css', 'screen, projection');
+        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/print.css', 'print');
+        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/main.css');
+        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/form.css');
         
         // JavaScripts:
         //Yii::app()->clientScript->registerScriptFile($baseUrl.'');
