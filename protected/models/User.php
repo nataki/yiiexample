@@ -8,8 +8,8 @@
  * @property string $name
  * @property string $email
  * @property string $date
- * @property integer $ref_status
- * @property integer $ref_group
+ * @property integer $status_id
+ * @property integer $group_id
  *
  * The followings are the available model relations:
  */
@@ -26,7 +26,7 @@ class User extends CActiveRecord {
     }
 
     public function init() {
-        $this->ref_status = self::StatusPending;
+        $this->status_id = self::StatusPending;
         $this->date = new CDbExpression('NOW()');
     }
     
@@ -46,12 +46,12 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, email, password, date, ref_status, ref_group', 'required'),
-            array('ref_status, ref_group', 'numerical', 'integerOnly'=>true),
+            array('name, email, password, date, status_id, group_id', 'required'),
+            array('status_id, group_id', 'numerical', 'integerOnly'=>true),
             array('name, email, password', 'length', 'max'=>255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, email, date, ref_status, ref_group', 'safe', 'on'=>'search'),
+            array('id, name, email, date, status_id, group_id', 'safe', 'on'=>'search'),
         );
     }
 
@@ -64,7 +64,7 @@ class User extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'status'=>array(
-                self::BELONGS_TO, 'UserStatus', 'ref_status',
+                self::BELONGS_TO, 'UserStatus', 'status_id',
                 'select' => 'name',
                 'joinType' => 'INNER JOIN',
             )
@@ -75,7 +75,7 @@ class User extends CActiveRecord {
     public function scopes() {
         return array(
             'active'=>array(
-                'condition'=>'ref_status='.self::StatusActive,
+                'condition'=>'status_id='.self::StatusActive,
             ),
             'recently'=>array(
                 'order'=>'date DESC',
@@ -101,8 +101,8 @@ class User extends CActiveRecord {
             'email' => 'Email',
             'password' => 'Password',
             'date' => 'Date',
-            'ref_status' => 'Status',
-            'ref_group' => 'Group',
+            'status_id' => 'Status',
+            'group_id' => 'Group',
         );
     }
 
@@ -122,8 +122,8 @@ class User extends CActiveRecord {
         $criteria->compare('t.email',$this->email,true);
         $criteria->compare('t.password',$this->email,true);
         $criteria->compare('t.date',$this->date,true);
-        $criteria->compare('t.ref_status',$this->ref_status);
-        $criteria->compare('t.ref_group',$this->ref_group);        
+        $criteria->compare('t.status_id',$this->status_id);
+        $criteria->compare('t.group_id',$this->group_id);        
 
         
         $sortAttributes = array_keys( $this->getAttributes() );        

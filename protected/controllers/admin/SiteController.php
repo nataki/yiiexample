@@ -14,11 +14,11 @@ class SiteController extends AdminBaseController {
         
         $auth->assign('admin','admin','');*/
         
-        /*$bizRule = 'return Yii::app()->user->ref_group==1;';
+        /*$bizRule = 'return Yii::app()->user->group_id==1;';
         $auth -> createRole('member', 'site members', $bizRule);
         die('done');*/
         
-        //print_r(Yii::app()->user->ref_group);exit;
+        //print_r(Yii::app()->user->group_id);exit;
         
         /*$result = Yii::app()->authManager->getRoles();
         echo('<pre>');

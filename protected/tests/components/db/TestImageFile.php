@@ -9,7 +9,7 @@
  * @property string $file_extension
  * @property integer $file_version
  */
-class TestAttachFile extends CActiveRecord
+class TestImageFile extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
@@ -25,7 +25,7 @@ class TestAttachFile extends CActiveRecord
      */
     public function tableName()
     {
-        return 'test_attach_file';
+        return 'test_image_file';
     }
 
     /**
@@ -92,10 +92,13 @@ class TestAttachFile extends CActiveRecord
     public function behaviors() {
         return array(
             'fileBehavior' => array(
-                'class'=>'ext.qs.db.QsActiveRecordBehaviorFile',
+                'class'=>'ext.qs.db.QsActiveRecordBehaviorImageFile',
                 'fileStoragePath' => Yii::getPathOfAlias('application').'/runtime',
                 //'fileWebPath' => '',
-                'subDirTemplate' => '{id}',
+                'imageTransforms' => array(
+                    'full' => array(800, 600),
+                    'thumbnail' => array(200, 150)
+                ),
             )
         );
     }

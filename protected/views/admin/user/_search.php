@@ -21,7 +21,7 @@
 	</div>
     
     <div class="row">
-        <?php echo $form->label($model,'ref_status'); ?>
+        <?php echo $form->label($model,'status_id'); ?>
         <?php 
             $userStatuses = UserStatus::model()->findAll();
             $options=array(
@@ -30,7 +30,7 @@
             foreach($userStatuses as $userStatus) {
                 $options[$userStatus->id]=$userStatus->name;
             }            
-            echo $form->dropDownList($model,'ref_status',$options); 
+            echo $form->dropDownList($model,'status_id',$options); 
         ?>
     </div>
     
