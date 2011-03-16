@@ -56,7 +56,7 @@ class AdminBaseController extends CController {
             array(
                 'allow',
                 //'roles'=>array('admin')
-                'roles'=>array('auto_admin')                
+                'roles'=>array('admin')                
                 //'users'=>array('admin')
             ),
             array('deny',  // deny all users                

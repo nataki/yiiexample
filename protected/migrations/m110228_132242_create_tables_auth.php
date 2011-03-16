@@ -38,18 +38,18 @@ class m110228_132242_create_tables_auth extends CDbMigration {
         
         // Initial data
         $data = array(
-            'name' => 'auto_admin',
+            'name' => 'admin',
             'type' => 2,
             'description' => 'Auto detect admin by group_id param',
-            'bizrule' => 'return Yii::app()->user->getState(\'group_id\')==1;',
+            'bizrule' => 'return ( !Yii::app()->user->getIsGuest() && Yii::app()->user->getState(\'group_id\')==1 );',
             'data' => 'N;'
         );
         $this->insert('_auth_item', $data);
         $data = array(
-            'name' => 'auto_member',
+            'name' => 'member',
             'type' => 2,
             'description' => 'Auto detect member by group_id param',
-            'bizrule' => 'return Yii::app()->user->getState(\'group_id\')==2;',
+            'bizrule' => 'return ( !Yii::app()->user->getIsGuest() && Yii::app()->user->getState(\'group_id\')==2 );',
             'data' => 'N;'
         );
         $this->insert('_auth_item', $data);

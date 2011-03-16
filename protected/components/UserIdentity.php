@@ -21,6 +21,7 @@ class UserIdentity extends CUserIdentity {
             'password' => $this->password
         );
         $user = User::model()->findByAttributes($attributes);
+        
         if (empty($user)) {
             $attributes = array(
                 'name' => $this->username                
