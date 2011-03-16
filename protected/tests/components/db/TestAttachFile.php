@@ -95,7 +95,7 @@ class TestAttachFile extends CActiveRecord
                 'class'=>'ext.qs.db.QsActiveRecordBehaviorFile',
                 'fileStoragePath' => Yii::getPathOfAlias('application').'/runtime',
                 //'fileWebPath' => '',
-                'subDirTemplate' => '{__model__}/{__file__}/{id}',
+                'subDirTemplate' => '{__model__}/{__file__}/{^id}/{id}',
             )
         );
     }
