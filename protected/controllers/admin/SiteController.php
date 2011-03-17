@@ -2,28 +2,7 @@
 
 class SiteController extends AdminBaseController {	
     
-	public function actionIndex() {		        
-        /*echo('<pre>');
-        print_r($_COOKIE);
-        exit;*/
-        
-        // renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		
-        /*$auth = Yii::app()->authManager;
-        
-        $auth->assign('admin','admin','');*/
-        
-        /*$bizRule = 'return Yii::app()->user->group_id==1;';
-        $auth -> createRole('member', 'site members', $bizRule);
-        die('done');*/
-        
-        //print_r(Yii::app()->user->group_id);exit;
-        
-        /*$result = Yii::app()->authManager->getRoles();
-        echo('<pre>');
-        print_r($result);exit;*/
-                
+	public function actionIndex() {
         $this->render('index');
 	}
 

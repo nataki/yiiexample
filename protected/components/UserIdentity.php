@@ -37,7 +37,7 @@ class UserIdentity extends CUserIdentity {
             $this->setState('date', $user->date);
             $this->setState('group_id', $user->group_id);
             $this->errorCode=self::ERROR_NONE;
-        }
+        }        
         return !$this->errorCode;
 	}
 }

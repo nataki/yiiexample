@@ -11,7 +11,7 @@ return CMap::mergeArray(
         'name'=>'Yii Example',	    
 
 	    // preloading 'log' component
-	    'preload'=>array('log'),
+	    'preload'=>array('log', 'user'),
 
 	    // autoloading model and component classes
 	    'import'=>array(
@@ -78,13 +78,6 @@ return CMap::mergeArray(
                 ),*/
             ),
 	    ),
-
-	    // application-level parameters that can be accessed
-	    // using Yii::app()->params['paramName']
-	    /*'params'=>array(
-		    // this is used in contact page
-		    'adminEmail'=>'webmaster@example.com',
-	    ),*/
     ),
     CMap::mergeArray(
         require(dirname(__FILE__).'/params.php'),
