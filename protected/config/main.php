@@ -42,8 +42,8 @@ return CMap::mergeArray(
                 'itemChildTable' => '_auth_item_child',
                 'assignmentTable' => '_auth_assignment',
                 'defaultRoles' => array(
-                    'auto_admin',
-                    'auto_member'
+                    'admin',
+                    'member'
                 )
             ),
             'errorHandler'=>array(

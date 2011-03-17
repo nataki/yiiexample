@@ -4,7 +4,7 @@ return array(
     // application components
     'components'=>array(        
         'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=yii_example',
+            'connectionString' => 'mysql:host=localhost;dbname=yiiexample',
             'emulatePrepare' => true,
             'username' => 'devel',
             'password' => 'admin4mysql',
