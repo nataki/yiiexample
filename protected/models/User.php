@@ -7,7 +7,7 @@
  * @property integer $id
  * @property string $name
  * @property string $email
- * @property string $date
+ * @property string $create_date
  * @property integer $status_id
  * @property integer $group_id
  *
@@ -27,7 +27,7 @@ class User extends CActiveRecord {
 
     public function init() {
         $this->status_id = self::StatusPending;
-        $this->date = new CDbExpression('NOW()');
+        $this->create_date = new CDbExpression('NOW()');
     }
     
     /**
@@ -46,12 +46,12 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, email, password, date, status_id, group_id', 'required'),
+            array('name, email, password, create_date, status_id, group_id', 'required'),
             array('status_id, group_id', 'numerical', 'integerOnly'=>true),
             array('name, email, password', 'length', 'max'=>255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, email, date, status_id, group_id', 'safe', 'on'=>'search'),
+            array('id, name, email, create_date, status_id, group_id', 'safe', 'on'=>'search'),
         );
     }
 
@@ -67,6 +67,11 @@ class User extends CActiveRecord {
                 self::BELONGS_TO, 'UserStatus', 'status_id',
                 'select' => 'name',
                 'joinType' => 'INNER JOIN',
+            ),
+            'group'=>array(
+                self::BELONGS_TO, 'UserGroup', 'group_id',
+                'select' => 'name',
+                'joinType' => 'INNER JOIN',
             )
         );
         
@@ -78,7 +83,7 @@ class User extends CActiveRecord {
                 'condition'=>'status_id='.self::StatusActive,
             ),
             'recently'=>array(
-                'order'=>'date DESC',
+                'order'=>'create_date DESC',
                 'limit'=>5,
             ),
         );
@@ -86,7 +91,7 @@ class User extends CActiveRecord {
     
     public function defaultScope() {
         return array(
-            'with' => array('status')
+            'with' => array('status', 'group')
         );
     }
     
@@ -100,7 +105,7 @@ class User extends CActiveRecord {
             'name' => 'Name',
             'email' => 'Email',
             'password' => 'Password',
-            'date' => 'Date',
+            'create_date' => 'Date',
             'status_id' => 'Status',
             'group_id' => 'Group',
         );
@@ -121,7 +126,7 @@ class User extends CActiveRecord {
         $criteria->compare('t.name',$this->name,true);
         $criteria->compare('t.email',$this->email,true);
         $criteria->compare('t.password',$this->email,true);
-        $criteria->compare('t.date',$this->date,true);
+        $criteria->compare('t.create_date',$this->create_date,true);
         $criteria->compare('t.status_id',$this->status_id);
         $criteria->compare('t.group_id',$this->group_id);        
 
