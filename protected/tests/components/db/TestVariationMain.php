@@ -91,7 +91,8 @@ class TestVariationMain extends CActiveRecord
                 'relationConfig'=>array(
                     'TestVariationOption', 'variation_main_id'
                 ),
-                'defaultForeignKeyCallback' => array($this, 'findDefaultOptionId'),
+                'variationOptionForeignKeyName' => 'option_id',
+                'defaultVariationOptionForeignKeyCallback' => array($this, 'findDefaultOptionId'),
                 'autoAdjustVariationScenarios' => array('search', 'update')
             )
         );        
