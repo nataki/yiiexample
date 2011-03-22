@@ -1,6 +1,7 @@
     <div id="mainmenu">
         <?php //$this->widget('zii.widgets.CMenu',array(
-        $this->widget('ext.qs.widgets.QsMainMenu',array(
+        $this->widget('ext.qs.widgets.QsMenu',array(
+            'menuView' => '//menus/_main_menu',
             'items'=>array(
                 //array('label'=>'Home', 'url'=>array('/site/index')),
                 array('label'=>'Home', 'url'=>array('/')),
