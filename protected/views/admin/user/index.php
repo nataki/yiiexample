@@ -39,10 +39,10 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
     //'filterPosition'=>'body',
 	//'summaryText'=>'{start}-{end} of {count}',
     'pager' => array(
-        'class'=>'CLinkPager',
+        'class'=>'CLinkPager',        
         'pages' => array(
             'pageSize' => 2
-        ),
+        ),        
     ),
 	'columns'=>array(
 		'id',
