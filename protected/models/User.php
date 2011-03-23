@@ -139,9 +139,9 @@ class User extends CActiveRecord {
             'sort'=>array(
                 'attributes'=>$sortAttributes
             ),
-            /*'pagination' => array(
+            'pagination' => array(
                 'pageSize'=>2
-            )*/
+            )
         ));
     }
 } 
