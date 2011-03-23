@@ -15,9 +15,10 @@
             'items'=>$items
         )); ?>
         
+        <ul id="<?php echo $secondaryMenu->id; ?>">
         <?php foreach($secondaryMenu->items as $item) { ?>
             <a href="<?php echo $item['url']; ?>"><?php echo $item['label']; ?></a><?php if (!$item['last']) { ?>&nbsp;|&nbsp;<?php } ?>
         <?php } ?>
-        
+        </ul>
         <?php $this->endWidget(); ?>
     </div>
