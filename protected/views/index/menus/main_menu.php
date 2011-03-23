@@ -1,7 +1,7 @@
     <div id="mainmenu">
         <?php //$this->widget('zii.widgets.CMenu',array(
-        $this->widget('ext.qs.widgets.QsMenu',array(
-            'view' => '//menus/_main_menu',
+        $mainMenu = $this->beginWidget('ext.qs.widgets.QsMenu',array(            
+            //'view' => '//menus/_main_menu',
             'items'=>array(
                 //array('label'=>'Home', 'url'=>array('/site/index')),
                 array('label'=>'Home', 'url'=>array('/')),
@@ -13,4 +13,10 @@
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
             ),
         )); ?>
+        <ul id="yw0">
+            <?php foreach($mainMenu->items as $item) { ?>
+            <li<?php if ($item['active']) { ?> class="active"<?php } ?>><a href="<?php echo $item['url']; ?>"><?php echo $item['label']; ?></a></li>
+            <?php } ?>
+        </ul>
+        <?php $this->endWidget();?>
     </div><!-- mainmenu -->

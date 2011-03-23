@@ -1,7 +1,7 @@
     <div id="secondarymenu">
         <?php 
         $items = array(
-            array('label'=>'Home', 'url'=>array('/site/index'))
+            array('label'=>'Home', 'url'=>array('/'))
         );
         //$staticPages = StaticPage::model()->findAll();
         $staticPages = Yii::app()->params['staticPages'];
@@ -11,7 +11,13 @@
             }
         }
         
-        $this->widget('zii.widgets.CMenu',array(
+        $secondaryMenu = $this->beginWidget('ext.qs.widgets.QsMenu',array(
             'items'=>$items
         )); ?>
+        
+        <?php foreach($secondaryMenu->items as $item) { ?>
+            <a href="<?php echo $item['url']; ?>"><?php echo $item['label']; ?></a><?php if (!$item['last']) { ?>&nbsp;|&nbsp;<?php } ?>
+        <?php } ?>
+        
+        <?php $this->endWidget(); ?>
     </div>
