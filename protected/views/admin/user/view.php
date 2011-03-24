@@ -8,9 +8,12 @@ $this->breadcrumbs[]=$model->id;
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
+        'group.name:html:Group',
+        'status.name:html:Status',
 		'name',
 		'password',
-		'email',
+        'email',
+		'create_date',
 	),
 )); ?>
 <div>

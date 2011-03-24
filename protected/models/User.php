@@ -17,6 +17,9 @@ class User extends CActiveRecord {
     const StatusPending = 1;
     const StatusActive = 2;
     const StatusCanceled = 3;
+    
+    const GroupAdmin = 1;
+    const GroupMember = 2;
     /**
      * Returns the static model of the specified AR class.
      * @return User the static model class
@@ -27,6 +30,7 @@ class User extends CActiveRecord {
 
     public function init() {
         $this->status_id = self::StatusPending;
+        $this->group_id = self::GroupMember;
         $this->create_date = new CDbExpression('NOW()');
     }
     
@@ -49,6 +53,8 @@ class User extends CActiveRecord {
             array('name, email, password, create_date, status_id, group_id', 'required'),
             array('status_id, group_id', 'numerical', 'integerOnly'=>true),
             array('name, email, password', 'length', 'max'=>255),
+            array('email','email'),
+            array('name,email','unique','className'=>'User','caseSensitive'=>false),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, email, create_date, status_id, group_id', 'safe', 'on'=>'search'),
@@ -64,13 +70,11 @@ class User extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'status'=>array(
-                self::BELONGS_TO, 'UserStatus', 'status_id',
-                'select' => 'name',
+                self::BELONGS_TO, 'UserStatus', 'status_id',                
                 'joinType' => 'INNER JOIN',
             ),
             'group'=>array(
                 self::BELONGS_TO, 'UserGroup', 'group_id',
-                'select' => 'name',
                 'joinType' => 'INNER JOIN',
             )
         );
@@ -139,9 +143,9 @@ class User extends CActiveRecord {
             'sort'=>array(
                 'attributes'=>$sortAttributes
             ),
-            'pagination' => array(
+            /*'pagination' => array(
                 'pageSize'=>2
-            )
+            )*/
         ));
     }
 } 

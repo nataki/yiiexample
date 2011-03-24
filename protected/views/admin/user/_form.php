@@ -18,6 +18,12 @@
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model,'status_id');?>
+        <?php echo $form->dropDownList($model, 'status_id', CHtml::listData(UserStatus::model()->findAll(), 'id', 'name')); ?>
+        <?php echo $form->error($model,'status_id'); ?>
+    </div>
+    
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
 		<?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>128)); ?>
@@ -30,13 +36,7 @@
 		<?php echo $form->error($model,'email'); ?>
 	</div>
     
-    <div class="row">
-        <?php echo $form->labelEx($model,'file'); ?>
-        <?php echo $form->fileField($model,'file'); ?>
-        <?php echo $form->error($model,'file'); ?>        
-    </div>
-    
-	<div class="row buttons">
+    <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
         <?php $this->widget('ext.qs.widgets.QsButtonLink', array('label'=>'Back','url'=>array('index') ) ); ?>        
 	</div>
