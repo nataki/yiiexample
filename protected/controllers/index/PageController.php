@@ -1,6 +1,6 @@
 <?php
 
-class Static_pageController extends IndexController {
+class PageController extends IndexController {
     /**
      * This is the default 'index' action that is invoked
      * when an action is not explicitly requested by users.

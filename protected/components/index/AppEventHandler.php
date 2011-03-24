@@ -9,7 +9,7 @@ class AppEventHandler {
         $staticPages = StaticPage::model()->findAll();
         if (is_array($staticPages)) {        
             foreach((array)$staticPages as $staticPage) {
-                $urlRules[$staticPage->action]= 'static_page/'.$staticPage->action;
+                $urlRules[$staticPage->action]= 'page/'.$staticPage->action;
             }
             $urlManager->addRules($urlRules);
         } else {

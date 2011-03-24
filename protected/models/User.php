@@ -14,12 +14,12 @@
  * The followings are the available model relations:
  */
 class User extends CActiveRecord {
-    const StatusPending = 1;
-    const StatusActive = 2;
-    const StatusCanceled = 3;
+    const STATUS_PENDING = 1;
+    const STATUS_ACTIVE = 2;
+    const STATUS_CANCELED = 3;
     
-    const GroupAdmin = 1;
-    const GroupMember = 2;
+    const GROUP_ADMIN = 1;
+    const GROUP_MEMBER = 2;
     /**
      * Returns the static model of the specified AR class.
      * @return User the static model class
@@ -29,8 +29,8 @@ class User extends CActiveRecord {
     }
 
     public function init() {
-        $this->status_id = self::StatusPending;
-        $this->group_id = self::GroupMember;
+        $this->status_id = self::STATUS_PENDING;
+        $this->group_id = self::GROUP_MEMBER;
         $this->create_date = new CDbExpression('NOW()');
     }
     
@@ -54,7 +54,7 @@ class User extends CActiveRecord {
             array('status_id, group_id', 'numerical', 'integerOnly'=>true),
             array('name, email, password', 'length', 'max'=>255),
             array('email','email'),
-            array('name,email','unique','className'=>'User','caseSensitive'=>false),
+            //array('name,email','unique','className'=>'User','caseSensitive'=>false),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, email, create_date, status_id, group_id', 'safe', 'on'=>'search'),
@@ -84,7 +84,7 @@ class User extends CActiveRecord {
     public function scopes() {
         return array(
             'active'=>array(
-                'condition'=>'status_id='.self::StatusActive,
+                'condition'=>'status_id='.self::STATUS_ACTIVE,
             ),
             'recently'=>array(
                 'order'=>'create_date DESC',
