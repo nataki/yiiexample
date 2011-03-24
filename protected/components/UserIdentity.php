@@ -15,7 +15,6 @@ class UserIdentity extends CUserIdentity {
 	 * @return boolean whether authentication succeeds.
 	 */
 	public function authenticate() {
-		
         $attributes = array(
             'name' => $this->username,
             'password' => $this->password
@@ -33,11 +32,19 @@ class UserIdentity extends CUserIdentity {
                 $this->errorCode=self::ERROR_PASSWORD_INVALID;
             }
         } else {
-            $this->setState('email', $user->email);
-            $this->setState('create_date', $user->create_date);
-            $this->setState('group_id', $user->group_id);
+            $attributes = $user->getAttributes();
+            foreach($attributes as $attributeName => $attributeValue) {
+                $this->setState($attributeName, $attributeValue);
+            }
             $this->errorCode=self::ERROR_NONE;
         }        
         return !$this->errorCode;
 	}
+    
+    /**
+     * Overload parent method {@link CUserIdentity::getId} to return id table field instead of username.
+     */
+    public function getId() {
+        return $this->getState('id');
+    }
 }
