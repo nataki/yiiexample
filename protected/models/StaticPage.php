@@ -40,6 +40,7 @@ class StaticPage extends CActiveRecord
             array('action, title, content, position', 'required'),
             array('position', 'numerical', 'integerOnly'=>true),
             array('action, title', 'length', 'max'=>255),
+            array('action','unique','className'=>get_class($this),'caseSensitive'=>false),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, action, title, content, position', 'safe', 'on'=>'search'),

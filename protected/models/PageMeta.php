@@ -39,6 +39,7 @@ class PageMeta extends CActiveRecord
         return array(
             array('title, description, keywords', 'required'),
             array('url, title', 'length', 'max'=>255),
+            array('url','unique','className'=>get_class($this),'caseSensitive'=>false),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, url, title, description, keywords', 'safe', 'on'=>'search'),
