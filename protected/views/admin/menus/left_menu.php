@@ -3,6 +3,7 @@
         array('label'=>'Settings', 'url'=>array('/setting/index')),
         array('label'=>'Users', 'url'=>array('/user/index')),        
         array('label'=>'Page Metas', 'url'=>array('/page_meta/index')),
+        array('label'=>'Static Pages', 'url'=>array('/static_page/index')),
     );
 ?>
     <div id="sidebar" style="padding:20px;">

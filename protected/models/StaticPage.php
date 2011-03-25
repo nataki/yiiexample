@@ -96,7 +96,7 @@ class StaticPage extends CActiveRecord
     
     public function behaviors() {
         return array(
-            'position' => array(
+            'positionBehavior' => array(
                 'class'=>'ext.qs.db.QsActiveRecordBehaviorPosition'
             )
         );

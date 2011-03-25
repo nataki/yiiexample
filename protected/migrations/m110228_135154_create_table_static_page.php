@@ -6,21 +6,24 @@ class m110228_135154_create_table_static_page extends CDbMigration {
             'id' => 'pk',
             'action' => 'string NOT NULL',
             'title' => 'text',
-            'content' => 'text'
+            'content' => 'text',
+            'position' => 'integer'
         );
         $this->createTable('static_page', $columns, 'engine=INNODB');
         $this->createIndex('idx_static_page_action', 'setting', 'name', true);
         
         $columns = array(
-            'action' => 'about',
-            'title' => 'About',
-            'content' => 'A brief information about your site'
+            'action' => 'howitworks',
+            'title' => 'How It Works',
+            'content' => 'The manual about how your service works',
+            'position' => '1'
         );        
         $this->insert('static_page', $columns);
         $columns = array(
-            'action' => 'howitworks',
-            'title' => 'How It Works',
-            'content' => 'The manual about how your service works'
+            'action' => 'about',
+            'title' => 'About',
+            'content' => 'A brief information about your site',
+            'position' => '2'
         );        
         $this->insert('static_page', $columns);
     }
