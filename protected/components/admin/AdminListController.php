@@ -4,7 +4,7 @@ class AdminListController extends AdminBaseController {
     protected $_modelClassName = '';
     protected $_modelScenarioName = 'search';
     
-    // Common:
+    // Set / Get :
     public function setModelClassName($modelClassName) {
         if (!is_string($modelClassName)) return false;
         $this->_modelClassName = $modelClassName;
@@ -25,8 +25,9 @@ class AdminListController extends AdminBaseController {
         return $this->_modelScenarioName;
     }
     
-    public function init() {
-        ;
+    // Main:
+    public function init() {        
+        parent::init();
     }
     
     /**
@@ -44,102 +45,16 @@ class AdminListController extends AdminBaseController {
     }
     
     /**
-     * Manages all models.
+     * Returns list of allowed actions.
      */
-    public function actionIndex() {        
-        $modelClassName = $this->_modelClassName;        
-        $model=new $modelClassName($this->_modelScenarioName);
-        $model->unsetAttributes();  // clear any default values
-        if(isset($_GET[$modelClassName]))
-            $model->attributes=$_GET[$modelClassName];
-
-        $this->render('index',array(
-            'model'=>$model,
-        ));
+    public function actions() {
+        return array(
+            'index'=>'application.controllers.admin.actions.ListAdminAction',
+            'view'=>'application.controllers.admin.actions.ViewAdminAction',
+            'create'=>'application.controllers.admin.actions.InsertAdminAction',
+            'update'=>'application.controllers.admin.actions.UpdateAdminAction',
+            'delete'=>'application.controllers.admin.actions.DeleteAdminAction',
+        );
     }
-    
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     */
-    public function actionView($id) {
-        $this->render('view',array(
-            'model'=>$this->loadModel($id),
-        ));
-    }
-
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
-    public function actionCreate() {
-        $modelClassName = $this->_modelClassName;
-        $model=new $modelClassName;        
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if(isset($_POST[$this->_modelClassName]))
-        {
-            $model->attributes=$_POST[$this->_modelClassName];
-            if($model->save())
-                $this->redirect(array('view','id'=>$model->id));            
-        }
-
-        $this->render('create',array(
-            'model'=>$model,
-        ));
-    }
-
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
-    public function actionUpdate($id) {
-        $model=$this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if(isset($_POST[$this->_modelClassName]))
-        {
-            $model->attributes=$_POST[$this->_modelClassName];
-            if($model->save())
-                $this->redirect(array('view','id'=>$model->id));
-        }
-
-        $this->render('update',array(
-            'model'=>$model,
-        ));
-    }
-
-    /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id the ID of the model to be deleted
-     */
-    public function actionDelete($id) {
-        if(Yii::app()->request->isPostRequest) {
-            // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
-
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if(!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
-        } else {
-            throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-        }
-    }     
-
-    /**
-     * Performs the AJAX validation.
-     * @param CModel the model to be validated
-     */
-    protected function performAjaxValidation($model) {
-        if(isset($_POST['ajax']) && $_POST['ajax']==='model-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-    }
+        
 }
