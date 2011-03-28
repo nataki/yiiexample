@@ -9,4 +9,10 @@ class Static_pageController extends AdminListController {
             'Static Pages'=>array('index')
         );
     }
+    
+    public function actions() {
+        $actions = parent::actions();
+        $actions['move'] = 'application.controllers.admin.actions.MoveAdminAction';
+        return $actions;
+    }
 }

@@ -23,13 +23,13 @@ $this->contextMenuItems = array(
         ),        
     ),
 	'columns'=>array(
-		'id',
+		array(
+            'class'=>'CButtonColumn',
+        ),
+        'id',
 		'name',
 		//'password',
         'email',
-		'status.name:text:Status',
-		array(
-			'class'=>'CButtonColumn',
-		),
+		'status.name:text:Status',		        
 	),
 )); ?>

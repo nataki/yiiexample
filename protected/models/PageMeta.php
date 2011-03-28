@@ -98,7 +98,7 @@ class PageMeta extends CActiveRecord
         $criteria->compare('title',$this->title,true);
         $criteria->compare('description',$this->description,true);
         $criteria->compare('keywords',$this->keywords,true);
-
+        
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
         ));

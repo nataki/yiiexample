@@ -13,11 +13,11 @@ $this->contextMenuItems = array(
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
-		'url',
-		'title',
 		array(
-			'class'=>'CButtonColumn',
-		),
+            'class'=>'CButtonColumn',
+        ),
+        'id',
+		'url',
+		'title',		
 	),
 )); ?>
