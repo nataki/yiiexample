@@ -4,8 +4,7 @@ class SettingController extends AdminBaseController {
     
     public function init() {
         $this->breadcrumbs=array(
-            'Settings'=>array('index'),
-            'Edit'
+            'Settings'=>array('/'),            
         );
     }
     

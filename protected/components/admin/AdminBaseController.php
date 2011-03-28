@@ -9,23 +9,24 @@ class AdminBaseController extends CController {
      */
     public $layout='//layouts/column2';
     /**
-     * @var array context menu items. This property will be assigned to {@link CMenu::items}.
+     * @var array main menu items. This property will be assigned to {@link CMenu::items}.
      */
-    public $leftMenu=array();
+    public $mainMenuItems=array();
     /**
      * @var array context menu items. This property will be assigned to {@link CMenu::items}.
      */
-    public $menu=array();
+    public $contextMenuItems=array();
     /**
      * @var array the breadcrumbs of the current page. The value of this property will
      * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
      * for more details on how to specify this property.
      */
     public $breadcrumbs=array();
-    
     /**
-     * This is the action to handle external exceptions.
+     * @var string contains the title of the current section. 
+     * It should change depending on the particular action.
      */
+    public $sectionTitle='Administration Area';
      
     /**
      * @return array action filters

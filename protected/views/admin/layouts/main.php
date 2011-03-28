@@ -23,22 +23,36 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?>&nbsp;|&nbsp;Administration</div>
+		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?>&nbsp;|&nbsp;Administration Area</div>
+        <div class="header_actions">
+            <?php if (!Yii::app()->user->isGuest) { ?>
+            Welcome <b><?php echo Yii::app()->user->name?></b>&nbsp;&nbsp;<br />
+            <?php echo CHtml::link('Administration', array('/'));?>&nbsp;&nbsp;
+            <?php echo CHtml::link('Home', Yii::app()->baseUrl);?>&nbsp;&nbsp;
+            <?php echo CHtml::link('Logout', array('site/logout'));?>&nbsp;&nbsp;
+            <?php } ?>
+        </div>        
 	</div><!-- header -->
 
-	<?php $this->renderPartial('//menus/main_menu'); ?>
-
-	<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-		'homeLink' => CHtml::link('Administration', Yii::app()->homeUrl),
-        'links'=>$this->breadcrumbs,
-	)); ?><!-- breadcrumbs -->
-
-	<?php echo $content; ?>
-
+    <div id="main">
+    <?php if (!Yii::app()->user->isGuest) { ?>
+        <?php $this->renderPartial('//menus/main_menu'); ?>
+    <?php } ?>
+        <div id="entry">
+            <?php if (!Yii::app()->user->isGuest) { ?>
+            <?php $this->widget('zii.widgets.CBreadcrumbs', array(
+                'homeLink'=>CHtml::link('Administration', $this->createUrl('/')),                
+                'links'=>$this->breadcrumbs,
+            )); ?><!-- breadcrumbs -->
+            <?php } ?>
+            <?php echo $content; ?>
+        </div>
+    
+    </div>
+            	
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
+		Copyright &copy; <?php echo date('Y'); ?> by <?php echo CHtml::encode(Yii::app()->name); ?>.<br/>
+		All Rights Reserved.
 	</div><!-- footer -->
 
 </div><!-- page -->

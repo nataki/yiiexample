@@ -15,21 +15,19 @@ body
 	border: 1px solid #C9E0ED;
 }
 
-#header
-{
-	margin: 0;
+#header{
+	margin: 0 0 10px 0;
 	padding: 0;
-	border-top: 3px solid #C9E0ED;
+	overflow: hidden;
+	border-bottom: 1px solid #C9E0ED;
 }
 
-#content
-{
-    padding: 20px;
+#content{
+ padding: 20px;
 }
 
-#sidebar
-{
-	padding: 20px 20px 20px 0;
+#sidebar{
+	padding: 0 20px 20px 0;
 }
 
 #footer
@@ -39,16 +37,16 @@ body
 	font-size: 0.8em;
 	text-align: center;
 	border-top: 1px solid #C9E0ED;
+	clear: both;
 }
 
-#logo
-{
+#logo{
 	padding: 10px 20px;
 	font-size: 200%;
+	float: left;
 }
 
-#mainmenu
-{
+#mainmenu{
 	background:white url(bg.gif) repeat-x left top;
 }
 
@@ -138,7 +136,7 @@ div.view
 div.breadcrumbs
 {
 	font-size: 0.9em;
-	padding: 5px 20px;
+	padding: 5px 15px;
 }
 
 div.breadcrumbs span
@@ -203,27 +201,117 @@ div.search-form
 	padding: 0;
 }
 
-.operations li
-{
-	padding-bottom: 2px;
+.operations li{
+ padding-bottom: 2px;
+ float: left;
 }
 
 .operations li a
 {
 	font: bold 12px Arial;
-	color: #0066A4;
+    color: #0066A4;	
 	display: block;
-	padding: 2px 0 2px 8px;
+	padding: 0 5px 0 5px;
 	line-height: 15px;
 	text-decoration: none;
 }
 
-.operations li a:visited
-{
+.operations li a:visited{
 	color: #0066A4;
 }
 
-.operations li a:hover
-{
-	background: #80CFFF;
+.operations li a:hover{
+	text-decoration: underline;
+}
+
+#main{
+ padding: 0 15px;
+ overflow: hidden;
+ clear: both;
+}
+
+#sidebar_column{
+ float: left;
+ width: 200px;
+}
+
+#entry{
+ text-align: left;
+ /*margin: 0 0 0 225px;*/
+ overflow: hidden;
+}
+
+#sidebar_menu ul{
+ margin: 0;
+ padding: 0;
+ list-style: none;
+ background: #EFFDFF;
+}
+
+#sidebar_menu ul ul{
+ margin: 3px 0 5px 15px;
+}
+
+#sidebar_menu ul li a, #sidebar_menu ul li span{
+ background: #B7D6E7;
+ border-left: 5px solid #6FACCF;
+ padding: 3px 8px;
+ display: block;
+ color:#298DCD;
+ font-size:12px;
+ font-weight:bold; 
+}
+
+#sidebar_menu ul li a:hover{text-decoration: underline;}
+
+#sidebar_menu ul li li a, #sidebar_menu ul li li span{
+ background: none;
+ border: 0;
+ color: #0066A4;
+ display: block;
+ font-family: Arial;
+ font-size: 12px;
+ font-weight: bold;
+ line-height: 15px;
+ padding: 2px 0 2px 8px;
+ text-decoration:none; 
+}
+
+#sidebar_menu li.active a{
+ background: url(../../images/admin/arrowRight.png) no-repeat 0 4px;
+ padding-left: 15px;
+}
+
+#entry .container, #entry s{width: auto;}
+
+ul.operations{
+ float: right;
+ clear: both;
+ display: block;
+ /*background: #6FACCF;*/
+}
+
+.operations li{
+ float: left;
+ display: block;
+ border-left: 1px solid #0066A4;
+ height: 15px;
+}
+.operations li:first-child{
+ border-left: 0;
+}
+
+.header_actions{
+ float: right;
+ margin: 10px 10px 0 0;
+ text-align: right;
+}
+
+.setting_view td{
+ vertical-align: top;
+}
+
+ul.yiiPager a {
+	display: inline-block;
+	padding-bottom: 2px !important;
 }

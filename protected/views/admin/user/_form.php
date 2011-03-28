@@ -38,7 +38,6 @@
     
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-        <?php $this->widget('ext.qs.widgets.QsButtonLink', array('label'=>'Back','url'=>array('index') ) ); ?>        
 	</div>
 
 <?php $this->endWidget(); ?>

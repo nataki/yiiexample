@@ -1,7 +1,9 @@
 <?php
+$this->sectionTitle = 'Create Page Meta';
 $this->breadcrumbs[]='Create';
+
+$this->contextMenuItems=array(
+    array('label'=>'Back to list', 'url'=>array('index')),
+);
 ?>
-
-<h1>Create Page Meta</h1>
-
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

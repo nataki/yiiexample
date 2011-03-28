@@ -1,13 +1,12 @@
-<h1>Settings</h1>
+<?php
+$this->sectionTitle = 'Update Site Settings';
+?>
 
 <?php if(Yii::app()->user->hasFlash('form_result')): ?>
-
 <div class="flash-success">
     <?php echo Yii::app()->user->getFlash('form_result'); ?>
 </div>
-
 <?php endif; ?>
-
 
 <div class="form">
 
@@ -25,8 +24,7 @@
         <?php echo $form->error($model,"value"); ?>
     </div>
 
-    <?php endforeach;?>
-        
+    <?php endforeach;?>        
 
     <div class="row buttons">
         <?php echo CHtml::submitButton('Update'); ?>
