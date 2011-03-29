@@ -17,7 +17,11 @@ $this->contextMenuItems = array(
             'class'=>'CButtonColumn',
         ),
         'id',
-		'url',
+		array(
+            'name'=>'url',
+            'type'=>'raw',
+            'value'=>"CHtml::link(\$url=Yii::app()->getRequest()->getHostInfo('http').Yii::app()->baseUrl.'/'.\$data->url, \$url, array('target'=>'blank')) ",
+        ),        
 		'title',		
 	),
 )); ?>

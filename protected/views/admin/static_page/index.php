@@ -19,13 +19,13 @@ $this->contextMenuItems = array(
         'id',
 		array(
             'name' => 'action',
-            'type' => 'html',
+            'type' => 'raw',
             'value' => 'CHtml::link($data->action, Yii::app()->baseUrl."/".$data->action, array("target"=>"blank") );'
         ),
         'title',
 		array(
             'name' => 'position',
-            'type' => 'html',
+            'type' => 'raw',
             'htmlOptions' => array(
                 'align'=>'center',
                 'style'=>'text-align:center',

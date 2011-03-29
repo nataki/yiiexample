@@ -14,7 +14,11 @@ $this->contextMenuItems=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'url',
+		array(
+            'name'=>'url',
+            'type'=>'raw',
+            'value' => CHtml::link($url=Yii::app()->getRequest()->getHostInfo('http').Yii::app()->baseUrl.'/'.$model->url, $url, array('target'=>'blank')) 
+        ),        
 		'title',
         'description',
 		'keywords',
