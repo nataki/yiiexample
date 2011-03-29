@@ -6,7 +6,7 @@ class Page_metaController extends AdminListController {
         $this -> setModelClassName('PageMeta');
         
         $this->breadcrumbs=array(
-            'Page Metas'=>array('index')
+            'Page Metas'=>array($this->getId().'/'),
         );
     }
 }

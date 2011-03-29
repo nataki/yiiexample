@@ -71,12 +71,12 @@ class m110317_140100_create_tables_user extends CDbMigration {
         $this->createTable($tableName, $columns, 'engine=INNODB');
         $this->addForeignKey('fk_user_status_id', 'user', 'status_id', 'user_status', 'id');
         $this->addForeignKey('fk_user_group_id', 'user', 'group_id', 'user_group', 'id');
-        
+                
         $columns = array(
             'name'=>'admin',
             'email'=>'dummy@quart-soft.com',
             'password'=>'admin',
-            'create_date'=>new CDbExpression('NOW()'),
+            'create_date'=>'NOW()',
             'status_id'=>'2',
             'group_id'=>'1',
         );

@@ -6,7 +6,7 @@ class Static_pageController extends AdminListController {
         $this -> setModelClassName('StaticPage');
         
         $this->breadcrumbs=array(
-            'Static Pages'=>array('index')
+            'Static Pages'=>array($this->getId().'/'),
         );
     }
     

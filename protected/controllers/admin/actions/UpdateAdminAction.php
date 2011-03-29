@@ -16,7 +16,7 @@ Yii::import('application.controllers.admin.actions.InsertAdminAction');
  * The view file for this action is supposed containing {@link CActiveForm} widget.
  */
 class UpdateAdminAction extends InsertAdminAction {
-    protected $_view = 'update';    
+    protected $_view = 'update';
     
     /**
      * Runs the action.

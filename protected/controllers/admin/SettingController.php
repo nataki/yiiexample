@@ -1,45 +1,22 @@
 <?php
 
-class SettingController extends AdminBaseController {
+class SettingController extends AdminListController {
     
     public function init() {
+        $this -> setModelClassName('Setting');
+        
         $this->breadcrumbs=array(
-            'Settings'=>array('/'),            
+            'Settings'=>array($this->getId().'/'),
         );
     }
     
-    public function actionIndex() {
-        $items = Setting::model()->findAll();
-        
-        if(isset($_POST['Setting'])) {
-            $valid=true;
-            foreach($items as $i=>$item) {
-                if(isset($_POST['Setting'][$i]))
-                    $item->attributes=$_POST['Setting'][$i];
-                $valid=$valid && $item->validate();
-            }
-            if ($valid) {
-                foreach($items as $item) {
-                    $item->save();
-                }
-                Yii::app()->user->setFlash('form_result','Site settings have been updated.');
-                $this->refresh();
-            }
-            
-        }
-        $this->render('main_from',array('items'=>$items));
-    }
-    
     /**
-     * Performs the AJAX validation.
-     * @param CModel the model to be validated
+     * Overlaps list of allowed actions.
      */
-    protected function performAjaxValidation($model)
-    {
-        if(isset($_POST['ajax']) && $_POST['ajax']==='user-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
+    public function actions() {
+        $actions = parent::actions();
+        $actions['admin'] = $actions['index'];
+        $actions['index'] = 'application.controllers.admin.actions.SettingUpdateAdminAction';
+        return $actions;
     }
 }

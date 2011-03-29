@@ -6,7 +6,7 @@ class UserController extends AdminListController {
         $this -> setModelClassName('User');
         
         $this->breadcrumbs=array(
-            'Users'=>array('index')            
+            'Users'=>array($this->getId().'/'),
         );
     }
 }

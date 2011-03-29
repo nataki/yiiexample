@@ -4,8 +4,11 @@
  * This is the model class for table "setting".
  *
  * The followings are the available columns in table 'setting':
+ * @property integer $id
  * @property string $name
  * @property string $value
+ * @property integer $is_required
+ * @property string $title
  * @property string $description
  */
 class Setting extends CActiveRecord
@@ -34,12 +37,19 @@ class Setting extends CActiveRecord
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
+        if ($this->is_required) {
+            $requiredAddon = ', value';
+        } else {
+            $requiredAddon = '';
+        }        
         return array(
-            array('name, value, description', 'required'),
-            array('name', 'length', 'max'=>255),
+            array('name, title'.$requiredAddon, 'required'),
+            array('is_required', 'numerical', 'integerOnly'=>true),
+            array('name, title', 'length', 'max'=>255),
+            array('value, title, description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('name, value, description', 'safe', 'on'=>'search'),
+            array('id, name, value, is_required, title, description', 'safe', 'on'=>'search'),
         );
     }
 
@@ -60,8 +70,11 @@ class Setting extends CActiveRecord
     public function attributeLabels()
     {
         return array(
+            'id' => 'ID',
             'name' => 'Name',
             'value' => 'Value',
+            'is_required' => 'Is Required',
+            'title' => 'Title',
             'description' => 'Description',
         );
     }
@@ -77,8 +90,11 @@ class Setting extends CActiveRecord
 
         $criteria=new CDbCriteria;
 
+        $criteria->compare('id',$this->id);
         $criteria->compare('name',$this->name,true);
         $criteria->compare('value',$this->value,true);
+        $criteria->compare('is_required',$this->is_required);
+        $criteria->compare('title',$this->title,true);
         $criteria->compare('description',$this->description,true);
 
         return new CActiveDataProvider(get_class($this), array(
