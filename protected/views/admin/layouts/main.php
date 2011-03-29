@@ -51,8 +51,9 @@
     </div>
             	
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by <?php echo CHtml::encode(Yii::app()->name); ?>.<br/>
-		All Rights Reserved.
+		Copyright &copy; <?php echo date('Y'); ?> by <?php echo CHtml::encode(Yii::app()->name); ?>.<br />
+		All Rights Reserved.<br />
+        Powered by <?php echo CHtml::link('QuartSoft', 'http://www.quart-soft.com') ?>
 	</div><!-- footer -->
 
 </div><!-- page -->
