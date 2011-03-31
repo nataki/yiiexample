@@ -8,7 +8,7 @@
  * @license http://www.quart-soft.com/license/
  */
 
-Yii::import('application.controllers.admin.actions.BaseAdminAction');
+Yii::import('application.components.admin.controllers.actions.BaseAdminAction');
  
 /**
  * Admin panel action, which creates a new model.

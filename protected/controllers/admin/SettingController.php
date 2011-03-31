@@ -16,7 +16,7 @@ class SettingController extends AdminListController {
     public function actions() {
         $actions = parent::actions();
         $actions['admin'] = $actions['index'];
-        $actions['index'] = 'application.controllers.admin.actions.SettingUpdateAdminAction';
+        $actions['index'] = 'application.components.admin.controllers.actions.SettingUpdateAdminAction';
         return $actions;
     }
 }

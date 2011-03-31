@@ -49,11 +49,11 @@ class AdminListController extends AdminBaseController {
      */
     public function actions() {
         return array(
-            'index'=>'application.controllers.admin.actions.ListAdminAction',
-            'view'=>'application.controllers.admin.actions.ViewAdminAction',
-            'create'=>'application.controllers.admin.actions.InsertAdminAction',
-            'update'=>'application.controllers.admin.actions.UpdateAdminAction',
-            'delete'=>'application.controllers.admin.actions.DeleteAdminAction',
+            'index'=>'application.components.admin.controllers.actions.ListAdminAction',
+            'view'=>'application.components.admin.controllers.actions.ViewAdminAction',
+            'create'=>'application.components.admin.controllers.actions.InsertAdminAction',
+            'update'=>'application.components.admin.controllers.actions.UpdateAdminAction',
+            'delete'=>'application.components.admin.controllers.actions.DeleteAdminAction',
         );
     }
         

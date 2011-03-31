@@ -8,7 +8,7 @@
  * @license http://www.quart-soft.com/license/
  */
 
-Yii::import('application.controllers.admin.actions.InsertAdminAction');
+Yii::import('application.components.admin.controllers.actions.InsertAdminAction');
  
 /**
  * Admin panel action, which updates a particular model.

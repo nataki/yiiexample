@@ -8,7 +8,7 @@
  * @license http://www.quart-soft.com/license/
  */
 
-Yii::import('application.controllers.admin.actions.UpdateAdminAction');
+Yii::import('application.components.admin.controllers.actions.UpdateAdminAction');
  
 /**
  * Admin panel action, which updates a batch of settings, stored in the database table with pair "name, value".
