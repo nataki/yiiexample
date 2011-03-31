@@ -23,11 +23,9 @@ class ListAdminAction extends BaseAdminAction {
     public function run() {
         $controller = $this->getController();
         
-        $modelClassName = $controller->getModelClassName();
-        $modelScenarioName = $controller->getModelScenarioName();
-                
-        $model=new $modelClassName($modelScenarioName);
-        $model->unsetAttributes();  // clear any default values
+        $modelClassName = $controller->getModelClassName();        
+        
+        $model = $controller->newSearchModel();
         if(isset($_GET[$modelClassName])) {
             $model->attributes=$_GET[$modelClassName];
         }

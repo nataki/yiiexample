@@ -35,9 +35,8 @@ class InsertAdminAction extends BaseAdminAction {
         $controller = $this->getController();
         
         $modelClassName = $controller->getModelClassName();
-        $modelScenarioName = $controller->getModelScenarioName();
-                        
-        $model=new $modelClassName;        
+                
+        $model = $controller->newModel();
         
         $this->performAjaxValidation($model);
 
