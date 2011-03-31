@@ -73,6 +73,10 @@ class DataModelAdminControllerBehavior extends CBehavior {
         $model = new $modelClassName($modelScenarioName);
         $model->unsetAttributes();  // clear any default values
         
+        if ($_GET['status_id']) {
+            $model->status_id = $_GET['status_id'];
+        }
+        
         return $model;
     }
 }
