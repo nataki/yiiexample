@@ -12,7 +12,7 @@ class Static_pageController extends AdminListController {
     
     public function actions() {
         $actions = parent::actions();
-        $actions['move'] = 'application.controllers.admin.actions.MoveAdminAction';
+        $actions['move'] = 'ext.qs.controllers.actions.QsActionAdminMove';
         return $actions;
     }
 }
