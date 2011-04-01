@@ -9,8 +9,7 @@ return CMap::mergeArray(
         'controllerPath' => $project_root.'/controllers/'.$project_mode,
         'viewPath' => $project_root.'/views/'.$project_mode,
         'import' => array(
-            'application.components.admin.*',
-            'application.components.admin.controllers.*'
+            'application.components.admin.*'            
         ),
         
         'modules'=>array(
