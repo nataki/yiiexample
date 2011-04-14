@@ -75,8 +75,8 @@ class m110317_140100_create_tables_user extends CDbMigration {
         $columns = array(
             'name'=>'admin',
             'email'=>'dummy@quart-soft.com',
-            'password'=>'admin',
-            'create_date'=>'NOW()',
+            'password'=>sha1('admin'),
+            'create_date'=> date('Y-m-d H:i:s', strtotime('NOW') ),
             'status_id'=>'2',
             'group_id'=>'1',
         );

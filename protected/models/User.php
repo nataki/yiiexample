@@ -20,6 +20,9 @@ class User extends CActiveRecord {
     
     const GROUP_ADMIN = 1;
     const GROUP_MEMBER = 2;
+    
+    public $new_password;
+    public $new_password_repeat;
     /**
      * Returns the static model of the specified AR class.
      * @return User the static model class
@@ -32,6 +35,8 @@ class User extends CActiveRecord {
         $this->status_id = self::STATUS_PENDING;
         $this->group_id = self::GROUP_MEMBER;
         $this->create_date = new CDbExpression('NOW()');
+                
+        $this->onBeforeSave = array($this, 'applyNewPassword');
     }
     
     /**
@@ -50,10 +55,13 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, email, password, create_date, status_id, group_id', 'required'),
+            array('name, email, create_date, status_id, group_id', 'required'),
+            array('new_password, new_password_repeat', 'required', 'on'=>'insert'),
             array('status_id, group_id', 'numerical', 'integerOnly'=>true),
             array('name, email, password', 'length', 'max'=>255),
             array('email','email'),
+            array('new_password', 'compare', 'compareAttribute'=>'new_password_repeat'),
+            array('new_password, new_password_repeat', 'safe', 'on'=>'insert, update'),
             array('name,email','unique','className'=>'User','caseSensitive'=>false, 'on'=>'insert'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -148,4 +156,11 @@ class User extends CActiveRecord {
             )*/
         ));
     }
-} 
+    
+    protected function applyNewPassword() {
+        if (!empty($this->new_password)) {
+            $this->password = sha1($this->new_password);
+        }
+        return $this;
+    }
+}

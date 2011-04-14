@@ -17,7 +17,7 @@ class UserIdentity extends CUserIdentity {
 	public function authenticate() {
         $attributes = array(
             'name' => $this->username,
-            'password' => $this->password,
+            'password' => sha1($this->password),
             'status_id' => User::STATUS_ACTIVE
         );
         $user = User::model()->findByAttributes($attributes);

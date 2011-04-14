@@ -46,6 +46,10 @@ return CMap::mergeArray(
                     'member'
                 )
             ),
+            'securityManager'=>array(
+                'validationKey'=>'7ffaf5c32eb73bfb6abcd0ad1b8ebb0c',
+                'encryptionKey'=>'6f9ad14b1b565543365de229026309c0'
+            ),
             'errorHandler'=>array(
 			    // use 'site/error' action to display errors
                 'errorAction'=>'site/error',
@@ -58,7 +62,6 @@ return CMap::mergeArray(
 					    'levels'=>'error, warning',
 				    ),
 				    // uncomment the following to show log messages on web pages
-				    
 				    /*array(
 					    'class'=>'CWebLogRoute',
 				    ),*/

@@ -25,10 +25,15 @@
     </div>
     
 	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'password'); ?>
+		<?php echo $form->labelEx($model,'new_password'); ?>
+		<?php echo $form->passwordField($model,'new_password',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->error($model,'new_password'); ?>
 	</div>
+    <div class="row">
+        <?php echo $form->labelEx($model,'new_password_repeat'); ?>
+        <?php echo $form->passwordField($model,'new_password_repeat',array('size'=>60,'maxlength'=>128)); ?>
+        <?php echo $form->error($model,'new_password_repeat'); ?>
+    </div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
