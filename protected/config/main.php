@@ -65,7 +65,13 @@ return CMap::mergeArray(
 				    
 			    ),                
 		    ),
-            'email'=> array(
+            'format'=>array(
+                'class'=>'ext.qs.utils.QsFormatter',
+                'dateFormat'=>'Y/m/d',
+                'timeFormat'=>'H:i:s',
+                'datetimeFormat'=>'Y/m/d H:i:s',
+            ),
+            'email'=>array(
                 'class'=>'ext.qs.email.QsEmailManager',
                 /*'testMode' => 'bcc',
                 'testEmail' => 'pklimov@quart-soft.com',

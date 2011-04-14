@@ -30,6 +30,11 @@ $this->contextMenuItems = array(
 		'name',
 		//'password',
         'email',
+        'create_date:strdate',
+        /*array(
+            'name'=>'create_date',
+            'value'=>'Yii::app()->format->formatDate( strtotime($data->create_date) )'
+        ),*/
 		'status.name:text:Status',		        
 	),
 )); ?>

@@ -109,7 +109,7 @@ class User extends CActiveRecord {
             'name' => 'Name',
             'email' => 'Email',
             'password' => 'Password',
-            'create_date' => 'Date',
+            'create_date' => 'Creation Date',
             'status_id' => 'Status',
             'group_id' => 'Group',
         );

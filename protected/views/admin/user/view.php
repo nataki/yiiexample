@@ -19,6 +19,10 @@ $this->contextMenuItems=array(
 		'name',
 		'password',
         'email',
-		'create_date',
+		array(
+            'name'=>'create_date',
+            'type'=>'raw',
+            'value'=>Yii::app()->format->formatDateTime( strtotime($model->create_date) ),
+        ),
 	),
 )); ?>
