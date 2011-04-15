@@ -39,7 +39,7 @@ class EmailPattern extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('timestamp, name, from_email, from_name, subject, body', 'required'),
+            array('name, from_email, from_name, subject, body', 'required'),
             array('timestamp', 'numerical', 'integerOnly'=>true),
             array('name, from_email, from_name, subject', 'length', 'max'=>255),
             // The following rule is used by search().
@@ -74,7 +74,16 @@ class EmailPattern extends CActiveRecord
             'body' => 'Body',
         );
     }
-
+    
+    public function behaviors() {
+         return array(
+             'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'timestamp',
+                'updateAttribute' => 'timestamp',
+         ));
+    }
+    
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

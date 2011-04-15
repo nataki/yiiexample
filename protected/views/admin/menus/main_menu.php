@@ -20,7 +20,13 @@
                 array('label'=>'Administrators', 'url'=>array('/administrator/')),
                 array('label'=>'Members', 'url'=>array('/member/')),
             )
-        ),                    
+        ),
+        array(
+            'label'=>'Email setup', 
+            'items'=>array(
+                array('label'=>'Email Patterns', 'url'=>array('/email_pattern/')),
+            )
+        ),
     );
 ?>
         <div id="sidebar_column">
