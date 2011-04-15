@@ -48,4 +48,29 @@ class UserIdentity extends CUserIdentity {
     public function getId() {
         return $this->getState('id');
     }
+    
+    /**
+     * Updates the state of the web user from the accounts storage. 
+     * This method ensures user still exist and active.
+     * @param CEvent $event - event instance, which is risen from {@link QsWebUser}
+     */
+    public static function updateUserStates(CEvent $event) {
+        $webUser = $event->sender;
+        
+        if (!$webUser->getIsGuest()) {
+            $attributes = array(
+                'id' => $webUser->getId(),
+                'status_id' => User::STATUS_ACTIVE
+            );
+            $user = User::model()->findByAttributes($attributes);
+            if (empty($user)) {
+                $webUser->logout(false);
+            } else {
+                $userAttributes = $user->getAttributes();
+                foreach($userAttributes as $name => $value) {
+                    $webUser->setState($name, $value);
+                }
+            }
+        }
+    }
 }
