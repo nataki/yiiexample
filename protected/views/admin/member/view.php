@@ -1,12 +1,12 @@
 <?php
-$this->sectionTitle = 'View User #'.$model->id;
+$this->sectionTitle = 'View Member #'.$model->id;
 $this->breadcrumbs[]=$model->id;
 
 $this->contextMenuItems=array(
     array('label'=>'Back To List', 'url'=>array('index')),
-    array('label'=>'Create User', 'url'=>array('create')),
-    array('label'=>'Update User', 'url'=>array('update', 'id'=>$model->id)),
-    array('label'=>'Delete User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),    
+    array('label'=>'Create Member', 'url'=>array('create')),
+    array('label'=>'Update Member', 'url'=>array('update', 'id'=>$model->id)),
+    array('label'=>'Delete Member', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),    
 );
 ?>
 

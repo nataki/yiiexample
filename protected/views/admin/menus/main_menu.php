@@ -17,7 +17,8 @@
         array(
             'label'=>'Users setup', 
             'items'=>array(
-                array('label'=>'Users', 'url'=>array('/user/')),
+                array('label'=>'Administrators', 'url'=>array('/administrator/')),
+                array('label'=>'Members', 'url'=>array('/member/')),
             )
         ),                    
     );

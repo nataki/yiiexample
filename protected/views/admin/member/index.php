@@ -1,8 +1,8 @@
 <?php
-$this->sectionTitle = 'Manage Users';
+$this->sectionTitle = 'Manage Members';
 
 $this->contextMenuItems = array(
-    array('label'=>'Create User', 'url'=>array('create')),
+    array('label'=>'Create Member', 'url'=>array('create')),
 );
 ?>
 

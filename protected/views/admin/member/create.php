@@ -1,5 +1,5 @@
 <?php
-$this->sectionTitle = 'Create User';
+$this->sectionTitle = 'Create Member';
 $this->breadcrumbs[]='Create';
 
 $this->contextMenuItems=array(
