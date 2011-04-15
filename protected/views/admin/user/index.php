@@ -17,10 +17,7 @@ $this->contextMenuItems = array(
     //'filterPosition'=>'body',
 	//'summaryText'=>'{start}-{end} of {count}',
     'pager' => array(
-        'class'=>'CLinkPager',        
-        'pages' => array(
-            'pageSize' => 2
-        ),        
+        'class'=>'CLinkPager',
     ),
 	'columns'=>array(
 		array(
@@ -31,10 +28,12 @@ $this->contextMenuItems = array(
 		//'password',
         'email',
         'create_date:strdate',
-        /*array(
-            'name'=>'create_date',
-            'value'=>'Yii::app()->format->formatDate( strtotime($data->create_date) )'
-        ),*/
-		'status.name:text:Status',		        
+		//'status.name:text:Status',
+        array(
+            'header'=>'Status',
+            'name'=>'status_id',
+            'filter'=>CHtml::listData(UserStatus::model()->findAll(), 'id', 'name'),
+            'value'=>'$data->status->name',
+        ),
 	),
 )); ?>

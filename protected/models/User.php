@@ -143,8 +143,18 @@ class User extends CActiveRecord {
         $criteria->compare('t.group_id',$this->group_id);        
 
         
-        $sortAttributes = array_keys( $this->getAttributes() );        
-        $sortAttributes[] = 'status.name';
+        $attributeNames = array_keys( $this->getAttributes() );
+        $sortAttributes = array();        
+        foreach($attributeNames as $attributeName) {
+            $sortAttributes[$attributeName] = array(
+                'asc'=>"t.{$attributeName} asc",
+                'desc'=>"t.{$attributeName} desc",
+            );
+        }
+        $sortAttributes['status_id'] = array(
+            'asc'=>'status.name asc',
+            'desc'=>'status.name desc'
+        );
         
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
