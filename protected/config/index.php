@@ -8,6 +8,7 @@ return CMap::mergeArray(
     array(
         'controllerPath' => $project_root.'/controllers/'.$project_mode,
         'viewPath' => $project_root.'/views/'.$project_mode,
+        'preload'=>array('user'),
         'import' => array(
             'application.components.index.*'
         ),

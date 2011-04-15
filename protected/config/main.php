@@ -11,7 +11,7 @@ return CMap::mergeArray(
         'name'=>'Yii Example',	    
 
 	    // preloading 'log' component
-	    'preload'=>array('log', 'user'),
+	    'preload'=>array('log'),
 
 	    // autoloading model and component classes
 	    'import'=>array(
