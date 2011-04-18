@@ -20,25 +20,23 @@ class HelpController extends IndexController {
         if(isset($_POST['ContactForm'])) {
             $model->attributes=$_POST['ContactForm'];
             if($model->validate()) {                                
-            
-                $data = array(
-                    'contactForm'=>$model,
-                    'site_name'=>Yii::app()->params['site_name'],
-                );
-                $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);
-                $emailMessage->addTo( Yii::app()->params['adminEmail'] );
-                $emailMessage->send();
-                
-                /*$emailMessage = new QsEmailMessage();
-                $emailMessage->addTo( Yii::app()->params['adminEmail'] );
-                $emailMessage->setFrom($model->email);
-                $emailMessage->setSubject($model->subject);
-                $emailMessage->addBodyText($model->body);
-                $emailMessage->send();*/
-                
                 /*$headers="From: {$model->email}\r\nReply-To: {$model->email}";
                 mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);*/
                 
+                $data = array(
+                    'form'=>$model,
+                    'site_name'=>Yii::app()->params['site_name'],
+                );
+                $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);
+                
+                // Set all site administrators as receivers:
+                $administrators = Administrator::model()->active()->findAll();
+                foreach($administrators as $administrator) {
+                    $emailMessage->addTo( $administrator->email );
+                }                                
+                
+                $emailMessage->send();
+                                            
                 Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
                 $this->refresh();
             }
