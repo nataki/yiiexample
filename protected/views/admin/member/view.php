@@ -19,6 +19,16 @@ $this->contextMenuItems=array(
 		'name',
 		//'password',
         'email',
-		'create_date:strdate',        
+		'create_date:strdate',
+        array(
+            'label'=>'Full name',
+            'value'=>$model->first_name.' '.$model->last_name,
+        ),
+        'profile.postal_code',
+        'profile.city',
+        'profile.address1',
+        'profile.address2',                
+        'profile.phone_home',
+        'profile.phone_mobile',
 	),
 )); ?>

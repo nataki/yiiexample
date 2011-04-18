@@ -25,10 +25,14 @@ $this->contextMenuItems = array(
         ),
         'id',
 		'name',
-		//'password',
+        //'password',		
+        /*array(
+            'header'=>'Full name',
+            'name'=>'profile.first_name',            
+            'value'=>'$data->profile->first_name." ".$data->profile->first_name',
+        ),*/
         'email',
         'create_date:strdate',
-		//'status.name:text:Status',
         array(
             'header'=>'Status',
             'name'=>'status_id',

@@ -39,4 +39,35 @@ class Member extends User {
         $defaultScope = array_merge($defaultScope, $additionalScope);
         return $defaultScope;        
     }
+    
+    public function behaviors() {
+        return array(
+            'memberRoleBehavior' => array(
+                'class'=>'ext.qs.db.QsActiveRecordBehaviorRole',
+                'relationName'=>'profile',
+                'relationConfig'=>array('MemberProfile', 'user_id'),
+            )
+        );
+    }
+    
+    
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search() {
+        $activeDataProvider = parent::search();        
+        $sort = $activeDataProvider->sort;
+        
+        $sortAttributes = $sort->attributes;
+        
+        $sortAttributes['profile.first_name'] = array(
+            'asc'=>'profile.first_name asc',
+            'desc'=>'profile.first_name desc'
+        );
+        
+        $sort->attributes = $sortAttributes;
+        
+        return $activeDataProvider;
+    }
 }
