@@ -24,7 +24,7 @@ class HelpController extends IndexController {
                 mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);*/
                 
                 $data = array(
-                    'form'=>$model,
+                    'form'=>$model->formatAttributes(),
                     'site_name'=>Yii::app()->params['site_name'],
                 );
                 $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);

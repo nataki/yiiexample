@@ -21,6 +21,6 @@ $this->contextMenuItems=array(
             'value'=>$model->from_name.' <'.$model->from_email.'>'
         ),
         'subject',        
-        'body',		
+        'body:html',
 	),
 )); ?>
