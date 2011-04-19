@@ -38,7 +38,8 @@ class UserIdentity extends CUserIdentity {
                 $this->setState($attributeName, $attributeValue);
             }
             $this->errorCode=self::ERROR_NONE;
-        }        
+        }
+        
         return !$this->errorCode;
 	}
     
@@ -47,6 +48,17 @@ class UserIdentity extends CUserIdentity {
      */
     public function getId() {
         return $this->getState('id');
+    }
+    
+    /**
+     * Logs any authentication attempt into database.
+     */
+    public function logAuthentication() {
+        $authLog = new AuthLog();
+        $authLog->error_code = $this->errorCode;
+        $authLog->user_id = $this->getId();
+        $authLog->username = $this->username;
+        return $authLog->save();
     }
     
     /**
