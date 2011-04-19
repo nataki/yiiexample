@@ -51,13 +51,17 @@ class UserIdentity extends CUserIdentity {
     }
     
     /**
-     * Logs any authentication attempt into database.
+     * Logs successful login into database.
+     * @param CEvent $event - event instance, which is risen from {@link QsWebUser}
+     * @see QsWebUser::onAfterLogin
      */
-    public function logAuthentication() {
+    public static function logLogin(CEvent $event) {
+        $webUser = $event->sender;
+        
         $authLog = new AuthLog();
-        $authLog->error_code = $this->errorCode;
-        $authLog->user_id = $this->getId();
-        $authLog->username = $this->username;
+        $authLog->error_code = 0;
+        $authLog->user_id = $webUser->getId();
+        $authLog->username = $webUser->getState('name');
         return $authLog->save();
     }
     
@@ -65,6 +69,7 @@ class UserIdentity extends CUserIdentity {
      * Updates the state of the web user from the accounts storage. 
      * This method ensures user still exist and active.
      * @param CEvent $event - event instance, which is risen from {@link QsWebUser}
+     * @see QsWebUser::onAfterRestore
      */
     public static function updateUserStates(CEvent $event) {
         $webUser = $event->sender;

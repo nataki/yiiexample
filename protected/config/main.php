@@ -48,7 +48,8 @@ return CMap::mergeArray(
             ),
             'user'=>array(
                 'class'=>'ext.qs.auth.QsWebUser',
-                'onAfterRestore'=>array('UserIdentity','updateUserStates')
+                'onAfterRestore'=>array('UserIdentity','updateUserStates'),
+                'onAfterLogin'=>array('UserIdentity','logLogin')
             ),
             'securityManager'=>array(
                 'validationKey'=>'7ffaf5c32eb73bfb6abcd0ad1b8ebb0c',

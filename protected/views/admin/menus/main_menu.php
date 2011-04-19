@@ -27,6 +27,12 @@
                 array('label'=>'Email Patterns', 'url'=>array('/email_pattern/')),
             )
         ),
+        array(
+            'label'=>'Logs', 
+            'items'=>array(
+                array('label'=>'Auth Logs', 'url'=>array('/auth_log/')),
+            )
+        ),
     );
 ?>
         <div id="sidebar_column">

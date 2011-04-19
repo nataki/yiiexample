@@ -38,6 +38,7 @@ class AuthLog extends CActiveRecord
         $this->host = gethostbyaddr($_SERVER['REMOTE_ADDR']);
         $this->script_name = $_SERVER['SCRIPT_NAME'];
         $this->url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $this->error_code = 0;
     }
 
     /**
@@ -77,7 +78,7 @@ class AuthLog extends CActiveRecord
         return array(
             'id' => 'ID',
             'date' => 'Date',
-            'ip' => 'Ip',
+            'ip' => 'IP Address',
             'host' => 'Host',
             'url' => 'Url',
             'script_name' => 'Script Name',

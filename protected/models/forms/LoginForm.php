@@ -70,12 +70,5 @@ class LoginForm extends CFormModel
 		}
 		else
 			return false;
-	}
-    
-    public function log() {
-        if (is_object($this->_identity)) {
-            return $this->_identity->logAuthentication();
-        }
-        return false;
-    }
+	}        
 }
