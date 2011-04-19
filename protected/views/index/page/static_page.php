@@ -1,5 +1,5 @@
 <?php
-$this->pageTitle = Yii::app()->name . ' - '.$staticPage->title;
+$this->pageTitle = $this->pageTitle;
 $this->breadcrumbs=array(
     $staticPage->title,
 );

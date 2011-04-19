@@ -70,6 +70,12 @@ class IndexController extends CController
     }
     
     protected function beforeRender($view) {
+        // Application name:
+        $siteName = Yii::app()->params['site_name'];
+        if (!empty($siteName)) {
+            Yii::app()->name = $siteName;
+        }
+        
         // Meta Tags:
         Yii::app()->clientScript->registerMetaTag('text/html; charset=utf-8', null, 'Content-Type');
         Yii::app()->clientScript->registerMetaTag('en', 'language');        
@@ -83,15 +89,29 @@ class IndexController extends CController
         
         // JavaScripts:
         //Yii::app()->clientScript->registerScriptFile($baseUrl.'');
-                
+        
+        $pageTitle = '';
+        
+        // Apply Page Meta Model:
         $pageMeta = PageMeta::model()->current()->find();
         if (!empty($pageMeta)) {        
-            //$this->pageTitle = $pageMeta->title;
-            Yii::app()->name = $pageMeta->title;
+            $pageTitle = $pageMeta->title;
             
             Yii::app()->clientScript->registerMetaTag($pageMeta->description, 'description');
             Yii::app()->clientScript->registerMetaTag($pageMeta->keywords, 'keywords');
         }
+        
+        // Page Title:
+        $siteTitle = Yii::app()->params['site_title'];
+        if (empty($pageTitle)) {
+            $pageTitle = empty($siteTitle) ? Yii::app()->name : $siteTitle;
+        } else {
+            if (!empty($siteTitle)) {
+                $pageTitle = $siteTitle.' - '.$pageTitle;
+            }
+        }
+        $this->pageTitle = $pageTitle;
+        
         return true;
     }
 }

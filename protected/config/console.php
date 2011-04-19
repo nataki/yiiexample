@@ -7,5 +7,14 @@ return CMap::mergeArray(
     array(
         'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
         'name'=>'YiiExample Console Application',
+        'commandMap'=>array(
+            'migrate'=>array(
+                'class'=>'system.cli.commands.MigrateCommand',
+                //'migrationPath'=>'application.migrations',
+                'migrationTable'=>'_db_migration',
+                /*'connectionID'=>'db',
+                'templateFile'=>'application.migrations.template',*/
+            ),
+        ),
     )
 );

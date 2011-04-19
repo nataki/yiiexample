@@ -22,6 +22,14 @@ class m110228_133744_create_table_setting extends CDbMigration {
         );
         $this->insert('setting', $data);        
         $data = array(
+            'name' => 'site_title',
+            'value' => 'Yii Example',
+            'is_required' => '0',
+            'title' => 'Site title',
+            'description' => 'The default site title, if set it will always appear as the part of page title.'
+        );
+        $this->insert('setting', $data);
+        $data = array(
             'name' => 'site_email',
             'value' => 'someuser@somedomain.com',
             'is_required' => '1',
