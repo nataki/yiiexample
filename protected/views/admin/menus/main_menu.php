@@ -11,7 +11,7 @@
             'items'=>array(
                 //array('label'=>'Page Metas', 'url'=>array('/page_meta/index')),
                 array('label'=>'Page Metas', 'url'=>array('/page_meta/')),
-                array('label'=>'Static Pages', 'url'=>array('/static_page/')),
+                array('label'=>'Static Pages', 'url'=>array('/static_page/')),                
             )
         ),
         array(
@@ -28,9 +28,16 @@
             )
         ),
         array(
+            'label'=>'Help setup', 
+            'items'=>array(
+                array('label'=>'FAQ Categories', 'url'=>array('/faq_category/')),
+                array('label'=>'FAQ', 'url'=>array('/faq/')),
+            )
+        ),
+        array(
             'label'=>'Logs', 
             'items'=>array(
-                array('label'=>'Auth Logs', 'url'=>array('/auth_log/')),
+                array('label'=>'Auth Logs', 'url'=>array('/auth_log/')),                
             )
         ),
     );

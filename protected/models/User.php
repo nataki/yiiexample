@@ -135,7 +135,6 @@ class User extends CActiveRecord {
         $criteria->compare('t.create_date',$this->create_date,true);
         $criteria->compare('t.status_id',$this->status_id);
         $criteria->compare('t.group_id',$this->group_id);        
-
         
         $attributeNames = array_keys( $this->getAttributes() );
         $sortAttributes = array();        
@@ -154,10 +153,7 @@ class User extends CActiveRecord {
             'criteria'=>$criteria,
             'sort'=>array(
                 'attributes'=>$sortAttributes
-            ),
-            /*'pagination' => array(
-                'pageSize'=>20
-            )*/
+            ),            
         ));
     }
     

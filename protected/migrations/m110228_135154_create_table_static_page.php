@@ -10,7 +10,8 @@ class m110228_135154_create_table_static_page extends CDbMigration {
             'position' => 'integer'
         );
         $this->createTable('static_page', $columns, 'engine=INNODB');
-        $this->createIndex('idx_static_page_action', 'setting', 'name', true);
+        $this->createIndex('idx_static_page_action', 'static_page', 'action', true);
+        $this->createIndex('idx_static_page_position', 'static_page', 'position');
         
         $columns = array(
             'action' => 'howitworks',

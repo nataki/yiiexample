@@ -1,0 +1,17 @@
+<?php
+
+class Faq_categoryController extends AdminListController {
+	public function init() {
+        $this->setModelClassName('FaqCategory');
+        
+        $this->breadcrumbs=array(
+            'FAQ Categories'=>array($this->getId().'/'),
+        );
+    }
+    
+    public function actions() {
+        $actions = parent::actions();
+        $actions['move'] = 'ext.qs.controllers.actions.QsActionAdminMove';
+        return $actions;
+    }
+}
