@@ -20,6 +20,9 @@ return CMap::mergeArray(
                     '10.10.50.60'
                 ),
                 'password'=>'password',
+                'generatorPaths'=>array(
+                    'ext.qs.gii'
+                ),
             ),            
         ),        
         
