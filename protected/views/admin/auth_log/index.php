@@ -11,6 +11,7 @@ $this->sectionTitle = 'Manage Auth Logs';
 	'columns'=>array(
 		array(
             'class'=>'CButtonColumn',
+            'template'=>'{view} {delete}'
         ),
         'id',
         'date:strdate',
