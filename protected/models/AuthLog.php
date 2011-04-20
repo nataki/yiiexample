@@ -101,7 +101,7 @@ class AuthLog extends CActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
+    public function dataProviderAdmin()
     {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.

@@ -55,8 +55,8 @@ class Member extends User {
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search() {
-        $activeDataProvider = parent::search();        
+    public function dataProviderAdmin() {
+        $activeDataProvider = parent::dataProviderAdmin();        
         $sort = $activeDataProvider->sort;
         
         $sortAttributes = $sort->attributes;
