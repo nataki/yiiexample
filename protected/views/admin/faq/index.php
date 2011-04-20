@@ -1,6 +1,8 @@
 <?php
 $this->sectionTitle = 'Manage Faqs';
 
+//$contextAttributes = $this->getActiveContextModelAttributes();
+
 $this->contextMenuItems = array(
     array('label'=>'Create Faq', 'url'=>array('create')),
 );
