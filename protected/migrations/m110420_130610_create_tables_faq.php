@@ -38,7 +38,7 @@ class m110420_130610_create_tables_faq extends CDbMigration {
         $data = array(
             'name'=>'Signup',            
             'description'=>'Questions related to signup process',
-            'position'=>'1',
+            'position'=>'2',
         );
         $this->insert($tableName, $data);
         
