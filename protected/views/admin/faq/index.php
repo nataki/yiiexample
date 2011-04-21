@@ -1,10 +1,11 @@
 <?php
-$this->sectionTitle = 'Manage Faqs';
+$this->sectionTitle = 'Manage FAQ';
 
-//$contextAttributes = $this->getActiveContextModelAttributes();
+$contextAttributes = $this->getActiveContextModelAttributes();
 
 $this->contextMenuItems = array(
-    array('label'=>'Create Faq', 'url'=>array('create')),
+    //array('label'=>'Create Faq', 'url'=>array('create')),
+    array('label'=>'Create Faq', 'url'=>array_merge( array('create'), $contextAttributes )),
 );
 ?>
 
@@ -16,6 +17,9 @@ $this->contextMenuItems = array(
 	'columns'=>array(
 		array(
             'class'=>'CButtonColumn',
+            'viewButtonUrl'=>'Yii::app()->controller->createUrl("view",array_merge( array("id"=>$data->primaryKey), $this->grid->owner->getActiveContextModelAttributes() ))',
+            'updateButtonUrl'=>'Yii::app()->controller->createUrl("update",array_merge( array("id"=>$data->primaryKey), $this->grid->owner->getActiveContextModelAttributes() ))',
+            'deleteButtonUrl'=>'Yii::app()->controller->createUrl("delete",array_merge( array("id"=>$data->primaryKey), $this->grid->owner->getActiveContextModelAttributes() ))'
         ),
         'id',
 		array(
@@ -34,11 +38,11 @@ $this->contextMenuItems = array(
                 'style'=>'text-align:center',
             ),
             'value' => '
-                CHtml::link(CHtml::image(Yii::app()->baseUrl."/images/admin/first.gif", "first"), Yii::app()->createUrl(Yii::app()->controller->id."/move/to/first", array("id"=>$data->id)) )."&nbsp;".
-                CHtml::link(CHtml::image(Yii::app()->baseUrl."/images/admin/up.gif", "prev"), Yii::app()->createUrl(Yii::app()->controller->id."/move/to/prev", array("id"=>$data->id)) )."&nbsp;".
+                CHtml::link(CHtml::image(Yii::app()->baseUrl."/images/admin/first.gif", "first"), Yii::app()->createUrl(Yii::app()->controller->id."/move/to/first", array_merge( array("id"=>$data->id), $this->grid->owner->getActiveContextModelAttributes() ) ) )."&nbsp;".
+                CHtml::link(CHtml::image(Yii::app()->baseUrl."/images/admin/up.gif", "prev"), Yii::app()->createUrl(Yii::app()->controller->id."/move/to/prev", array_merge( array("id"=>$data->id), $this->grid->owner->getActiveContextModelAttributes() ) ) )."&nbsp;".
                 "&nbsp;".$data->position."&nbsp;".
-                CHtml::link(CHtml::image(Yii::app()->baseUrl."/images/admin/down.gif", "next"), Yii::app()->createUrl(Yii::app()->controller->id."/move/to/next", array("id"=>$data->id)) )."&nbsp;".
-                CHtml::link(CHtml::image(Yii::app()->baseUrl."/images/admin/last.gif", "last"), Yii::app()->createUrl(Yii::app()->controller->id."/move/to/last", array("id"=>$data->id)) );
+                CHtml::link(CHtml::image(Yii::app()->baseUrl."/images/admin/down.gif", "next"), Yii::app()->createUrl(Yii::app()->controller->id."/move/to/next", array_merge( array("id"=>$data->id), $this->grid->owner->getActiveContextModelAttributes() ) ) )."&nbsp;".
+                CHtml::link(CHtml::image(Yii::app()->baseUrl."/images/admin/last.gif", "last"), Yii::app()->createUrl(Yii::app()->controller->id."/move/to/last", array_merge( array("id"=>$data->id), $this->grid->owner->getActiveContextModelAttributes() ) ) );
             '
         ),
 	),

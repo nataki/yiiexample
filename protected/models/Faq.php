@@ -95,11 +95,11 @@ class Faq extends CActiveRecord {
     public function dataProviderAdmin() {
         $criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('category_id',$this->category_id);
-		$criteria->compare('question',$this->question,true);
-		$criteria->compare('answer',$this->answer,true);
-		$criteria->compare('position',$this->position);
+		$criteria->compare('t.id',$this->id);
+		$criteria->compare('t.category_id',$this->category_id);
+		$criteria->compare('t.question',$this->question,true);
+		$criteria->compare('t.answer',$this->answer,true);
+		$criteria->compare('t.position',$this->position);
 
         $attributeNames = array_keys( $this->getAttributes() );
         $sortAttributes = array();        
