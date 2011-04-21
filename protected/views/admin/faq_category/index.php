@@ -16,7 +16,11 @@ $this->contextMenuItems = array(
             'class'=>'CButtonColumn',
         ),
         'id',
-		'name',
+		array(
+            'name'=>'name',
+            'type'=>'raw',
+            'value'=>'CHtml::link($data->name, Yii::app()->createUrl( "faq/index", array("category_id"=>$data->id) ) );',
+        ),
 		'description',
         array(
             'name' => 'position',
