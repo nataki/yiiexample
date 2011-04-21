@@ -80,6 +80,7 @@ class Faq extends CActiveRecord {
         return array(
             'positionBehavior' => array(
                 'class'=>'ext.qs.db.QsActiveRecordBehaviorPosition',
+                'defaultOrdering'=>true,
                 'groupAttributes'=>array(
                     'category_id'
                 )

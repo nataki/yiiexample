@@ -10,6 +10,8 @@
                 $items[] = array('label'=>$staticPage->title, 'url'=>array('/'.$staticPage->action));
             }
         }
+        $items[] = array('label'=>'FAQ', 'url'=>array('help/faq'));
+        $items[] = array('label'=>'Contact', 'url'=>array('help/contact'));
         
         $secondaryMenu = $this->beginWidget('ext.qs.widgets.QsMenu',array(
             'items'=>$items

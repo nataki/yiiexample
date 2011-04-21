@@ -52,7 +52,7 @@ class FaqCategory extends CActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'faqs' => array(self::HAS_MANY, 'Faq', 'category_id'),
+			'faqs' => array(self::HAS_MANY, 'Faq', 'category_id', 'order'=>'faqs.position ASC'),
 		);
 	}
 
@@ -71,7 +71,8 @@ class FaqCategory extends CActiveRecord {
     public function behaviors() {
         return array(
             'positionBehavior' => array(
-                'class'=>'ext.qs.db.QsActiveRecordBehaviorPosition'
+                'class'=>'ext.qs.db.QsActiveRecordBehaviorPosition',
+                'defaultOrdering'=>true
             )
         );
     }
