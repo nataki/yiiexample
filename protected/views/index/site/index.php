@@ -1,14 +1,11 @@
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
-<p>Congratulations! You have successfully created your Yii application.</p>
+<p>This is an example application, which provides only the basic functionality.</p>
 
-<p>You may change the content of this page by modifying the following two files:</p>
+<p>You may try to do the following actions:</p>
 <ul>
-	<li>View file: <tt><?php echo __FILE__; ?></tt></li>
-	<li>Layout file: <tt><?php echo $this->getLayoutFile('main'); ?></tt></li>
+	<li>View our <?php echo CHtml::link('F.A.Q.', Yii::app()->createUrl('help/faq')) ?></li>	
+    <li>Contact site administrators using <?php echo CHtml::link('Contact form', Yii::app()->createUrl('help/contact')) ?></li>
 </ul>
 
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+<p>Use menus to navigate the site.</p>

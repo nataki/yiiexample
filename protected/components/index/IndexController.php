@@ -3,8 +3,7 @@
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class IndexController extends CController
-{
+class IndexController extends CController {
 	/**
 	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
@@ -43,6 +42,11 @@ class IndexController extends CController
         return array(
             array(
                 'allow',
+                'actions' => array('error'),
+                'users' => array('*'),
+            ),
+            array(
+                'allow',
                 'actions' => array('login'),
                 'users' => array('?'),
             ),
@@ -59,17 +63,39 @@ class IndexController extends CController
     
     /**
      * This is the action to handle external exceptions.
+     * For {@link CHttpException}, if view "errorXXX" with its code exists,
+     * this view will be rendered, if not view "error" will be used.
      */    
     public function actionError() {
         if($error=Yii::app()->errorHandler->error) {
-            if(Yii::app()->request->isAjaxRequest)
+            if(Yii::app()->request->isAjaxRequest) {
                 echo $error['message'];
-            else
+            } else {
+                if ($error['type']=='CHttpException') {
+                    $viewName = 'error'.$error['code'];
+                    if ($this->getViewFile($viewName)) {
+                        return $this->render($viewName, $error);
+                    }
+                }
                 $this->render('error', $error);
+            }
         }
     }
     
+    /**
+     * This method is invoked at the beginning of {@link render()}.
+     * It registers all default page head data: title, css, js etc.
+     * @param string $view the view to be rendered
+     * @return boolean whether the view should be rendered.     
+     */
     protected function beforeRender($view) {
+        // Determine IE version:
+        if ( preg_match('/MSIE ([0-9]\.[0-9])/',$_SERVER['HTTP_USER_AGENT'],$matches) ) {
+            $ieVersion = $matches[1];
+        } else {
+            $ieVersion = null;
+        }
+        
         // Application name:
         $siteName = Yii::app()->params['site_name'];
         if (!empty($siteName)) {
@@ -84,6 +110,9 @@ class IndexController extends CController
         // Css:
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/screen.css', 'screen, projection');
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/print.css', 'print');
+        if( $ieVersion && version_compare($ieVersion, '7', '<') ) {
+            Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/ie.css');
+        }
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/main.css');
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/form.css');
         

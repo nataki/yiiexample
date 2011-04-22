@@ -44,6 +44,11 @@ class AdminBaseController extends CController {
         return array(
             array(
                 'allow',
+                'actions' => array('error'),
+                'users' => array('*'),
+            ),
+            array(
+                'allow',
                 'actions' => array('login'),
                 'users' => array('?'),
             ),
@@ -62,16 +67,41 @@ class AdminBaseController extends CController {
         );
     }
          
+    /**
+     * This is the action to handle external exceptions.
+     * For {@link CHttpException}, if view "errorXXX" with its code exists,
+     * this view will be rendered, if not view "error" will be used.
+     */
     public function actionError() {
         if($error=Yii::app()->errorHandler->error) {
-            if(Yii::app()->request->isAjaxRequest)
+            if(Yii::app()->request->isAjaxRequest) {
                 echo $error['message'];
-            else
+            } else {
+                if ($error['type']=='CHttpException') {
+                    $viewName = 'error'.$error['code'];
+                    if ($this->getViewFile($viewName)) {
+                        return $this->render($viewName, $error);
+                    }
+                }
                 $this->render('error', $error);
+            }
         }
     }
     
+    /**
+     * This method is invoked at the beginning of {@link render()}.
+     * It registers all default page head data: title, css, js etc.
+     * @param string $view the view to be rendered
+     * @return boolean whether the view should be rendered.     
+     */
     protected function beforeRender($view) {
+        // Determine IE version:
+        if ( preg_match('/MSIE ([0-9]\.[0-9])/',$_SERVER['HTTP_USER_AGENT'],$matches) ) {
+            $ieVersion = $matches[1];
+        } else {
+            $ieVersion = null;
+        }
+        
         // Meta Tags:
         Yii::app()->clientScript->registerMetaTag('text/html; charset=utf-8', null, 'Content-Type');
         Yii::app()->clientScript->registerMetaTag('en', 'language');        
@@ -80,8 +110,11 @@ class AdminBaseController extends CController {
         // Css:
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/screen.css', 'screen, projection');
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/print.css', 'print');
+        if( $ieVersion && version_compare($ieVersion, '7', '<') ) {
+            Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/ie.css');
+        }
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/main.css');
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/form.css');
+        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/form.css');                
         
         // Java Scripts:
         //Yii::app()->clientScript->registerScriptFile($baseUrl.'');
