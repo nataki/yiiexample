@@ -13,7 +13,7 @@ $this->breadcrumbs=array(
     <?php 
     $panels = array();
     foreach($faqCategory->faqs as $faq) {
-        $panels[$faq->question] = $faq->answer;
+        $panels[$faq->question] = $faq->answer;        
     }
     
     $this->widget('zii.widgets.jui.CJuiAccordion', array(
@@ -28,7 +28,3 @@ $this->breadcrumbs=array(
     ?>    
 </div>
 <?php endforeach; ?>
-
-
-
-

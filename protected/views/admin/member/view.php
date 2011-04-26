@@ -18,7 +18,7 @@ $this->contextMenuItems=array(
         'status.name:html:Status',
 		'name',
 		//'password',
-        'email',
+        'email:email',
 		'create_date:strdate',
         array(
             'label'=>'Full name',
