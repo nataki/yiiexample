@@ -81,6 +81,7 @@ class TestSetting extends CActiveRecord {
         return array(
             'settingBehavior' => array(
                 'class'=>'ext.qs.db.QsActiveRecordBehaviorNameValue',
+                'autoNamePrefix'=>'test_'
             )
         );
     }
