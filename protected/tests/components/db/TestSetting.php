@@ -80,7 +80,7 @@ class TestSetting extends CActiveRecord {
     public function behaviors() {
         return array(
             'settingBehavior' => array(
-                'class'=>'ext.qs.db.QsActiveRecordBehaviorSetting',
+                'class'=>'ext.qs.db.QsActiveRecordBehaviorNameValue',
             )
         );
     }

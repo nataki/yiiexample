@@ -92,14 +92,11 @@ class Setting extends CActiveRecord {
         ));
     }
     
-    public function getValues() {
-        $records = self::model()->findAll();
-        $result = array();
-        if (empty($records)) return $result;
-        
-        foreach($records as $record) {
-            $result[$record->name] = $record->value;
-        }
-        return $result;
+    public function behaviors() {
+        return array(
+            'settingBehavior' => array(
+                'class'=>'ext.qs.db.QsActiveRecordBehaviorNameValue',
+            )
+        );
     }
 }
