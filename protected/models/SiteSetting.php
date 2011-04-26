@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "setting".
+ * This is the model class for table "site_setting".
  *
- * The followings are the available columns in table 'setting':
+ * The followings are the available columns in table 'site_setting':
  * @property integer $id
  * @property string $name
  * @property string $value
@@ -11,7 +11,7 @@
  * @property string $title
  * @property string $description
  */
-class Setting extends CActiveRecord {
+class SiteSetting extends CActiveRecord {
     /**
      * Returns the static model of the specified AR class.
      * @return Setting the static model class
@@ -24,7 +24,7 @@ class Setting extends CActiveRecord {
      * @return string the associated database table name
      */
     public function tableName() {
-        return 'setting';
+        return 'site_setting';
     }
 
     /**
@@ -96,6 +96,7 @@ class Setting extends CActiveRecord {
         return array(
             'settingBehavior' => array(
                 'class'=>'ext.qs.db.QsActiveRecordBehaviorNameValue',
+                'autoNamePrefix' => 'site_'
             )
         );
     }

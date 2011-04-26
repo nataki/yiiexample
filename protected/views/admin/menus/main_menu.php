@@ -3,7 +3,7 @@
         array(
             'label'=>'Settings', 
             'items'=>array(
-                    array('label'=>'Site settings', 'url'=>array('setting/'))
+                    array('label'=>'Site settings', 'url'=>array('site_setting/'))
             )
         ),
         array(

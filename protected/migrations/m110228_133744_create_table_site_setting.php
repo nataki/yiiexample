@@ -1,7 +1,9 @@
 <?php
 
-class m110228_133744_create_table_setting extends CDbMigration {
+class m110228_133744_create_table_site_setting extends CDbMigration {
     public function up() {
+        $tableName = 'site_setting';
+        
         $columns = array(
             'id' => 'pk',
             'name' => 'string NOT NULL',
@@ -10,36 +12,36 @@ class m110228_133744_create_table_setting extends CDbMigration {
             'title' => 'string NOT NULL',
             'description' => 'text',
         );
-        $this->createTable('setting', $columns, 'engine=INNODB');
-        $this->createIndex('idx_setting_name', 'setting', 'name', true);
+        $this->createTable($tableName, $columns, 'engine=INNODB');
+        $this->createIndex("idx_{$tableName}_name", $tableName, 'name', true);
         
         $data = array(
-            'name' => 'site_name',
+            'name' => 'name',
             'value' => 'YiiExample',
             'is_required' => '1',
             'title' => 'Site name',
             'description' => 'The name of the site.'
         );
-        $this->insert('setting', $data);        
+        $this->insert($tableName, $data);        
         $data = array(
-            'name' => 'site_title',
+            'name' => 'title',
             'value' => 'Yii Example',
             'is_required' => '0',
             'title' => 'Site title',
             'description' => 'The default site title, if set it will always appear as the part of page title.'
         );
-        $this->insert('setting', $data);
+        $this->insert($tableName, $data);
         $data = array(
-            'name' => 'site_email',
+            'name' => 'email',
             'value' => 'someuser@somedomain.com',
             'is_required' => '1',
             'title' => 'Site email address',
             'description' => 'The email address of the site, it will be passed as sender of the emails from the site.'
         );
-        $this->insert('setting', $data);
+        $this->insert($tableName, $data);
     }
     
     public function down() {
-        $this->dropTable('setting');
+        $this->dropTable('site_setting');
     }    
 }
