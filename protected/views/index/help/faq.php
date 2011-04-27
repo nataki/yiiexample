@@ -3,10 +3,21 @@ $this->breadcrumbs=array(
     'FAQ',
 );
 ?>
-
+<?php 
+$cacheOptions = array(
+    'duration' => 3600*24,
+    'dependency' => array(
+        'class'=>'CFileCacheDependency',
+        'fileName'=>__FILE__
+    )
+);
+if ($this->beginCache('faqListHtml', $cacheOptions)) { 
+?>
 <h1>F.A.Q.</h1>
-
-<?php foreach($faqCategories as $faqCategory): ?>
+<?php 
+    $faqCategories = FaqCategory::model()->findAll();
+    foreach($faqCategories as $faqCategory): 
+?>
 <div class="view">
     <h2><?php echo $faqCategory->name; ?></h2>
     <?php 
@@ -16,6 +27,9 @@ $this->breadcrumbs=array(
     }
     
     $this->widget('zii.widgets.jui.CJuiAccordion', array(
+         'htmlOptions'=>array(
+            'id'=>'faq_list_'.$faqCategory['id']
+         ),
          'panels'=>$panels,
          // additional javascript options for the accordion plugin
          'options'=>array(
@@ -27,3 +41,4 @@ $this->breadcrumbs=array(
     ?>    
 </div>
 <?php endforeach; ?>
+<?php $this->endCache(); } ?>

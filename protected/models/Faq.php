@@ -84,7 +84,13 @@ class Faq extends CActiveRecord {
                 'groupAttributes'=>array(
                     'category_id'
                 )
-            )
+            ),
+            'cacheClearBehavior' => array(
+                'class'=>'ext.qs.db.QsActiveRecordBehaviorClearCache',
+                'dependingCacheIds'=>array(
+                    'Yii.COutputCache.faqListHtml..help/faq....'
+                )
+            ),
         );
     }
     

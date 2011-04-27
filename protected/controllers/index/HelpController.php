@@ -44,8 +44,7 @@ class HelpController extends IndexController {
         $this->render('contact',array('model'=>$model));
     }
     
-    public function actionFaq() {
-        $faqCategories = FaqCategory::model()->findAll();
-        $this->render('faq', array('faqCategories'=>$faqCategories));
+    public function actionFaq() {        
+        $this->render('faq');
     }
 }
