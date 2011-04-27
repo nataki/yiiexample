@@ -2,6 +2,8 @@
 
 class m110228_135554_create_table_email_pattern extends CDbMigration {
     public function up() {
+        $tableName = 'email_pattern';
+        
         $columns = array(
             'id' => 'pk',
             'timestamp' => 'integer',
@@ -11,7 +13,9 @@ class m110228_135554_create_table_email_pattern extends CDbMigration {
             'subject' => 'string',
             'body' => 'text',
         );
-        $this->createTable('email_pattern', $columns, 'engine=INNODB');
+        $this->createTable($tableName, $columns, 'engine=INNODB');
+        $this->createIndex("idx_{$tableName}_name", $tableName, 'name', true);
+        $this->createIndex("idx_{$tableName}_timestamp", $tableName, 'timestamp');
                 
         $data = array(
             'timestamp' => time(),
@@ -25,7 +29,7 @@ class m110228_135554_create_table_email_pattern extends CDbMigration {
                 <b>Message:</b><br />
                 {form->body}',
         );
-        $this->insert('email_pattern', $data);
+        $this->insert($tableName, $data);
     }
     
     public function down() {

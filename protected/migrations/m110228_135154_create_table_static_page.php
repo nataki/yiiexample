@@ -2,6 +2,8 @@
 
 class m110228_135154_create_table_static_page extends CDbMigration {
     public function up() {
+        $tableName = 'static_page';
+        
         $columns = array(
             'id' => 'pk',
             'action' => 'string NOT NULL',
@@ -9,9 +11,9 @@ class m110228_135154_create_table_static_page extends CDbMigration {
             'content' => 'text',
             'position' => 'integer'
         );
-        $this->createTable('static_page', $columns, 'engine=INNODB');
-        $this->createIndex('idx_static_page_action', 'static_page', 'action', true);
-        $this->createIndex('idx_static_page_position', 'static_page', 'position');
+        $this->createTable($tableName, $columns, 'engine=INNODB');
+        $this->createIndex("idx_{$tableName}_action", $tableName, 'action', true);
+        $this->createIndex("idx_{$tableName}_position", $tableName, 'position');
         
         $columns = array(
             'action' => 'howitworks',
@@ -19,14 +21,14 @@ class m110228_135154_create_table_static_page extends CDbMigration {
             'content' => 'The manual about how your service works',
             'position' => '1'
         );        
-        $this->insert('static_page', $columns);
+        $this->insert($tableName, $columns);
         $columns = array(
             'action' => 'about',
             'title' => 'About',
             'content' => 'A brief information about your site',
             'position' => '2'
         );        
-        $this->insert('static_page', $columns);
+        $this->insert($tableName, $columns);
     }
     
     public function down() {

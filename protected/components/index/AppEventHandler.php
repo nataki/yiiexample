@@ -2,12 +2,11 @@
 
 class AppEventHandler {
     public static function onBeginRequest(CEvent $event) {
-        
         $urlManager=Yii::app()->getUrlManager();
-                
-        $urlRules = array();
-        $staticPages = StaticPage::model()->findAll();
-        if (is_array($staticPages)) {        
+                                        
+        $staticPages = self::findStaticPageAll();
+        if (is_array($staticPages)) {
+            $urlRules = array();
             foreach((array)$staticPages as $staticPage) {
                 $urlRules[$staticPage->action]= 'page/'.$staticPage->action;
             }
@@ -16,14 +15,23 @@ class AppEventHandler {
             $staticPages = array();
         }
         
-        $additional_params = SiteSetting::model()->getValues();
-        $additional_params['staticPages'] = $staticPages;
-        Yii::app()->params = CMap::mergeArray( Yii::app()->params, $additional_params );
+        $additionalParams = SiteSetting::model()->getValues();
+        $additionalParams['staticPages'] = $staticPages;
+        Yii::app()->params = CMap::mergeArray( Yii::app()->params, $additionalParams );
         
         return true;
     }
     
     public static function onEndRequest(CEvent $event) {
         return true;
+    }
+    
+    protected static function findStaticPageAll() {
+        $staticPageFinder = StaticPage::model();
+        $criteria = array(
+            'order' => 'position ASC'
+        );
+        $staticPages = $staticPageFinder->cache(60)->findAll($criteria);
+        return $staticPages;
     }
 }
