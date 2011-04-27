@@ -253,11 +253,10 @@ div.search-form
 }
 
 #sidebar_menu ul li a, #sidebar_menu ul li span{
- background: #B7D6E7;
- border-left: 5px solid #6FACCF;
- padding: 3px 8px;
- display: block;
- color:#298DCD;
+ background: url("bg.gif") repeat-x scroll left top white;
+ padding: 3px 13px;
+ display: block; 
+ color:#EEEEEE;
  font-size:12px;
  font-weight:bold; 
 }
