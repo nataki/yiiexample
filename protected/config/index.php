@@ -18,7 +18,7 @@ return CMap::mergeArray(
             'user'=>array(
                 // enable cookie-based authentication
                 'allowAutoLogin'=>true,
-                'loginUrl'=>array('/login'),
+                'loginUrl'=>array('/site/login'),
             ),
             'session' => array(
                 'sessionName' => 'yiiExampleSession',

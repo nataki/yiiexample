@@ -37,7 +37,7 @@ class SignupController extends IndexController {
                     throw new CException('Unable to log in new user!');
                 }
                 
-                $this->redirect(Yii::app()->user->returnUrl);
+                $this->redirect( array('account/') );
             }
         }
         
