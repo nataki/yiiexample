@@ -12,7 +12,7 @@ class HelpController extends IndexController {
     }
     
     public function actionIndex() {
-        $this->redirect( array('/') );
+        $this->redirect( array('contact') );
     }
     
     public function actionContact() {
@@ -20,21 +20,15 @@ class HelpController extends IndexController {
         if(isset($_POST['ContactForm'])) {
             $model->attributes=$_POST['ContactForm'];
             if($model->validate()) {                                
-                /*$headers="From: {$model->email}\r\nReply-To: {$model->email}";
-                mail(Yii::app()->params['adminEmail'],$model->subject,$model->body,$headers);*/
-                
                 $data = array(
                     'form'=>$model->formatAttributes(),
-                    'site_name'=>Yii::app()->params['site_name'],
                 );
-                $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);
-                
+                $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);                
                 // Set all site administrators as receivers:
                 $administrators = Administrator::model()->active()->findAll();
                 foreach($administrators as $administrator) {
                     $emailMessage->addTo( $administrator->email );
-                }                                
-                
+                }
                 $emailMessage->send();
                                             
                 Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');

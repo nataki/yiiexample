@@ -23,6 +23,7 @@ class User extends CActiveRecord {
     
     public $new_password;
     public $new_password_repeat;
+    
     /**
      * Returns the static model of the specified AR class.
      * @return User the static model class
@@ -109,12 +110,14 @@ class User extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Username',
             'email' => 'Email',
             'password' => 'Password',
             'create_date' => 'Creation Date',
             'status_id' => 'Status',
             'group_id' => 'Group',
+            'new_password' => 'Password',
+            'new_password_repeat' => 'Password Repeat',
         );
     }
 

@@ -90,16 +90,8 @@ return CMap::mergeArray(
             ),
             'email'=>array(
                 'class'=>'ext.qs.email.QsEmailManager',
-                /*'testMode' => 'bcc',
-                'testEmail' => 'pklimov@quart-soft.com',
-                'transport' => array(
-                    'type' => 'smtp',
-                    'host' => 'localhost',
-                    'username' => 'username',
-                    'password' => 'password',        
-                    'port' => '587',
-                    'encryption' => 'tls',
-                ),*/
+                //'testMode' => 'bcc',
+                //'testEmail' => 'pklimov@quart-soft.com',
             ),
 	    ),
     ),
