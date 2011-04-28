@@ -2,6 +2,47 @@
 
 class SiteController extends IndexController {
 	/**
+     * @return array action filters
+     */
+    public function filters() {
+        $filters = parent::filters();
+        $filters[] = array(
+            'ext.qs.controllers.filters.QsFilterRedirectNotGuest + login',
+        );        
+        return $filters;        
+    }
+    
+    /**
+     * Specifies the access control rules.
+     * This method is used by the 'accessControl' filter.
+     * @return array access control rules
+     */
+    public function accessRules() {
+        $parentRules = parent::accessRules();
+        
+        $rules = array(
+            array(
+                'allow',
+                'actions' => array('error'),
+                'users' => array('*'),
+            ),
+            array(
+                'allow',
+                'actions' => array('login'),
+                'users' => array('?'),
+            ),
+            array(
+                'allow',
+                'actions' => array('logout'),
+                'users' => array('@'),
+            ),
+        );
+        
+        $rules = array_merge($rules, $parentRules);
+        return $rules;
+    }
+    
+    /**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
 	 */

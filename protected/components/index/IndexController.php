@@ -5,8 +5,7 @@
  */
 class IndexController extends CController {
 	/**
-	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
-	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
+	 * @var string the default layout for the controller view.
 	 */
 	public $layout='//layouts/main';
 	/**
@@ -20,10 +19,6 @@ class IndexController extends CController {
 	 */
 	public $breadcrumbs=array();
     
-    /**
-     * This is the action to handle external exceptions.
-     */
-     
     /**
      * @return array action filters
      */
@@ -44,21 +39,6 @@ class IndexController extends CController {
      */
     public function accessRules() {
         return array(
-            array(
-                'allow',
-                'actions' => array('error'),
-                'users' => array('*'),
-            ),
-            array(
-                'allow',
-                'actions' => array('login'),
-                'users' => array('?'),
-            ),
-            array(
-                'allow',
-                'actions' => array('logout'),
-                'users' => array('@'),
-            ),
             array('deny',  // deny from admin
                 'roles'=>array('admin'),
             ),

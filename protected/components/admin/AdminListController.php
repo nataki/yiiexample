@@ -1,8 +1,9 @@
 <?php
 
-class AdminListController extends AdminBaseController {
-    
-    // Main:
+class AdminListController extends AdminBaseController {    
+    /**
+     * Initializes the controller.
+     */
     public function init() {        
         parent::init();
     }
@@ -29,6 +30,5 @@ class AdminListController extends AdminBaseController {
             'update'=>'ext.qs.controllers.actions.QsActionAdminUpdate',
             'delete'=>'ext.qs.controllers.actions.QsActionAdminDelete',
         );
-    }
-        
+    }        
 }

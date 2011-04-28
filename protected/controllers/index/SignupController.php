@@ -1,6 +1,20 @@
 <?php
 
 class SignupController extends IndexController {
+    /**
+     * @return array action filters
+     */
+    public function filters() {
+        $filters = parent::filters();
+        $filters[] = array(
+            'ext.qs.controllers.filters.QsFilterRedirectNotGuest',
+        );        
+        return $filters;        
+    }
+    
+    /**
+     * Declares class-based actions.
+     */
     public function actions() {
         return array(
             // captcha action renders the CAPTCHA image displayed on the contact page

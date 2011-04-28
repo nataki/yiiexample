@@ -21,6 +21,21 @@ class AccountController extends IndexController {
     }
     
     /**
+     * Specifies the access control rules.
+     * This method is used by the 'accessControl' filter.
+     * @return array access control rules
+     */
+    public function accessRules() {
+        $rules = parent::accessRules();
+        // deny anonymous:
+        $rules[] = array(
+            'deny',            
+            'users' => array('?'),
+        );        
+        return $rules;
+    }
+    
+    /**
      * Initializes the controller.
      */
     public function init() {
@@ -40,21 +55,6 @@ class AccountController extends IndexController {
             $this->_user = Member::model()->findByPk( Yii::app()->user->id );
         }
         return true;
-    }
-    
-    /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
-     * @return array access control rules
-     */
-    public function accessRules() {
-        $rules = parent::accessRules();
-        // deny anonymous:
-        $rules[] = array(
-            'deny',            
-            'users' => array('?'),
-        );        
-        return $rules;
     }
     
     public function actionIndex() {
