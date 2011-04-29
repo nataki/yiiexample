@@ -24,11 +24,11 @@ class IndexController extends CController {
      */
     public function filters() {
         return array(
-            array(
+            'secureConnection' => array(
                 'ext.qs.controllers.filters.QsFilterSecureConnection',
                 'useSecureConnection'=>false
             ),
-            'accessControl',
+            'accessControl' => 'accessControl',
         );
     }
 
