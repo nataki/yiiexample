@@ -46,6 +46,17 @@ class IndexController extends CController {
     }
     
     /**
+     * Returns list of behaviors.
+     */
+    public function behaviors() {
+        return array(
+            'metaDataBehavior' => array(
+                'class'=>'ext.qs.controllers.QsControllerBehaviorMetaDataDb'
+            )
+        );
+    }
+    
+    /**
      * This is the action to handle external exceptions.
      * For {@link CHttpException}, if view "errorXXX" with its code exists,
      * this view will be rendered, if not view "error" will be used.
@@ -73,22 +84,29 @@ class IndexController extends CController {
      * @return boolean whether the view should be rendered.     
      */
     protected function beforeRender($view) {
-        // Determine IE version:
-        if ( preg_match('/MSIE ([0-9]\.[0-9])/',$_SERVER['HTTP_USER_AGENT'],$matches) ) {
-            $ieVersion = $matches[1];
-        } else {
-            $ieVersion = null;
-        }
-        
+        $this->composePageHead();
+        return true;
+    }
+    
+    protected function composePageHead() {
         // Application name:
         $siteName = Yii::app()->params['site_name'];
         if (!empty($siteName)) {
             Yii::app()->name = $siteName;
         }
         
+        // Title:
+        $this->composePageTitle();
+        
         // Meta Tags:
-        Yii::app()->clientScript->registerMetaTag('text/html; charset=utf-8', null, 'Content-Type');
-        Yii::app()->clientScript->registerMetaTag('en', 'language');        
+        $this->composePageMetaTags();
+        
+        // Determine IE version:
+        if ( preg_match('/MSIE ([0-9]\.[0-9])/',$_SERVER['HTTP_USER_AGENT'],$matches) ) {
+            $ieVersion = $matches[1];
+        } else {
+            $ieVersion = null;
+        }
                 
         $baseUrl = Yii::app()->request->baseUrl;
         // Css:
@@ -101,29 +119,7 @@ class IndexController extends CController {
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/form.css');
         
         // JavaScripts:
-        //Yii::app()->clientScript->registerScriptFile($baseUrl.'');
-        
-        $pageTitle = '';
-        
-        // Apply Page Meta Model:
-        $pageMeta = PageMeta::model()->current()->find();
-        if (!empty($pageMeta)) {        
-            $pageTitle = $pageMeta->title;
-            
-            Yii::app()->clientScript->registerMetaTag($pageMeta->description, 'description');
-            Yii::app()->clientScript->registerMetaTag($pageMeta->keywords, 'keywords');
-        }
-        
-        // Page Title:
-        $siteTitle = Yii::app()->params['site_title'];
-        if (empty($pageTitle)) {
-            $pageTitle = empty($siteTitle) ? Yii::app()->name : $siteTitle;
-        } else {
-            if (!empty($siteTitle)) {
-                $pageTitle = $siteTitle.' - '.$pageTitle;
-            }
-        }
-        $this->pageTitle = $pageTitle;
+        //Yii::app()->clientScript->registerScriptFile($baseUrl.'');                
         
         return true;
     }

@@ -94,6 +94,11 @@ class AdminBaseController extends CController {
      * @return boolean whether the view should be rendered.     
      */
     protected function beforeRender($view) {
+        $this->composePageHead();
+        return true;
+    }
+    
+    protected function composePageHead() {
         // Determine IE version:
         if ( preg_match('/MSIE ([0-9]\.[0-9])/',$_SERVER['HTTP_USER_AGENT'],$matches) ) {
             $ieVersion = $matches[1];
@@ -117,7 +122,5 @@ class AdminBaseController extends CController {
         
         // Java Scripts:
         //Yii::app()->clientScript->registerScriptFile($baseUrl.'');
-                        
-        return true;
     }
 }
