@@ -51,7 +51,7 @@ class IndexController extends CController {
     public function behaviors() {
         return array(
             'metaDataBehavior' => array(
-                'class'=>'ext.qs.controllers.QsControllerBehaviorMetaDataDb'
+                'class'=>'ext.qs.controllers.QsControllerBehaviorMetaDataComposerDb'
             )
         );
     }
