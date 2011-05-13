@@ -1,16 +1,15 @@
 <?php
 
-class SiteTest extends WebTestCase
-{
-	public function testIndex()
-	{
+class SiteTest extends WebTestCase {
+	public function testIndex() {
 		$this->open('');
 		$this->assertTextPresent('Welcome');
 	}
 
-	public function testContact()
-	{
-		$this->open('?r=site/contact');
+	public function testContact() {
+        $this->open('help/contact');
+		//$this->open('?r=site/contact');
+        
 		$this->assertTextPresent('Contact Us');
 		$this->assertElementPresent('name=ContactForm[name]');
 
@@ -21,12 +20,12 @@ class SiteTest extends WebTestCase
 		$this->assertTextPresent('Body cannot be blank.');
 	}
 
-	public function testLoginLogout()
-	{
+	public function testLoginLogout() {
 		$this->open('');
 		// ensure the user is logged out
-		if($this->isTextPresent('Logout'))
-			$this->clickAndWait('link=Logout');
+		if($this->isTextPresent('Logout')) {
+		    $this->clickAndWait('link=Logout');
+        }
 
 		// test login process, including validation
 		$this->clickAndWait('link=Login');
@@ -37,11 +36,18 @@ class SiteTest extends WebTestCase
 		$this->type('name=LoginForm[password]','demo');
 		$this->clickAndWait("//input[@value='Login']");
 		$this->assertTextNotPresent('Password cannot be blank.');
-		$this->assertTextPresent('Logout');
+		
+        
+        $testUserName = 'admin';
+        $testUserPassword = 'admin';        
+        $this->type('name=LoginForm[username]',$testUserName);
+        $this->type('name=LoginForm[password]',$testUserPassword);
+        $this->clickAndWait("//input[@value='Login']");        
+        $this->assertTextPresent('Logout');
 
 		// test logout process
 		$this->assertTextNotPresent('Login');
-		$this->clickAndWait('link=Logout (demo)');
+		$this->clickAndWait("link=Logout ({$testUserName})");
 		$this->assertTextPresent('Login');
 	}
 }

@@ -1,7 +1,8 @@
 <?php
 
 return CMap::mergeArray(
-	require(dirname(__FILE__).'/main.php'),
+    //require(dirname(__FILE__).'/main.php'),
+	require(dirname(__FILE__).'/index.php'),
 	array(
 		'components'=>array(
 			'fixture'=>array(
@@ -12,8 +13,11 @@ return CMap::mergeArray(
 				'connectionString'=>'DSN for test database',
 			),
 			*/
-            'email'=> array(
-                'class'=>'ext.qs.email.QsEmailManager',
+            'urlManager'=>array(
+                'showScriptName'=>true,                
+            ),
+            'email'=> array(                
+                'testMode' => 'silence',
             ),
 		),
 	)
