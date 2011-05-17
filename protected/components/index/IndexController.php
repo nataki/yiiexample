@@ -88,6 +88,10 @@ class IndexController extends CController {
         return true;
     }
     
+    /**     
+     * Registers all default page head data: title, css, js etc.     
+     * @return boolean success
+     */
     protected function composePageHead() {
         // Application name:
         $siteName = Yii::app()->params['site_name'];
@@ -95,11 +99,8 @@ class IndexController extends CController {
             Yii::app()->name = $siteName;
         }
         
-        // Title:
-        $this->composePageTitle();
-        
-        // Meta Tags:
-        $this->composePageMetaTags();
+        // Default meta data:
+        $this->applyDefaultMetaData();
         
         // Determine IE version:
         if ( preg_match('/MSIE ([0-9]\.[0-9])/',$_SERVER['HTTP_USER_AGENT'],$matches) ) {
@@ -109,6 +110,7 @@ class IndexController extends CController {
         }
                 
         $baseUrl = Yii::app()->request->baseUrl;
+        
         // Css:
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/screen.css', 'screen, projection');
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/print.css', 'print');
