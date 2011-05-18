@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $action
  * @property string $title
+ * @property string $meta_description
  * @property string $content
  * @property integer $position
  */
@@ -33,13 +34,13 @@ class StaticPage extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('action, title, content, position', 'required'),
+            array('action, title, meta_description, content', 'required'),
             array('position', 'numerical', 'integerOnly'=>true),
-            array('action, title', 'length', 'max'=>255),
+            array('action, title', 'length', 'max'=>255),                                                
             array('action','unique','className'=>get_class($this),'caseSensitive'=>false),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, action, title, content, position', 'safe', 'on'=>'search'),
+            array('id, action, title, meta_description, content, position', 'safe', 'on'=>'search'),
         );
     }
 
@@ -61,6 +62,7 @@ class StaticPage extends CActiveRecord {
             'id' => 'ID',
             'action' => 'Action',
             'title' => 'Title',
+            'meta_description' => 'Meta Description',
             'content' => 'Content',
             'position' => 'Position',
         );
@@ -76,11 +78,12 @@ class StaticPage extends CActiveRecord {
 
         $criteria=new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
-        $criteria->compare('action',$this->action,true);
-        $criteria->compare('title',$this->title,true);
-        $criteria->compare('content',$this->content,true);
-        $criteria->compare('position',$this->position);
+        $criteria->compare('t.id',$this->id);
+        $criteria->compare('t.action',$this->action,true);
+        $criteria->compare('t.title',$this->title,true);
+        $criteria->compare('t.meta_description',$this->meta_description,true);
+        $criteria->compare('t.content',$this->content,true);
+        $criteria->compare('t.position',$this->position);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,

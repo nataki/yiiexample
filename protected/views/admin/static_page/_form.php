@@ -20,7 +20,13 @@
         <?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>128)); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
-
+    
+    <div class="row">
+        <?php echo $form->labelEx($model,'meta_description'); ?>
+        <?php echo $form->textArea($model,'meta_description',array('cols'=>60,'rows'=>3)); ?>
+        <?php echo $form->error($model,'meta_description'); ?>
+    </div>
+    
 	<div class="row">
 		<?php echo $form->labelEx($model,'content'); ?>		
         <?php echo $form->textArea($model,'content',array('cols'=>60,'rows'=>10)); ?>

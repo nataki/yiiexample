@@ -10,6 +10,7 @@
  * @property integer $is_required
  * @property string $title
  * @property string $description
+ * @property integer $position
  */
 class SiteSetting extends CActiveRecord {
     /**
@@ -40,22 +41,12 @@ class SiteSetting extends CActiveRecord {
         }        
         return array(
             array('name, title'.$requiredAddon, 'required'),
-            array('is_required', 'numerical', 'integerOnly'=>true),
+            array('is_required, position', 'numerical', 'integerOnly'=>true),
             array('name, title', 'length', 'max'=>255),
             array('value, title, description', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, name, value, is_required, title, description', 'safe', 'on'=>'search'),
-        );
-    }
-
-    /**
-     * @return array relational rules.
-     */
-    public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
+            array('id, name, value, is_required, title, description, position', 'safe', 'on'=>'search'),
         );
     }
 
@@ -70,6 +61,7 @@ class SiteSetting extends CActiveRecord {
             'is_required' => 'Is Required',
             'title' => 'Title',
             'description' => 'Description',
+            'position' => 'Position',
         );
     }
 
@@ -86,6 +78,7 @@ class SiteSetting extends CActiveRecord {
         $criteria->compare('is_required',$this->is_required);
         $criteria->compare('title',$this->title,true);
         $criteria->compare('description',$this->description,true);
+        $criteria->compare('position',$this->position,true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
@@ -97,6 +90,10 @@ class SiteSetting extends CActiveRecord {
             'settingBehavior' => array(
                 'class'=>'ext.qs.db.QsActiveRecordBehaviorNameValue',
                 'autoNamePrefix' => 'site_'
+            ),
+            'positionBehavior' => array(
+                'class'=>'ext.qs.db.QsActiveRecordBehaviorPosition',
+                'defaultOrdering'=>true,
             )
         );
     }

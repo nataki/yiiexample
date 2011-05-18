@@ -17,6 +17,7 @@ class Site_settingController extends AdminListController {
         $actions = parent::actions();
         $actions['admin'] = $actions['index'];
         $actions['index'] = 'ext.qs.controllers.actions.QsActionAdminUpdateSetting';
+        $actions['move'] = 'ext.qs.controllers.actions.QsActionAdminMove';
         return $actions;
     }
 }

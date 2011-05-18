@@ -8,6 +8,7 @@ class m110228_135154_create_table_static_page extends CDbMigration {
             'id' => 'pk',
             'action' => 'string NOT NULL',
             'title' => 'text',
+            'meta_description' => 'text',
             'content' => 'text',
             'position' => 'integer'
         );
@@ -18,6 +19,7 @@ class m110228_135154_create_table_static_page extends CDbMigration {
         $columns = array(
             'action' => 'howitworks',
             'title' => 'How It Works',
+            'meta_description' => 'How the service works',
             'content' => 'The manual about how your service works',
             'position' => '1'
         );        
@@ -25,6 +27,7 @@ class m110228_135154_create_table_static_page extends CDbMigration {
         $columns = array(
             'action' => 'about',
             'title' => 'About',
+            'meta_description' => 'About the service',
             'content' => 'A brief information about your site',
             'position' => '2'
         );        

@@ -1,5 +1,6 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - Login';
+$this->composePageTitle('Login');
+$this->composePageMetaTag('description', 'Log in '.Yii::app()->name);
 $this->breadcrumbs=array(
 	'Login',
 );

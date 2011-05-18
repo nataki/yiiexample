@@ -7,7 +7,8 @@
 <ul>
     <li><?php echo CHtml::link('General Settings', Yii::app()->createUrl('setting')) ?></li>
     <li><?php echo CHtml::link('Set Up Administrator Accounts', Yii::app()->createUrl('administrator')) ?></li>
-	<li><?php echo CHtml::link('Manage SEO Parameters', Yii::app()->createUrl('page_meta')) ?></li>
+    <li><?php echo CHtml::link('Manage static pages', Yii::app()->createUrl('static_page')) ?></li>
+	<li><?php echo CHtml::link('Manage email patterns', Yii::app()->createUrl('email_pattern')) ?></li>
 </ul>
 
 <p>Use the left side menu to access to the other administration sections.</p>

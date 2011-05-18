@@ -1,4 +1,6 @@
 <?php
+$this->composePageTitle('FAQ');
+$this->composePageMetaTag('description', 'Frequently asked questions on '.Yii::app()->name);
 $this->breadcrumbs=array(
     'FAQ',
 );

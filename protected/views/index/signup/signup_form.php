@@ -1,4 +1,6 @@
 <?php
+$this->composePageTitle('Signup');
+$this->composePageMetaTag('description', 'Sign up for '.Yii::app()->name);
 $this->breadcrumbs=array(
 	'Signup',
 );

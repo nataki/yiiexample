@@ -1,4 +1,6 @@
 <?php
+$this->composePageTitle( array('Account', 'Edit Profile') );
+$this->composePageMetaTag('description', 'Edit your profile on '.Yii::app()->name);
 $this->sectionTitle = 'Edit Profile';
 $this->breadcrumbs[]= 'Profile';
 ?>

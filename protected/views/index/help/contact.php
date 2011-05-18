@@ -1,4 +1,6 @@
 <?php
+$this->composePageTitle('Contact');
+$this->composePageMetaTag('description', 'Contact '.Yii::app()->name.' administrator');
 $this->breadcrumbs=array(
 	'Contact',
 );

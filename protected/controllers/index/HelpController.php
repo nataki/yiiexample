@@ -26,7 +26,7 @@ class HelpController extends IndexController {
                 $data = array(
                     'form'=>$model->formatAttributes(),
                 );
-                $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);                
+                $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);
                 // Set all site administrators as receivers:
                 $administrators = Administrator::model()->active()->findAll();
                 foreach($administrators as $administrator) {

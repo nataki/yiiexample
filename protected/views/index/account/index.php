@@ -1,4 +1,6 @@
 <?php
+$this->composePageTitle( array('Account', 'Overview') );
+$this->composePageMetaTag('description', 'Your account on '.Yii::app()->name.' overview');
 $this->sectionTitle = 'Account Overview';
 $this->breadcrumbs[] = 'Overview';
 ?>
