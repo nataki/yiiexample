@@ -94,7 +94,9 @@ class AdminBaseController extends CController {
      * @return boolean whether the view should be rendered.     
      */
     protected function beforeRender($view) {
-        $this->composePageHead();
+        if (!Yii::app()->request->getIsAjaxRequest()) {
+            $this->composePageHead();
+        }
         return true;
     }
     

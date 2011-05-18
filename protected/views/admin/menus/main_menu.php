@@ -9,9 +9,7 @@
         array(
             'label'=>'Content setup', 
             'items'=>array(
-                //array('label'=>'Page Metas', 'url'=>array('/page_meta/index')),
-                array('label'=>'Page Metas', 'url'=>array('/page_meta/')),
-                array('label'=>'Static Pages', 'url'=>array('/static_page/')),                
+                array('label'=>'Static Pages', 'url'=>array('/static_page/')),
             )
         ),
         array(
