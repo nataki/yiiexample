@@ -101,6 +101,7 @@ class IndexController extends CController {
         
         // Default meta data:
         $this->applyDefaultMetaData();
+        Yii::app()->clientScript->registerMetaTag('General', 'rating');
         
         // Determine IE version:
         if ( preg_match('/MSIE ([0-9]\.[0-9])/',$_SERVER['HTTP_USER_AGENT'],$matches) ) {
