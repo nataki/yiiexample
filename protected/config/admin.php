@@ -11,21 +11,6 @@ return CMap::mergeArray(
         'import' => array(
             'application.components.admin.*'            
         ),
-        
-        'modules'=>array(
-            'gii'=>array(
-                'class'=>'system.gii.GiiModule',
-                'ipFilters'=>array(
-                    '127.0.0.1',
-                    '10.10.50.60'
-                ),
-                'password'=>'admin4gii',
-                'generatorPaths'=>array(
-                    'ext.qs.gii'
-                ),
-            ),            
-        ),        
-        
         'components'=>array(
             'user'=>array(
                 // enable cookie-based authentication
@@ -40,7 +25,7 @@ return CMap::mergeArray(
                 'urlFormat'=>'path',
                 'showScriptName'=>true,
                 'rules'=>array(
-                    'gii'=>'gii',                    
+                    'gii'=>'gii',
                     'gii/<controller:\w+>'=>'gii/<controller>',
                     'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
                     '<controller:\w+>/<id:\d+>*'=>'<controller>/view',

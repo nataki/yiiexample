@@ -26,6 +26,18 @@ return array(
             'charset' => 'utf8',
             //'enableParamLogging' => true
         ),
-        
     ),
+    /*'modules'=>array(
+        'gii'=>array(
+            'class'=>'system.gii.GiiModule',
+            'ipFilters'=>array(
+                '127.0.0.1',
+                '10.10.50.60'
+            ),
+            'password'=>'admin4gii',
+            'generatorPaths'=>array(
+                'ext.qs.gii'
+            ),
+        ),            
+    ),*/
 );
