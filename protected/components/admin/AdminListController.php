@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * The base class for the controllers of administration panel, which provide CRUD operations.
+ * Extend this controller if you need to create common administration panel section.
+ */
 class AdminListController extends AdminBaseController {    
     /**
      * Initializes the controller.

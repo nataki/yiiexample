@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * The base class for the controllers of administration panel.
+ * This class stores most common fields, which are used during the page rendering.
+ * This class sets up access control filter, which restrict access to the administration panel. 
+ */
 class AdminBaseController extends CController {
     /**
      * @var string the default layout for the controller view.
@@ -77,12 +82,12 @@ class AdminBaseController extends CController {
                 echo $error['message'];
             } else {
                 if ($error['type']=='CHttpException') {
-                    $viewName = 'error'.$error['code'];
+                    $viewName = '//errors/error'.$error['code'];
                     if ($this->getViewFile($viewName)) {
                         return $this->render($viewName, $error);
                     }
                 }
-                $this->render('error', $error);
+                $this->render('//errors/error', $error);
             }
         }
     }

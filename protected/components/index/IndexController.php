@@ -67,12 +67,12 @@ class IndexController extends CController {
                 echo $error['message'];
             } else {
                 if ($error['type']=='CHttpException') {
-                    $viewName = 'error'.$error['code'];
+                    $viewName = '//errors/error'.$error['code'];
                     if ($this->getViewFile($viewName)) {
                         return $this->render($viewName, $error);
                     }
                 }
-                $this->render('error', $error);
+                $this->render('//errors/error', $error);
             }
         }
     }
