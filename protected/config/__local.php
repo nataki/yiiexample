@@ -26,6 +26,10 @@ return array(
             'charset' => 'utf8',
             //'enableParamLogging' => true
         ),
+        /*'email'=>array(
+            'testMode' => 'bcc',
+            'testEmail' => 'pklimov@quart-soft.com',
+        ),*/
     ),
     /*'modules'=>array(
         'gii'=>array(
