@@ -24,7 +24,7 @@ class HelpController extends IndexController {
             $model->attributes=$_POST['ContactForm'];
             if($model->validate()) {                                
                 $data = array(
-                    'form'=>$model->formatAttributes(),
+                    'form'=>$model,
                 );
                 $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);
                 // Set all site administrators as receivers:

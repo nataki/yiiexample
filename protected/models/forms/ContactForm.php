@@ -46,18 +46,4 @@ class ContactForm extends CFormModel {
 			'verifyCode'=>'Verification Code',
 		);
 	}
-    
-    /**
-     * Formats all internal attribute as text.
-     * Any HTML tags will be encoded.
-     * New lines will be replaced by <br />.     
-     */
-    public function formatAttributes() {
-        $formatter = Yii::app()->format;
-        $attributes = $this->getAttributes();
-        foreach($attributes as $attributeName=>$attributeValue) {
-            $this->$attributeName = $formatter->formatNtext($attributeValue);
-        }
-        return $this;
-    }
 }

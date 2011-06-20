@@ -81,8 +81,8 @@ return CMap::mergeArray(
             ),
             'email'=>array(
                 'class'=>'ext.qs.email.QsEmailManager',
-                //'testMode' => 'bcc',
-                //'testEmail' => 'pklimov@quart-soft.com',
+                'testMode' => 'bcc',
+                'testEmail' => 'klimov.paul@gmail.com',
             ),
 	    ),
     ),
