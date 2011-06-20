@@ -44,6 +44,24 @@ class ContactForm extends CFormModel {
 	public function attributeLabels() {
 		return array(
 			'verifyCode'=>'Verification Code',
-		);
+		);        
 	}
+    
+    /**
+     * Sends email message with the content, filled with data of current model,
+     * to all application administrators.
+     * @return boolean success.
+     */
+    public function sendEmail() {
+        $data = array(
+            'form' => $this,
+        );
+        $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);
+        // Set all site administrators as receivers:
+        $administrators = Administrator::model()->active()->findAll();
+        foreach($administrators as $administrator) {
+            $emailMessage->addTo( $administrator->email );
+        }
+        return $emailMessage->send();        
+    }
 }

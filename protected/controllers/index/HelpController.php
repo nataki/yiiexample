@@ -23,17 +23,7 @@ class HelpController extends IndexController {
         if(isset($_POST['ContactForm'])) {
             $model->attributes=$_POST['ContactForm'];
             if($model->validate()) {                                
-                $data = array(
-                    'form'=>$model,
-                );
-                $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);
-                // Set all site administrators as receivers:
-                $administrators = Administrator::model()->active()->findAll();
-                foreach($administrators as $administrator) {
-                    $emailMessage->addTo( $administrator->email );
-                }
-                $emailMessage->send();
-                                            
+                $model->sendEmail();
                 Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
                 $this->refresh();
             }
