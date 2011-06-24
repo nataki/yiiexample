@@ -30,7 +30,7 @@ if ($this->beginCache('faqListHtml', $cacheOptions)) {
     
     $this->widget('zii.widgets.jui.CJuiAccordion', array(
          'htmlOptions'=>array(
-            'id'=>'faq_list_'.$faqCategory['id']
+            'id'=>'faq_list_'.$faqCategory->id
          ),
          'panels'=>$panels,
          // additional javascript options for the accordion plugin

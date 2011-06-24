@@ -5,5 +5,5 @@ $this->breadcrumbs=array(
     $staticPage->title,
 );
 ?>
-<h1><?php echo $staticPage->title ?></h1>
-<p><?php echo $staticPage->content ?></p>
+<h1><?php echo $staticPage->title; ?></h1>
+<p><?php echo Yii::app()->format->formatEvalView($staticPage->content); ?></p>
