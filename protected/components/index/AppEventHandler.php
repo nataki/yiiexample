@@ -9,6 +9,7 @@ class AppEventHandler {
             $urlRules = array();
             foreach((array)$staticPages as $staticPage) {
                 $urlRules[$staticPage->action]= 'page/view/id/'.$staticPage->action;
+                //$urlRules["<id: ({$staticPage->action})>"]= 'page/view/id/'.$staticPage->action;
             }
             $urlManager->addRules($urlRules);
         } else {
