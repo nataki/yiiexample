@@ -15,7 +15,8 @@ class AppEventHandler {
             $staticPages = array();
         }
         
-        $additionalParams = SiteSetting::model()->getValues();
+        //$additionalParams = SiteSetting::model()->getValues();
+        $additionalParams = array();
         $additionalParams['staticPages'] = $staticPages;
         Yii::app()->params = CMap::mergeArray( Yii::app()->params, $additionalParams );
         

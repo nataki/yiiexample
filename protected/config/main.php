@@ -20,7 +20,13 @@ return CMap::mergeArray(
 		    'application.components.*',
             'ext.qs.email.*'
 	    ),
-
+        'behaviors'=>array(
+            array(
+                'class'=>'ext.qs.application.QsApplicationBehaviorParamDb',
+                'paramModelClassName'=>'SiteSetting',
+            )
+        ),
+        
 	    /*'modules'=>array(		    
 	    ),*/
 
