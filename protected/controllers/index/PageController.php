@@ -12,8 +12,8 @@ class PageController extends IndexController {
     /**
      * Display the static pages.
      */
-    public function actionView($id) {
-        $attributes = array('action' => $id);
+    public function actionView($action) {
+        $attributes = array('action' => $action);
         $staticPage = StaticPage::model()->findByAttributes($attributes);
         if (is_object($staticPage)) {
             return $this->render('static_page',array('staticPage'=>$staticPage));

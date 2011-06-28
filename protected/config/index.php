@@ -11,8 +11,12 @@ return CMap::mergeArray(
         'import' => array(
             'application.components.index.*'
         ),
-        'onBeginRequest'=>array('AppEventHandler', 'onBeginRequest'),
-        
+        'behaviors'=>array(
+            'staticPage'=>array(
+                'class'=>'ext.qs.application.QsApplicationBehaviorStaticPageDb',
+                'staticPageUrlKeywordAttributeName'=>'action',
+            )
+        ),
         'components'=>array(
             'user'=>array(
                 // enable cookie-based authentication

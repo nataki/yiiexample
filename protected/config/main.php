@@ -21,7 +21,7 @@ return CMap::mergeArray(
             'ext.qs.email.*'
 	    ),
         'behaviors'=>array(
-            array(
+            'siteSetting'=>array(
                 'class'=>'ext.qs.application.QsApplicationBehaviorParamDb',
                 'paramModelClassName'=>'SiteSetting',
             )
