@@ -24,6 +24,12 @@ return CMap::mergeArray(
             'siteSetting'=>array(
                 'class'=>'ext.qs.application.QsApplicationBehaviorParamDb',
                 'paramModelClassName'=>'SiteSetting',
+            ),
+            'initFromParam'=>array(
+                'class'=>'ext.qs.application.QsApplicationBehaviorInitFromParam',
+                'propertyParamNames'=>array(
+                    'name'=>'site_name'
+                ),
             )
         ),
         

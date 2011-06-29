@@ -95,12 +95,6 @@ class IndexController extends CController {
      * @return boolean success
      */
     protected function composePageHead() {
-        // Application name:
-        $siteName = Yii::app()->params['site_name'];
-        if (!empty($siteName)) {
-            Yii::app()->name = $siteName;
-        }
-        
         // Default meta data:
         $this->applyDefaultMetaData();
         Yii::app()->clientScript->registerMetaTag('General', 'rating');
