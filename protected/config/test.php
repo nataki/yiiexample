@@ -5,7 +5,8 @@ return CMap::mergeArray(
 	require(dirname(__FILE__).'/index.php'),
 	array(
 		'import'=>array(
-            'ext.qs.test.*'
+            'ext.qs.test.*',
+            'ext.qs.test.exceptions.*',
         ),
         'components'=>array(
 			'fixture'=>array(
