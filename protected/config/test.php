@@ -4,7 +4,10 @@ return CMap::mergeArray(
     //require(dirname(__FILE__).'/main.php'),
 	require(dirname(__FILE__).'/index.php'),
 	array(
-		'components'=>array(
+		'import'=>array(
+            'ext.qs.test.*'
+        ),
+        'components'=>array(
 			'fixture'=>array(
 				'class'=>'system.test.CDbFixtureManager',
 			),
