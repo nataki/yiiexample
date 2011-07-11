@@ -14,7 +14,6 @@ return CMap::mergeArray(
         'behaviors'=>array(
             'staticPage'=>array(
                 'class'=>'ext.qs.application.QsApplicationBehaviorStaticPageDb',
-                'staticPageUrlKeywordAttributeName'=>'action',
             )
         ),
         'components'=>array(

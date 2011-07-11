@@ -18,9 +18,9 @@ $this->contextMenuItems = array(
         ),
         'id',
 		array(
-            'name' => 'action',
+            'name' => 'url_keyword',
             'type' => 'raw',
-            'value' => 'CHtml::link($data->action, Yii::app()->baseUrl."/".$data->action, array("target"=>"blank") );'
+            'value' => 'CHtml::link($data->url_keyword, Yii::app()->baseUrl."/".$data->url_keyword, array("target"=>"blank") );'
         ),
         'title',
 		array(

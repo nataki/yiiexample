@@ -10,9 +10,9 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'action'); ?>
-		<?php echo $form->textField($model,'action',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'action'); ?>
+		<?php echo $form->labelEx($model,'url_keyword'); ?>
+		<?php echo $form->textField($model,'url_keyword',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->error($model,'url_keyword'); ?>
 	</div>
 
 	<div class="row">

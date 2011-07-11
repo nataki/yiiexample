@@ -6,18 +6,18 @@ class m110228_135154_create_table_static_page extends CDbMigration {
         
         $columns = array(
             'id' => 'pk',
-            'action' => 'string NOT NULL',
+            'url_keyword' => 'string NOT NULL',
             'title' => 'text',
             'meta_description' => 'text',
             'content' => 'text',
             'position' => 'integer'
         );
         $this->createTable($tableName, $columns, 'engine=INNODB');
-        $this->createIndex("idx_{$tableName}_action", $tableName, 'action', true);
+        $this->createIndex("idx_{$tableName}_url_keyword", $tableName, 'url_keyword', true);
         $this->createIndex("idx_{$tableName}_position", $tableName, 'position');
         
         $columns = array(
-            'action' => 'howitworks',
+            'url_keyword' => 'howitworks',
             'title' => 'How It Works',
             'meta_description' => 'How the service works',
             'content' => 'The manual about how your service works',
@@ -25,7 +25,7 @@ class m110228_135154_create_table_static_page extends CDbMigration {
         );        
         $this->insert($tableName, $columns);
         $columns = array(
-            'action' => 'about',
+            'url_keyword' => 'about',
             'title' => 'About',
             'meta_description' => 'About the service',
             'content' => 'A brief information about your site',

@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'static_page':
  * @property integer $id
- * @property string $action
+ * @property string $url_keyword
  * @property string $title
  * @property string $meta_description
  * @property string $content
@@ -34,13 +34,13 @@ class StaticPage extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('action, title, meta_description, content', 'required'),
+            array('url_keyword, title, meta_description, content', 'required'),
             array('position', 'numerical', 'integerOnly'=>true),
-            array('action, title', 'length', 'max'=>255),                                                
-            array('action','unique','className'=>get_class($this),'caseSensitive'=>false),
+            array('url_keyword, title', 'length', 'max'=>255),                                                
+            array('url_keyword','unique','className'=>get_class($this),'caseSensitive'=>false),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, action, title, meta_description, content, position', 'safe', 'on'=>'search'),
+            array('id, url_keyword, title, meta_description, content, position', 'safe', 'on'=>'search'),
         );
     }
 
@@ -60,7 +60,7 @@ class StaticPage extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'id' => 'ID',
-            'action' => 'Action',
+            'url_keyword' => 'URL Keyword',
             'title' => 'Title',
             'meta_description' => 'Meta Description',
             'content' => 'Content',
@@ -79,7 +79,7 @@ class StaticPage extends CActiveRecord {
         $criteria=new CDbCriteria;
 
         $criteria->compare('t.id',$this->id);
-        $criteria->compare('t.action',$this->action,true);
+        $criteria->compare('t.url_keyword',$this->url_keyword,true);
         $criteria->compare('t.title',$this->title,true);
         $criteria->compare('t.meta_description',$this->meta_description,true);
         $criteria->compare('t.content',$this->content,true);

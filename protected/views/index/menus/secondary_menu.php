@@ -7,7 +7,7 @@
         $staticPages = Yii::app()->params['staticPages'];
         if (!empty($staticPages)) {
             foreach($staticPages as $staticPage) {
-                $items[] = array('label'=>$staticPage->title, 'url'=>array('/'.$staticPage->action));
+                $items[] = array('label'=>$staticPage->title, 'url'=>array('/'.$staticPage->url_keyword));
             }
         }
         $items[] = array('label'=>'FAQ', 'url'=>array('help/faq'));
