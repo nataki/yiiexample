@@ -36,7 +36,7 @@ class TestRoleSlave extends CActiveRecord
         // will receive user inputs.
         return array(
             array('master_id', 'numerical', 'integerOnly'=>true),
-            array('master_id, slave_name', 'required'),
+            array('slave_name', 'required'),
             array('slave_name', 'length', 'max'=>255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
