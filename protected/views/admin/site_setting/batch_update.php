@@ -24,10 +24,10 @@ $this->sectionTitle = 'Update Site Settings';
         <div class="row">
         <?php switch($model->name): 
             /*case 'default_language_id': {
-                echo $form->dropDownList($model,"[$i]value",array());
+                echo $form->dropDownList($model,'['.$model->getPrimaryKey().']value',array());
             }*/
             default: { 
-                echo $form->textField($model,"[$i]value",array('size'=>80,'maxlength'=>255));  
+                echo $form->textField($model,'['.$model->getPrimaryKey().']value',array('size'=>80,'maxlength'=>255));
             } ?>
         <?php endswitch;?>        
         </div>
