@@ -3,8 +3,8 @@
         $mainMenu = $this->beginWidget('ext.qs.widgets.QsMenu',array(            
             //'view' => '//menus/_main_menu',
             'items'=>array(                
-                array('label'=>'Home', 'url'=>array('/')),                
-                array('label'=>'About', 'url'=>array('/about')),                
+                array('label'=>'Home', 'url'=>array('site/index')),
+                array('label'=>'About', 'url'=>array('page/view', 'url_keyword'=>'about')),                
                 array('label'=>'Contact', 'url'=>array('/help/contact')),
                 array('label'=>'Signup', 'url'=>array('/signup/'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
