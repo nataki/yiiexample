@@ -6,7 +6,7 @@
         <div id="entry">
             <?php if (!Yii::app()->user->isGuest) { ?>
             <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-                'homeLink'=>CHtml::link('Administration', $this->createUrl('/')),                
+                'homeLink'=>CHtml::link('Administration', $this->createUrl('site/index')),                
                 'links'=>$this->breadcrumbs,
             )); ?><!-- breadcrumbs -->
             <?php } ?>
