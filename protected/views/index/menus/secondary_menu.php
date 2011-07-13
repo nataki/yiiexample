@@ -3,11 +3,11 @@
         $items = array(
             array('label'=>'Home', 'url'=>array('site/index'))
         );
-        //$staticPages = StaticPage::model()->findAll();
-        $staticPages = Yii::app()->params['staticPages'];
+        $staticPages = StaticPage::model()->cache(60)->findAll();
+        //$staticPages = Yii::app()->params['staticPages'];
         if (!empty($staticPages)) {
             foreach($staticPages as $staticPage) {
-                $items[] = array('label'=>$staticPage->title, 'url'=>array('page/view', 'url_keyword'=>$staticPage->url_keyword));
+                $items[] = array('label'=>$staticPage->title, 'url'=>array('page/view', 'model'=>$staticPage));
             }
         }
         $items[] = array('label'=>'FAQ', 'url'=>array('help/faq'));

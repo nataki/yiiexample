@@ -11,11 +11,6 @@ return CMap::mergeArray(
         'import' => array(
             'application.components.index.*'
         ),
-        'behaviors'=>array(
-            'staticPage'=>array(
-                'class'=>'ext.qs.application.QsApplicationBehaviorStaticPageDb',
-            )
-        ),
         'components'=>array(
             'user'=>array(
                 // enable cookie-based authentication
@@ -33,6 +28,9 @@ return CMap::mergeArray(
                     /*'gii'=>'gii',
                     'gii/<controller:\w+>'=>'gii/<controller>',
                     'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',*/
+                    array(
+                        'class'=>'ext.qs.url.QsUrlRuleModelPage'
+                    ),
                     '/'=>'site/index',
                     '<controller:\w+>/<id:\d+>*'=>'<controller>/view',
                     '<controller:\w+>/<action:\w+>/<id:\d+>*'=>'<controller>/<action>',

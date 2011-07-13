@@ -12,11 +12,9 @@ class PageController extends IndexController {
     /**
      * Display the static pages.
      */
-    public function actionView($url_keyword) {
-        $attributes = array('url_keyword' => $url_keyword);
-        $staticPage = StaticPage::model()->findByAttributes($attributes);
-        if (is_object($staticPage)) {
-            return $this->render('static_page',array('staticPage'=>$staticPage));
+    public function actionView($model) {
+        if (is_object($model)) {
+            return $this->render('static_page',array('staticPage'=>$model));
         }
         return $this->missingAction($id);
     }
