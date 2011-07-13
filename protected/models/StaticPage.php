@@ -76,7 +76,9 @@ class StaticPage extends CActiveRecord {
             'cacheClearBehavior' => array(
                 'class'=>'ext.qs.db.QsActiveRecordBehaviorClearCache',
                 'dependingCacheIds'=>array(
-                    'secondaryMenuHtml'
+                    'secondaryMenuHtml',
+                    'QsUrlRuleModelPageStaticPage',
+                    //'QsUrlRuleModelPage'.get_class($this),
                 )
             ),
         );
