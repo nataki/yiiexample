@@ -1,9 +1,9 @@
 <?php
-$this->composePageTitle($staticPage->title);
-$this->composePageMetaTag('description', $staticPage->meta_description);
+$this->composePageTitle($model->title);
+$this->composePageMetaTag('description', $model->meta_description);
 $this->breadcrumbs=array(
-    $staticPage->title,
+    $model->title,
 );
 ?>
-<h1><?php echo $staticPage->title; ?></h1>
-<p><?php echo Yii::app()->format->formatEvalView($staticPage->content); ?></p>
+<h1><?php echo $model->title; ?></h1>
+<p><?php echo Yii::app()->format->formatEvalView($model->content); ?></p>

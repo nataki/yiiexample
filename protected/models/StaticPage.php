@@ -67,7 +67,21 @@ class StaticPage extends CActiveRecord {
             'position' => 'Position',
         );
     }
-
+    
+    public function behaviors() {
+        return array(
+            'positionBehavior' => array(
+                'class'=>'ext.qs.db.QsActiveRecordBehaviorPosition'
+            ),
+            'cacheClearBehavior' => array(
+                'class'=>'ext.qs.db.QsActiveRecordBehaviorClearCache',
+                'dependingCacheIds'=>array(
+                    'secondaryMenuHtml'
+                )
+            ),
+        );
+    }
+    
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -88,13 +102,5 @@ class StaticPage extends CActiveRecord {
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
         ));
-    }
-    
-    public function behaviors() {
-        return array(
-            'positionBehavior' => array(
-                'class'=>'ext.qs.db.QsActiveRecordBehaviorPosition'
-            )
-        );
     }
 }

@@ -1,10 +1,19 @@
+<?php 
+$cacheOptions = array(
+    'duration' => 3600*24,
+    'dependency' => array(
+        'class'=>'CFileCacheDependency',
+        'fileName'=>__FILE__
+    )
+);
+if ($this->beginCache('secondaryMenuHtml', $cacheOptions)) { 
+?>
     <div id="secondarymenu">
         <?php 
         $items = array(
             array('label'=>'Home', 'url'=>array('site/index'))
         );
-        $staticPages = StaticPage::model()->cache(60)->findAll();
-        //$staticPages = Yii::app()->params['staticPages'];
+        $staticPages = StaticPage::model()->findAll();        
         if (!empty($staticPages)) {
             foreach($staticPages as $staticPage) {
                 $items[] = array('label'=>$staticPage->title, 'url'=>array('page/view', 'model'=>$staticPage));
@@ -24,3 +33,4 @@
         </ul>
         <?php $this->endWidget(); ?>
     </div>
+<?php $this->endCache(); } ?>

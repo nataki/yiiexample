@@ -14,7 +14,7 @@ class PageController extends IndexController {
      */
     public function actionView($model) {
         if (is_object($model)) {
-            return $this->render('static_page',array('staticPage'=>$model));
+            return $this->render('static_page',array('model'=>$model));
         }
         return $this->missingAction($id);
     }
