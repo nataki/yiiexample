@@ -1,10 +1,12 @@
 <?php
+/**
+ * This is the main application configuration. Any writable
+ * CApplication properties can be configured here.
+ */
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
-// This is the main Web application configuration. Any writable
-// CWebApplication properties can be configured here.
 return CMap::mergeArray(
     array(
 	    'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
@@ -64,13 +66,7 @@ return CMap::mergeArray(
             ),
             'cache'=>array(
                 'class'=>'system.caching.CMemCache',
-                'servers'=>array(
-                    array(
-                        'host'=>'localhost', 
-                        'port'=>11211,
-                        'weight'=>100
-                    ),
-                ),
+                // @see protected/config/local.php 
             ),
 		    'log'=>array(
 			    'class'=>'CLogRouter',
@@ -79,10 +75,7 @@ return CMap::mergeArray(
 					    'class'=>'CFileLogRoute',
 					    'levels'=>'error, warning',
 				    ),
-				    // uncomment the following to show log messages on web pages
-				    /*array(
-					    'class'=>'CWebLogRoute',
-				    ),*/
+                    // @see protected/config/local.php 
 			    ),                
 		    ),
             'format'=>array(
@@ -93,11 +86,12 @@ return CMap::mergeArray(
             ),
             'email'=>array(
                 'class'=>'ext.qs.email.QsEmailManager',
+                // @see protected/config/local.php 
             ),
 	    ),
     ),
     CMap::mergeArray(
         require(dirname(__FILE__).'/params.php'),
-        require(dirname(__FILE__).'/local.php')
+        isset($localConfig) ? $localConfig: require(dirname(__FILE__).'/local.php')        
     )
 );

@@ -1,4 +1,8 @@
 <?php
+/**
+ * This is the main Web application configuration. Any writable
+ * CWebApplication properties can be configured here.
+ */
 
 $project_root = dirname(dirname(__FILE__));
 $project_mode = basename(__FILE__, ".php");

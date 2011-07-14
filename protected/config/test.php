@@ -1,4 +1,8 @@
 <?php
+/**
+ * This is the test application configuration. Any writable
+ * CWebApplication properties can be configured here.
+ */
 
 return CMap::mergeArray(
     //require(dirname(__FILE__).'/main.php'),
