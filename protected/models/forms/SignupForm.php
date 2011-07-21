@@ -23,15 +23,15 @@ class SignupForm extends CFormModel {
      */
     public function rules() {
         return array(
-            array('name, email', 'required'),
-            array('new_password, new_password_repeat', 'required'),
-            array('name, email, new_password, new_password_repeat', 'length', 'max'=>255),
-            array('email','email'),
-            array('new_password', 'compare', 'compareAttribute'=>'new_password_repeat'),            
-            array('name,email','unique','className'=>'User','caseSensitive'=>false),
-            
+            array('name, email, new_password, new_password_repeat', 'required'),
             array('first_name, last_name', 'required'),
+            
+            array('name, email, new_password, new_password_repeat', 'length', 'max'=>255),
             array('first_name, last_name', 'length', 'max'=>255),
+            
+            array('email','email'),
+            array('new_password', 'compare', 'compareAttribute'=>'new_password_repeat'),
+            array('name,email','unique','className'=>'User','caseSensitive'=>false),
             
             // verifyCode needs to be entered correctly
             array('verifyCode', 'captcha', 'allowEmpty'=>( !Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements() ) ),
@@ -88,8 +88,11 @@ class SignupForm extends CFormModel {
      * @return CActiveRecord user model.
      */
     protected function applyUserModelAttributes(CActiveRecord $user) {
+        $excludedAttributeNames = array(
+            'verifyCode'
+        );
         foreach( $this->getAttributes() as $attributeName => $attributeValue ) {
-            if ($attributeName == 'verifyCode') {
+            if ( array_search($attributeName, $excludedAttributeNames, true) !== false ) {
                 continue;
             }
             $user->$attributeName = $attributeValue;

@@ -20,12 +20,12 @@ class SignupTest extends WebTestCase {
         
         $this->assertTextPresent('signup');
         
-        $this->assertElementPresent('name=Member[name]');
-        $this->assertElementPresent('name=Member[email]');
-        $this->assertElementPresent('name=Member[new_password]');
-        $this->assertElementPresent('name=Member[new_password_repeat]');
-        $this->assertElementPresent('name=MemberProfile[first_name]');
-        $this->assertElementPresent('name=MemberProfile[last_name]');
+        $this->assertElementPresent('name=SignupForm[name]');
+        $this->assertElementPresent('name=SignupForm[email]');
+        $this->assertElementPresent('name=SignupForm[new_password]');
+        $this->assertElementPresent('name=SignupForm[new_password_repeat]');
+        $this->assertElementPresent('name=SignupForm[first_name]');
+        $this->assertElementPresent('name=SignupForm[last_name]');
         
         $this->submitSignupForm();
         $this->assertTextPresent('Username cannot be blank.');
@@ -43,7 +43,7 @@ class SignupTest extends WebTestCase {
         
         $user = User::model()->find();
         if (!empty($user)) {
-            $this->type('name=Member[name]',$user->name);
+            $this->type('name=SignupForm[name]',$user->name);
             $this->submitSignupForm();
             $this->assertTextPresent('"'.$user->name.'" has already been taken');
         }
@@ -56,13 +56,13 @@ class SignupTest extends WebTestCase {
         $this->open('signup');
         
         $testEmail = 'invalid_email';
-        $this->type('name=Member[email]',$testEmail);
+        $this->type('name=SignupForm[email]',$testEmail);
         $this->submitSignupForm();
         $this->assertTextPresent('Email is not a valid email address.');
         
         $user = User::model()->find();
         if (!empty($user)) {
-            $this->type('name=Member[email]',$user->email);
+            $this->type('name=SignupForm[email]',$user->email);
             $this->submitSignupForm();
             $this->assertTextPresent('"'.$user->email.'" has already been taken');
         }
@@ -76,8 +76,8 @@ class SignupTest extends WebTestCase {
         
         $testPassword = '123456';
         $testPasswordRepeat = $testPassword.'tail';
-        $this->type('name=Member[new_password]',$testPassword);
-        $this->type('name=Member[new_password_repeat]',$testPasswordRepeat);
+        $this->type('name=SignupForm[new_password]',$testPassword);
+        $this->type('name=SignupForm[new_password_repeat]',$testPasswordRepeat);
         $this->submitSignupForm();
         $this->assertTextPresent('Password must be repeated exactly');
     }
