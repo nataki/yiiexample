@@ -20,12 +20,12 @@ Fill the follwing form to signup.
 	<?php echo $form->errorSummary($model); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model->profile,'first_name'); ?>
-        <?php echo $form->textField($model->profile,'first_name'); ?>
+        <?php echo $form->labelEx($model,'first_name'); ?>
+        <?php echo $form->textField($model,'first_name'); ?>
     </div>
     <div class="row">
-        <?php echo $form->labelEx($model->profile,'last_name'); ?>
-        <?php echo $form->textField($model->profile,'last_name'); ?>
+        <?php echo $form->labelEx($model,'last_name'); ?>
+        <?php echo $form->textField($model,'last_name'); ?>
     </div>
     
 	<div class="row">

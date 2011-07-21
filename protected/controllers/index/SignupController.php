@@ -25,23 +25,16 @@ class SignupController extends IndexController {
         );
     }
     
+    /**
+     * Main action.
+     */
     public function actionIndex() {
-        $model = new Member();
+        $model = new SignupForm();
         
-        if ( isset($_POST['Member']) || isset($_POST['MemberProfile']) ) {
-            $model->attributes = $_POST['Member'];
-            $model->profile->attributes = $_POST['MemberProfile'];
-            if ($model->validate()) {
-                $model->status_id = User::STATUS_ACTIVE;
+        if ( isset($_POST['SignupForm']) ) {
+            $model->attributes = $_POST['SignupForm'];            
+            if ($model->validate()) {                
                 $model->save(false);
-                
-                // Send email confirmation:
-                $data = array(
-                    'member'=>$model
-                );
-                $emailMessage = Yii::app()->email->createEmailByPattern('signup', $data);
-                $emailMessage->setTo($model->email);
-                $emailMessage->send();
                 
                 // Log in new user:
                 $loginForm = new LoginForm();
@@ -56,5 +49,5 @@ class SignupController extends IndexController {
         }
         
         $this->render('signup_form', array('model'=>$model));
-    }        
+    }
 }

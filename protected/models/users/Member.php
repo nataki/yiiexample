@@ -13,7 +13,6 @@
  * 
  */
 class Member extends User {
-    public $verifyCode;
     
     /**
      * Returns the static model of the specified AR class.
@@ -26,18 +25,6 @@ class Member extends User {
     public function init() {
         parent::init();
         $this->group_id = self::GROUP_MEMBER;
-    }
-    
-    public function rules() {
-        $rules = parent::rules();
-        $rules = array_merge(
-            $rules,
-            array(
-                array('verifyCode', 'safe', 'on'=>'insert'),
-                array('verifyCode', 'captcha', 'on'=>'insert', 'allowEmpty'=>( !Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements() ) ),
-            )
-        );
-        return $rules;
     }
     
     public function defaultScope() {
