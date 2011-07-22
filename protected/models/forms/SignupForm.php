@@ -63,7 +63,7 @@ class SignupForm extends CFormModel {
     public function save($runValidation=true) {
         if ( !$runValidation || $this->validate() ) {
             $user = $this->newUserModel();            
-            $this->applyUserModelAttributes($user);
+            $user = $this->applyUserModelAttributes($user);
             $user->save(false);
             $this->sendConfirmationEmail($user);
             return $user;

@@ -108,8 +108,13 @@ class AuthLog extends CActiveRecord {
         $criteria->compare('username',$this->username,true);
         $criteria->compare('error_code',$this->error_code,true);
 
+        //$criteria->order = 'date DESC';
+        
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
+            'sort'=>array(
+                'defaultOrder' => 'date DESC'
+            ),
         ));
     }
     
