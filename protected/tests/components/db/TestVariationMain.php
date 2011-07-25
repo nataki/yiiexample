@@ -86,14 +86,14 @@ class TestVariationMain extends CActiveRecord
         return array(
             'variationBehavior' => array(
                 'class'=>'ext.qs.db.QsActiveRecordBehaviorVariation',
+                'variatorModelClassName'=>'TestVariator',
                 'variationsRelationName' => 'variations',
                 'defaultVariationRelationName' => 'variation',
                 'relationConfig'=>array(
                     'TestVariationOption', 'variation_main_id'
                 ),
                 'variationOptionForeignKeyName' => 'option_id',
-                'defaultVariationOptionForeignKeyCallback' => array($this, 'findDefaultOptionId'),
-                'autoAdjustVariationScenarios' => array('search', 'update')
+                'defaultVariationOptionForeignKeyCallback' => array($this, 'findDefaultOptionId'),                
             )
         );        
     }
