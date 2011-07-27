@@ -1,6 +1,7 @@
 <?php 
 $cacheOptions = array(
     'duration' => 3600*24,
+    'varyByRoute'=>false,
     'dependency' => array(
         'class'=>'CFileCacheDependency',
         'fileName'=>__FILE__
