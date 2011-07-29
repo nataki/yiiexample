@@ -38,6 +38,7 @@ return array(
             //'enableProfiling' => true,            
         ),
         'cache'=>array(
+            'class'=>'system.caching.CMemCache',
             'servers'=>array(
                 array(
                     'host'=>'localhost', 

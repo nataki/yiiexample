@@ -66,7 +66,7 @@ return CMap::mergeArray(
                 'errorAction'=>'site/error',
             ),
             'cache'=>array(
-                'class'=>'system.caching.CMemCache',
+                'class'=>'system.caching.CFileCache',
                 // @see protected/config/local.php 
             ),
 		    'log'=>array(
