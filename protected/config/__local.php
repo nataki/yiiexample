@@ -53,13 +53,15 @@ return array(
                 /*array(
                     'class'=>'CWebLogRoute',
                 ),*/
-                // uncomment the following to recieve log messages via email
+                // uncomment the following to receive log messages via email
                 /*array(
                     'class'=>'CEmailLogRoute',
-                    'email'=>array(
+                    'levels'=>'error',
+                    'emails'=>array(
                         'pklimov@quart-soft.com'
                     ),
-                    'levels'=>'error',
+                    'subject'=>'Error at '.exec('hostname'),
+                    'sentFrom'=>'yiiexample@quartsoft.com',
                 ),*/
             ),                
         ),
