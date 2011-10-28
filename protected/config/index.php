@@ -29,9 +29,12 @@ return CMap::mergeArray(
                 'urlFormat'=>'path',
                 'showScriptName'=>false,
                 'rules'=>array(
-                    /*'gii'=>'gii',
+                    'gii'=>'gii',
                     'gii/<controller:\w+>'=>'gii/<controller>',
-                    'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',*/
+                    'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
+                    'phpunit'=>'phpunit',
+                    'phpunit/<controller:\w+>'=>'phpunit/<controller>',
+                    'phpunit/<controller:\w+>/<action:\w+>'=>'phpunit/<controller>/<action>',
                     array(
                         'class'=>'ext.qs.url.QsUrlRuleModelPage'
                     ),
