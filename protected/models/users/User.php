@@ -161,10 +161,24 @@ class User extends CActiveRecord {
         ));
     }
     
+    /**
+     * Applies new password value if present.
+     * This method is invoked at {@link onBeforeSave} event.
+     * @return User self instance.
+     */
     protected function applyNewPassword() {
         if (!empty($this->new_password)) {
-            $this->password = sha1($this->new_password);
+            $this->password = $this->encryptPassword($this->new_password);
         }
         return $this;
+    }
+
+    /**
+     * Encrypts the given password value for the safe storing.
+     * @param string $password
+     * @return string encrypted password
+     */
+    public function encryptPassword($password) {
+        return sha1($password);
     }
 }

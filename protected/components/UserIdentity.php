@@ -22,7 +22,7 @@ class UserIdentity extends CUserIdentity {
         } else {
             if( strcmp($user->status_id,User::STATUS_ACTIVE)!==0 ) {
                 $this->errorCode = self::ERROR_USER_INACTIVE;
-            } elseif ( strcmp($user->password,sha1($this->password))!==0 ) {
+            } elseif ( strcmp($user->password,$userFinder->encryptPassword($this->password))!==0 ) {
                 $this->errorCode = self::ERROR_PASSWORD_INVALID;
             } else {
                 $attributes = $user->getAttributes();
