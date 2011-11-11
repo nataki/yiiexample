@@ -1,7 +1,7 @@
 <?php $this->beginContent('//layouts/overall'); ?>
 <div id="main">
     <?php if (!Yii::app()->user->isGuest) { ?>
-        <?php $this->renderPartial('//menus/main_menu'); ?>
+        <?php $this->renderPartial('//common/main_menu'); ?>
     <?php } ?>
         <div id="entry">
             <?php if (!Yii::app()->user->isGuest) { ?>

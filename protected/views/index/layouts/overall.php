@@ -12,7 +12,7 @@
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
 
-	<?php echo $this->renderPartial('//menus/main_menu'); ?>
+	<?php echo $this->renderPartial('//common/main_menu'); ?>
 
 	<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 		'links'=>$this->breadcrumbs,
@@ -20,7 +20,7 @@
 
 	<?php echo $content; ?>
 
-    <?php echo $this->renderPartial('//menus/secondary_menu'); ?>
+    <?php echo $this->renderPartial('//common/secondary_menu'); ?>
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by <?php echo CHtml::encode(Yii::app()->name); ?>.<br/>
 		All Rights Reserved.<br/>
