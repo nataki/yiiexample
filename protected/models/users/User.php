@@ -61,7 +61,8 @@ class User extends CActiveRecord {
             array('email','email'),
             array('new_password', 'compare', 'compareAttribute'=>'new_password_repeat'),
             array('new_password, new_password_repeat', 'safe', 'on'=>'insert, update'),
-            array('name,email','unique','className'=>'User','caseSensitive'=>false),            
+            array('name,email','unique','className'=>'User','attributeName'=>'name','caseSensitive'=>false),
+            array('name,email','unique','className'=>'User','attributeName'=>'email','caseSensitive'=>false),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, name, email, create_date, status_id, group_id', 'safe', 'on'=>'search'),

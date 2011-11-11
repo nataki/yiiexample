@@ -31,7 +31,8 @@ class SignupForm extends CFormModel {
             
             array('email','email'),
             array('new_password', 'compare', 'compareAttribute'=>'new_password_repeat'),
-            array('name,email','unique','className'=>'User','caseSensitive'=>false),
+            array('name,email','unique','className'=>'User','attributeName'=>'name','caseSensitive'=>false),
+            array('name,email','unique','className'=>'User','attributeName'=>'email','caseSensitive'=>false),
             
             // verifyCode needs to be entered correctly
             array('verifyCode', 'captcha', 'allowEmpty'=>( !Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements() ) ),
