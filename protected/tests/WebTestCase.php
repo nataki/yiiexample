@@ -22,4 +22,26 @@ class WebTestCase extends CWebTestCase {
         $rootUrl = Yii::app()->createAbsoluteUrl('/');
         $this->setBrowserUrl($rootUrl);
 	}
+
+    /**
+     * Determines the captcha verification code from the session.
+     * @return string captcha verification code.
+     */
+    protected function getCaptchaCode() {
+        $session = Yii::app()->session;
+        $sessionId = $this->getCookieByName( $session->getSessionName() );
+        $session->setSessionId($sessionId);
+        $session->open();
+
+        $captchaVerifyCode = '';
+        foreach($_SESSION as $varName => $varValue) {
+            if (preg_match('/^(Yii\.CCaptchaAction)(.*)(captcha)$/s', $varName)) {
+                $captchaVerifyCode = $varValue;
+                break;
+            }
+        }
+
+        $session->close();
+        return $captchaVerifyCode;
+    }
 }

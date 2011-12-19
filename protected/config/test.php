@@ -21,6 +21,9 @@ return CMap::mergeArray(
 				'connectionString'=>'DSN for test database',
 			),
 			*/
+            'session' => array(
+                'autoStart' => false
+            ),
             'urlManager'=>array(
                 'showScriptName'=>true,                
             ),
