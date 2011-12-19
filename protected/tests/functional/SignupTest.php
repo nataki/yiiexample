@@ -15,17 +15,6 @@ class SignupTest extends WebTestCase {
     }
 
     /**
-     * Submits signup form.
-     * This is helper method for the internal tests.
-     * @return boolean - success
-     */
-    protected function submitSignupForm() {
-        $submitLocator = "//input[@value='Submit']";
-        $this->clickAndWait($submitLocator);
-        return true;
-    }
-
-    /**
      * Returns the test user name, which should be used during the process testing.
      * @return string test user name.
      */
@@ -47,6 +36,17 @@ class SignupTest extends WebTestCase {
             'last_name' => 'Test',
         );
         return $testUserData;
+    }
+
+    /**
+     * Submits the signup form.
+     * This is helper method for the internal tests.
+     * @return boolean - success
+     */
+    protected function submitSignupForm() {
+        $submitLocator = "//input[@value='Submit']";
+        $this->clickAndWait($submitLocator);
+        return true;
     }
 
     // Tests:
