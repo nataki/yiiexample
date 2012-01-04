@@ -3,7 +3,8 @@
         array(
             'label'=>'Settings', 
             'items'=>array(
-                    array('label'=>'Site settings', 'url'=>array('site_setting/'))
+                array('label'=>'Site settings', 'url'=>array('site_setting/')),
+                array('label'=>'Maintenance', 'url'=>array('maintenance/')),
             )
         ),
         array(
