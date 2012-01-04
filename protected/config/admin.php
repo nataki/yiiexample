@@ -29,10 +29,10 @@ return CMap::mergeArray(
                 'urlFormat'=>'path',
                 'showScriptName'=>true,
                 'rules'=>array(
-                    'gii'=>'gii',
-                    'gii/<controller:\w+>'=>'gii/<controller>',
-                    'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
                     '/'=>'site/index',
+                    array(
+                        'class'=>'ext.qs.url.QsUrlRuleModuleDefault'
+                    ),
                     '<controller:\w+>/<id:\d+>*'=>'<controller>/view',
                     '<controller:\w+>/<action:\w+>/<id:\d+>*'=>'<controller>/<action>',
                     '<controller:\w+>/<action:\w+>/*'=>'<controller>/<action>',
