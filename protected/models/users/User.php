@@ -181,4 +181,47 @@ class User extends CActiveRecord {
     public function encryptPassword($password) {
         return sha1($password);
     }
+
+    /**
+     * Generate new random password.
+     * @return string random generated password string.
+     */
+    protected function generatePassword() {
+        $password = sha1( uniqid( Yii::app()->name.rand(1,1000) ) );
+        $password = substr($password,0,16);
+        return $password;
+    }
+
+    /**
+     * Resets user's password.
+     * New password will be sent to the user via email.
+     * @return boolean success.
+     */
+    public function resetPassword() {
+        $newPassword = $this->generatePassword();
+
+        $this->new_password = $newPassword;
+        $this->new_password_repeat = $newPassword;
+
+        $this->save(false);
+
+        $this->sendResetPasswordEmail();
+
+        return true;
+    }
+
+    /**
+     * Sends email with the new password to the user.
+     * @return boolean success.
+     */
+    protected function sendResetPasswordEmail() {
+        $data = array(
+            'user' => $this,
+        );
+        $emailMessage = Yii::app()->email->createEmailByPattern('forgot_password', $data);
+
+        $emailMessage->setTo($this->email);
+
+        return $emailMessage->send();
+    }
 }

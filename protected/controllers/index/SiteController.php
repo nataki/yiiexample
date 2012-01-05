@@ -11,7 +11,20 @@ class SiteController extends IndexController {
         );        
         return $filters;        
     }
-    
+
+    /**
+     * Declares class-based actions.
+     */
+    public function actions() {
+        return array(
+            // captcha action renders the CAPTCHA image displayed on the contact page
+            'captcha'=>array(
+                'class'=>'CCaptchaAction',
+                'backColor'=>0xFFFFFF,
+            ),
+        );
+    }
+
     /**
      * Specifies the access control rules.
      * This method is used by the 'accessControl' filter.
@@ -81,4 +94,19 @@ class SiteController extends IndexController {
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+    /**
+	 * Resets the user's password.
+	 */
+    public function actionForgotpassword() {
+        $model = new ForgotPasswordForm();
+        if(isset($_POST['ForgotPasswordForm'])) {
+            $model->attributes = $_POST['ForgotPasswordForm'];
+            if ($model->resetPassword()) {
+                Yii::app()->user->setFlash('forgotPassword','Your password has been resetted. Check your email inbox.');
+                $this->refresh();
+            }
+        }
+        $this->render('forgot_password',array('model'=>$model));
+    }
 }

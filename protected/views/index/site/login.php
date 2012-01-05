@@ -44,3 +44,5 @@ $this->breadcrumbs=array(
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+
+<p><?php echo CHtml::link('Forgotten your password? Click here', array('site/forgotpassword')) ?></p>

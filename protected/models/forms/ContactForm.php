@@ -24,6 +24,7 @@ class ContactForm extends CFormModel {
 
 	/**
 	 * Declares the validation rules.
+     * @return array validation rules.
 	 */
 	public function rules() {
 		return array(
