@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($listId)) $listId = 'user-grid';
+if (!isset($listId)) $listId = 'record-grid';
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

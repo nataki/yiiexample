@@ -9,7 +9,7 @@ $this->contextMenuItems = array(
 );
 ?>
 
-<?php $this->renderPartial('//base/advanced_search', array('model'=>$model) ); ?>
+<?php $this->renderPartial('//common/advanced_search', array('model'=>$model) ); ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'faq-grid',
 	'dataProvider'=>$model->dataProviderAdmin(),

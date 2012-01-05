@@ -2,10 +2,10 @@
 $this->sectionTitle = 'Manage Auth Logs';
 ?>
 
-<?php $this->renderPartial('//base/advanced_search', array('model'=>$model) ); ?>
+<?php $this->renderPartial('//common/advanced_search', array('model'=>$model) ); ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'user-grid',
+	'id'=>'record-grid',
 	'dataProvider'=>$model->dataProviderAdmin(),
 	'filter'=>$model,
 	'columns'=>array(
