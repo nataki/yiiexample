@@ -44,12 +44,12 @@ class m110228_135554_create_table_email_pattern extends CDbMigration {
         $data = array(
             'timestamp' => time(),
             'name' => 'forgot_password',
-            'from_email' => '{form->email}',
-            'from_name' => '{form->name}',
+            'from_email' => '{site_email}',
+            'from_name' => '{site_name}',
             'subject' => 'Your password at {site_name}',
             'body' => 'Your password at {site_name} has been resetted.<br />
                 Your new password is <b>{user->new_password}</b><br />
-                You may set up new password at your account:<br />
+                You may set up new password at your account.<br />
                 <br />
                 You may log in here:<br />
                 <a href="<?php echo Yii::app()->createAbsoluteUrl(\'site/login\'); ?>"><?php echo Yii::app()->createAbsoluteUrl(\'site/login\'); ?></a>',
