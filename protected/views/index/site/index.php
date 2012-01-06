@@ -1,6 +1,6 @@
 <?php 
-$this->composePageTitle('Example Yii Application');
-$this->composePageMetaTag('description', Yii::app()->name.' is an example Yii application');
+$this->pageTitle = Yii::app()->name.' - Example Yii Application';
+Yii::app()->clientScript->registerMetaTag(Yii::app()->name.' is an example Yii application', 'description');
 ?>
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 

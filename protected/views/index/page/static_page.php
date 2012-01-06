@@ -1,6 +1,6 @@
 <?php
-$this->composePageTitle($model->title);
-$this->composePageMetaTag('description', $model->meta_description);
+$this->pageTitle = Yii::app()->name.' - '.$model->title;
+Yii::app()->clientScript->registerMetaTag($model->meta_description, 'description');
 $this->breadcrumbs=array(
     $model->title,
 );

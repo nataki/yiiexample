@@ -1,6 +1,6 @@
 <?php
-$this->pageTitle=Yii::app()->name . ' - Error';
-$this->composePageMetaTag('description', 'Sorry, an error has occured while resolving your request');
+$this->pageTitle = 'Error At '.Yii::app()->name;
+Yii::app()->clientScript->registerMetaTag('Sorry, an error has occurred while resolving your request');
 $this->breadcrumbs=array(
 	'Error',
 );

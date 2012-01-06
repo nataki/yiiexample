@@ -1,6 +1,6 @@
 <?php
-$this->composePageTitle('Forgot Your Password');
-$this->composePageMetaTag('description', 'Forgot Your Password');
+$this->pageTitle = 'Forgot Your Password At '.Yii::app()->name;
+Yii::app()->clientScript->registerMetaTag('Forgot your password at '.Yii::app()->name, 'description');
 $this->breadcrumbs=array(
 	'Forgot Your Password',
 );

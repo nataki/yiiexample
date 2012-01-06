@@ -1,6 +1,6 @@
 <?php
-$this->composePageTitle('Login');
-$this->composePageMetaTag('description', 'Log in '.Yii::app()->name);
+$this->pageTitle = 'Log In '.Yii::app()->name;
+Yii::app()->clientScript->registerMetaTag('Log in '.Yii::app()->name, 'description');
 $this->breadcrumbs=array(
 	'Login',
 );

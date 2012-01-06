@@ -1,8 +1,8 @@
 <?php
-$this->composePageTitle('FAQ');
-$this->composePageMetaTag('description', 'Frequently asked questions on '.Yii::app()->name);
+$this->pageTitle = 'F.A.Q. - Questions About '.Yii::app()->name;
+Yii::app()->clientScript->registerMetaTag('Frequently asked questions about '.Yii::app()->name, 'description');
 $this->breadcrumbs=array(
-    'FAQ',
+    'F.A.Q.',
 );
 ?>
 <?php 

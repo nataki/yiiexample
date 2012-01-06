@@ -1,6 +1,6 @@
 <?php
-$this->composePageTitle('Signup');
-$this->composePageMetaTag('description', 'Sign up for '.Yii::app()->name);
+$this->pageTitle = 'Signup For '.Yii::app()->name;
+Yii::app()->clientScript->registerMetaTag('Sign up for '.Yii::app()->name, 'description');
 $this->breadcrumbs=array(
 	'Signup',
 );
@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 <h1>Signup</h1>
 
 <p>
-Fill the follwing form to signup.
+Fill the following form for sign up.
 </p>
 
 <div class="form">

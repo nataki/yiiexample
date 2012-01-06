@@ -17,6 +17,16 @@ class m110228_133744_create_table_site_setting extends CDbMigration {
         $this->createIndex("idx_{$tableName}_name", $tableName, 'name', true);
         $this->createIndex("idx_{$tableName}_position", $tableName, 'position');
         
+        $this->insertDefaultData();
+    }
+    
+    public function down() {
+        $this->dropTable('site_setting');
+    }
+
+    protected function insertDefaultData() {
+        $tableName = 'site_setting';
+
         $data = array(
             'name' => 'name',
             'value' => 'YiiExample',
@@ -25,7 +35,7 @@ class m110228_133744_create_table_site_setting extends CDbMigration {
             'description' => 'The name of the site.',
             'position' => '1',
         );
-        $this->insert($tableName, $data);        
+        $this->insert($tableName, $data);
         $data = array(
             'name' => 'email',
             'value' => 'someuser@somedomain.com',
@@ -35,7 +45,7 @@ class m110228_133744_create_table_site_setting extends CDbMigration {
             'position' => '2',
         );
         $this->insert($tableName, $data);
-        $data = array(
+        /*$data = array(
             'name' => 'title',
             'value' => 'Yii Example',
             'is_required' => '0',
@@ -43,7 +53,7 @@ class m110228_133744_create_table_site_setting extends CDbMigration {
             'description' => 'The default site title, if set it will always appear as the part of page title.',
             'position' => '3',
         );
-        $this->insert($tableName, $data);        
+        $this->insert($tableName, $data);
         $data = array(
             'name' => 'meta_description',
             'value' => '',
@@ -61,10 +71,6 @@ class m110228_133744_create_table_site_setting extends CDbMigration {
             'description' => 'These keywords will appear in page meta tag &quot;keywords&quot;.',
             'position' => '5',
         );
-        $this->insert($tableName, $data);
+        $this->insert($tableName, $data);*/
     }
-    
-    public function down() {
-        $this->dropTable('site_setting');
-    }    
 }
