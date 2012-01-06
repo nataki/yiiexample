@@ -33,7 +33,7 @@ class m110228_135554_create_table_email_pattern extends CDbMigration {
             'from_email' => '{form->email}',
             'from_name' => '{form->name}',
             'subject' => '{site_name} contact: {form->subject}',
-            'body' => '<b>New contact message at <a href="<? echo Yii::app()->createAbsoluteUrl(\'/\'); ?>">{site_name}</a>:</b><br /><br />
+            'body' => '<b>New contact message at <a href="{homeUrl}">{site_name}</a>:</b><br /><br />
                 <b>From:</b> {form->name} on <a href="mailto:{form->email}">{form->email}</a><br />
                 <b>Subject:</b> {form->subject}<br />
                 <b>Message:</b><br />
@@ -52,7 +52,7 @@ class m110228_135554_create_table_email_pattern extends CDbMigration {
                 You may set up new password at your account.<br />
                 <br />
                 You may log in here:<br />
-                <a href="<?php echo Yii::app()->createAbsoluteUrl(\'site/login\'); ?>"><?php echo Yii::app()->createAbsoluteUrl(\'site/login\'); ?></a>',
+                <a href="{homeUrl}/site/login">{homeUrl}/site/login</a>',
         );
         $this->insert($tableName, $data);
 
@@ -65,7 +65,7 @@ class m110228_135554_create_table_email_pattern extends CDbMigration {
             'body' => 'Dear {member->first_name} {member->last_name},<br />
                 your account at {site_name} has been created successfully.<br />
                 You may log in here:<br />
-                <a href="<?php echo Yii::app()->createAbsoluteUrl(\'site/login\'); ?>"><?php echo Yii::app()->createAbsoluteUrl(\'site/login\'); ?></a>',
+                <a href="{homeUrl}/site/login">{homeUrl}/site/login</a>',
         );
         $this->insert($tableName, $data);
     }
