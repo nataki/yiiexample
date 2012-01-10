@@ -93,7 +93,7 @@ class TestImageFile extends CActiveRecord
         return array(
             'fileBehavior' => array(
                 'class'=>'ext.qs.db.QsActiveRecordBehaviorImageFile',
-                'imageTransforms' => array(
+                'fileTransforms' => array(
                     'full' => array(800, 600),
                     'thumbnail' => array(200, 150)
                 ),
