@@ -93,8 +93,6 @@ class TestImageFile extends CActiveRecord
         return array(
             'fileBehavior' => array(
                 'class'=>'ext.qs.db.QsActiveRecordBehaviorImageFile',
-                'fileStoragePath' => Yii::getPathOfAlias('application').'/runtime',
-                //'fileWebPath' => '',
                 'imageTransforms' => array(
                     'full' => array(800, 600),
                     'thumbnail' => array(200, 150)
