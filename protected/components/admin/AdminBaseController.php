@@ -119,13 +119,13 @@ class AdminBaseController extends CController {
                 
         $baseUrl = Yii::app()->request->baseUrl;
         // Css:
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/screen.css', 'screen, projection');
+        /*Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/screen.css', 'screen, projection');
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/print.css', 'print');
         if( $ieVersion && version_compare($ieVersion, '7', '<') ) {
             Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/ie.css');
         }
         Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/main.css');
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/form.css');                
+        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/admin/form.css');*/
         
         // Java Scripts:
         //Yii::app()->clientScript->registerScriptFile($baseUrl.'');
