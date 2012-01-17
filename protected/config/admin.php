@@ -30,12 +30,9 @@ return CMap::mergeArray(
                 'showScriptName'=>true,
                 'rules'=>array(
                     '/'=>'site/index',
-                    'imaget'=>'imaget',
-                    'imaget/<controller:\w+>'=>'imaget/<controller>',
-                    'imaget/<controller:\w+>/<action:\w+>*'=>'imaget/<controller>/<action>',
-                    /*'imagetranslation'=>'imagetranslation',
+                    'imagetranslation'=>'imagetranslation',
                     'imagetranslation/<controller:\w+>'=>'imagetranslation/<controller>',
-                    'imagetranslation/<controller:\w+>/<action:\w+>*'=>'imagetranslation/<controller>/<action>',*/
+                    'imagetranslation/<controller:\w+>/<action:\w+>*'=>'imagetranslation/<controller>/<action>',
                     array(
                         'class'=>'ext.qs.url.QsUrlRuleModuleDefault'
                     ),
