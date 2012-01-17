@@ -1,5 +1,5 @@
 <?php
-    $this->mainMenuItems = array(
+    $mainMenuItems = array(
         array(
             'label'=>'Settings', 
             'items'=>array(
@@ -45,7 +45,7 @@
             <div id="sidebar_menu">
                 <?php $this->widget('ext.qs.widgets.QsMenu',array(
                     'autoRender'=>true,
-                    'items'=>$this->mainMenuItems,
+                    'items'=>$mainMenuItems,
                 )); ?>
             </div>
         </div>
