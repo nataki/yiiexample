@@ -4,14 +4,14 @@
  * CWebApplication properties can be configured here.
  */
 
-$project_root = dirname(dirname(__FILE__));
-$project_mode = basename(__FILE__, ".php");
+$projectRoot = dirname(dirname(__FILE__));
+$projectMode = basename(__FILE__, ".php");
 
 return CMap::mergeArray(
     require(dirname(__FILE__).'/main.php'),
     array(
-        'controllerPath' => $project_root.'/controllers/'.$project_mode,
-        'viewPath' => $project_root.'/views/'.$project_mode,
+        'controllerPath' => $projectRoot.'/controllers/'.$projectMode,
+        'viewPath' => $projectRoot.'/views/'.$projectMode,
         'import' => array(
             'application.components.admin.*'            
         ),
