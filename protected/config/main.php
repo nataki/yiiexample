@@ -55,11 +55,19 @@ return CMap::mergeArray(
             'user'=>array(
                 'class'=>'ext.qs.auth.QsWebUser',
                 'behaviors'=>array(
+                    'modelBehavior'=>array(
+                        'class'=>'ext.qs.auth.QsWebUserBehaviorModelActiveRecord',
+                        'modelFindCondition'=>array(
+                            'condition'=>'status_id = :status_id',
+                            'params'=>array(
+                                'status_id'=>2 // active
+                            ),
+                        ),
+                    ),
                     'authLogBehavior'=>array(
                         'class'=>'ext.qs.auth.QsWebUserBehaviorAuthLogDb',
                     ),
                 ),
-                'onAfterRestore'=>array('UserIdentity','updateUserStates'),
             ),
             'securityManager'=>array(
                 'validationKey'=>'7ffaf5c32eb73bfb6abcd0ad1b8ebb0c',

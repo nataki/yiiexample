@@ -13,16 +13,13 @@ class UserIdentity extends CUserIdentity {
 	 * @return boolean whether authentication succeeds.
 	 */
 	public function authenticate() {
-        $userFinder = User::model();
-        $userTableAlias = $userFinder->getTableAlias();
-        $user = $userFinder->find("{$userTableAlias}.name=:username OR {$userTableAlias}.email=:username",array(':username'=>$this->username));
-
+        $user = $this->findUserModel();
         if (empty($user)) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
         } else {
             if( strcmp($user->status_id,User::STATUS_ACTIVE)!==0 ) {
                 $this->errorCode = self::ERROR_USER_INACTIVE;
-            } elseif ( strcmp($user->password,$userFinder->encryptPassword($this->password))!==0 ) {
+            } elseif ( strcmp($user->password,$user->encryptPassword($this->password))!==0 ) {
                 $this->errorCode = self::ERROR_PASSWORD_INVALID;
             } else {
                 $attributes = $user->getAttributes();
@@ -43,30 +40,30 @@ class UserIdentity extends CUserIdentity {
     public function getId() {
         return $this->getState('id');
     }
-    
+
     /**
-     * Updates the state of the web user from the accounts storage. 
-     * This method ensures user still exist and active.
-     * @param CEvent $event - event instance, which is risen from {@link QsWebUser}
-     * @see QsWebUser::onAfterRestore
+     * Returns user active record model finder.
+     * @return CActiveRecord user model finder.
      */
-    public static function updateUserStates(CEvent $event) {
-        $webUser = $event->sender;
-        
-        if (!$webUser->getIsGuest()) {
-            $attributes = array(
-                'id' => $webUser->getId(),
-                'status_id' => User::STATUS_ACTIVE
-            );
-            $user = User::model()->findByAttributes($attributes);
-            if (empty($user)) {
-                $webUser->logout(false);
-            } else {
-                $userAttributes = $user->getAttributes();
-                foreach($userAttributes as $name => $value) {
-                    $webUser->setState($name, $value);
-                }
-            }
+    protected function getUserModelFinder() {
+        try {
+            $webUser = Yii::app()->getComponent('user');
+            $modelClassName = $webUser->modelClassName;
+        } catch (CException $exception) {
+            $modelClassName = 'User';
         }
+        $userModelFinder = CActiveRecord::model($modelClassName);
+        return $userModelFinder;
+    }
+
+    /**
+     * Finds user record in the database, which corresponds current {@link username} value.
+     * @return CActiveRecord user model.
+     */
+    protected function findUserModel() {
+        $userModelFinder = $this->getUserModelFinder();
+        $userTableAlias = $userModelFinder->getTableAlias();
+        $userModel = $userModelFinder->find("{$userTableAlias}.name=:username OR {$userTableAlias}.email=:username",array(':username'=>$this->username));
+        return $userModel;
     }
 }

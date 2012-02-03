@@ -30,6 +30,7 @@ class LoginForm extends CFormModel {
 
 	/**
 	 * Declares attribute labels.
+     * @param array attribute label names.
 	 */
 	public function attributeLabels() {
 		return array(
@@ -46,6 +47,7 @@ class LoginForm extends CFormModel {
 		$this->_identity = new UserIdentity($this->username,$this->password);
 		if (!$this->_identity->authenticate()) {
 			$this->addError('password','Incorrect username or password.');
+            //Yii::app()->user->writeAuthLogIdentity($this->_identity);
         }
 	}
 
@@ -63,7 +65,7 @@ class LoginForm extends CFormModel {
             Yii::app()->user->login($this->_identity,$duration);
 			return true;
 		} else {
-			return false;
+            return false;
         }
 	}        
 }

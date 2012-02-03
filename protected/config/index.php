@@ -20,6 +20,11 @@ return CMap::mergeArray(
                 // enable cookie-based authentication
                 'allowAutoLogin'=>true,
                 'loginUrl'=>array('/site/login'),
+                'behaviors'=>array(
+                    'modelBehavior'=>array(
+                        'modelClassName'=>'Member'
+                    ),
+                ),
             ),
             'session' => array(
                 'sessionName' => 'yiiExampleSession',
