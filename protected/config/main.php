@@ -56,7 +56,7 @@ return CMap::mergeArray(
                 'class'=>'ext.qs.auth.QsWebUser',
                 'behaviors'=>array(
                     'authLogBehavior'=>array(
-                        'class'=>'ext.qs.auth.QsWebUserBehaviorLogLoginDb',
+                        'class'=>'ext.qs.auth.QsWebUserBehaviorAuthLogDb',
                     ),
                 ),
                 'onAfterRestore'=>array('UserIdentity','updateUserStates'),
