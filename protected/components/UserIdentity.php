@@ -38,24 +38,10 @@ class UserIdentity extends CUserIdentity {
     
     /**
      * Overload parent method {@link CUserIdentity::getId} to return id table field instead of username.
+     * @return integer user id.
      */
     public function getId() {
         return $this->getState('id');
-    }
-    
-    /**
-     * Logs successful login into database.
-     * @param CEvent $event - event instance, which is risen from {@link QsWebUser}
-     * @see QsWebUser::onAfterLogin
-     */
-    public static function logLogin(CEvent $event) {
-        $webUser = $event->sender;
-        
-        $authLog = new AuthLog();
-        $authLog->error_code = 0;
-        $authLog->user_id = $webUser->getId();
-        $authLog->username = $webUser->getState('name');
-        return $authLog->save();
     }
     
     /**
