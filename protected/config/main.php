@@ -64,9 +64,6 @@ return CMap::mergeArray(
                             ),
                         ),
                     ),
-                    'authLogBehavior'=>array(
-                        'class'=>'ext.qs.auth.QsWebUserBehaviorAuthLogDb',
-                    ),
                 ),
             ),
             'securityManager'=>array(
