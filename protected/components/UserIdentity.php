@@ -16,17 +16,21 @@ class UserIdentity extends CUserIdentity {
         $user = $this->findUserModel();
         if (empty($user)) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
+            $this->errorMessage = Yii::t('auth', 'Such username is not registered.');
         } else {
-            if( strcmp($user->status_id,User::STATUS_ACTIVE)!==0 ) {
+            if ( strcmp($user->status_id,User::STATUS_ACTIVE)!==0 ) {
                 $this->errorCode = self::ERROR_USER_INACTIVE;
+                $this->errorMessage = Yii::t('auth', 'This account is inactive.');
             } elseif ( strcmp($user->password,$user->encryptPassword($this->password))!==0 ) {
                 $this->errorCode = self::ERROR_PASSWORD_INVALID;
+                $this->errorMessage = Yii::t('auth', 'Invalid password.');
             } else {
                 $attributes = $user->getAttributes();
                 foreach($attributes as $attributeName => $attributeValue) {
                     $this->setState($attributeName, $attributeValue);
                 }
                 $this->errorCode = self::ERROR_NONE;
+                $this->errorMessage = '';
             }
         }
 
