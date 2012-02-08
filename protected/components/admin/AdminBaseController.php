@@ -43,21 +43,6 @@ class AdminBaseController extends CController {
     public function accessRules() {
         return array(
             array(
-                'allow',
-                'actions' => array('error'),
-                'users' => array('*'),
-            ),
-            array(
-                'allow',
-                'actions' => array('login'),
-                'users' => array('?'),
-            ),
-            array(
-                'allow',
-                'actions' => array('logout'),
-                'users' => array('@'),
-            ),
-            array(
                 'allow',                
                 'roles'=>array('admin')
             ),

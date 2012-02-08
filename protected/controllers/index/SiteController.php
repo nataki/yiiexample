@@ -14,6 +14,7 @@ class SiteController extends IndexController {
 
     /**
      * Declares class-based actions.
+     * @return array actions list.
      */
     public function actions() {
         return array(
@@ -67,11 +68,11 @@ class SiteController extends IndexController {
 	 * Displays the login page
 	 */
 	public function actionLogin() {
-		$model = new LoginForm();
+		$model = new LoginFormIndex();
 
 		// collect user input data
-		if(isset($_POST['LoginForm'])) {
-			$model->attributes=$_POST['LoginForm'];
+		if(isset($_POST[get_class($model)])) {
+			$model->attributes = $_POST[get_class($model)];
 			// validate user input and redirect to the previous page if valid
 			if($model->login()) {
                 $this->redirect(Yii::app()->user->returnUrl);

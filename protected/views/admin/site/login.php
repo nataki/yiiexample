@@ -40,6 +40,21 @@ $this->breadcrumbs=array(
 	</div>
     <?php } ?>
 
+    <?php if ( CCaptcha::checkRequirements() ): ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'verifyCode'); ?>
+        <div class="hint">Type the characters you see in the picture below.</div>
+        <div>
+		<?php
+            $this->widget('CCaptcha',array(
+                'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/admin/refresh.gif', 'Get new code',array('style'=>'margin: 12px 5px;')),
+            ));
+        ?>
+		</div>
+        <?php echo $form->textField($model,'verifyCode'); ?>
+	</div>
+	<?php endif; ?>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Login'); ?>
 	</div>

@@ -1,11 +1,11 @@
 <?php
 
 /**
- * LoginForm class.
- * LoginForm is the data structure for keeping
- * user login form data. It is used by the 'login' action of 'SiteController'.
+ * LoginFormBase is a base class for login forms.
+ * LoginFormBase is the data structure for keeping
+ * user login form data.
  */
-class LoginForm extends CFormModel {
+abstract class LoginFormBase extends CFormModel {
 	/**
      * @var string user identity class name.
      */
