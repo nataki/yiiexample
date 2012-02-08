@@ -18,6 +18,7 @@ class UserIdentity extends CUserIdentity {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
             $this->errorMessage = Yii::t('auth', 'Such username is not registered.');
         } else {
+            $this->setState('id', $user->id);
             if ( strcmp($user->status_id,User::STATUS_ACTIVE)!==0 ) {
                 $this->errorCode = self::ERROR_USER_INACTIVE;
                 $this->errorMessage = Yii::t('auth', 'This account is inactive.');
@@ -33,7 +34,6 @@ class UserIdentity extends CUserIdentity {
                 $this->errorMessage = '';
             }
         }
-
         return !$this->errorCode;
 	}
     

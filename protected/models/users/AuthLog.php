@@ -119,12 +119,13 @@ class AuthLog extends CActiveRecord {
     }
     
     /**
-     * Retrieves a last login date of the specified user.
+     * Retrieves a successful authentication date of the specified user.
      * @param integer $userId user id value
+     * @param integer $offset date offset.
      * @return string date of last login in SQL format.
      */
-    public function getLastLoginDate($userId) {
-        $successErrorCode = 0;
+    protected function getSuccessfulAuthDate($userId, $offset=0) {
+        $successErrorCode = CBaseUserIdentity::ERROR_NONE;
         $criteriaConfig = array(
             'condition'=>'t.error_code=:successErrorCode AND t.user_id=:user_id',
             'params'=>array(
@@ -132,16 +133,34 @@ class AuthLog extends CActiveRecord {
                 'successErrorCode'=>$successErrorCode
             ),
             'order'=>'date DESC',
-            'offset'=>1,
+            'offset'=>$offset,
             'limit'=>1,
-        );        
+        );
         $criteria = new CDbCriteria($criteriaConfig);
-        
-        $lastLoginRecord = $this->find($criteria);
-        
-        if (!empty($lastLoginRecord)) {
-            return $lastLoginRecord->date;
+
+        $authRecord = $this->find($criteria);
+
+        if (!empty($authRecord)) {
+            return $authRecord->date;
         }
-        return null;        
+        return null;
+    }
+
+    /**
+     * Retrieves a last login date of the specified user.
+     * @param integer $userId user id value
+     * @return string date of last login in SQL format.
+     */
+    public function getLastLoginDate($userId) {
+        return $this->getSuccessfulAuthDate($userId,0);
+    }
+
+    /**
+     * Retrieves a pre last login date of the specified user.
+     * @param integer $userId user id value
+     * @return string date of last login in SQL format.
+     */
+    public function getPreLastLoginDate($userId) {
+        return $this->getSuccessfulAuthDate($userId,1);
     }
 } 
