@@ -35,18 +35,6 @@ abstract class LoginFormBase extends CFormModel {
         return $identity;
     }
 
-    /**
-     * Returns a list of behaviors that this model should behave as.
-     * @return array the behavior configurations (behavior name=>behavior configuration).
-     */
-    public function behaviors() {
-		return array(
-            'authLogBehavior' => array(
-                'class'=>'ext.qs.auth.QsModelBehaviorAuthLogDb',
-            ),
-        );
-	}
-
 	/**
 	 * Declares the validation rules.
 	 * The rules state that username and password are required,
@@ -91,8 +79,9 @@ abstract class LoginFormBase extends CFormModel {
                 $defaultErrorMessage = Yii::t('auth', 'Incorrect username or password.');
                 $this->addError($attribute,$defaultErrorMessage);
             }
+            // Log auth error:
+            Yii::app()->user->writeAuthLogFromUserIdentity($this->_identity);
         }
-        $this->writeAuthLogFromUserIdentity($this->_identity);
 	}
 
 	/**
