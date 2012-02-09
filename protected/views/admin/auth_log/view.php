@@ -12,8 +12,9 @@ $this->contextMenuItems=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
+        'date:strdatetime',
         'username',
-        'date:strdate',
+        'user_id',
 		array(
             'name'=>'url',
             'type'=>'raw',
@@ -21,6 +22,7 @@ $this->contextMenuItems=array(
         ),        
 		'script_name',
         'error_code',
+        'error_message',
         'ip',
 		'host',
 	),

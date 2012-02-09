@@ -12,11 +12,13 @@
  * @property string $script_name
  * @property integer $user_id
  * @property string $username
- * @property string $error_code
+ * @property integer $error_code
+ * @property string $error_message
  */
 class AuthLog extends CActiveRecord {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
      * @return AuthLog the static model class
      */
     public static function model($className=__CLASS__) {
@@ -29,39 +31,19 @@ class AuthLog extends CActiveRecord {
     public function tableName() {
         return '_auth_log';
     }
-    
-    public function init() {
-        $this->ip = $_SERVER['REMOTE_ADDR'];
-        $this->host = gethostbyaddr($_SERVER['REMOTE_ADDR']);
-        $this->script_name = $_SERVER['SCRIPT_NAME'];
-        $this->url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-        $this->error_code = 0;
-    }
 
     /**
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
-            array('user_id', 'numerical', 'integerOnly'=>true),
+            array('user_id, error_code', 'numerical', 'integerOnly'=>true),
             array('ip', 'length', 'max'=>50),
-            array('host, url, script_name, username, error_code', 'length', 'max'=>255),
+            array('host, url, script_name, username, error_message', 'length', 'max'=>255),
             array('date', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, date, ip, host, url, script_name, user_id, username, error_code', 'safe', 'on'=>'search'),
-        );
-    }
-
-    /**
-     * @return array relational rules.
-     */
-    public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
+            array('id, date, ip, host, url, script_name, user_id, username, error_code, error_message', 'safe', 'on'=>'search'),
         );
     }
 
@@ -72,25 +54,17 @@ class AuthLog extends CActiveRecord {
         return array(
             'id' => 'ID',
             'date' => 'Date',
-            'ip' => 'IP Address',
+            'ip' => 'Ip',
             'host' => 'Host',
             'url' => 'Url',
             'script_name' => 'Script Name',
-            'user_id' => 'User',
-            'username' => 'Login Name',
+            'user_id' => 'User Id',
+            'username' => 'Username',
             'error_code' => 'Error Code',
+            'error_message' => 'Error Message',
         );
     }
 
-    public function behaviors() {
-         return array(
-             'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
-                'createAttribute' => 'date',
-                'updateAttribute' => null,
-         ));
-    }
-    
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -107,8 +81,7 @@ class AuthLog extends CActiveRecord {
         $criteria->compare('user_id',$this->user_id);
         $criteria->compare('username',$this->username,true);
         $criteria->compare('error_code',$this->error_code,true);
-
-        //$criteria->order = 'date DESC';
+        $criteria->compare('error_message',$this->error_message,true);
         
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
@@ -121,7 +94,7 @@ class AuthLog extends CActiveRecord {
     /**
      * Retrieves a successful authentication date of the specified user.
      * @param integer $userId user id value
-     * @param integer $offset date offset.
+     * @param integer $offset zero based date offset.
      * @return string date of last login in SQL format.
      */
     protected function getSuccessfulAuthDate($userId, $offset=0) {

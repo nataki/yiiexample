@@ -14,7 +14,7 @@ $this->sectionTitle = 'Manage Auth Logs';
             'template'=>'{view} {delete}'
         ),
         'id',
-        'date:strdate',
+        'date:strdatetime',
         'username',
         'ip',
         'host',

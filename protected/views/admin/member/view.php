@@ -37,5 +37,10 @@ $this->contextMenuItems=array(
         'profile.address2',                
         'profile.phone_home',
         'profile.phone_mobile',
+        array(
+            'label'=>'Last Login Date',
+            'type'=>'raw',
+            'value'=> Yii::app()->format->formatStrDateTime( AuthLog::model()->getLastLoginDate($model->id) ),
+        ),
 	),
 )); ?>

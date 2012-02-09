@@ -27,5 +27,10 @@ $this->contextMenuItems=array(
 		//'password',
         'email:email',
 		'create_date:strdate',        
+		array(
+            'label'=>'Last Login Date',
+            'type'=>'raw',
+            'value'=> Yii::app()->format->formatStrDateTime( AuthLog::model()->getLastLoginDate($model->id) ),
+        ),
 	),
 )); ?>
