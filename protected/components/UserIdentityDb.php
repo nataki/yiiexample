@@ -1,12 +1,20 @@
 <?php
 
 /**
- * UserIdentity represents the data needed to identity a user.
+ * UserIdentityDb represents the data needed to identity a user.
  * It contains the authentication method that checks if the provided
  * data can identity the user.
+ * This class uses the database as a source of the user identity.
+ * This class relies on {@link CActiveRecord} model: {@link User}.
  */
-class UserIdentity extends CUserIdentity {
-	const ERROR_USER_INACTIVE = 3;
+abstract class UserIdentityDb extends CUserIdentity {
+	const ERROR_USER_INACTIVE = 3; // Inactive account
+
+    /**
+     * @var string class name of the model, which should be used by default,
+     * if it can be retrieved from the web user.
+     */
+    protected $_defaultModelClassName = 'User';
 
     /**
 	 * Authenticates a user, using {@link User} model.
@@ -54,7 +62,7 @@ class UserIdentity extends CUserIdentity {
             $webUser = Yii::app()->getComponent('user');
             $modelClassName = $webUser->modelClassName;
         } catch (CException $exception) {
-            $modelClassName = 'User';
+            $modelClassName = $this->_defaultModelClassName;
         }
         $userModelFinder = CActiveRecord::model($modelClassName);
         return $userModelFinder;

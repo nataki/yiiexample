@@ -12,6 +12,7 @@ class LoginFormAdmin extends LoginFormBase {
 	 */
     public function init() {
         parent::init();
+        $this->_identityClassName = 'UserIdentityAdmin';
     }
 
     /**

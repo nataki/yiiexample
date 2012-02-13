@@ -10,5 +10,6 @@ class LoginFormIndex extends LoginFormBase {
 	 */
     public function init() {
         parent::init();
+        $this->_identityClassName = 'UserIdentityIndex';
     }
 }
