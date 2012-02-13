@@ -37,7 +37,7 @@ class SignupController extends IndexController {
                 $model->save(false);
                 
                 // Log in new user:
-                $loginForm = new LoginForm();
+                $loginForm = new LoginFormIndex();
                 $loginForm->username = $model->name;
                 $loginForm->password = $model->new_password;
                 if (!$loginForm->login()) {
