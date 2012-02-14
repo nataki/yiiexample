@@ -62,11 +62,16 @@ class LoginLogoutTest extends WebTestCase {
     /**
      * Submits the login form.
      * This is helper method for the internal tests.
-     * @return boolean - success
+     * @param boolean $waitForPageLoad indicates if page load should be expected.
+     * @return boolean - success.
      */
-    protected function submitLoginForm() {
+    protected function submitLoginForm($waitForPageLoad=true) {
         $submitLocator = "//input[@value='Login']";
-        $this->clickAndWait($submitLocator);
+        if ($waitForPageLoad) {
+            $this->clickAndWait($submitLocator);
+        } else {
+            $this->click($submitLocator);
+        }
         return true;
     }
 
@@ -79,8 +84,8 @@ class LoginLogoutTest extends WebTestCase {
         $this->clickAndWait('link=Login');
 
         $this->assertTextPresent('Login');
-        $this->assertElementPresent('name=LoginForm[username]');
-        $this->assertElementPresent('name=LoginForm[password]');        
+        $this->assertElementPresent('name=LoginFormIndex[username]');
+        $this->assertElementPresent('name=LoginFormIndex[password]');
     }
 
     /**
@@ -89,13 +94,16 @@ class LoginLogoutTest extends WebTestCase {
     public function testLoginFormValidation() {
         $this->open('site/login');
 
-        $this->submitLoginForm();
-        $this->assertTextPresent('Username cannot be blank');
+        $submitLocator = "//input[@value='Login']";
+        $this->click($submitLocator);
+
+        $this->submitLoginForm(false);
+        $this->assertTextPresent('Username or email cannot be blank');
         $this->assertTextPresent('Password cannot be blank');
 
         $unexistingUserName = get_class($this).'_'.uniqid();
-        $this->type('name=LoginForm[username]',$unexistingUserName);
-        $this->type('name=LoginForm[password]',$unexistingUserName.'_password');
+        $this->type('name=LoginFormIndex[username]',$unexistingUserName);
+        $this->type('name=LoginFormIndex[password]',$unexistingUserName.'_password');
         $this->submitLoginForm();
         $this->assertTextPresent('Incorrect username or password');
     }
@@ -108,8 +116,8 @@ class LoginLogoutTest extends WebTestCase {
 
         // Login:
         $testUser = $this->registerTestUser();
-        $this->type('name=LoginForm[username]',$testUser->name);
-        $this->type('name=LoginForm[password]',$testUser->new_password);
+        $this->type('name=LoginFormIndex[username]',$testUser->name);
+        $this->type('name=LoginFormIndex[password]',$testUser->new_password);
         $this->submitLoginForm();
         $this->assertTextPresent('Logout');
         $this->assertTextPresent($testUser->name);

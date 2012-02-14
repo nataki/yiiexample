@@ -54,7 +54,7 @@ class SignupTest extends WebTestCase {
     public function testFormAppearance() {
         $this->open('signup');
         
-        $this->assertTextPresent('signup');
+        $this->assertTextPresent('Signup');
         
         $this->assertElementPresent('name=SignupForm[name]');
         $this->assertElementPresent('name=SignupForm[email]');
@@ -156,8 +156,8 @@ class SignupTest extends WebTestCase {
 
         // Login new user:
 		$this->clickAndWait('link=Login');
-		$this->type('name=LoginForm[username]',$userData['name']);
-		$this->type('name=LoginForm[password]',$userData['password']);
+		$this->type('name=LoginFormIndex[username]',$userData['name']);
+		$this->type('name=LoginFormIndex[password]',$userData['password']);
 		$this->clickAndWait("//input[@value='Login']");
 
         $this->assertTextPresent('Logout');
