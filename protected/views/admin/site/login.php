@@ -47,7 +47,7 @@ $this->breadcrumbs=array(
         <div>
 		<?php
             $this->widget('CCaptcha',array(
-                'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/admin/refresh.gif', 'Get new code',array('style'=>'margin: 12px 5px;')),
+                'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/admin/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
             ));
         ?>
 		</div>

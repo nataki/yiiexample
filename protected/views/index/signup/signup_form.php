@@ -51,9 +51,13 @@ Fill the following form for sign up.
     <div class="row">
         <?php echo $form->labelEx($model,'verifyCode'); ?>
         <div>
-        <?php $this->widget('CCaptcha'); ?>
-        <?php echo $form->textField($model,'verifyCode'); ?>
+        <?php
+            $this->widget('CCaptcha',array(
+                'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/index/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
+            ));
+        ?>
         </div>
+        <?php echo $form->textField($model,'verifyCode'); ?>
         <div class="hint">Please enter the letters as they are shown in the image above.
         <br/>Letters are not case-sensitive.</div>
     </div>
