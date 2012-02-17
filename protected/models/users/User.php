@@ -224,4 +224,20 @@ class User extends CActiveRecord {
 
         return $emailMessage->send();
     }
+
+    /**
+     * Retrieves a last user login date.
+     * @return string date of last login in SQL format.
+     */
+    public function getLastLoginDate() {
+        return AuthLog::model()->getLastLoginDate($this->id);
+    }
+
+    /**
+     * Retrieves a pre last user login date.
+     * @return string date of last login in SQL format.
+     */
+    public function getPreLastLoginDate() {
+        return AuthLog::model()->getPreLastLoginDate($this->id);
+    }
 }

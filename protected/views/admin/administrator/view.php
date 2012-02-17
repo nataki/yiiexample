@@ -30,7 +30,7 @@ $this->contextMenuItems=array(
 		array(
             'label'=>'Last Login Date',
             'type'=>'raw',
-            'value'=> Yii::app()->format->formatStrDateTime( AuthLog::model()->getLastLoginDate($model->id) ),
+            'value'=> Yii::app()->format->formatStrDateTime( $model->getLastLoginDate() ),
         ),
 	),
 )); ?>

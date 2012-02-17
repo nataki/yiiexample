@@ -4,6 +4,6 @@
         <?php echo $content; ?>
     </div>
     <div class="span-5 last">
-        <?php $this->renderPartial("//{$this->id}/menu"); ?>
+        <?php $this->renderPartial('menu'); ?>
     </div>
 <?php $this->endContent(); ?>

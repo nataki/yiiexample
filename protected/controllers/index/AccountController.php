@@ -6,7 +6,7 @@ class AccountController extends IndexController {
      */
     public $sectionTitle = 'Account';
     /**
-     * @var CActiveRecord stores user model. 
+     * @var CActiveRecord stores current user model.
      */
     protected $_user = null;
     
@@ -41,37 +41,43 @@ class AccountController extends IndexController {
     public function init() {
         parent::init();
         $this->layout = "//{$this->id}/layout";
-        
+
         $this->breadcrumbs = array(
             'Account'=>array($this->getId().'/'),
         );
     }
     
     /**
-     * Inits user data based on the session user. 
+     * Initializes user data based on the session user.
+     * @return boolean success.
      */
     protected function initUser() {
         if (!is_object($this->_user)) {
-            $this->_user = Member::model()->findByPk( Yii::app()->user->id );
+            $this->_user = Yii::app()->user->model;
         }
         return true;
     }
     
+    /**
+     * Provides account overview.
+     */
     public function actionIndex() {
         $this->render('index');
     }
     
+    /**
+     * Provides ability to update profile data.
+     */
     public function actionProfile() {
         $model = $this->user;
         
-        if ( isset($_POST['Member']) || isset($_POST['MemberProfile'])) {
-            $model->attributes = $_POST['Member'];
-            $model->profile->attributes = $_POST['MemberProfile'];
+        if ( isset($_POST[get_class($model)]) || isset($_POST[get_class($model->profile)])) {
+            $model->attributes = $_POST[get_class($model)];
+            $model->profile->attributes = $_POST[get_class($model->profile)];
             if ($model->validate()) {
                 $model->save(false);
-                                
                 Yii::app()->user->setFlash( 'account_profile' ,'Your profile data has been updated.');
-                $this->refresh();                
+                $this->refresh();
             }
         }
         
