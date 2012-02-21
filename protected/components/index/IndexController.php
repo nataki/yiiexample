@@ -46,17 +46,6 @@ class IndexController extends CController {
     }
     
     /**
-     * Returns list of behaviors.
-     */
-    public function behaviors() {
-        return array(
-            'metaDataBehavior' => array(
-                'class'=>'ext.qs.web.controllers.QsControllerBehaviorMetaDataComposer'
-            )
-        );
-    }
-    
-    /**
      * This is the action to handle external exceptions.
      * For {@link CHttpException}, if view "errorXXX" with its code exists,
      * this view will be rendered, if not view "error" will be used.
@@ -85,7 +74,7 @@ class IndexController extends CController {
      */
     protected function beforeRender($view) {
         if (!Yii::app()->request->getIsAjaxRequest()) {
-            $this->composePageHead();
+            $this->applyDefaultMetaData();
         }
         return true;
     }
@@ -94,32 +83,15 @@ class IndexController extends CController {
      * Registers all default page head data: title, css, js etc.     
      * @return boolean success
      */
-    protected function composePageHead() {
-        // Default meta data:
-        $this->applyDefaultMetaData();
-        Yii::app()->clientScript->registerMetaTag('General', 'rating');
-        
-        // Determine IE version:
-        if ( preg_match('/MSIE ([0-9]\.[0-9])/',$_SERVER['HTTP_USER_AGENT'],$matches) ) {
-            $ieVersion = $matches[1];
-        } else {
-            $ieVersion = null;
+    protected function applyDefaultMetaData() {
+        $defaultDescription = Yii::app()->params['site_meta_description'];
+        if (!empty($defaultDescription)) {
+            Yii::app()->clientScript->registerMetaTag($defaultDescription,'description');
         }
-                
-        $baseUrl = Yii::app()->request->baseUrl;
-        
-        // Css:
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/screen.css', 'screen, projection');
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/print.css', 'print');
-        if( $ieVersion && version_compare($ieVersion, '7', '<') ) {
-            Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/ie.css');
+        $defaultKeywords = Yii::app()->params['site_meta_keywords'];
+        if (!empty($defaultKeywords)) {
+            Yii::app()->clientScript->registerMetaTag($defaultKeywords,'keywords');
         }
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/main.css');
-        Yii::app()->clientScript->registerCssFile($baseUrl.'/css/index/form.css');
-        
-        // JavaScripts:
-        //Yii::app()->clientScript->registerScriptFile($baseUrl.'');                
-        
         return true;
     }
 }

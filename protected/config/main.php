@@ -10,7 +10,7 @@
 return CMap::mergeArray(
     array(
 	    'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-        'name'=>'Yii Example',	    
+        'name'=>'YiiExample',
 
 	    // preloading 'log' component
 	    'preload'=>array('log'),
@@ -96,6 +96,9 @@ return CMap::mergeArray(
                 'dateFormat'=>'Y/m/d',
                 'timeFormat'=>'H:i:s',
                 'datetimeFormat'=>'Y/m/d H:i:s',
+            ),
+            'clientScript'=>array(
+                'class'=>'ext.qs.web.QsClientScript'
             ),
             'email'=>array(
                 'class'=>'ext.qs.email.QsEmailManager',
