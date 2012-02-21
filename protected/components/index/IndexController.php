@@ -84,11 +84,11 @@ class IndexController extends CController {
      * @return boolean success
      */
     protected function applyDefaultMetaData() {
-        $defaultDescription = Yii::app()->params['site_meta_description'];
+        $defaultDescription = Yii::app()->params['site_default_meta_description'];
         if (!empty($defaultDescription)) {
             Yii::app()->clientScript->registerMetaTag($defaultDescription,'description');
         }
-        $defaultKeywords = Yii::app()->params['site_meta_keywords'];
+        $defaultKeywords = Yii::app()->params['site_default_meta_keywords'];
         if (!empty($defaultKeywords)) {
             Yii::app()->clientScript->registerMetaTag($defaultKeywords,'keywords');
         }

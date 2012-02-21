@@ -45,32 +45,23 @@ class m110228_133744_create_table_site_setting extends CDbMigration {
             'position' => '2',
         );
         $this->insert($tableName, $data);
-        /*$data = array(
-            'name' => 'title',
-            'value' => 'Yii Example',
+        $data = array(
+            'name' => 'default_meta_description',
+            'value' => 'QuartSoft Yii example application',
             'is_required' => '0',
-            'title' => 'Site title',
-            'description' => 'The default site title, if set it will always appear as the part of page title.',
+            'title' => 'Site default meta description',
+            'description' => 'This text will appear in the meta tag &quot;description&quot;, if its explicit value can not be determined.',
             'position' => '3',
         );
         $this->insert($tableName, $data);
         $data = array(
-            'name' => 'meta_description',
-            'value' => '',
+            'name' => 'default_meta_keywords',
+            'value' => 'Yii, example, application, PHP, MySQL',
             'is_required' => '0',
-            'title' => 'Site meta description',
-            'description' => 'This text will appear as the head part of meta tag &quot;description&quot;.',
+            'title' => 'Site default meta keywords',
+            'description' => 'These keywords will appear in page meta tag &quot;keywords&quot;, if its explicit value can not be determined.',
             'position' => '4',
         );
         $this->insert($tableName, $data);
-        $data = array(
-            'name' => 'meta_keywords',
-            'value' => 'Yii, example, application, PHP, MySQL',
-            'is_required' => '0',
-            'title' => 'Site meta keywords',
-            'description' => 'These keywords will appear in page meta tag &quot;keywords&quot;.',
-            'position' => '5',
-        );
-        $this->insert($tableName, $data);*/
     }
 }
