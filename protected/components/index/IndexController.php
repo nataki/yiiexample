@@ -46,27 +46,6 @@ class IndexController extends CController {
     }
     
     /**
-     * This is the action to handle external exceptions.
-     * For {@link CHttpException}, if view "errorXXX" with its code exists,
-     * this view will be rendered, if not view "error" will be used.
-     */    
-    public function actionError() {
-        if($error=Yii::app()->errorHandler->error) {
-            if(Yii::app()->request->isAjaxRequest) {
-                echo $error['message'];
-            } else {
-                if ($error['type']=='CHttpException') {
-                    $viewName = '//errors/error'.$error['code'];
-                    if ($this->getViewFile($viewName)) {
-                        return $this->render($viewName, $error);
-                    }
-                }
-                $this->render('//errors/error', $error);
-            }
-        }
-    }
-    
-    /**
      * This method is invoked at the beginning of {@link render()}.
      * It registers all default page head data: title, css, js etc.
      * @param string $view the view to be rendered

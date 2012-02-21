@@ -64,6 +64,28 @@ class SiteController extends IndexController {
         $this->render('index');
 	}
 
+    /**
+     * This is the action to handle external exceptions.
+     * For {@link CHttpException}, if view "errorXXX" with its code exists,
+     * this view will be rendered, if not view "error" will be used.
+     */
+    public function actionError() {
+        if($error=Yii::app()->errorHandler->error) {
+            if(Yii::app()->request->isAjaxRequest) {
+                echo $error['message'];
+            } else {
+                $errorViewName = '//errors/error';
+                if ($error['type']=='CHttpException') {
+                    $httpErrorViewName = '//errors/error'.$error['code'];
+                    if ($this->getViewFile($httpErrorViewName)) {
+                        $errorViewName = $httpErrorViewName;
+                    }
+                }
+                $this->render($errorViewName, $error);
+            }
+        }
+    }
+
 	/**
 	 * Displays the login page
 	 */
