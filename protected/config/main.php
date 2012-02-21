@@ -53,10 +53,10 @@ return CMap::mergeArray(
                 )
             ),
             'user'=>array(
-                'class'=>'ext.qs.auth.QsWebUser',
+                'class'=>'ext.qs.web.auth.QsWebUser',
                 'behaviors'=>array(
                     'modelBehavior'=>array(
-                        'class'=>'ext.qs.auth.QsWebUserBehaviorModelActiveRecord',
+                        'class'=>'ext.qs.web.auth.QsWebUserBehaviorModelActiveRecord',
                         'modelFindCondition'=>array(
                             'condition'=>'status_id = :status_id',
                             'params'=>array(
@@ -65,7 +65,7 @@ return CMap::mergeArray(
                         ),
                     ),
                     'authLogBehavior' => array(
-                        'class'=>'ext.qs.auth.QsWebUserBehaviorAuthLogDb',
+                        'class'=>'ext.qs.web.auth.QsWebUserBehaviorAuthLogDb',
                     ),
                 ),
             ),
