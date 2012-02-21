@@ -36,10 +36,10 @@ return CMap::mergeArray(
                 'rules'=>array(
                     '/'=>'site/index',
                     array(
-                        'class'=>'ext.qs.url.QsUrlRuleModelPage'
+                        'class'=>'ext.qs.web.url.QsUrlRuleModelPage'
                     ),
                     array(
-                        'class'=>'ext.qs.url.QsUrlRuleModuleDefault'
+                        'class'=>'ext.qs.web.url.QsUrlRuleModuleDefault'
                     ),
                     '<controller:\w+>/<id:\d+>*'=>'<controller>/view',
                     '<controller:\w+>/<action:\w+>/<id:\d+>*'=>'<controller>/<action>',
