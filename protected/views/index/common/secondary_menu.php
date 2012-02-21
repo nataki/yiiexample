@@ -23,7 +23,7 @@ if ($this->beginCache('secondaryMenuHtml', $cacheOptions)) {
         $items[] = array('label'=>'FAQ', 'url'=>array('help/faq'));
         $items[] = array('label'=>'Contact', 'url'=>array('help/contact'));
         
-        $secondaryMenu = $this->beginWidget('ext.qs.widgets.QsMenu',array(
+        $secondaryMenu = $this->beginWidget('ext.qs.web.widgets.QsMenu',array(
             'items'=>$items
         )); ?>
         

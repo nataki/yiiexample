@@ -1,6 +1,6 @@
     <div id="mainmenu">
         <?php 
-        $mainMenu = $this->beginWidget('ext.qs.widgets.QsMenu',array(            
+        $mainMenu = $this->beginWidget('ext.qs.web.widgets.QsMenu',array(
             //'view' => '//menus/_main_menu',
             'items'=>array(                
                 array('label'=>'Home', 'url'=>array('site/index')),

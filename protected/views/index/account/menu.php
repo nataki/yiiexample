@@ -1,5 +1,5 @@
         <div id="sidebar">
-        <?php $menu = $this->beginWidget('ext.qs.widgets.QsMenu',array(
+        <?php $menu = $this->beginWidget('ext.qs.web.widgets.QsMenu',array(
                 'items'=>array(                    
                     array('label'=>'Overview', 'url'=>array("{$this->id}/")),
                     array('label'=>'Profile', 'url'=>array('profile')),

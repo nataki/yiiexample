@@ -43,7 +43,7 @@
 ?>
         <div id="sidebar_column">
             <div id="sidebar_menu">
-                <?php $this->widget('ext.qs.widgets.QsMenu',array(
+                <?php $this->widget('ext.qs.web.widgets.QsMenu',array(
                     'autoRender'=>true,
                     'items'=>$mainMenuItems,
                 )); ?>
