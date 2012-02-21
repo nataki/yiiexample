@@ -7,7 +7,7 @@ class SignupController extends IndexController {
     public function filters() {
         $filters = parent::filters();
         $filters[] = array(
-            'ext.qs.controllers.filters.QsFilterRedirectNotGuest',
+            'ext.qs.web.controllers.filters.QsFilterRedirectNotGuest',
         );        
         return $filters;        
     }

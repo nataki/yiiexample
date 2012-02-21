@@ -14,25 +14,27 @@ class AdminListController extends AdminBaseController {
     
     /**
      * Returns list of behaviors.
+     * @return array behaviors configuration.
      */
     public function behaviors() {
         return array(
             'dataModelBehavior' => array(
-                'class'=>'ext.qs.controllers.QsControllerBehaviorAdminDataModel'
+                'class'=>'ext.qs.web.controllers.QsControllerBehaviorAdminDataModel'
             )
         );
     }
     
     /**
      * Returns list of allowed actions.
+     * @return array actions configuration.
      */
     public function actions() {
         return array(
-            'index'=>'ext.qs.controllers.actions.QsActionAdminList',
-            'view'=>'ext.qs.controllers.actions.QsActionAdminView',
-            'create'=>'ext.qs.controllers.actions.QsActionAdminInsert',
-            'update'=>'ext.qs.controllers.actions.QsActionAdminUpdate',
-            'delete'=>'ext.qs.controllers.actions.QsActionAdminDelete',
+            'index'=>'ext.qs.web.controllers.actions.QsActionAdminList',
+            'view'=>'ext.qs.web.controllers.actions.QsActionAdminView',
+            'create'=>'ext.qs.web.controllers.actions.QsActionAdminInsert',
+            'update'=>'ext.qs.web.controllers.actions.QsActionAdminUpdate',
+            'delete'=>'ext.qs.web.controllers.actions.QsActionAdminDelete',
         );
     }        
 }

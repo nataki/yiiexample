@@ -25,7 +25,7 @@ class IndexController extends CController {
     public function filters() {
         return array(
             'secureConnection' => array(
-                'ext.qs.controllers.filters.QsFilterSecureConnection',
+                'ext.qs.web.controllers.filters.QsFilterSecureConnection',
                 'useSecureConnection'=>false
             ),
             'accessControl' => 'accessControl',
@@ -51,7 +51,7 @@ class IndexController extends CController {
     public function behaviors() {
         return array(
             'metaDataBehavior' => array(
-                'class'=>'ext.qs.controllers.QsControllerBehaviorMetaDataComposer'
+                'class'=>'ext.qs.web.controllers.QsControllerBehaviorMetaDataComposer'
             )
         );
     }

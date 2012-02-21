@@ -12,10 +12,10 @@ class MemberController extends AdminListController {
     
     public function actions() {
         $actions = parent::actions();
-        $actions['create'] = 'ext.qs.controllers.actions.QsActionAdminInsertRole';
-        $actions['update'] = 'ext.qs.controllers.actions.QsActionAdminUpdateRole';
+        $actions['create'] = 'ext.qs.web.controllers.actions.QsActionAdminInsertRole';
+        $actions['update'] = 'ext.qs.web.controllers.actions.QsActionAdminUpdateRole';
         $actions['resetpassword'] = array(
-            'class' => 'ext.qs.controllers.actions.QsActionAdminCallModelMethod',
+            'class' => 'ext.qs.web.controllers.actions.QsActionAdminCallModelMethod',
             'modelMethodName' => 'resetPassword',
             'flashMessage'=>'Password has been resetted successfully.'
         );
