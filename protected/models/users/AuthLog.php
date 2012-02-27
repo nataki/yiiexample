@@ -85,6 +85,9 @@ class AuthLog extends CActiveRecord {
         
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
+            'pagination'=>array(
+                'pageSize'=>20
+            ),
             'sort'=>array(
                 'defaultOrder' => 'date DESC'
             ),
