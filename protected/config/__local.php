@@ -9,6 +9,13 @@ defined('YII_DEBUG') or define('YII_DEBUG',true);
 // specify how many levels of call stack should be shown in each log message
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
+// specify error reporting level
+error_reporting(E_ALL^E_NOTICE);
+ini_set('display_errors','on');
+
+// default date timezone
+date_default_timezone_set('UTC');
+
 if (!array_key_exists('HTTP_HOST', $_SERVER)) {
     // Mock up HTTP params for the console application:
     $hostInfo = 'http://debug.quart-soft.com';
@@ -33,6 +40,9 @@ return array(
             'username'=>'devel',
             'password'=>'admin4mysql',
             'charset'=>'utf8',
+            'initSQLs' => array(
+                "SET time_zone = '+00:00';"
+            ),
             //'schemaCachingDuration' => 3600,
             //'enableParamLogging' => true,
             //'enableProfiling' => true,            
