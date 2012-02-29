@@ -15,6 +15,7 @@
 class EmailPattern extends CActiveRecord {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
      * @return EmailPattern the static model class
      */
     public static function model($className=__CLASS__) {
@@ -32,8 +33,6 @@ class EmailPattern extends CActiveRecord {
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('name, from_email, from_name, subject, body', 'required'),
             array('timestamp', 'numerical', 'integerOnly'=>true),
@@ -48,8 +47,6 @@ class EmailPattern extends CActiveRecord {
      * @return array relational rules.
      */
     public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
         );
     }
@@ -69,6 +66,9 @@ class EmailPattern extends CActiveRecord {
         );
     }
     
+    /**
+     * @return array the behavior configurations (behavior name=>behavior configuration)
+     */
     public function behaviors() {
          return array(
              'CTimestampBehavior' => array(
@@ -85,13 +85,13 @@ class EmailPattern extends CActiveRecord {
     public function dataProviderAdmin() {
         $criteria=new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
-        $criteria->compare('timestamp',$this->timestamp);
-        $criteria->compare('name',$this->name,true);
-        $criteria->compare('from_email',$this->from_email,true);
-        $criteria->compare('from_name',$this->from_name,true);
-        $criteria->compare('subject',$this->subject,true);
-        $criteria->compare('body',$this->body,true);
+        $criteria->compare('t.id',$this->id);
+        $criteria->compare('t.timestamp',$this->timestamp);
+        $criteria->compare('t.name',$this->name,true);
+        $criteria->compare('t.from_email',$this->from_email,true);
+        $criteria->compare('t.from_name',$this->from_name,true);
+        $criteria->compare('t.subject',$this->subject,true);
+        $criteria->compare('t.body',$this->body,true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,

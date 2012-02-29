@@ -16,6 +16,7 @@
 class Faq extends CActiveRecord {
 	/**
 	 * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
 	 * @return Faq the static model class
 	 */
 	public static function model($className=__CLASS__) {
@@ -33,8 +34,6 @@ class Faq extends CActiveRecord {
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules() {
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('category_id, question', 'required'),
 			array('category_id, position', 'numerical', 'integerOnly'=>true),
@@ -50,8 +49,6 @@ class Faq extends CActiveRecord {
 	 * @return array relational rules.
 	 */
 	public function relations() {
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 			'category' => array(self::BELONGS_TO, 'FaqCategory', 'category_id'),
 		);
@@ -70,12 +67,18 @@ class Faq extends CActiveRecord {
 		);
 	}
     
+    /**
+     * @return array the default query criteria.
+     */
     public function defaultScope() {
         return array(
             'with' => array('category')
         );
     }
     
+    /**
+     * @return array the behavior configurations (behavior name=>behavior configuration)
+     */
     public function behaviors() {
         return array(
             'positionBehavior' => array(

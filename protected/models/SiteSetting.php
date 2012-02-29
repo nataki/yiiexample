@@ -15,6 +15,7 @@
 class SiteSetting extends CActiveRecord {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
      * @return Setting the static model class
      */
     public static function model($className=__CLASS__) {
@@ -32,8 +33,6 @@ class SiteSetting extends CActiveRecord {
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         if ($this->is_required) {
             $requiredAddon = ', value';
         } else {
@@ -72,19 +71,22 @@ class SiteSetting extends CActiveRecord {
     public function dataProviderAdmin() {
         $criteria=new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
-        $criteria->compare('name',$this->name,true);
-        $criteria->compare('value',$this->value,true);
-        $criteria->compare('is_required',$this->is_required);
-        $criteria->compare('title',$this->title,true);
-        $criteria->compare('description',$this->description,true);
-        $criteria->compare('position',$this->position,true);
+        $criteria->compare('t.id',$this->id);
+        $criteria->compare('t.name',$this->name,true);
+        $criteria->compare('t.value',$this->value,true);
+        $criteria->compare('t.is_required',$this->is_required);
+        $criteria->compare('t.title',$this->title,true);
+        $criteria->compare('t.description',$this->description,true);
+        $criteria->compare('t.position',$this->position,true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,
         ));
     }
     
+    /**
+     * @return array the behavior configurations (behavior name=>behavior configuration)
+     */
     public function behaviors() {
         return array(
             'settingBehavior' => array(

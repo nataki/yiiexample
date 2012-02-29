@@ -13,6 +13,7 @@
 class UserGroup extends CActiveRecord {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
      * @return UserGroup the static model class
      */
     public static function model($className=__CLASS__) {
@@ -30,8 +31,6 @@ class UserGroup extends CActiveRecord {
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('name', 'required'),
             array('id', 'numerical', 'integerOnly'=>true),
@@ -46,8 +45,6 @@ class UserGroup extends CActiveRecord {
      * @return array relational rules.
      */
     public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'users' => array(self::HAS_MANY, 'User', 'group_id'),
         );
@@ -70,8 +67,8 @@ class UserGroup extends CActiveRecord {
     public function dataProviderAdmin() {
         $criteria=new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
-        $criteria->compare('name',$this->name,true);
+        $criteria->compare('t.id',$this->id);
+        $criteria->compare('t.name',$this->name,true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,

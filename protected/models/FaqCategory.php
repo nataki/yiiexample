@@ -15,6 +15,7 @@
 class FaqCategory extends CActiveRecord {
 	/**
 	 * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
 	 * @return FaqCategory the static model class
 	 */
 	public static function model($className=__CLASS__) {
@@ -32,8 +33,6 @@ class FaqCategory extends CActiveRecord {
 	 * @return array validation rules for model attributes.
 	 */
 	public function rules() {
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('name', 'required'),
 			array('position', 'numerical', 'integerOnly'=>true),
@@ -49,8 +48,6 @@ class FaqCategory extends CActiveRecord {
 	 * @return array relational rules.
 	 */
 	public function relations() {
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 			'faqs' => array(self::HAS_MANY, 'Faq', 'category_id', 'order'=>'faqs.position ASC'),
 		);
@@ -68,6 +65,9 @@ class FaqCategory extends CActiveRecord {
 		);
 	}
     
+    /**
+     * @return array the behavior configurations (behavior name=>behavior configuration)
+     */
     public function behaviors() {
         return array(
             'positionBehavior' => array(
@@ -91,10 +91,10 @@ class FaqCategory extends CActiveRecord {
     public function dataProviderAdmin() {
         $criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('position',$this->position);
+		$criteria->compare('t.id',$this->id);
+		$criteria->compare('t.name',$this->name,true);
+		$criteria->compare('t.description',$this->description,true);
+		$criteria->compare('t.position',$this->position);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,

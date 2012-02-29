@@ -21,6 +21,7 @@
 class MemberProfile extends CActiveRecord {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
      * @return MemberProfile the static model class
      */
     public static function model($className=__CLASS__) {
@@ -38,8 +39,6 @@ class MemberProfile extends CActiveRecord {
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             //array('user_id', 'required'),
             array('first_name, last_name', 'required'),
@@ -55,8 +54,6 @@ class MemberProfile extends CActiveRecord {
      * @return array relational rules.
      */
     public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
@@ -87,16 +84,16 @@ class MemberProfile extends CActiveRecord {
     public function dataProviderAdmin() {
         $criteria=new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
-        $criteria->compare('user_id',$this->user_id);
-        $criteria->compare('first_name',$this->first_name,true);
-        $criteria->compare('last_name',$this->last_name,true);
-        $criteria->compare('address1',$this->address1,true);
-        $criteria->compare('address2',$this->address2,true);
-        $criteria->compare('city',$this->city,true);
-        $criteria->compare('postal_code',$this->postal_code,true);
-        $criteria->compare('phone_home',$this->phone_home,true);
-        $criteria->compare('phone_mobile',$this->phone_mobile,true);
+        $criteria->compare('t.id',$this->id);
+        $criteria->compare('t.user_id',$this->user_id);
+        $criteria->compare('t.first_name',$this->first_name,true);
+        $criteria->compare('t.last_name',$this->last_name,true);
+        $criteria->compare('t.address1',$this->address1,true);
+        $criteria->compare('t.address2',$this->address2,true);
+        $criteria->compare('t.city',$this->city,true);
+        $criteria->compare('t.postal_code',$this->postal_code,true);
+        $criteria->compare('t.phone_home',$this->phone_home,true);
+        $criteria->compare('t.phone_mobile',$this->phone_mobile,true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,

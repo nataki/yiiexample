@@ -26,12 +26,16 @@ class User extends CActiveRecord {
     
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
      * @return User the static model class
      */
     public static function model($className=__CLASS__) {
         return parent::model($className);
     }
 
+    /**
+     * Initializes this model.
+     */
     public function init() {
         $this->status_id = self::STATUS_PENDING;
         $this->group_id = self::GROUP_MEMBER;
@@ -51,8 +55,6 @@ class User extends CActiveRecord {
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('name, email, create_date, status_id, group_id', 'required'),
             array('new_password, new_password_repeat', 'required', 'on'=>'insert'),
@@ -73,8 +75,6 @@ class User extends CActiveRecord {
      * @return array relational rules.
      */
     public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'status'=>array(
                 self::BELONGS_TO, 'UserStatus', 'status_id',                
@@ -87,18 +87,25 @@ class User extends CActiveRecord {
         );
     }
 
+    /**
+     * @return array the scope definition.
+     */
     public function scopes() {
+        $mainTableAlias = $this->getTableAlias();
         return array(
             'active'=>array(
-                'condition'=>'status_id='.self::STATUS_ACTIVE,
+                'condition'=>$mainTableAlias.'.status_id='.self::STATUS_ACTIVE,
             ),
             'recently'=>array(
-                'order'=>'create_date DESC',
+                'order'=>$mainTableAlias.'.create_date DESC',
                 'limit'=>5,
             ),
         );
     }    
     
+    /**
+     * @return array the default query criteria.
+     */
     public function defaultScope() {
         return array(
             'with' => array('status', 'group')
@@ -127,10 +134,7 @@ class User extends CActiveRecord {
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
     public function dataProviderAdmin() {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
         $criteria->compare('t.id',$this->id);
         $criteria->compare('t.name',$this->name,true);

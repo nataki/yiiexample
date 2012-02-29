@@ -14,6 +14,7 @@
 class StaticPage extends CActiveRecord {
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
      * @return StaticPage the static model class
      */
     public static function model($className=__CLASS__) {
@@ -31,8 +32,6 @@ class StaticPage extends CActiveRecord {
      * @return array validation rules for model attributes.
      */
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('url_keyword, title, meta_description, content', 'required'),
             array('position', 'numerical', 'integerOnly'=>true),
@@ -48,8 +47,6 @@ class StaticPage extends CActiveRecord {
      * @return array relational rules.
      */
     public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
         );
     }
@@ -68,6 +65,9 @@ class StaticPage extends CActiveRecord {
         );
     }
     
+    /**
+     * @return array the behavior configurations (behavior name=>behavior configuration)
+     */
     public function behaviors() {
         return array(
             'positionBehavior' => array(
@@ -89,9 +89,6 @@ class StaticPage extends CActiveRecord {
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
     public function dataProviderAdmin() {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria=new CDbCriteria;
 
         $criteria->compare('t.id',$this->id);

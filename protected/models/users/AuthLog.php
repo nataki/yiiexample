@@ -72,16 +72,16 @@ class AuthLog extends CActiveRecord {
     public function dataProviderAdmin() {
         $criteria=new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
-        $criteria->compare('date',$this->date,true);
-        $criteria->compare('ip',$this->ip,true);
-        $criteria->compare('host',$this->host,true);
-        $criteria->compare('url',$this->url,true);
-        $criteria->compare('script_name',$this->script_name,true);
-        $criteria->compare('user_id',$this->user_id);
-        $criteria->compare('username',$this->username,true);
-        $criteria->compare('error_code',$this->error_code,true);
-        $criteria->compare('error_message',$this->error_message,true);
+        $criteria->compare('t.id',$this->id);
+        $criteria->compare('t.date',$this->date,true);
+        $criteria->compare('t.ip',$this->ip,true);
+        $criteria->compare('t.host',$this->host,true);
+        $criteria->compare('t.url',$this->url,true);
+        $criteria->compare('t.script_name',$this->script_name,true);
+        $criteria->compare('t.user_id',$this->user_id);
+        $criteria->compare('t.username',$this->username,true);
+        $criteria->compare('t.error_code',$this->error_code,true);
+        $criteria->compare('t.error_message',$this->error_message,true);
         
         return new CActiveDataProvider(get_class($this), array(
             'criteria'=>$criteria,

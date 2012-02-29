@@ -13,25 +13,33 @@
  * 
  */
 class Member extends User {
-    
     /**
      * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
      * @return User the static model class
      */
     public static function model($className=__CLASS__) {
         return parent::model($className);
     }
 
+    /**
+     * Initializes this model.
+     */
     public function init() {
         parent::init();
         $this->group_id = self::GROUP_MEMBER;
     }
     
+    /**
+     * @return array the default query criteria.
+     */
     public function defaultScope() {
         $defaultScope = parent::defaultScope();
-        
+
+        $mainTableAlias = $this->getTableAlias(false,false);
+
         $additionalScope = array(
-            'condition'=>'group_id=:groupId',
+            'condition'=>$mainTableAlias.'.group_id=:groupId',
             'params'=>array(
                 'groupId'=>self::GROUP_MEMBER
             ),
@@ -40,6 +48,9 @@ class Member extends User {
         return $defaultScope;        
     }
     
+    /**
+     * @return array the behavior configurations (behavior name=>behavior configuration)
+     */
     public function behaviors() {
         return array(
             'memberRoleBehavior' => array(
