@@ -133,25 +133,16 @@ class Faq extends CActiveRecord {
     }
     
 	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	/*public function dataProvider() {
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('category_id',$this->category_id);
-		$criteria->compare('question',$this->question,true);
-		$criteria->compare('answer',$this->answer,true);
-		$criteria->compare('position',$this->position);
-
-		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
-            'pagination' => array(
-                'pageSize'=>20
-            )
-		));
-	}*/
+     * Creates the data provider, using current model criteria.
+     * @param array $config data provider config.
+     * @return CActiveDataProvider the data provider instance.
+     */
+    public function dataProvider(array $config=array()) {
+        $criteria = $this->getDbCriteria();
+        if (array_key_exists('criteria',$config)) {
+            $criteria->mergeWith($config['criteria']);
+        }
+        $config['criteria'] = $criteria;
+        return new CActiveDataProvider(get_class($this),$config);
+    }
 }

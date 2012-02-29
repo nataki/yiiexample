@@ -102,4 +102,18 @@ class StaticPage extends CActiveRecord {
             'criteria'=>$criteria,
         ));
     }
+
+    /**
+     * Creates the data provider, using current model criteria.
+     * @param array $config data provider config.
+     * @return CActiveDataProvider the data provider instance.
+     */
+    public function dataProvider(array $config=array()) {
+        $criteria = $this->getDbCriteria();
+        if (array_key_exists('criteria',$config)) {
+            $criteria->mergeWith($config['criteria']);
+        }
+        $config['criteria'] = $criteria;
+        return new CActiveDataProvider(get_class($this),$config);
+    }
 }
