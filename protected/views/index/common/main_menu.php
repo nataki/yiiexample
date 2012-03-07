@@ -4,7 +4,7 @@
             //'view' => '//menus/_main_menu',
             'items'=>array(                
                 array('label'=>'Home', 'url'=>array('site/index')),
-                array('label'=>'About', 'url'=>array('page/view', 'url_keyword'=>'about')),                
+                array('label'=>'About', 'url'=>array('page/view', 'model'=>'about')),
                 array('label'=>'Contact', 'url'=>array('/help/contact')),
                 array('label'=>'Signup', 'url'=>array('/signup/'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
