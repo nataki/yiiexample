@@ -18,6 +18,7 @@ class m110419_093531_create_table_auth_log extends CDbMigration {
         $this->createTable($tableName, $columns, 'engine=INNODB');
         $this->createIndex("idx_{$tableName}_user_id", $tableName, 'user_id');
         $this->createIndex("idx_{$tableName}_error_code", $tableName, 'error_code');
+        $this->createIndex("idx_{$tableName}_date", $tableName, 'date');
     }
     
     public function down() {
