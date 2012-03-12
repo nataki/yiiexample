@@ -33,13 +33,29 @@ $this->breadcrumbs=array(
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
-	<?php if( Yii::app()->user->allowAutoLogin ) { ?>
+	<?php if( Yii::app()->user->allowAutoLogin ) : ?>
     <div class="row rememberMe">
 		<?php echo $form->checkBox($model,'rememberMe'); ?>
 		<?php echo $form->label($model,'rememberMe'); ?>
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div>
-    <?php } ?>
+    <?php endif; ?>
+
+    <?php if ( $model->getIsCaptchaRequired() ): ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'verifyCode'); ?>
+        <div class="hint">Type the characters you see in the picture below.</div>
+        <div>
+		<?php
+            $this->widget('CCaptcha',array(
+                'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/admin/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
+            ));
+        ?>
+		</div>
+        <?php echo $form->textField($model,'verifyCode'); ?>
+        <?php echo $form->error($model,'verifyCode'); ?>
+	</div>
+	<?php endif; ?>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Login'); ?>

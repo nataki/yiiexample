@@ -66,6 +66,27 @@ class AuthLog extends CActiveRecord {
     }
 
     /**
+     * @return array the scope definition.
+     */
+    public function scopes() {
+        $mainTableAlias = $this->getTableAlias();
+        return array(
+            'successful'=>array(
+                'condition'=>$mainTableAlias.'.error_code=:successErrorCode',
+                'params'=>array(
+                    'successErrorCode'=>CBaseUserIdentity::ERROR_NONE
+                ),
+            ),
+            'failed'=>array(
+                'condition'=>$mainTableAlias.'.error_code<>:successErrorCode',
+                'params'=>array(
+                    'successErrorCode'=>CBaseUserIdentity::ERROR_NONE
+                ),
+            ),
+        );
+    }
+
+    /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
@@ -101,12 +122,13 @@ class AuthLog extends CActiveRecord {
      * @return string date of last login in SQL format.
      */
     protected function getSuccessfulAuthDate($userId, $offset=0) {
-        $successErrorCode = CBaseUserIdentity::ERROR_NONE;
         $criteriaConfig = array(
-            'condition'=>'t.error_code=:successErrorCode AND t.user_id=:user_id',
+            'scopes'=>array(
+                'successful'
+            ),
+            'condition'=>'t.user_id=:user_id',
             'params'=>array(
                 'user_id'=>$userId,
-                'successErrorCode'=>$successErrorCode
             ),
             'order'=>'date DESC',
             'offset'=>$offset,
@@ -138,5 +160,13 @@ class AuthLog extends CActiveRecord {
      */
     public function getPreLastLoginDate($userId) {
         return $this->getSuccessfulAuthDate($userId,1);
+    }
+
+    /**
+     * Indicates if current record represents a success authentication.
+     * @return boolean is authentication successful.
+     */
+    public function getIsSuccessful() {
+        return ((int)$this->error_code == CBaseUserIdentity::ERROR_NONE);
     }
 } 

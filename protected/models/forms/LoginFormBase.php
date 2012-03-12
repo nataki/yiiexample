@@ -19,11 +19,60 @@ abstract class LoginFormBase extends CFormModel {
      * to the user if authentication failed.
      */
     protected $_useIdentityErrorMessage = false;
+    /**
+     * @var boolean indicates if captcha verification should be append to the model.
+     */
+    protected $_isCaptchaRequired = null;
 
     // Attributes:
     public $username;
 	public $password;
 	public $rememberMe;
+    public $verifyCode;
+
+    // Set / Get :
+    public function setIsCaptchaRequired($isCaptchaRequired) {
+        $this->_isCaptchaRequired = $isCaptchaRequired;
+        return true;
+    }
+
+    public function getIsCaptchaRequired() {
+        if ($this->_isCaptchaRequired === null) {
+            $this->initIsCaptchaRequired();
+        }
+        return $this->_isCaptchaRequired;
+    }
+
+    /**
+     * Initializes the {@link isCaptchaRequired} value, based on data
+     * from {@link AuthLog}.
+     * @return boolean success.
+     */
+    protected function initIsCaptchaRequired() {
+        $isCaptchaRequired = false;
+        if (CCaptcha::checkRequirements()) {
+            $criteria = array(
+                'condition'=>'username = :username',
+                'order'=>'date DESC',
+                'limit'=>2,
+                'params'=>array(
+                    'username'=>$this->username
+                )
+            );
+            $authLogs = AuthLog::model()->findAll($criteria);
+            if ( is_array($authLogs) && !empty($authLogs) ) {
+                $isCaptchaRequired = true;
+                foreach($authLogs as $authLog) {
+                    if ($authLog->getIsSuccessful()) {
+                        $isCaptchaRequired = false;
+                        break;
+                    }
+                }
+            }
+        }
+        $this->_isCaptchaRequired = $isCaptchaRequired;
+        return true;
+    }
 
     /**
      * Creates user identity instance, according to {@link identityClassName} value.
@@ -47,6 +96,8 @@ abstract class LoginFormBase extends CFormModel {
 			array('username, password', 'required'),
 			// rememberMe needs to be a boolean
 			array('rememberMe', 'boolean'),
+            // perform captcha validation if it is necessary
+            array('verifyCode', 'validateCaptcha'),
 			// password needs to be authenticated
 			array('password', 'authenticate', 'skipOnError'=>true),
 		);
@@ -83,6 +134,18 @@ abstract class LoginFormBase extends CFormModel {
             Yii::app()->user->writeAuthLogFromUserIdentity($this->_identity);
         }
 	}
+
+    /**
+	 * Performs the captcha validation if {@link isCaptchaRequired} is true.
+     * @param string $attribute validated attribute name.
+     * @param array $params validation parameters.
+	 */
+    public function validateCaptcha($attribute,$params) {
+        if ($this->getIsCaptchaRequired()) {
+            $captchaValidator = CValidator::createValidator('captcha',$this,$attribute,$params);
+            $captchaValidator->validate($this);
+        }
+    }
 
 	/**
 	 * Logs in the user using the given username and password in the model.
