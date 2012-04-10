@@ -17,10 +17,7 @@ $this->contextMenuItems=array(
 		'id',
         'name',        
         'value',
-        array(
-            'name'=>'is_required',
-            'value'=>$model->is_required ? 'Yes' : 'no',
-        ),
+        'is_required:boolean',
 		'title',
         'description',		
 	),
