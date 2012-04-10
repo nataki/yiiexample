@@ -61,11 +61,6 @@ class SiteController extends IndexController {
 	 * when an action is not explicitly requested by users.
 	 */
 	public function actionIndex() {
-        /*$dataProvider = User::model()->dataProvider();
-        $users = $dataProvider->getData();
-        CVarDumper::dump($users,10,true);
-        exit;*/
-
         $this->render('index');
 	}
 
