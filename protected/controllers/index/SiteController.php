@@ -97,7 +97,7 @@ class SiteController extends IndexController {
 			$model->attributes = $_POST[get_class($model)];
 			// validate user input and redirect to the previous page if valid
 			if($model->login()) {
-                $this->redirect(Yii::app()->user->returnUrl);
+                $this->redirect( Yii::app()->user->getReturnUrl( array('account/index') ) );
             }
 		}
 		// display the login form
