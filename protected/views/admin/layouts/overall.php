@@ -25,14 +25,7 @@
 
 	<div id="header">
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?>&nbsp;|&nbsp;Administration Area</div>
-        <div class="header_actions">
-            <?php if (!Yii::app()->user->isGuest) { ?>
-            Welcome <b><?php echo Yii::app()->user->name?></b>&nbsp;&nbsp;<br />
-            <?php echo CHtml::link('Administration', array('/site/index'));?>&nbsp;&nbsp;
-            <?php echo CHtml::link('Home', Yii::app()->baseUrl);?>&nbsp;&nbsp;
-            <?php echo CHtml::link('Logout', array('/site/logout'));?>&nbsp;&nbsp;
-            <?php } ?>
-        </div>        
+        <?php $this->renderPartial('//common/header_menu'); ?>
 	</div><!-- header -->
 
     <?php echo $content; ?>
