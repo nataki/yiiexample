@@ -18,8 +18,9 @@ return CMap::mergeArray(
 	    // autoloading model and component classes
 	    'import'=>array(
             'application.models.*',
-            'application.models.users.*',
+            'application.models.auth.*',
             'application.models.forms.*',
+            'application.models.users.*',
 		    'application.components.*',
             'ext.qs.email.*'
 	    ),
