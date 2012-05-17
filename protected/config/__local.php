@@ -18,7 +18,7 @@ date_default_timezone_set('UTC');
 
 if (!array_key_exists('HTTP_HOST', $_SERVER)) {
     // Mock up HTTP params for the console application:
-    $hostInfo = 'http://debug.quart-soft.com';
+    $hostInfo = 'http://dev53.quartsoft.com';
     $baseUrl = '/pklimov/yiiexample';
     $scriptUrl = $baseUrl.'/index.php';
     $httpRequestConfig = array(
@@ -35,7 +35,7 @@ return array(
     'components'=>array(        
         'request'=>$httpRequestConfig,
         'db'=>array(
-            'connectionString'=>'mysql:host=localhost;dbname=yiiexample',
+            'connectionString'=>'mysql:host=mysql.qs.quart-soft.com;dbname=yiiexample',
             'emulatePrepare'=>true,
             'username'=>'devel',
             'password'=>'admin4mysql',
