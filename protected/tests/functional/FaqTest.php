@@ -19,6 +19,7 @@ class FaqTest extends WebTestCase {
                 $elementNumber = $faqNumber+1;
                 $this->assertFalse( $this->isVisible("xpath=//div[@id='faq_list_{$faqCategory->id}']/div[{$elementNumber}]"), 'FAQ content is expanded on the page load!' );
                 $this->click("xpath=//div[@id='faq_list_{$faqCategory->id}']/h3[{$elementNumber}]/a");
+                sleep(1);
                 $this->assertTrue( $this->isVisible("xpath=//div[@id='faq_list_{$faqCategory->id}']/div[{$elementNumber}]"), 'FAQ content is not visible after its head clicked!' );
 
                 $this->assertTextPresent($faq->answer);

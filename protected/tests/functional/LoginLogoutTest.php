@@ -71,6 +71,7 @@ class LoginLogoutTest extends WebTestCase {
             $this->clickAndWait($submitLocator);
         } else {
             $this->click($submitLocator);
+            sleep(1);
         }
         return true;
     }

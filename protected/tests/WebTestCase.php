@@ -24,24 +24,31 @@ class WebTestCase extends CWebTestCase {
 	}
 
     /**
-     * Determines the captcha verification code from the session.
-     * @return string captcha verification code.
+     * Returns the current emulated user session data from the server.
+     * @return array user session data.
      */
-    protected function getCaptchaCode() {
+    protected function getUserSessionData() {
         $session = Yii::app()->session;
         $sessionId = $this->getCookieByName( $session->getSessionName() );
         $session->setSessionId($sessionId);
         $session->open();
+        $result = $_SESSION;
+        $session->close();
+        return $result;
+    }
 
+    /**
+     * Determines the captcha verification code from the session.
+     * @return string captcha verification code.
+     */
+    protected function getCaptchaCode() {
         $captchaVerifyCode = '';
-        foreach($_SESSION as $varName => $varValue) {
+        foreach($this->getUserSessionData() as $varName => $varValue) {
             if (preg_match('/^(Yii\.CCaptchaAction)(.*)(captcha)$/s', $varName)) {
                 $captchaVerifyCode = $varValue;
                 break;
             }
         }
-
-        $session->close();
         return $captchaVerifyCode;
     }
 }
