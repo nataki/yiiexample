@@ -6,7 +6,8 @@ $this->sectionTitle = 'Manage Auth Logs';
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'record-grid',
-	'dataProvider'=>$model->dataProviderAdmin(),
+	'ajaxUrl'=>array($this->getRoute()),
+    'dataProvider'=>$model->dataProviderAdmin(),
 	'filter'=>$model,
 	'columns'=>array(
 		array(

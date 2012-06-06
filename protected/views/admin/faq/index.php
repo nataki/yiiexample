@@ -12,6 +12,7 @@ $this->contextMenuItems = array(
 <?php $this->renderPartial('//common/advanced_search', array('model'=>$model) ); ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'faq-grid',
+    'ajaxUrl'=>array_merge( array($this->getRoute()), $contextAttributes ),
 	'dataProvider'=>$model->dataProviderAdmin(),
 	'filter'=>$model,
 	'columns'=>array(

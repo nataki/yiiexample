@@ -10,6 +10,7 @@ $this->contextMenuItems = array(
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'record-grid',
+    'ajaxUrl'=>array($this->getRoute()),
 	'dataProvider'=>$model->dataProviderAdmin(),
 	'filter'=>$model,
 	'columns'=>array(
