@@ -19,7 +19,7 @@ date_default_timezone_set('UTC');
 if (!array_key_exists('HTTP_HOST', $_SERVER)) {
     // Mock up HTTP params for the console application:
     $hostInfo = 'http://dev53.quartsoft.com';
-    $baseUrl = '/pklimov/yiiexample';
+    $baseUrl = '/develqs/yiiexample';
     $scriptUrl = $baseUrl.'/index.php';
     $httpRequestConfig = array(
         'hostInfo'=>$hostInfo,
@@ -68,7 +68,7 @@ return array(
                     'class'=>'CEmailLogRoute',
                     'levels'=>'error',
                     'emails'=>array(
-                        'pklimov@quart-soft.com'
+                        'develqs@quartsoft.com'
                     ),
                     'subject'=>'Error at '.exec('hostname'),
                     'sentFrom'=>'yiiexample@quartsoft.com',
@@ -78,7 +78,7 @@ return array(
         // uncomment the following to set up email test mode
         /*'email'=>array(
             'testMode' => 'bcc',
-            'testEmail' => 'pklimov@quart-soft.com',
+            'testEmail' => 'develqs@quartsoft.com',
         ),*/
     ),
     'modules'=>array(
