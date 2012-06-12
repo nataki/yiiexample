@@ -71,11 +71,11 @@ class FaqCategory extends CActiveRecord {
     public function behaviors() {
         return array(
             'positionBehavior' => array(
-                'class'=>'ext.qs.db.QsActiveRecordBehaviorPosition',
+                'class'=>'ext.qs.db.ar.QsActiveRecordBehaviorPosition',
                 'defaultOrdering'=>true
             ),
             'cacheClearBehavior' => array(
-                'class'=>'ext.qs.db.QsActiveRecordBehaviorClearCache',
+                'class'=>'ext.qs.db.ar.QsActiveRecordBehaviorClearCache',
                 'dependingCacheIds'=>array(
                     'Yii.COutputCache.faqListHtml..help/faq....'
                 )

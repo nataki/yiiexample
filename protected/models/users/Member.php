@@ -54,7 +54,7 @@ class Member extends User {
     public function behaviors() {
         return array(
             'memberRoleBehavior' => array(
-                'class'=>'ext.qs.db.QsActiveRecordBehaviorRole',
+                'class'=>'ext.qs.db.ar.QsActiveRecordBehaviorRole',
                 'relationName'=>'profile',
                 'relationConfig'=>array('MemberProfile', 'user_id'),
             )

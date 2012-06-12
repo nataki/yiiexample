@@ -90,11 +90,11 @@ class SiteSetting extends CActiveRecord {
     public function behaviors() {
         return array(
             'settingBehavior' => array(
-                'class'=>'ext.qs.db.QsActiveRecordBehaviorNameValue',
+                'class'=>'ext.qs.db.ar.QsActiveRecordBehaviorNameValue',
                 'autoNamePrefix' => 'site_'
             ),
             'positionBehavior' => array(
-                'class'=>'ext.qs.db.QsActiveRecordBehaviorPosition',
+                'class'=>'ext.qs.db.ar.QsActiveRecordBehaviorPosition',
                 'defaultOrdering'=>true,
             )
         );
