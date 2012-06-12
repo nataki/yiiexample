@@ -14,13 +14,15 @@ class SignupController extends IndexController {
     
     /**
      * Declares class-based actions.
+     * @return array actions config.
      */
     public function actions() {
         return array(
-            // captcha action renders the CAPTCHA image displayed on the contact page
-            'captcha'=>array(
-                'class'=>'CCaptchaAction',
-                'backColor'=>0xFFFFFF,
+            // captcha action renders the CAPTCHA image displayed on the signup form
+            'captcha' => array(
+                'class' => 'CCaptchaAction',
+                'backColor' => 0xFFFFFF,
+                'testLimit' => 1
             ),
         );
     }
