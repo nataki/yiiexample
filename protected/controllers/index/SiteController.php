@@ -18,10 +18,11 @@ class SiteController extends IndexController {
      */
     public function actions() {
         return array(
-            // captcha action renders the CAPTCHA image displayed on the contact page
+            // captcha action renders the CAPTCHA image displayed on the forgot password page
             'captcha'=>array(
                 'class'=>'CCaptchaAction',
-                'backColor'=>0xFFFFFF,
+                'backColor' => 0xFFFFFF,
+                'testLimit' => 1
             ),
         );
     }

@@ -29,7 +29,7 @@ if ($this->beginCache('secondaryMenuHtml', $cacheOptions)) {
         
         <ul id="<?php echo $secondaryMenu->id; ?>">
         <?php foreach($secondaryMenu->items as $item) { ?>
-            <a href="<?php echo $item['url']; ?>"><?php echo $item['label']; ?></a><?php if (!$item['last']) { ?>&nbsp;|&nbsp;<?php } ?>
+            <a href="<?php echo $item['url']; ?>"><?php echo $item['label']; ?></a><?php if (!isset($item['last'])) { ?>&nbsp;|&nbsp;<?php } ?>
         <?php } ?>
         </ul>
         <?php $this->endWidget(); ?>
