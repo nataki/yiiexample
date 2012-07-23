@@ -2,6 +2,7 @@
 
 // change the following paths if necessary
 $yiic=dirname(__FILE__).'/../framework/yiic.php';
+// Adjust the application configuration if necessary
 $config=array(
     'basePath'=>dirname(__FILE__),
     'name'=>'YiiExample Install',
@@ -9,16 +10,24 @@ $config=array(
         'install'=>array(
             'class'=>'ext.qs.console.commands.QsConsoleCommandInitApplication',
 			'localFilePlaceholderLabels'=>array(
-				'db_host'=>'Database hostname',
-				'db_name'=>'Database name',
-				'db_user'=>'Database access user name',
-				'db_password'=>'Database access password',
+				// Database:
+				'dbHost'=>'Database hostname, usually: "localhost"',
+				'dbName'=>'Database name',
+				'dbUser'=>'Database access user name',
+				'dbPassword'=>'Database access password',
+				// URL:
+				'hostInfo'=>'URL for the web server root',
+				'baseUrl'=>'Part of the URL, which leads for the project web root. At the live server it is usually "/"',
 			),
 			'localFilePlaceholderDefaultValues'=>array(
-				'db_host'=>'localhost',
-				'db_name'=>'yiiexample',
-				'db_user'=>'devel',
-				//'db_password'=>'???',
+				// Database:
+				'dbHost'=>'mysql.qs.quart-soft.com',
+				'dbName'=>'yiiexample',
+				'dbUser'=>'devel',
+				//'dbPassword'=>'???',
+				// URL:
+				'hostInfo'=>'http://dev53.quartsoft.com',
+				'baseUrl'=>'/develqs/yiiexample',
 			),
         ),
     ),
