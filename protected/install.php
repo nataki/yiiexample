@@ -17,7 +17,7 @@ $config=array(
 				'dbPassword'=>'Database access password',
 				// URL:
 				'hostInfo'=>'URL for the web server root',
-				'baseUrl'=>'Part of the URL, which leads for the project web root. At the live server it is usually "/"',
+				'baseUrl'=>'Part of the URL, which leads for the project web root. At the live server it is usually empty, in development - "/develqs/yiiexample"',
 			),
 			'localFilePlaceholderDefaultValues'=>array(
 				// Database:
@@ -27,7 +27,7 @@ $config=array(
 				//'dbPassword'=>'???',
 				// URL:
 				'hostInfo'=>'http://dev53.quartsoft.com',
-				'baseUrl'=>'/develqs/yiiexample',
+				'baseUrl'=>'',
 			),
 		),
 	),
