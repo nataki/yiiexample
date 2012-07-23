@@ -4,11 +4,11 @@
 $yiic=dirname(__FILE__).'/../framework/yiic.php';
 // Adjust the application configuration if necessary
 $config=array(
-    'basePath'=>dirname(__FILE__),
-    'name'=>'YiiExample Install',
-    'commandMap'=>array(
-        'install'=>array(
-            'class'=>'ext.qs.console.commands.QsConsoleCommandInitApplication',
+	'basePath'=>dirname(__FILE__),
+	'name'=>'YiiExample Install',
+	'commandMap'=>array(
+		'init'=>array(
+			'class'=>'ext.qs.console.commands.QsConsoleCommandInitApplication',
 			'localFilePlaceholderLabels'=>array(
 				// Database:
 				'dbHost'=>'Database hostname, usually: "localhost"',
@@ -29,8 +29,28 @@ $config=array(
 				'hostInfo'=>'http://dev53.quartsoft.com',
 				'baseUrl'=>'/develqs/yiiexample',
 			),
-        ),
-    ),
+		),
+	),
+	'components'=>array(
+		'log'=>array(
+			'routes'=>array(
+				array(
+					'class'=>'CEmailLogRoute',
+					'levels'=>'error',
+					'emails'=>array(
+						'develqs@quartsoft.com'
+					),
+					'subject'=>'Application install error at '.exec('hostname'),
+					'sentFrom'=>'yiiexample@quartsoft.com',
+				),
+				array(
+					'class'=>'CFileLogRoute',
+					'logFile'=>'install.log',
+					'categories'=>'qs.console.*',
+				),
+			),
+		),
+	),
 );
 
 require_once($yiic);
