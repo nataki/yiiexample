@@ -18,8 +18,8 @@ date_default_timezone_set('UTC');
 
 if (!array_key_exists('HTTP_HOST', $_SERVER)) {
     // Mock up HTTP params for the console application:
-    $hostInfo = 'http://dev53.quartsoft.com';
-    $baseUrl = '/develqs/yiiexample';
+    $hostInfo = '{{hostInfo}}';
+    $baseUrl = '{{baseUrl}}';
     $scriptUrl = $baseUrl.'/index.php';
     $httpRequestConfig = array(
         'hostInfo'=>$hostInfo,
@@ -35,10 +35,10 @@ return array(
     'components'=>array(        
         'request'=>$httpRequestConfig,
         'db'=>array(
-            'connectionString'=>'mysql:host=mysql.qs.quart-soft.com;dbname=yiiexample',
+            'connectionString'=>'mysql:host={{dbHost}};dbname={{dbName}}',
             'emulatePrepare'=>true,
-            'username'=>'devel',
-            'password'=>'admin4mysql',
+            'username'=>'{{dbUser}}',
+            'password'=>'{{dbPassword}}',
             'charset'=>'utf8',
             'initSQLs' => array(
                 "SET time_zone = '+00:00';"
