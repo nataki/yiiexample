@@ -1,11 +1,23 @@
 <?php
+/**
+ * Application initialization console command entry script.
+ *
+ * In order to initialize application run the following console command:
+ * php install.php init all
+ *
+ * To get help type:
+ * php install.php help init
+ *
+ * In order to run this script in automatic mode use the following:
+ * php install.php init all --interactive=0 --config=/path/to/my/config/install.cfg.php
+ */
 
-// change the following paths if necessary
+// Change the following paths if necessary:
 $yiic=dirname(__FILE__).'/../framework/yiic.php';
-// Adjust the application configuration if necessary
+// Adjust the application configuration if necessary:
 $config=array(
 	'basePath'=>dirname(__FILE__),
-	'name'=>'YiiExample Install',
+	'name'=>'YiiExample',
 	'commandMap'=>array(
 		'init'=>array(
 			'class'=>'ext.qs.console.commands.QsConsoleCommandInitApplication',
