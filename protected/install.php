@@ -43,31 +43,6 @@ $config=array(
 			),
 		),
 	),
-	'preload'=>array('log'),
-	'components'=>array(
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				// Enable email log for errors:
-				/*array(
-					'class'=>'CEmailLogRoute',
-					'levels'=>'error',
-					'emails'=>array(
-						'develqs@quartsoft.com'
-					),
-					'subject'=>'Application install error at '.exec('hostname'),
-					'sentFrom'=>'yiiexample@quartsoft.com',
-				),*/
-				// Enable file log for entire process:
-				/*array(
-					'class'=>'CFileLogRoute',
-					'logPath'=>dirname(__FILE__),
-					'logFile'=>'install.log',
-					'categories'=>'qs.console.*',
-				),*/
-			),
-		),
-	),
 );
 
 require_once($yiic);
