@@ -1,28 +1,28 @@
 <phpunit
-    bootstrap="bootstrap.php"
+	bootstrap="bootstrap.php"
 	colors="false"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	stopOnFailure="false"
-    strict="false"
-    verbose="true">
+	strict="false"
+	verbose="true">
 
-    <selenium>
-        <browser
-            name="Internet Explorer"
-            ip="10.10.50.60"
-            host="pklimov.qs.quart-soft.com"
-            port="4444"
-            browser="*iexplore"
-        />
-        <!--<browser
-            name="Firefox"
-            ip="10.10.50.60"
-            host="pklimov.qs.quart-soft.com"
-            port="4444"
-            browser="*firefox"
-        />-->
+	<selenium>
+		<browser
+			name="Internet Explorer"
+			ip="{{phpUnitSeleniumIp}}"
+			host="{{phpUnitSeleniumHost}}"
+			port="4444"
+			browser="*iexplore"
+		/>
+		<!--<browser
+			name="Firefox"
+			ip="{{phpUnitSeleniumIp}}"
+			host="{{phpUnitSeleniumHost}}"
+			port="4444"
+			browser="*firefox"
+		/>-->
 	</selenium>
 
 </phpunit>
