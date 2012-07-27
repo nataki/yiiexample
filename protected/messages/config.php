@@ -13,9 +13,10 @@ return array(
 	'messagePath'=>dirname(__FILE__),
 	'languages'=>array('en_us'),
 	'fileTypes'=>array('php'),
-    'overwrite'=>true,
+	'overwrite'=>true,
 	'exclude'=>array(
 		'.svn',
+		'.git',
 		'/messages',
 		'/tests',
 	),
