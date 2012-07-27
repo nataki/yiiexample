@@ -11,20 +11,20 @@ class ContactForm extends CFormModel {
 	public $subject;
 	public $body;
 	public $verifyCode;
-    
-    /**
-     * Initializes this model.
-     */
-    public function init() {
-        if (!Yii::app()->user->getIsGuest()) {
-            $this->name = Yii::app()->user->name;
-            $this->email = Yii::app()->user->email;
-        }
-    }
+
+	/**
+	 * Initializes this model.
+	 */
+	public function init() {
+		if (!Yii::app()->user->getIsGuest()) {
+			$this->name = Yii::app()->user->name;
+			$this->email = Yii::app()->user->email;
+		}
+	}
 
 	/**
 	 * Declares the validation rules.
-     * @return array validation rules.
+	 * @return array validation rules.
 	 */
 	public function rules() {
 		return array(
@@ -33,7 +33,7 @@ class ContactForm extends CFormModel {
 			// email has to be a valid email address
 			array('email', 'email'),
 			// verifyCode needs to be entered correctly
-            array('verifyCode', 'captcha', 'allowEmpty'=>( !Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements() ) ),
+			array('verifyCode', 'captcha', 'allowEmpty'=>( !Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements() ) ),
 		);
 	}
 
@@ -45,24 +45,24 @@ class ContactForm extends CFormModel {
 	public function attributeLabels() {
 		return array(
 			'verifyCode'=>'Verification Code',
-		);        
+		);
 	}
-    
-    /**
-     * Sends email message with the content, filled with data of current model,
-     * to all application administrators.
-     * @return boolean success.
-     */
-    public function sendEmail() {
-        $data = array(
-            'form' => $this,
-        );
-        $emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);
-        // Set all site administrators as receivers:
-        $administrators = Administrator::model()->active()->findAll();
-        foreach($administrators as $administrator) {
-            $emailMessage->addTo( $administrator->email );
-        }
-        return $emailMessage->send();        
-    }
+
+	/**
+	 * Sends email message with the content, filled with data of current model,
+	 * to all application administrators.
+	 * @return boolean success.
+	 */
+	public function sendEmail() {
+		$data = array(
+			'form' => $this,
+		);
+		$emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);
+		// Set all site administrators as receivers:
+		$administrators = Administrator::model()->active()->findAll();
+		foreach($administrators as $administrator) {
+			$emailMessage->addTo( $administrator->email );
+		}
+		return $emailMessage->send();
+	}
 }
