@@ -5,14 +5,14 @@
  */
 
 return CMap::mergeArray(
-    //require(dirname(__FILE__).'/main.php'),
+	//require(dirname(__FILE__).'/main.php'),
 	require(dirname(__FILE__).'/index.php'),
 	array(
 		'import'=>array(
-            'ext.qs.test.*',
-            'ext.qs.test.exceptions.*',
-        ),
-        'components'=>array(
+			'ext.qs.test.*',
+			'ext.qs.test.exceptions.*',
+		),
+		'components'=>array(
 			'fixture'=>array(
 				'class'=>'system.test.CDbFixtureManager',
 			),
@@ -21,15 +21,15 @@ return CMap::mergeArray(
 				'connectionString'=>'DSN for test database',
 			),
 			*/
-            'session' => array(
-                'autoStart' => false
-            ),
-            'urlManager'=>array(
-                'showScriptName'=>true,                
-            ),
-            'email'=> array(                
-                'testMode' => 'silence',
-            ),
+			'session' => array(
+				'autoStart' => false
+			),
+			'urlManager'=>array(
+				'showScriptName'=>true,
+			),
+			'email'=> array(
+				'testMode' => 'silence',
+			),
 		),
 	)
 );
