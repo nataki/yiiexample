@@ -5,5 +5,5 @@
  * for the "administration panel" web application.
  */
 class UserIdentityAdmin extends UserIdentityDb {
-    // Fully Inherited.
+	// Fully Inherited.
 }

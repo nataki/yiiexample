@@ -5,5 +5,5 @@
  * for the "front end" web application.
  */
 class UserIdentityIndex extends UserIdentityDb {
-    // Fully Inherited.
+	// Fully Inherited.
 }
