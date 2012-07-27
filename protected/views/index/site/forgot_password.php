@@ -22,11 +22,11 @@ Your password will be resetted and its new value will be sent your via email.
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm',array(
-    'id'=>'forgot-password-form',
+	'id'=>'forgot-password-form',
 	'enableClientValidation'=>true,
-    'clientOptions'=>array(
-        'validateOnSubmit'=>true
-    ),
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true
+	),
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -41,16 +41,16 @@ Your password will be resetted and its new value will be sent your via email.
 	<?php if ( Yii::app()->user->getIsGuest() && CCaptcha::checkRequirements() ): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'verifyCode'); ?>
-        <div class="hint">Type the characters you see in the picture below.</div>
-        <div>
+		<div class="hint">Type the characters you see in the picture below.</div>
+		<div>
 		<?php
-            $this->widget('CCaptcha',array(
-                'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/admin/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
-            ));
-        ?>
+			$this->widget('CCaptcha',array(
+				'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/admin/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
+			));
+		?>
 		</div>
-        <?php echo $form->textField($model,'verifyCode'); ?>
-        <?php echo $form->error($model,'verifyCode'); ?>
+		<?php echo $form->textField($model,'verifyCode'); ?>
+		<?php echo $form->error($model,'verifyCode'); ?>
 	</div>
 	<?php endif; ?>
 

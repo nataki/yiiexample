@@ -2,7 +2,7 @@
 $this->sectionTitle = 'Manage Email Patterns';
 
 $this->contextMenuItems = array(
-    array('label'=>'Create Email Pattern', 'url'=>array('create')),
+	array('label'=>'Create Email Pattern', 'url'=>array('create')),
 );
 ?>
 
@@ -10,20 +10,20 @@ $this->contextMenuItems = array(
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'record-grid',
-    'ajaxUrl'=>array($this->getRoute()),
+	'ajaxUrl'=>array($this->getRoute()),
 	'dataProvider'=>$model->dataProviderAdmin(),
 	'filter'=>$model,
 	'columns'=>array(
 		array(
-            'class'=>'CButtonColumn',
-        ),
-        'id',
-        'name',
-        array(
-            'name'=>'from_email',
-            'header'=>'From',
-            'value'=>"\$data->from_name.' <'.\$data->from_email.'>'"
-        ),
+			'class'=>'CButtonColumn',
+		),
+		'id',
+		'name',
+		array(
+			'name'=>'from_email',
+			'header'=>'From',
+			'value'=>"\$data->from_name.' <'.\$data->from_email.'>'"
+		),
 		'subject',
 	),
 )); ?>

@@ -13,9 +13,9 @@ $this->breadcrumbs=array(
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
-    'clientOptions'=>array(
-        'validateOnSubmit'=>true
-    ),
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true
+	),
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
@@ -32,27 +32,27 @@ $this->breadcrumbs=array(
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 	
-    <?php if( Yii::app()->user->allowAutoLogin ) : ?>
-    <div class="row rememberMe">
+	<?php if( Yii::app()->user->allowAutoLogin ) : ?>
+	<div class="row rememberMe">
 		<?php echo $form->checkBox($model,'rememberMe'); ?>
 		<?php echo $form->label($model,'rememberMe'); ?>
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div>
-    <?php endif; ?>
+	<?php endif; ?>
 
-    <?php if ( $model->getIsCaptchaRequired() ): ?>
+	<?php if ( $model->getIsCaptchaRequired() ): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'verifyCode'); ?>
-        <div class="hint">Type the characters you see in the picture below.</div>
-        <div>
+		<div class="hint">Type the characters you see in the picture below.</div>
+		<div>
 		<?php
-            $this->widget('CCaptcha',array(
-                'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/admin/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
-            ));
-        ?>
+			$this->widget('CCaptcha',array(
+				'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/admin/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
+			));
+		?>
 		</div>
-        <?php echo $form->textField($model,'verifyCode'); ?>
-        <?php echo $form->error($model,'verifyCode'); ?>
+		<?php echo $form->textField($model,'verifyCode'); ?>
+		<?php echo $form->error($model,'verifyCode'); ?>
 	</div>
 	<?php endif; ?>
 

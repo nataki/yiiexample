@@ -30,8 +30,8 @@ If you have business inquiries or other questions, please fill out the following
 		<?php echo $form->labelEx($model,'name'); ?>
 		<?php echo $form->textField($model,'name'); ?>
 	</div>
-    
-    <div class="row">
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email'); ?>
 	</div>
@@ -46,16 +46,16 @@ If you have business inquiries or other questions, please fill out the following
 		<?php echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
-    <?php if ( Yii::app()->user->getIsGuest() && CCaptcha::checkRequirements() ): ?>
+	<?php if ( Yii::app()->user->getIsGuest() && CCaptcha::checkRequirements() ): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'verifyCode'); ?>
 		<div>
 		<?php
-            $this->widget('CCaptcha',array(
-                'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/index/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
-            ));
-        ?>
-        </div>
+			$this->widget('CCaptcha',array(
+				'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/index/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
+			));
+		?>
+		</div>
 		<?php echo $form->textField($model,'verifyCode'); ?>
 
 		<div class="hint">Please enter the letters as they are shown in the image above.

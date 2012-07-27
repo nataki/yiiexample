@@ -13,14 +13,14 @@ $this->contextMenuItems=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-        'id',
-		'name',		
-        array(
-            'label'=>'From',
-            'type'=>'text',
-            'value'=>$model->from_name.' <'.$model->from_email.'>'
-        ),
-        'subject',        
-        'body:html',
+		'id',
+		'name',
+		array(
+			'label'=>'From',
+			'type'=>'text',
+			'value'=>$model->from_name.' <'.$model->from_email.'>'
+		),
+		'subject',
+		'body:html',
 	),
 )); ?>

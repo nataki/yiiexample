@@ -4,9 +4,9 @@
 <head>	
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo Yii::app()->charset; ?>" />
 	<meta http-equiv="Pragma" content="no-cache" />
-    <meta name="language" content="<?php echo $languageHtmlCode; ?>" />
+	<meta name="language" content="<?php echo $languageHtmlCode; ?>" />
 
-    <!-- blueprint CSS framework -->
+	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/admin/screen.css" media="screen, projection" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/admin/print.css" media="print" />
 	<!--[if lt IE 8]>
@@ -15,8 +15,8 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/admin/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/admin/form.css" />
-    
-    <title><?php echo CHtml::encode($this->pageTitle); ?> | Administration</title>
+
+	<title><?php echo CHtml::encode($this->pageTitle); ?> | Administration</title>
 </head>
 
 <body>
@@ -25,15 +25,15 @@
 
 	<div id="header">
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?>&nbsp;|&nbsp;Administration Area</div>
-        <?php $this->renderPartial('//common/header_menu'); ?>
+		<?php $this->renderPartial('//common/header_menu'); ?>
 	</div><!-- header -->
 
-    <?php echo $content; ?>
-            	
+	<?php echo $content; ?>
+
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by <?php echo CHtml::encode(Yii::app()->name); ?>.<br />
 		All Rights Reserved.<br />
-        Powered by <?php echo CHtml::link('QuartSoft', 'http://www.quartsoft.com') ?>
+		Powered by <?php echo CHtml::link('QuartSoft', 'http://www.quartsoft.com') ?>
 	</div><!-- footer -->
 
 </div><!-- page -->

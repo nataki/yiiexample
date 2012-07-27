@@ -2,7 +2,7 @@
 $this->pageTitle = Yii::app()->name.' - '.$model->title;
 Yii::app()->clientScript->registerMetaTag($model->meta_description, 'description');
 $this->breadcrumbs=array(
-    $model->title,
+	$model->title,
 );
 ?>
 <h1><?php echo $model->title; ?></h1>

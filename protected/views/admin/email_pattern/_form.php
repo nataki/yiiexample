@@ -15,27 +15,27 @@
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model,'from_email'); ?>
-        <?php echo $form->textField($model,'from_email',array('size'=>60,'maxlength'=>128)); ?>
-        <?php echo $form->error($model,'from_email'); ?>
-    </div>
-    
-    <div class="row">
-        <?php echo $form->labelEx($model,'from_name'); ?>
-        <?php echo $form->textField($model,'from_name',array('size'=>60,'maxlength'=>128)); ?>
-        <?php echo $form->error($model,'from_name'); ?>
-    </div>
-    
 	<div class="row">
-        <?php echo $form->labelEx($model,'subject'); ?>
-        <?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>128)); ?>
-        <?php echo $form->error($model,'subject'); ?>
-    </div>
+		<?php echo $form->labelEx($model,'from_email'); ?>
+		<?php echo $form->textField($model,'from_email',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->error($model,'from_email'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'from_name'); ?>
+		<?php echo $form->textField($model,'from_name',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->error($model,'from_name'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'subject'); ?>
+		<?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->error($model,'subject'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>		
-        <?php echo $form->textArea($model,'body',array('cols'=>80,'rows'=>10)); ?>
+		<?php echo $form->textArea($model,'body',array('cols'=>80,'rows'=>10)); ?>
 		<?php echo $form->error($model,'body'); ?>
 	</div>
 

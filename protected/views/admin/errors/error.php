@@ -4,7 +4,7 @@ $this->breadcrumbs=array(
 	'Error',
 );
 if (!Yii::app()->user->checkAccess('admin') ) {
-    $this->layout = 'single';
+	$this->layout = 'single';
 }
 ?>
 

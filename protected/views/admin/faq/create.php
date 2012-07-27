@@ -5,7 +5,7 @@ $this->breadcrumbs[] = 'Create';
 $contextAttributes = $this->getActiveContextModelAttributes();
 
 $this->contextMenuItems=array(
-    array('label'=>'Back to list', 'url'=>array_merge( array('index'), $contextAttributes ) ),
+	array('label'=>'Back to list', 'url'=>array_merge( array('index'), $contextAttributes ) ),
 );
 ?>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

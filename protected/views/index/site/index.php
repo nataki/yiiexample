@@ -8,9 +8,9 @@ Yii::app()->clientScript->registerMetaTag(Yii::app()->name.' is an example Yii a
 
 <p>You may try to do the following actions:</p>
 <ul>
-    <li>Create new account <?php echo CHtml::link('here', Yii::app()->createUrl('signup/')) ?></li>
+	<li>Create new account <?php echo CHtml::link('here', Yii::app()->createUrl('signup/')) ?></li>
 	<li>View our <?php echo CHtml::link('F.A.Q.', Yii::app()->createUrl('help/faq')) ?></li>
-    <li>Contact site administrators using <?php echo CHtml::link('Contact form', Yii::app()->createUrl('help/contact')) ?></li>
+	<li>Contact site administrators using <?php echo CHtml::link('Contact form', Yii::app()->createUrl('help/contact')) ?></li>
 </ul>
 
 <p>Use menus to navigate the site.</p>

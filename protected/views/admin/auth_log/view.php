@@ -12,18 +12,18 @@ $this->contextMenuItems=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-        'date:strdatetime',
-        'username',
-        'user_id',
+		'date:strdatetime',
+		'username',
+		'user_id',
 		array(
-            'name'=>'url',
-            'type'=>'raw',
-            'value' => CHtml::link('http://'.$model->url, 'http://'.$model->url, array('target'=>'blank')) 
-        ),        
+			'name'=>'url',
+			'type'=>'raw',
+			'value' => CHtml::link('http://'.$model->url, 'http://'.$model->url, array('target'=>'blank'))
+		),
 		'script_name',
-        'error_code',
-        'error_message',
-        'ip',
+		'error_code',
+		'error_message',
+		'ip',
 		'host',
 	),
 )); ?>
