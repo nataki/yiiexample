@@ -1,6 +1,6 @@
 <Files ~ "(\.(inc|module|pl|sh|sql|theme|engine|xtmpl|svn-base|mysql|pgsql)|CVS|Entries|Repositories|Root|.svn|.cvsignore|text-base|prop-base|props|wcprops|entries|format|scripts|database)$">
-    Order deny,allow
-    Deny from all
+	Order deny,allow
+	Deny from all
 </Files>
 
 Options +FollowSymLinks
