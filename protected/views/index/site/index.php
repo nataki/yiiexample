@@ -1,4 +1,6 @@
 <?php 
+/* @var $this SiteController */
+
 $this->pageTitle = Yii::app()->name.' - Example Yii Application';
 Yii::app()->clientScript->registerMetaTag(Yii::app()->name.' is an example Yii application', 'description');
 ?>

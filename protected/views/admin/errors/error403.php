@@ -1,4 +1,6 @@
 <?php
+/* @var $this AdminBaseController */
+
 $this->layout = 'single';
 
 $this->pageTitle=Yii::app()->name . ' - Error';

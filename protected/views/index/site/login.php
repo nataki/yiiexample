@@ -1,4 +1,8 @@
 <?php
+/* @var $this SiteController */
+/* @var $model LoginFormIndex */
+/* @var $form CActiveForm */
+
 $this->pageTitle = 'Log In '.Yii::app()->name;
 Yii::app()->clientScript->registerMetaTag('Log in '.Yii::app()->name, 'description');
 $this->breadcrumbs=array(

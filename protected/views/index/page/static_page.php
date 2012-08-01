@@ -1,4 +1,7 @@
 <?php
+/* @var $this PageController */
+/* @var $model StaticPage */
+
 $this->pageTitle = Yii::app()->name.' - '.$model->title;
 Yii::app()->clientScript->registerMetaTag($model->meta_description, 'description');
 $this->breadcrumbs=array(

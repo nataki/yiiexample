@@ -1,3 +1,4 @@
+<?php /* @var $this AccountController */ ?>
 		<div id="sidebar">
 		<?php $menu = $this->beginWidget('ext.qs.web.widgets.QsMenu',array(
 				'items'=>array(

@@ -1,6 +1,8 @@
 <?php
+/* @var $this IndexController */
+
 $this->pageTitle = 'Error At '.Yii::app()->name;
-Yii::app()->clientScript->registerMetaTag('Sorry, an error has occurred while resolving your request');
+Yii::app()->clientScript->registerMetaTag('Sorry, an error has occurred while resolving your request.', 'description');
 $this->breadcrumbs=array(
 	'Error',
 );

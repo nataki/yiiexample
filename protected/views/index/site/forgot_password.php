@@ -1,4 +1,8 @@
 <?php
+/* @var $this SiteController */
+/* @var $model ForgotPasswordForm */
+/* @var $form CActiveForm */
+
 $this->pageTitle = 'Forgot Your Password At '.Yii::app()->name;
 Yii::app()->clientScript->registerMetaTag('Forgot your password at '.Yii::app()->name, 'description');
 $this->breadcrumbs=array(

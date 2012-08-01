@@ -1,4 +1,8 @@
 <?php
+/* @var $this HelpController */
+/* @var $model ContactForm */
+/* @var $form CActiveForm */
+
 $this->pageTitle = 'Contact '.Yii::app()->name.' Administrator';
 Yii::app()->clientScript->registerMetaTag('Contact '.Yii::app()->name.' administrator', 'description');
 $this->breadcrumbs=array(

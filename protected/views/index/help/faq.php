@@ -1,4 +1,6 @@
 <?php
+/* @var $this HelpController */
+
 $this->pageTitle = 'F.A.Q. - Questions About '.Yii::app()->name;
 Yii::app()->clientScript->registerMetaTag('Frequently asked questions about '.Yii::app()->name, 'description');
 $this->breadcrumbs=array(

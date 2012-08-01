@@ -1,3 +1,4 @@
+<?php /* @var $this AccountController */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
 	<div class="span-18">
 		<h2><?php echo $this->sectionTitle; ?></h2>

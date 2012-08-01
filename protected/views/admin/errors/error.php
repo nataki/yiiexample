@@ -1,4 +1,6 @@
 <?php
+/* @var $this AdminBaseController */
+
 $this->pageTitle=Yii::app()->name . ' - Error';
 $this->breadcrumbs=array(
 	'Error',
