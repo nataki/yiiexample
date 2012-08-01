@@ -25,6 +25,15 @@ class AdminListController extends AdminBaseController {
 	}
 
 	/**
+	 * @return array action filters
+	 */
+	public function filters() {
+		$filters = parent::filters();
+		$filters['postOnly'] = 'postOnly + delete';
+		return $filters;
+	}
+
+	/**
 	 * Returns list of allowed actions.
 	 * @return array actions configuration.
 	 */
