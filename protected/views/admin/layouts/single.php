@@ -1,3 +1,4 @@
+<?php /* @var $this AdminBaseController */ ?>
 <?php $this->beginContent('//layouts/overall'); ?>
 <div id="main">
 	<div id="content">

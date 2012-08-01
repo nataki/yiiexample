@@ -1,4 +1,5 @@
-<?php 
+<?php /* @var $this IndexController */ ?>
+<?php
 $cacheOptions = array(
 	'duration' => 3600*24,
 	'varyByRoute'=>false,

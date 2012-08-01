@@ -1,3 +1,4 @@
+<?php /* @var $this AdminBaseController */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
 		<?php if (!Yii::app()->user->isGuest) { ?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(

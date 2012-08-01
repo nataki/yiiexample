@@ -1,3 +1,4 @@
+<?php /* @var $this IndexController */ ?>
 <?php $this->beginContent('//layouts/overall'); ?>
 <div class="container">
 	<div id="content">

@@ -1,4 +1,6 @@
 <?php
+/* @var $this AdminBaseController */
+/* @var $model CModel */
 
 if (!isset($listId)) $listId = 'record-grid';
 

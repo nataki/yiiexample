@@ -1,3 +1,4 @@
+<?php /* @var $this AdminBaseController */ ?>
 <?php if (!Yii::app()->user->isGuest): ?>
 		<div class="header_actions">
 			Welcome <b><?php echo Yii::app()->user->name?></b>&nbsp;&nbsp;<br />

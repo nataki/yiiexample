@@ -1,3 +1,4 @@
+<?php /* @var $this IndexController */ ?>
 	<div id="mainmenu">
 		<?php
 		$mainMenu = $this->beginWidget('ext.qs.web.widgets.QsMenu',array(

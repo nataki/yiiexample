@@ -1,3 +1,4 @@
+<?php /* @var $this AdminBaseController */ ?>
 <?php
 	$mainMenuItems = array(
 		array(
