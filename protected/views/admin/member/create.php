@@ -1,4 +1,7 @@
 <?php
+/* @var $this MemberController */
+/* @var $model Member */
+
 $this->sectionTitle = 'Create Member';
 $this->breadcrumbs[]='Create';
 

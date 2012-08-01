@@ -1,3 +1,9 @@
+<?php
+/* @var $this Static_pageController */
+/* @var $model StaticPage */
+/* @var $form CActiveForm */
+?>
+
 <div class="wide form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

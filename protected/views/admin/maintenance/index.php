@@ -1,4 +1,6 @@
 <?php
+/* @var $this MaintenanceController */
+
 $this->sectionTitle = 'Maintenance';
 ?>
 

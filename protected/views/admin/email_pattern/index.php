@@ -1,4 +1,7 @@
 <?php
+/* @var $this Email_patternController */
+/* @var $model EmailPattern */
+
 $this->sectionTitle = 'Manage Email Patterns';
 
 $this->contextMenuItems = array(

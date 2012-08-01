@@ -1,4 +1,7 @@
 <?php
+/* @var $this Faq_categoryController */
+/* @var $model FaqCategory */
+
 $this->sectionTitle = 'Manage Faq Categories';
 
 $this->contextMenuItems = array(

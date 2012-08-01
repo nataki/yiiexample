@@ -1,4 +1,7 @@
 <?php
+/* @var $this Faq_categoryController */
+/* @var $model FaqCategory */
+
 $this->sectionTitle = 'Create Faq Category';
 $this->breadcrumbs[] = 'Create';
 

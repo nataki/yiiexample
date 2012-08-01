@@ -1,4 +1,7 @@
 <?php
+/* @var $this Email_patternController */
+/* @var $model EmailPattern */
+
 $this->sectionTitle = 'Update Email Pattern #'.$model->id;
 $this->breadcrumbs[$model->id]=array('view','id'=>$model->id);
 $this->breadcrumbs[]='Update';

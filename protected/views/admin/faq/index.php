@@ -1,4 +1,7 @@
 <?php
+/* @var $this FaqController */
+/* @var $model Faq */
+
 $this->sectionTitle = 'Manage FAQ';
 
 $contextAttributes = $this->getActiveContextModelAttributes();

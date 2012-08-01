@@ -1,4 +1,7 @@
 <?php
+/* @var $this Site_settingController */
+/* @var $model SiteSetting */
+
 $this->sectionTitle = 'Create Site Setting';
 $this->breadcrumbs[]='Create';
 

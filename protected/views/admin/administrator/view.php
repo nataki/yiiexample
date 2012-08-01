@@ -5,6 +5,9 @@
 <?php endif; ?>
 
 <?php
+/* @var $this AdministratorController */
+/* @var $model Administrator */
+
 $this->sectionTitle = 'View Administrator #'.$model->id;
 $this->breadcrumbs[]=$model->id;
 

@@ -5,6 +5,9 @@
 <?php endif; ?>
 
 <?php
+/* @var $this MemberController */
+/* @var $model Member */
+
 $this->sectionTitle = 'View Member #'.$model->id;
 $this->breadcrumbs[]=$model->id;
 

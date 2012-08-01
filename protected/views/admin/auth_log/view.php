@@ -1,4 +1,7 @@
 <?php
+/* @var $this Auth_logController */
+/* @var $model AuthLog */
+
 $this->sectionTitle = 'View Auth Log #'.$model->id;
 $this->breadcrumbs[]=$model->id;
 

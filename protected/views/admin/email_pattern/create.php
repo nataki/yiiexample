@@ -1,4 +1,7 @@
 <?php
+/* @var $this Email_patternController */
+/* @var $model EmailPattern */
+
 $this->sectionTitle = 'Create Email Pattern';
 $this->breadcrumbs[]='Create';
 

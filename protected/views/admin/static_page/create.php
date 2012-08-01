@@ -1,4 +1,7 @@
 <?php
+/* @var $this Static_pageController */
+/* @var $model StaticPage */
+
 $this->sectionTitle = 'Create Static Page';
 $this->breadcrumbs[]='Create';
 

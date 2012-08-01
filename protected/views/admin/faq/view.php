@@ -1,4 +1,7 @@
 <?php
+/* @var $this FaqController */
+/* @var $model Faq */
+
 $this->sectionTitle = 'View FAQ #'.$model->id;
 $this->breadcrumbs[]=$model->id;
 

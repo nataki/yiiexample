@@ -1,4 +1,7 @@
 <?php
+/* @var $this AdministratorController */
+/* @var $model Administrator */
+
 $this->sectionTitle = 'Create Administrator';
 $this->breadcrumbs[]='Create';
 

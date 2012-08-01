@@ -1,3 +1,9 @@
+<?php
+/* @var $this Faq_categoryController */
+/* @var $model FaqCategory */
+/* @var $form CActiveForm */
+?>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

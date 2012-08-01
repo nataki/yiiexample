@@ -1,4 +1,7 @@
 <?php
+/* @var $this Faq_categoryController */
+/* @var $model FaqCategory */
+
 $this->sectionTitle = 'Update Faq Category #'.$model->id;
 $this->breadcrumbs[$model->id]=array('view','id'=>$model->id);
 $this->breadcrumbs[]='Update';

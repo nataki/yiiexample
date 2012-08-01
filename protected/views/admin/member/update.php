@@ -1,4 +1,7 @@
 <?php
+/* @var $this MemberController */
+/* @var $model Member */
+
 $this->sectionTitle = 'Update Member #'.$model->id;
 $this->breadcrumbs[$model->id]=array('view','id'=>$model->id);
 $this->breadcrumbs[]='Update';

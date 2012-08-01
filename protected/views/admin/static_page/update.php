@@ -1,4 +1,7 @@
 <?php
+/* @var $this Static_pageController */
+/* @var $model StaticPage */
+
 $this->sectionTitle = 'Update Static Page #'.$model->id;
 $this->breadcrumbs[$model->id]=array('view','id'=>$model->id);
 $this->breadcrumbs[]='Update';

@@ -1,4 +1,7 @@
 <?php
+/* @var $this Auth_logController */
+/* @var $model AuthLog */
+
 $this->sectionTitle = 'Manage Auth Logs';
 ?>
 

@@ -1,4 +1,7 @@
 <?php
+/* @var $this Site_settingController */
+/* @var $model SiteSetting */
+
 $this->sectionTitle = 'Manage Site Settings';
 
 $this->contextMenuItems = array(

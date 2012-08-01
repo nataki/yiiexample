@@ -1,3 +1,9 @@
+<?php
+/* @var $this Site_settingController */
+/* @var $model SiteSetting */
+/* @var $form CActiveForm */
+?>
+
 <div class="wide form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

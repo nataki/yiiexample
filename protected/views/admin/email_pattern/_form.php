@@ -1,3 +1,9 @@
+<?php
+/* @var $this Email_patternController */
+/* @var $model EmailPattern */
+/* @var $form CActiveForm */
+?>
+
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

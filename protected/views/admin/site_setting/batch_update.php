@@ -1,4 +1,8 @@
 <?php
+/* @var $this Site_settingController */
+/* @var $models array of SiteSetting */
+/* @var $form CActiveForm */
+
 $this->sectionTitle = 'Update Site Settings';
 ?>
 

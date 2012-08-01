@@ -1,5 +1,6 @@
 <?php 
-	$this->sectionTitle = 'Welcome to '.CHtml::encode(Yii::app()->name).' Administration Area';
+/* @var $this SiteController */
+$this->sectionTitle = 'Welcome to '.CHtml::encode(Yii::app()->name).' Administration Area';
 ?>
 <p>This panel allows you to manage your site content and maintain the business logic.</p>
 

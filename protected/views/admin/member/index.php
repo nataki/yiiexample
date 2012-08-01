@@ -1,4 +1,7 @@
 <?php
+/* @var $this MemberController */
+/* @var $model Member */
+
 $this->sectionTitle = 'Manage Members';
 
 $this->contextMenuItems = array(
