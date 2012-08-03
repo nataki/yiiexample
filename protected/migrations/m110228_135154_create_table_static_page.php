@@ -7,7 +7,7 @@ class m110228_135154_create_table_static_page extends CDbMigration {
 		$columns = array(
 			'id' => 'pk',
 			'url_keyword' => 'string NOT NULL',
-			'title' => 'text',
+			'title' => 'string',
 			'meta_description' => 'text',
 			'content' => 'text',
 			'position' => 'integer'
