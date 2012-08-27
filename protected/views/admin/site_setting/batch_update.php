@@ -6,7 +6,7 @@
 $this->sectionTitle = 'Update Site Settings';
 ?>
 
-<?php if(Yii::app()->user->hasFlash('form_result')): ?>
+<?php if (Yii::app()->user->hasFlash('form_result')): ?>
 <div class="flash-success">
 	<?php echo Yii::app()->user->getFlash('form_result'); ?>
 </div>
@@ -23,10 +23,10 @@ $this->sectionTitle = 'Update Site Settings';
 
 	<?php echo $form->errorSummary($models); ?>
 
-	<?php foreach($models as $i => $model):?>
+	<?php foreach ($models as $i => $model):?>
 		<?php echo CHtml::label("{$model->title}:", false, array('required'=>$model->is_required) ); ?>
 		<div class="row">
-		<?php switch($model->name):
+		<?php switch ($model->name):
 			/*case 'default_language_id': {
 				echo $form->dropDownList($model,'['.$model->getPrimaryKey().']value',array());
 			}*/

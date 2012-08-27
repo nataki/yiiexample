@@ -17,7 +17,7 @@ if ($this->beginCache('secondaryMenuHtml', $cacheOptions)) {
 		);
 		$staticPages = StaticPage::model()->findAll();
 		if (!empty($staticPages)) {
-			foreach($staticPages as $staticPage) {
+			foreach ($staticPages as $staticPage) {
 				$items[] = array('label'=>$staticPage->title, 'url'=>array('page/view', 'model'=>$staticPage));
 			}
 		}
@@ -29,7 +29,7 @@ if ($this->beginCache('secondaryMenuHtml', $cacheOptions)) {
 		)); ?>
 
 		<ul id="<?php echo $secondaryMenu->id; ?>">
-		<?php foreach($secondaryMenu->items as $item) { ?>
+		<?php foreach ($secondaryMenu->items as $item) { ?>
 			<a href="<?php echo $item['url']; ?>"><?php echo $item['label']; ?></a><?php if (!isset($item['last'])) { ?>&nbsp;|&nbsp;<?php } ?>
 		<?php } ?>
 		</ul>

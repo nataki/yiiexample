@@ -22,9 +22,9 @@ class HelpController extends IndexController {
 
 	public function actionContact() {
 		$model = new ContactForm();
-		if(isset($_POST['ContactForm'])) {
+		if (isset($_POST['ContactForm'])) {
 			$model->attributes = $_POST['ContactForm'];
-			if($model->validate()) {
+			if ($model->validate()) {
 				$model->sendEmail();
 				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
 				$this->refresh();

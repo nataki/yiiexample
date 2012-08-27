@@ -1,4 +1,4 @@
-<?php if(Yii::app()->user->hasFlash('result')): ?>
+<?php if (Yii::app()->user->hasFlash('result')): ?>
 <div class="flash-success">
 	<?php echo Yii::app()->user->getFlash('result'); ?>
 </div>

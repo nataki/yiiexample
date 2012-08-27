@@ -23,7 +23,7 @@
 			$options=array(
 				'' => 'All records'
 			);
-			foreach($faqCategories as $faqCategory) {
+			foreach ($faqCategories as $faqCategory) {
 				$options[$faqCategory->id]=$faqCategory->name;
 			}
 			echo $form->dropDownList($model,'category_id',$options);

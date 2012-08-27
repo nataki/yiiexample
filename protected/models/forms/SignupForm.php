@@ -93,7 +93,7 @@ class SignupForm extends CFormModel {
 		$excludedAttributeNames = array(
 			'verifyCode'
 		);
-		foreach( $this->getAttributes() as $attributeName => $attributeValue ) {
+		foreach ($this->getAttributes() as $attributeName => $attributeValue) {
 			if ( array_search($attributeName, $excludedAttributeNames, true) !== false ) {
 				continue;
 			}

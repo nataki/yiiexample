@@ -63,7 +63,7 @@ abstract class LoginFormBase extends CFormModel {
 			$authLogs = AuthLog::model()->findAll($criteria);
 			if ( is_array($authLogs) && !empty($authLogs) ) {
 				$isCaptchaRequired = true;
-				foreach($authLogs as $authLog) {
+				foreach ($authLogs as $authLog) {
 					if ($authLog->getIsSuccessful()) {
 						$isCaptchaRequired = false;
 						break;

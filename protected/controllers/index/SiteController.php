@@ -71,8 +71,8 @@ class SiteController extends IndexController {
 	 * this view will be rendered, if not view "error" will be used.
 	 */
 	public function actionError() {
-		if($error=Yii::app()->errorHandler->error) {
-			if(Yii::app()->request->isAjaxRequest) {
+		if ($error=Yii::app()->errorHandler->error) {
+			if (Yii::app()->request->isAjaxRequest) {
 				echo $error['message'];
 			} else {
 				$errorViewName = '//errors/error';
@@ -94,10 +94,10 @@ class SiteController extends IndexController {
 		$model = new LoginFormIndex();
 
 		// collect user input data
-		if(isset($_POST[get_class($model)])) {
+		if (isset($_POST[get_class($model)])) {
 			$model->attributes = $_POST[get_class($model)];
 			// validate user input and redirect to the previous page if valid
-			if($model->login()) {
+			if ($model->login()) {
 				$this->redirect( Yii::app()->user->getReturnUrl( array('account/index') ) );
 			}
 		}
@@ -118,7 +118,7 @@ class SiteController extends IndexController {
 	 */
 	public function actionForgotpassword() {
 		$model = new ForgotPasswordForm();
-		if(isset($_POST['ForgotPasswordForm'])) {
+		if (isset($_POST['ForgotPasswordForm'])) {
 			$model->attributes = $_POST['ForgotPasswordForm'];
 			if ($model->resetPassword()) {
 				Yii::app()->user->setFlash('forgotPassword','Your password has been resetted. Check your email inbox.');

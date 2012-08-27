@@ -146,7 +146,7 @@ class User extends CActiveRecord {
 
 		$attributeNames = array_keys( $this->getAttributes() );
 		$sortAttributes = array();
-		foreach($attributeNames as $attributeName) {
+		foreach ($attributeNames as $attributeName) {
 			$sortAttributes[$attributeName] = array(
 				'asc'=>"t.{$attributeName} asc",
 				'desc'=>"t.{$attributeName} desc",

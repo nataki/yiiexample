@@ -10,7 +10,7 @@ $this->sectionTitle = 'Edit Profile';
 $this->breadcrumbs[]= 'Profile';
 ?>
 
-<?php if(Yii::app()->user->hasFlash('account_profile')): ?>
+<?php if (Yii::app()->user->hasFlash('account_profile')): ?>
 <div class="flash-success">
 	<?php echo Yii::app()->user->getFlash('account_profile'); ?>
 </div>

@@ -58,8 +58,8 @@ class SiteController extends AdminBaseController {
 	 * this view will be rendered, if not view "error" will be used.
 	 */
 	public function actionError() {
-		if($error=Yii::app()->errorHandler->error) {
-			if(Yii::app()->request->isAjaxRequest) {
+		if ($error=Yii::app()->errorHandler->error) {
+			if (Yii::app()->request->isAjaxRequest) {
 				echo $error['message'];
 			} else {
 				$errorViewName = '//errors/error';

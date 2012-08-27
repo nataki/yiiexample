@@ -7,7 +7,7 @@ class FaqController extends AdminListController {
 		$breadcrumbs = array();
 
 		$activeContexts = $this->getActiveContexts();
-		foreach($activeContexts as $activeContext) {
+		foreach ($activeContexts as $activeContext) {
 			$breadcrumbs[$activeContext['controllerTitle']] = array($activeContext['controllerId'].'/');
 			$breadcrumbs[$activeContext['model']->id] = array($activeContext['controllerId'].'/view', 'id'=>$activeContext['model']->id);
 		}

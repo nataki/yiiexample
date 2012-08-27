@@ -20,13 +20,13 @@ if ($this->beginCache('faqListHtml', $cacheOptions)) {
 <h1>F.A.Q.</h1>
 <?php 
 	$faqCategories = FaqCategory::model()->findAll();
-	foreach($faqCategories as $faqCategory):
+	foreach ($faqCategories as $faqCategory):
 ?>
 <div class="view">
 	<h2><?php echo $faqCategory->name; ?></h2>
 	<?php
 	$panels = array();
-	foreach($faqCategory->faqs as $faq) {
+	foreach ($faqCategory->faqs as $faq) {
 		$panels[$faq->question] = $faq->answer;
 	}
 

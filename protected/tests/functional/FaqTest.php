@@ -11,9 +11,9 @@ class FaqTest extends WebTestCase {
 		$this->assertTextPresent('F.A.Q');
 
 		$faqCategories = FaqCategory::model()->findAll();
-		foreach($faqCategories as $faqCategoryNumber => $faqCategory) {
+		foreach ($faqCategories as $faqCategoryNumber => $faqCategory) {
 			$faqs = $faqCategory->faqs;
-			foreach($faqs as $faqNumber => $faq) {
+			foreach ($faqs as $faqNumber => $faq) {
 				$this->assertTextPresent($faq->question);
 
 				$elementNumber = $faqNumber+1;

@@ -4,7 +4,7 @@
 $this->sectionTitle = 'Maintenance';
 ?>
 
-<?php if(Yii::app()->user->hasFlash('maintenanceResult')): ?>
+<?php if (Yii::app()->user->hasFlash('maintenanceResult')): ?>
 <div class="flash-success">
 	<?php echo Yii::app()->user->getFlash('maintenanceResult'); ?>
 </div>

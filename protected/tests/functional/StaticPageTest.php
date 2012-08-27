@@ -7,7 +7,7 @@
 class StaticPageTest extends WebTestCase {
 	public function testBrowseStaticPages() {
 		$staticPages = StaticPage::model()->findAll();
-		foreach($staticPages as $staticPage) {
+		foreach ($staticPages as $staticPage) {
 			$this->open($staticPage->url_keyword);
 			$this->assertTextPresent($staticPage->title, 'Could not find title of the static page "'.$staticPage->url_keyword.'"!');
 

@@ -33,7 +33,7 @@
 			$options=array(
 				'' => 'All records'
 			);
-			foreach($userStatuses as $userStatus) {
+			foreach ($userStatuses as $userStatus) {
 				$options[$userStatus->id]=$userStatus->name;
 			}
 			echo $form->dropDownList($model,'status_id',$options);

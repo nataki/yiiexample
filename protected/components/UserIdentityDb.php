@@ -35,7 +35,7 @@ abstract class UserIdentityDb extends CUserIdentity {
 				$this->errorMessage = Yii::t('auth', 'Invalid password.');
 			} else {
 				$attributes = $user->getAttributes();
-				foreach($attributes as $attributeName => $attributeValue) {
+				foreach ($attributes as $attributeName => $attributeValue) {
 					$this->setState($attributeName, $attributeValue);
 				}
 				$this->errorCode = self::ERROR_NONE;

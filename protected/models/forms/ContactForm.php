@@ -60,7 +60,7 @@ class ContactForm extends CFormModel {
 		$emailMessage = Yii::app()->email->createEmailByPattern('contact', $data);
 		// Set all site administrators as receivers:
 		$administrators = Administrator::model()->active()->findAll();
-		foreach($administrators as $administrator) {
+		foreach ($administrators as $administrator) {
 			$emailMessage->addTo( $administrator->email );
 		}
 		return $emailMessage->send();

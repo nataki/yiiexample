@@ -43,7 +43,7 @@ class WebTestCase extends CWebTestCase {
 	 */
 	protected function getCaptchaCode() {
 		$captchaVerifyCode = '';
-		foreach($this->getUserSessionData() as $varName => $varValue) {
+		foreach ($this->getUserSessionData() as $varName => $varValue) {
 			if (preg_match('/^(Yii\.CCaptchaAction)(.*)(captcha)$/s', $varName)) {
 				$captchaVerifyCode = $varValue;
 				break;

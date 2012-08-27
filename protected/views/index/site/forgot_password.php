@@ -12,7 +12,7 @@ $this->breadcrumbs=array(
 
 <h1>Forgot Your Password</h1>
 
-<?php if(Yii::app()->user->hasFlash('forgotPassword')): ?>
+<?php if (Yii::app()->user->hasFlash('forgotPassword')): ?>
 <div class="flash-success">
 	<?php echo Yii::app()->user->getFlash('forgotPassword'); ?>
 </div>

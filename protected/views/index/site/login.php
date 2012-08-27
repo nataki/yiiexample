@@ -37,7 +37,7 @@ $this->breadcrumbs=array(
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
-	<?php if( Yii::app()->user->allowAutoLogin ) : ?>
+	<?php if ( Yii::app()->user->allowAutoLogin ) : ?>
 	<div class="row rememberMe">
 		<?php echo $form->checkBox($model,'rememberMe'); ?>
 		<?php echo $form->label($model,'rememberMe'); ?>

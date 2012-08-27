@@ -150,7 +150,7 @@ class SignupTest extends WebTestCase {
 		$this->assertTrue( is_object($model), 'No new user has been created!' );
 
 		// Ensure the user is logged out:
-		if($this->isTextPresent('Logout')) {
+		if ($this->isTextPresent('Logout')) {
 			$this->open('site/logout');
 		}
 
