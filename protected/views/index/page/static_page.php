@@ -3,7 +3,7 @@
 /* @var $model StaticPage */
 
 $this->pageTitle = Yii::app()->name.' - '.$model->title;
-Yii::app()->clientScript->registerMetaTag($model->meta_description, 'description');
+Yii::app()->getComponent('clientScript')->registerMetaTagUnique($model->meta_description, 'description');
 $this->breadcrumbs=array(
 	$model->title,
 );

@@ -2,7 +2,7 @@
 /* @var $this AccountController */
 
 $this->pageTitle = 'Overview Account At '.Yii::app()->name;
-Yii::app()->clientScript->registerMetaTag('Overview Your account on '.Yii::app()->name.' ', 'description');
+Yii::app()->getComponent('clientScript')->registerMetaTagUnique('Overview Your account on '.Yii::app()->name.' ', 'description');
 $this->sectionTitle = 'Account Overview';
 $this->breadcrumbs[] = 'Overview';
 ?>

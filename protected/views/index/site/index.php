@@ -2,7 +2,7 @@
 /* @var $this SiteController */
 
 $this->pageTitle = Yii::app()->name.' - Example Yii Application';
-Yii::app()->clientScript->registerMetaTag(Yii::app()->name.' is an example Yii application', 'description');
+Yii::app()->getComponent('clientScript')->registerMetaTagUnique(Yii::app()->name.' is an example Yii application', 'description');
 ?>
 <h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 

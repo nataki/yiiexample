@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 
 $this->pageTitle = 'Log In '.Yii::app()->name;
-Yii::app()->clientScript->registerMetaTag('Log in '.Yii::app()->name, 'description');
+Yii::app()->getComponent('clientScript')->registerMetaTagUnique('Log in '.Yii::app()->name, 'description');
 $this->breadcrumbs=array(
 	'Login',
 );
