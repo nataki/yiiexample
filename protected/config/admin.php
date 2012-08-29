@@ -33,7 +33,6 @@ return CMap::mergeArray(
 			'urlManager' => array(
 				'urlFormat' => 'path',
 				'showScriptName' => true,
-				'caseSensitive' => false,
 				'rules' => array(
 					'/' => 'site/index',
 					array(
