@@ -34,7 +34,7 @@ class FaqController extends AdminListController {
 				'category'=>array(
 					'class'=>'FaqCategory',
 					'foreignKeyName'=>'category_id',
-					'controllerId'=>'faq_category',
+					'controllerId'=>'faqcategory',
 					'controllerTitle'=>'FAQ category'
 				),
 			),

@@ -21,7 +21,7 @@ $this->contextMenuItems=array(
 		array(
 			'label'=>'Category',
 			'type'=>'raw',
-			'value'=>CHtml::link($model->category->name, array('faq_category/view/'.$model->category_id))
+			'value'=>CHtml::link($model->category->name, array('faqcategory/view/'.$model->category_id))
 		),
 		'question:html',
 		'answer:html',
