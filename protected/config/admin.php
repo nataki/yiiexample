@@ -15,14 +15,14 @@ return CMap::mergeArray(
 		'import' => array(
 			'application.components.admin.*'
 		),
-		'components'=>array(
-			'user'=>array(
+		'components' => array(
+			'user' => array(
 				// enable cookie-based authentication
-				'allowAutoLogin'=>false,
-				'loginUrl'=>array('/site/login'),
-				'behaviors'=>array(
-					'modelBehavior'=>array(
-						'modelClassName'=>'Administrator'
+				'allowAutoLogin' => false,
+				'loginUrl' => array('/site/login'),
+				'behaviors' => array(
+					'modelBehavior' => array(
+						'modelClassName' => 'Administrator'
 					),
 				),
 			),
@@ -30,17 +30,18 @@ return CMap::mergeArray(
 				'sessionName' => 'yiiExampleSessionAdmin',
 				'autoStart' => true
 			),
-			'urlManager'=>array(
-				'urlFormat'=>'path',
-				'showScriptName'=>true,
-				'rules'=>array(
-					'/'=>'site/index',
+			'urlManager' => array(
+				'urlFormat' => 'path',
+				'showScriptName' => true,
+				'caseSensitive' => false,
+				'rules' => array(
+					'/' => 'site/index',
 					array(
-						'class'=>'ext.qs.web.url.QsUrlRuleModuleDefault'
+						'class' => 'ext.qs.web.url.QsUrlRuleModuleDefault'
 					),
-					'<controller:\w+>/<id:\d+>*'=>'<controller>/view',
-					'<controller:\w+>/<action:\w+>/<id:\d+>*'=>'<controller>/<action>',
-					'<controller:\w+>/<action:\w+>/*'=>'<controller>/<action>',
+					'<controller:\w+>/<id:\d+>*' => '<controller>/view',
+					'<controller:\w+>/<action:\w+>/<id:\d+>*' => '<controller>/<action>',
+					'<controller:\w+>/<action:\w+>/*' => '<controller>/<action>',
 				),
 			)
 		),
