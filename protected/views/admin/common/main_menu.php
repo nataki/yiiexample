@@ -4,14 +4,8 @@
 		array(
 			'label'=>'Settings',
 			'items'=>array(
-				array('label'=>'Site settings', 'url'=>array('site_setting/')),
+				array('label'=>'Site settings', 'url'=>array('sitesetting/')),
 				array('label'=>'Maintenance', 'url'=>array('maintenance/')),
-			)
-		),
-		array(
-			'label'=>'Content setup',
-			'items'=>array(
-				array('label'=>'Static Pages', 'url'=>array('/static_page/')),
 			)
 		),
 		array(
@@ -22,22 +16,28 @@
 			)
 		),
 		array(
+			'label'=>'Content setup',
+			'items'=>array(
+				array('label'=>'Static Pages', 'url'=>array('/staticpage/')),
+			)
+		),
+		array(
 			'label'=>'Email setup',
 			'items'=>array(
-				array('label'=>'Email Patterns', 'url'=>array('/email_pattern/')),
+				array('label'=>'Email Patterns', 'url'=>array('/emailpattern/')),
 			)
 		),
 		array(
 			'label'=>'Help setup',
 			'items'=>array(
-				array('label'=>'FAQ Categories', 'url'=>array('/faq_category/')),
+				array('label'=>'FAQ Categories', 'url'=>array('/faqcategory/')),
 				array('label'=>'FAQ', 'url'=>array('/faq/')),
 			)
 		),
 		array(
 			'label'=>'Logs',
 			'items'=>array(
-				array('label'=>'Auth Logs', 'url'=>array('/auth_log/')),
+				array('label'=>'Auth Logs', 'url'=>array('/authlog/')),
 			)
 		),
 	);

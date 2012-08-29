@@ -3,6 +3,10 @@
 /**
  * The base class for the controllers of administration panel, which provide CRUD operations.
  * Extend this controller if you need to create common administration panel section.
+ *
+ * @method boolean setModelClassName(string $modelClassName)
+ *
+ * @see QsControllerBehaviorAdminDataModel
  */
 class AdminListController extends AdminBaseController {
 	/**
