@@ -11,11 +11,13 @@ class PageController extends IndexController {
 
 	/**
 	 * Display the static pages.
+	 * @param CModel $model static page model.
 	 */
 	public function actionView($model) {
 		if (is_object($model)) {
-			return $this->render('static_page',array('model'=>$model));
+			$this->render('static_page',array('model'=>$model));
+		} else {
+			$this->missingAction($model);
 		}
-		return $this->missingAction($id);
 	}
 }
