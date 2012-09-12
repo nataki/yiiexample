@@ -8,24 +8,24 @@ return CMap::mergeArray(
 	//require(dirname(__FILE__).'/main.php'),
 	require(dirname(__FILE__).'/index.php'),
 	array(
-		'import'=>array(
+		'import' => array(
 			'ext.qs.test.*',
 			'ext.qs.test.exceptions.*',
 		),
-		'components'=>array(
-			'fixture'=>array(
-				'class'=>'system.test.CDbFixtureManager',
+		'components' => array(
+			'fixture' => array(
+				'class' => 'system.test.CDbFixtureManager',
 			),
 			/* uncomment the following to provide test database connection
-			'db'=>array(
-				'connectionString'=>'DSN for test database',
+			'db' => array(
+				'connectionString' => 'DSN for test database',
 			),
 			*/
 			'session' => array(
 				'autoStart' => false
 			),
-			'urlManager'=>array(
-				'showScriptName'=>true,
+			'urlManager' => array(
+				'showScriptName' => true,
 			),
 			'email'=> array(
 				'testMode' => 'silence',
