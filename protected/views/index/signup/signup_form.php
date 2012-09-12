@@ -5,7 +5,7 @@
 
 $this->pageTitle = 'Signup For '.Yii::app()->name;
 Yii::app()->getComponent('clientScript')->registerMetaTagUnique('Sign up for '.Yii::app()->name, 'description');
-$this->breadcrumbs=array(
+$this->breadcrumbs = array(
 	'Signup',
 );
 ?>
@@ -17,7 +17,7 @@ Fill the following form for sign up.
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm'); ?>
+<?php $form = $this->beginWidget('CActiveForm'); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
@@ -56,8 +56,8 @@ Fill the following form for sign up.
 		<?php echo $form->labelEx($model,'verifyCode'); ?>
 		<div>
 		<?php
-			$this->widget('CCaptcha',array(
-				'buttonLabel'=>CHtml::image(Yii::app()->baseUrl.'/images/index/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
+			$this->widget('CCaptcha', array(
+				'buttonLabel' => CHtml::image(Yii::app()->baseUrl.'/images/index/refresh.gif', 'Get new code',array('title'=>'Get new code', 'style'=>'margin: 12px 5px;')),
 			));
 		?>
 		</div>

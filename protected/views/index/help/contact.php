@@ -5,7 +5,7 @@
 
 $this->pageTitle = 'Contact '.Yii::app()->name.' Administrator';
 Yii::app()->getComponent('clientScript')->registerMetaTagUnique('Contact '.Yii::app()->name.' administrator', 'description');
-$this->breadcrumbs=array(
+$this->breadcrumbs = array(
 	'Contact Us',
 );
 ?>
@@ -24,7 +24,7 @@ If you have business inquiries or other questions, please fill out the following
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm'); ?>
+<?php $form = $this->beginWidget('CActiveForm'); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 

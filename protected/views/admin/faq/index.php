@@ -13,29 +13,29 @@ $this->contextMenuItems = array(
 
 <?php $this->renderPartial('//common/advanced_search', array('model'=>$model) ); ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'faq-grid',
-	'ajaxUrl'=>array_merge( array($this->getRoute()), $contextAttributes ),
-	'dataProvider'=>$model->dataProviderAdmin(),
-	'filter'=>$model,
-	'columns'=>array(
+	'id' => 'faq-grid',
+	'ajaxUrl' => array_merge( array($this->getRoute()), $contextAttributes ),
+	'dataProvider' => $model->dataProviderAdmin(),
+	'filter' => $model,
+	'columns' => array(
 		array(
-			'class'=>'CButtonColumn',
-			'viewButtonUrl'=>'Yii::app()->controller->createUrl("view",array_merge( array("id"=>$data->primaryKey), $this->grid->owner->getActiveContextModelAttributes() ))',
-			'updateButtonUrl'=>'Yii::app()->controller->createUrl("update",array_merge( array("id"=>$data->primaryKey), $this->grid->owner->getActiveContextModelAttributes() ))',
-			'deleteButtonUrl'=>'Yii::app()->controller->createUrl("delete",array_merge( array("id"=>$data->primaryKey), $this->grid->owner->getActiveContextModelAttributes() ))'
+			'class' => 'CButtonColumn',
+			'viewButtonUrl' => 'Yii::app()->controller->createUrl("view",array_merge( array("id"=>$data->primaryKey), $this->grid->owner->getActiveContextModelAttributes() ))',
+			'updateButtonUrl' => 'Yii::app()->controller->createUrl("update",array_merge( array("id"=>$data->primaryKey), $this->grid->owner->getActiveContextModelAttributes() ))',
+			'deleteButtonUrl' => 'Yii::app()->controller->createUrl("delete",array_merge( array("id"=>$data->primaryKey), $this->grid->owner->getActiveContextModelAttributes() ))'
 		),
 		'id',
 		array(
-			'header'=>'Category',
-			'name'=>'category_id',
-			'filter'=>CHtml::listData(FaqCategory::model()->findAll(), 'id', 'name'),
-			'value'=>'$data->category->name',
+			'header' => 'Category',
+			'name' => 'category_id',
+			'filter' => CHtml::listData(FaqCategory::model()->findAll(), 'id', 'name'),
+			'value' => '$data->category->name',
 		),
 		'question',
 		'answer',
 		array(
-			'class'=>'ext.qs.web.widgets.grid.QsGridColumnSwitchPosition',
-			'name'=>'position'
+			'class' => 'ext.qs.web.widgets.grid.QsGridColumnSwitchPosition',
+			'name' => 'position'
 		),
 	),
 )); ?>

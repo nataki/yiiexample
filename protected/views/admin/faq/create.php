@@ -7,7 +7,7 @@ $this->breadcrumbs[] = 'Create';
 
 $contextAttributes = $this->getActiveContextModelAttributes();
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back to list', 'url'=>array_merge( array('index'), $contextAttributes ) ),
 );
 ?>

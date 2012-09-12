@@ -3,9 +3,9 @@
 /* @var $model Administrator */
 
 $this->sectionTitle = 'Create Administrator';
-$this->breadcrumbs[]='Create';
+$this->breadcrumbs[] = 'Create';
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back to list', 'url'=>array('index')),
 );
 ?>

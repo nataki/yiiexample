@@ -9,9 +9,9 @@
 /* @var $model Administrator */
 
 $this->sectionTitle = 'View Administrator #'.$model->id;
-$this->breadcrumbs[]=$model->id;
+$this->breadcrumbs[] = $model->id;
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back To List', 'url'=>array('index')),
 	array('label'=>'Create Administrator', 'url'=>array('create')),
 	array('label'=>'Update Administrator', 'url'=>array('update', 'id'=>$model->id)),
@@ -21,8 +21,8 @@ $this->contextMenuItems=array(
 ?>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
+	'data' => $model,
+	'attributes' => array(
 		'id',
 		'group.name:html:Group',
 		'status.name:html:Status',
@@ -30,9 +30,9 @@ $this->contextMenuItems=array(
 		'email:email',
 		'create_date:strdate',
 		array(
-			'label'=>'Last Login Date',
-			'type'=>'raw',
-			'value'=> Yii::app()->format->formatStrDateTime( $model->getLastLoginDate() ),
+			'label' => 'Last Login Date',
+			'type' => 'raw',
+			'value' => Yii::app()->format->formatStrDateTime( $model->getLastLoginDate() ),
 		),
 	),
 )); ?>

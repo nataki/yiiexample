@@ -3,10 +3,10 @@
 /* @var $model StaticPage */
 
 $this->sectionTitle = 'Update Static Page #'.$model->id;
-$this->breadcrumbs[$model->id]=array('view','id'=>$model->id);
-$this->breadcrumbs[]='Update';
+$this->breadcrumbs[$model->id] = array('view','id'=>$model->id);
+$this->breadcrumbs[] = 'Update';
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back To List', 'url'=>array('index')),
 	array('label'=>'Create Static Page', 'url'=>array('create')),
 	array('label'=>'View Static Page', 'url'=>array('view', 'id'=>$model->id)),

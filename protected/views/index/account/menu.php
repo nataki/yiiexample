@@ -1,7 +1,7 @@
 <?php /* @var $this AccountController */ ?>
 		<div id="sidebar">
-		<?php $menu = $this->beginWidget('ext.qs.web.widgets.QsMenu',array(
-				'items'=>array(
+		<?php $menu = $this->beginWidget('ext.qs.web.widgets.QsMenu', array(
+				'items' => array(
 					array('label'=>'Overview', 'url'=>array("{$this->id}/")),
 					array('label'=>'Profile', 'url'=>array('profile')),
 				),

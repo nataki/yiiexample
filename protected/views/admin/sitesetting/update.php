@@ -3,10 +3,10 @@
 /* @var $model SiteSetting */
 
 $this->sectionTitle = 'Update Site Setting #'.$model->id;
-$this->breadcrumbs[$model->id]=array('view','id'=>$model->id);
-$this->breadcrumbs[]='Update';
+$this->breadcrumbs[$model->id] = array('view','id'=>$model->id);
+$this->breadcrumbs[] = 'Update';
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Update Values', 'url'=>array('index')),
 	array('label'=>'Back To List', 'url'=>array('admin')),
 	array('label'=>'Create Site Setting', 'url'=>array('create')),

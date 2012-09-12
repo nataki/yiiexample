@@ -6,11 +6,11 @@
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'model-form',
-	'enableAjaxValidation'=>false,
+<?php $form = $this->beginWidget('CActiveForm', array(
+	'id' => 'model-form',
+	'enableAjaxValidation' => false,
 	'htmlOptions' => array(
-		'enctype'=>'multipart/form-data',
+		'enctype' => 'multipart/form-data',
 	)
 )); ?>
 

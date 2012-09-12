@@ -12,16 +12,16 @@ $this->contextMenuItems = array(
 <?php $this->renderPartial('//common/advanced_search', array('model'=>$model) ); ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'record-grid',
-	'ajaxUrl'=>array($this->getRoute()),
-	'dataProvider'=>$model->dataProviderAdmin(),
-	'filter'=>$model,
+	'id' => 'record-grid',
+	'ajaxUrl' => array($this->getRoute()),
+	'dataProvider' => $model->dataProviderAdmin(),
+	'filter' => $model,
 	'pager' => array(
-		'class'=>'CLinkPager',
+		'class' => 'CLinkPager',
 	),
-	'columns'=>array(
+	'columns' => array(
 		array(
-			'class'=>'CButtonColumn',
+			'class' => 'CButtonColumn',
 		),
 		'id',
 		'name',
@@ -29,10 +29,10 @@ $this->contextMenuItems = array(
 		'email',
 		'create_date:strdate',
 		array(
-			'header'=>'Status',
-			'name'=>'status_id',
-			'filter'=>CHtml::listData(UserStatus::model()->findAll(), 'id', 'name'),
-			'value'=>'$data->status->name',
+			'header' => 'Status',
+			'name' => 'status_id',
+			'filter' => CHtml::listData(UserStatus::model()->findAll(), 'id', 'name'),
+			'value' => '$data->status->name',
 		),
 	),
 )); ?>

@@ -3,10 +3,10 @@
 /* @var $model Member */
 
 $this->sectionTitle = 'Update Member #'.$model->id;
-$this->breadcrumbs[$model->id]=array('view','id'=>$model->id);
-$this->breadcrumbs[]='Update';
+$this->breadcrumbs[$model->id] = array('view','id'=>$model->id);
+$this->breadcrumbs[] = 'Update';
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back To List', 'url'=>array('index')),
 	array('label'=>'Create Member', 'url'=>array('create')),
 	array('label'=>'View Member', 'url'=>array('view', 'id'=>$model->id)),

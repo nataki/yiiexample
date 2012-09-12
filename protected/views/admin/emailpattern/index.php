@@ -12,20 +12,20 @@ $this->contextMenuItems = array(
 <?php $this->renderPartial('//common/advanced_search', array('model'=>$model) ); ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'record-grid',
-	'ajaxUrl'=>array($this->getRoute()),
-	'dataProvider'=>$model->dataProviderAdmin(),
-	'filter'=>$model,
-	'columns'=>array(
+	'id' => 'record-grid',
+	'ajaxUrl' => array($this->getRoute()),
+	'dataProvider' => $model->dataProviderAdmin(),
+	'filter' => $model,
+	'columns' => array(
 		array(
-			'class'=>'CButtonColumn',
+			'class' => 'CButtonColumn',
 		),
 		'id',
 		'name',
 		array(
-			'name'=>'from_email',
-			'header'=>'From',
-			'value'=>"\$data->from_name.' <'.\$data->from_email.'>'"
+			'name' => 'from_email',
+			'header' => 'From',
+			'value' => "\$data->from_name.' <'.\$data->from_email.'>'"
 		),
 		'subject',
 	),

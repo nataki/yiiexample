@@ -3,8 +3,8 @@
 
 $this->layout = 'single';
 
-$this->pageTitle=Yii::app()->name . ' - Error';
-$this->breadcrumbs=array(
+$this->pageTitle = Yii::app()->name . ' - Error';
+$this->breadcrumbs = array(
 	'Error',
 );
 ?>

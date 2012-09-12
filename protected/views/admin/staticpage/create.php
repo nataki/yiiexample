@@ -3,9 +3,9 @@
 /* @var $model StaticPage */
 
 $this->sectionTitle = 'Create Static Page';
-$this->breadcrumbs[]='Create';
+$this->breadcrumbs[] = 'Create';
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back to list', 'url'=>array('index')),
 );
 ?>

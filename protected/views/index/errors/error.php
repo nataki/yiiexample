@@ -3,7 +3,7 @@
 
 $this->pageTitle = 'Error At '.Yii::app()->name;
 Yii::app()->getComponent('clientScript')->registerMetaTagUnique('Sorry, an error has occurred while resolving your request.', 'description');
-$this->breadcrumbs=array(
+$this->breadcrumbs = array(
 	'Error',
 );
 ?>

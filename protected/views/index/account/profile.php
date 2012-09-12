@@ -7,7 +7,7 @@ $this->pageTitle = 'Edit Your Profile At '.Yii::app()->name;
 Yii::app()->getComponent('clientScript')->registerMetaTagUnique('Edit your profile at '.Yii::app()->name, 'description');
 
 $this->sectionTitle = 'Edit Profile';
-$this->breadcrumbs[]= 'Profile';
+$this->breadcrumbs[] = 'Profile';
 ?>
 
 <?php if (Yii::app()->user->hasFlash('account_profile')): ?>
@@ -18,7 +18,7 @@ $this->breadcrumbs[]= 'Profile';
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm'); ?>
+<?php $form = $this->beginWidget('CActiveForm'); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 

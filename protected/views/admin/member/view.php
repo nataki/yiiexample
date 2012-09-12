@@ -9,9 +9,9 @@
 /* @var $model Member */
 
 $this->sectionTitle = 'View Member #'.$model->id;
-$this->breadcrumbs[]=$model->id;
+$this->breadcrumbs[] = $model->id;
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back To List', 'url'=>array('index')),
 	array('label'=>'Create Member', 'url'=>array('create')),
 	array('label'=>'Update Member', 'url'=>array('update', 'id'=>$model->id)),
@@ -21,8 +21,8 @@ $this->contextMenuItems=array(
 ?>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
+	'data' => $model,
+	'attributes' => array(
 		'id',
 		'group.name:html:Group',
 		'status.name:html:Status',
@@ -30,8 +30,8 @@ $this->contextMenuItems=array(
 		'email:email',
 		'create_date:strdate',
 		array(
-			'label'=>'Full name',
-			'value'=>$model->first_name.' '.$model->last_name,
+			'label' => 'Full name',
+			'value' => $model->first_name.' '.$model->last_name,
 		),
 		'profile.postal_code',
 		'profile.city',
@@ -40,9 +40,9 @@ $this->contextMenuItems=array(
 		'profile.phone_home',
 		'profile.phone_mobile',
 		array(
-			'label'=>'Last Login Date',
-			'type'=>'raw',
-			'value'=> Yii::app()->format->formatStrDateTime( $model->getLastLoginDate() ),
+			'label' => 'Last Login Date',
+			'type' => 'raw',
+			'value' => Yii::app()->getComponent('format')->formatStrDateTime( $model->getLastLoginDate() ),
 		),
 	),
 )); ?>

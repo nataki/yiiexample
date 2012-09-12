@@ -3,9 +3,9 @@
 /* @var $model SiteSetting */
 
 $this->sectionTitle = 'View Site Setting #'.$model->id;
-$this->breadcrumbs[]=$model->id;
+$this->breadcrumbs[] = $model->id;
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Update Values', 'url'=>array('index')),
 	array('label'=>'Back To List', 'url'=>array('admin')),
 	array('label'=>'Create Site Setting', 'url'=>array('create')),
@@ -15,8 +15,8 @@ $this->contextMenuItems=array(
 ?>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
+	'data' => $model,
+	'attributes' => array(
 		'id',
 		'name',
 		'value',

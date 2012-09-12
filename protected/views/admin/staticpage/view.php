@@ -3,9 +3,9 @@
 /* @var $model StaticPage */
 
 $this->sectionTitle = 'View Static Page #'.$model->id;
-$this->breadcrumbs[]=$model->id;
+$this->breadcrumbs[] = $model->id;
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back To List', 'url'=>array('index')),
 	array('label'=>'Create Static Page', 'url'=>array('create')),
 	array('label'=>'Update Static Page', 'url'=>array('update', 'id'=>$model->id)),
@@ -14,13 +14,13 @@ $this->contextMenuItems=array(
 ?>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
+	'data' => $model,
+	'attributes' => array(
 		'id',
 		array(
-			'name'=>'url_keyword',
-			'type'=>'raw',
-			'value'=> CHtml::link($model->url_keyword, Yii::app()->baseUrl.'/'.$model->url_keyword, array('target'=>'blank') )
+			'name' => 'url_keyword',
+			'type' => 'raw',
+			'value' => CHtml::link($model->url_keyword, Yii::app()->baseUrl.'/'.$model->url_keyword, array('target'=>'blank') )
 		),
 		'title',
 		'meta_description',

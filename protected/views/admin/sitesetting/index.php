@@ -13,13 +13,13 @@ $this->contextMenuItems = array(
 <?php $this->renderPartial('//common/advanced_search', array('model'=>$model) ); ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'record-grid',
-	'ajaxUrl'=>array($this->getRoute()),
-	'dataProvider'=>$model->dataProviderAdmin(),
-	'filter'=>$model,
-	'columns'=>array(
+	'id' => 'record-grid',
+	'ajaxUrl' => array($this->getRoute()),
+	'dataProvider' => $model->dataProviderAdmin(),
+	'filter' => $model,
+	'columns' => array(
 		array(
-			'class'=>'CButtonColumn',
+			'class' => 'CButtonColumn',
 		),
 		'id',
 		'name',
@@ -27,8 +27,8 @@ $this->contextMenuItems = array(
 		'is_required:boolean',
 		'title',
 		array(
-			'class'=>'ext.qs.web.widgets.grid.QsGridColumnSwitchPosition',
-			'name'=>'position'
+			'class' => 'ext.qs.web.widgets.grid.QsGridColumnSwitchPosition',
+			'name' => 'position'
 		),
 	),
 )); ?>

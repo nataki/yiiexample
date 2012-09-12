@@ -6,9 +6,9 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
+<?php $form = $this->beginWidget('CActiveForm', array(
+	'action' => Yii::app()->createUrl($this->route),
+	'method' => 'get',
 )); ?>
 
 	<div class="row">
@@ -20,11 +20,11 @@
 		<?php echo $form->label($model,'category_id'); ?>
 		<?php
 			$faqCategories = FaqCategory::model()->findAll();
-			$options=array(
+			$options = array(
 				'' => 'All records'
 			);
 			foreach ($faqCategories as $faqCategory) {
-				$options[$faqCategory->id]=$faqCategory->name;
+				$options[$faqCategory->id] = $faqCategory->name;
 			}
 			echo $form->dropDownList($model,'category_id',$options);
 		?>

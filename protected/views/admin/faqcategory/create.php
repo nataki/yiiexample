@@ -5,7 +5,7 @@
 $this->sectionTitle = 'Create Faq Category';
 $this->breadcrumbs[] = 'Create';
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back to list', 'url'=>array('index')),
 );
 ?>

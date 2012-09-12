@@ -5,7 +5,7 @@
 
 $this->pageTitle = 'Log In '.Yii::app()->name;
 Yii::app()->getComponent('clientScript')->registerMetaTagUnique('Log in '.Yii::app()->name, 'description');
-$this->breadcrumbs=array(
+$this->breadcrumbs = array(
 	'Login',
 );
 ?>
@@ -15,7 +15,7 @@ $this->breadcrumbs=array(
 <p>Please fill out the following form with your login credentials:</p>
 
 <div class="form">
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form = $this->beginWidget('CActiveForm', array(
 	'id'=>'login-form',
 	'enableClientValidation'=>true,
 	'clientOptions'=>array(

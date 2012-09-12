@@ -1,3 +1,6 @@
+<?php
+/* @var $widget QsLinkPager */
+?>
 <div class="pager">
 	<?php echo $widget->header; ?>
 	<ul id="<?php $widget->id; ?>" class="yiiPager">

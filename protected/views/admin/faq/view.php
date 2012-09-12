@@ -3,11 +3,11 @@
 /* @var $model Faq */
 
 $this->sectionTitle = 'View FAQ #'.$model->id;
-$this->breadcrumbs[]=$model->id;
+$this->breadcrumbs[] = $model->id;
 
 $contextAttributes = $this->getActiveContextModelAttributes();
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back To List', 'url'=>array_merge( array('index'), $contextAttributes ) ),
 	array('label'=>'Create FAQ', 'url'=>array_merge( array('create'), $contextAttributes ) ),
 	array('label'=>'Update FAQ', 'url'=>array_merge( array('update', 'id'=>$model->id), $contextAttributes ) ),
@@ -15,13 +15,13 @@ $this->contextMenuItems=array(
 );
 ?>
 <?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
+	'data' => $model,
+	'attributes' => array(
 		'id',
 		array(
-			'label'=>'Category',
-			'type'=>'raw',
-			'value'=>CHtml::link($model->category->name, array('faqcategory/view/'.$model->category_id))
+			'label' => 'Category',
+			'type' => 'raw',
+			'value' => CHtml::link($model->category->name, array('faqcategory/view/'.$model->category_id))
 		),
 		'question:html',
 		'answer:html',

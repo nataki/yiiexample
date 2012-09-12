@@ -2,10 +2,10 @@
 <?php
 $cacheOptions = array(
 	'duration' => 3600*24,
-	'varyByRoute'=>false,
+	'varyByRoute' => false,
 	'dependency' => array(
-		'class'=>'CFileCacheDependency',
-		'fileName'=>__FILE__
+		'class' => 'CFileCacheDependency',
+		'fileName' => __FILE__
 	)
 );
 if ($this->beginCache('secondaryMenuHtml', $cacheOptions)) { 

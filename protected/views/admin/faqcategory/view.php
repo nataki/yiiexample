@@ -3,9 +3,9 @@
 /* @var $model FaqCategory */
 
 $this->sectionTitle = 'View Faq Category #'.$model->id;
-$this->breadcrumbs[]=$model->id;
+$this->breadcrumbs[] = $model->id;
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back To List', 'url'=>array('index')),
 	array('label'=>'Create Faq Category', 'url'=>array('create')),
 	array('label'=>'Update Faq Category', 'url'=>array('update', 'id'=>$model->id)),
@@ -13,15 +13,15 @@ $this->contextMenuItems=array(
 );
 ?>
 <?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
+	'data' => $model,
+	'attributes' => array(
 		'id',
 		'name',
 		'description:html',
 		array(
-			'label'=>'FAQ',
-			'type'=>'raw',
-			'value'=>CHtml::link('see questions', array('faq/index/category_id/'.$model->id) )
+			'label' => 'FAQ',
+			'type' => 'raw',
+			'value' => CHtml::link('see questions', array('faq/index/category_id/'.$model->id) )
 		),
 	),
 )); ?>

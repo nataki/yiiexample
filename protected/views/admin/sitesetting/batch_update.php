@@ -14,9 +14,9 @@ $this->sectionTitle = 'Update Site Settings';
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'model-form',
-	'enableAjaxValidation'=>false,
+<?php $form = $this->beginWidget('CActiveForm', array(
+	'id' => 'model-form',
+	'enableAjaxValidation' => false,
 )); ?>
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>

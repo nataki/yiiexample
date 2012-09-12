@@ -5,7 +5,7 @@
 
 $this->pageTitle = 'Forgot Your Password At '.Yii::app()->name;
 Yii::app()->getComponent('clientScript')->registerMetaTagUnique('Forgot your password at '.Yii::app()->name, 'description');
-$this->breadcrumbs=array(
+$this->breadcrumbs = array(
 	'Forgot Your Password',
 );
 ?>
@@ -25,11 +25,11 @@ Your password will be resetted and its new value will be sent your via email.
 
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm',array(
-	'id'=>'forgot-password-form',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true
+<?php $form = $this->beginWidget('CActiveForm',array(
+	'id' => 'forgot-password-form',
+	'enableClientValidation' => true,
+	'clientOptions' => array(
+		'validateOnSubmit' => true
 	),
 )); ?>
 

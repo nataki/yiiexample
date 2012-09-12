@@ -3,9 +3,9 @@
 /* @var $model EmailPattern */
 
 $this->sectionTitle = 'Create Email Pattern';
-$this->breadcrumbs[]='Create';
+$this->breadcrumbs[] = 'Create';
 
-$this->contextMenuItems=array(
+$this->contextMenuItems = array(
 	array('label'=>'Back to list', 'url'=>array('index')),
 );
 ?>

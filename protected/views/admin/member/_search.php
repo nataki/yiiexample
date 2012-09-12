@@ -6,9 +6,9 @@
 
 <div class="wide form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
+<?php $form = $this->beginWidget('CActiveForm', array(
+	'action' => Yii::app()->createUrl($this->route),
+	'method' => 'get',
 )); ?>
 
 	<div class="row">
@@ -30,11 +30,11 @@
 		<?php echo $form->label($model,'status_id'); ?>
 		<?php
 			$userStatuses = UserStatus::model()->findAll();
-			$options=array(
+			$options = array(
 				'' => 'All records'
 			);
 			foreach ($userStatuses as $userStatus) {
-				$options[$userStatus->id]=$userStatus->name;
+				$options[$userStatus->id] = $userStatus->name;
 			}
 			echo $form->dropDownList($model,'status_id',$options);
 		?>

@@ -11,24 +11,24 @@ $this->contextMenuItems = array(
 
 <?php $this->renderPartial('//common/advanced_search', array('model'=>$model) ); ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'faq-category-grid',
-	'ajaxUrl'=>array($this->getRoute()),
-	'dataProvider'=>$model->dataProviderAdmin(),
-	'filter'=>$model,
-	'columns'=>array(
+	'id' => 'faq-category-grid',
+	'ajaxUrl' => array($this->getRoute()),
+	'dataProvider' => $model->dataProviderAdmin(),
+	'filter' => $model,
+	'columns' => array(
 		array(
-			'class'=>'CButtonColumn',
+			'class' => 'CButtonColumn',
 		),
 		'id',
 		array(
-			'name'=>'name',
-			'type'=>'raw',
-			'value'=>'CHtml::link($data->name, Yii::app()->createUrl( "faq/index", array("category_id"=>$data->id) ) );',
+			'name' => 'name',
+			'type' => 'raw',
+			'value' => 'CHtml::link($data->name, Yii::app()->createUrl( "faq/index", array("category_id"=>$data->id) ) );',
 		),
 		'description',
 		array(
-			'class'=>'ext.qs.web.widgets.grid.QsGridColumnSwitchPosition',
-			'name'=>'position'
+			'class' => 'ext.qs.web.widgets.grid.QsGridColumnSwitchPosition',
+			'name' => 'position'
 		),
 	),
 )); ?>

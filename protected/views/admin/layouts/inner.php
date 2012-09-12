@@ -2,8 +2,8 @@
 <?php $this->beginContent('//layouts/main'); ?>
 		<?php if (!Yii::app()->user->isGuest) { ?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
-			'homeLink'=>CHtml::link('Administration', $this->createUrl('site/index')),
-			'links'=>$this->breadcrumbs,
+			'homeLink' => CHtml::link('Administration', $this->createUrl('site/index')),
+			'links' => $this->breadcrumbs,
 		)); ?>
 		<?php } ?>
 
@@ -12,8 +12,8 @@
 			<div class="access_actions">
 				<?php
 					$this->widget('zii.widgets.CMenu', array(
-						'items'=>$this->contextMenuItems,
-						'htmlOptions'=>array('class'=>'operations'),
+						'items' => $this->contextMenuItems,
+						'htmlOptions' => array('class'=>'operations'),
 					));
 				?>
 			</div>

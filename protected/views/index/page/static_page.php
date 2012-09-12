@@ -4,9 +4,9 @@
 
 $this->pageTitle = Yii::app()->name.' - '.$model->title;
 Yii::app()->getComponent('clientScript')->registerMetaTagUnique($model->meta_description, 'description');
-$this->breadcrumbs=array(
+$this->breadcrumbs = array(
 	$model->title,
 );
 ?>
 <h1><?php echo $model->title; ?></h1>
-<p><?php echo Yii::app()->format->formatEvalView($model->content); ?></p>
+<p><?php echo Yii::app()->getComponent('format')->formatEvalView($model->content); ?></p>
