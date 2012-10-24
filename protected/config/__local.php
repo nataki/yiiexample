@@ -91,12 +91,12 @@ return array(
 			),
 			'password' => 'admin4gii',
 			'generatorPaths' => array(
-				'ext.qs.gii'
+				'ext.qs.lib.gii'
 			),
 		),*/
 		// uncomment the following to enable the web PHPUnit test runner
 		/*'phpunit' => array(
-			'class' => 'ext.qs.test.modules.phpunit.PhpunitModule',
+			'class' => 'ext.qs.lib.test.modules.phpunit.PhpunitModule',
 			'ipFilters' => array(
 				'127.0.0.1',
 				'10.10.50.60'

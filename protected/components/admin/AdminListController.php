@@ -23,7 +23,7 @@ class AdminListController extends AdminBaseController {
 	public function behaviors() {
 		return array(
 			'dataModelBehavior' => array(
-				'class'=>'ext.qs.web.controllers.QsControllerBehaviorAdminDataModel'
+				'class'=>'ext.qs.lib.web.controllers.QsControllerBehaviorAdminDataModel'
 			)
 		);
 	}
@@ -43,11 +43,11 @@ class AdminListController extends AdminBaseController {
 	 */
 	public function actions() {
 		return array(
-			'index'=>'ext.qs.web.controllers.actions.QsActionAdminList',
-			'view'=>'ext.qs.web.controllers.actions.QsActionAdminView',
-			'create'=>'ext.qs.web.controllers.actions.QsActionAdminInsert',
-			'update'=>'ext.qs.web.controllers.actions.QsActionAdminUpdate',
-			'delete'=>'ext.qs.web.controllers.actions.QsActionAdminDelete',
+			'index'=>'ext.qs.lib.web.controllers.actions.QsActionAdminList',
+			'view'=>'ext.qs.lib.web.controllers.actions.QsActionAdminView',
+			'create'=>'ext.qs.lib.web.controllers.actions.QsActionAdminInsert',
+			'update'=>'ext.qs.lib.web.controllers.actions.QsActionAdminUpdate',
+			'delete'=>'ext.qs.lib.web.controllers.actions.QsActionAdminDelete',
 		);
 	}
 }

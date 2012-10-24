@@ -18,7 +18,7 @@ class FaqController extends AdminListController {
 
 	public function actions() {
 		$actions = parent::actions();
-		$actions['move'] = 'ext.qs.web.controllers.actions.QsActionAdminMove';
+		$actions['move'] = 'ext.qs.lib.web.controllers.actions.QsActionAdminMove';
 		return $actions;
 	}
 
@@ -29,7 +29,7 @@ class FaqController extends AdminListController {
 	public function behaviors() {
 		$behaviors = parent::behaviors();
 		$behaviors['dataModelBehavior'] = array(
-			'class'=>'ext.qs.web.controllers.QsControllerBehaviorAdminDataModelContext',
+			'class'=>'ext.qs.lib.web.controllers.QsControllerBehaviorAdminDataModelContext',
 			'contexts'=>array(
 				'category'=>array(
 					'class'=>'FaqCategory',

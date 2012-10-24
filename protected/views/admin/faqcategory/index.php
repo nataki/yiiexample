@@ -27,7 +27,7 @@ $this->contextMenuItems = array(
 		),
 		'description',
 		array(
-			'class' => 'ext.qs.web.widgets.grid.QsGridColumnSwitchPosition',
+			'class' => 'ext.qs.lib.web.widgets.grid.QsGridColumnSwitchPosition',
 			'name' => 'position'
 		),
 	),

@@ -25,7 +25,7 @@ class IndexController extends CController {
 	public function filters() {
 		return array(
 			'secureConnection' => array(
-				'ext.qs.web.controllers.filters.QsFilterSecureConnection',
+				'ext.qs.lib.web.controllers.filters.QsFilterSecureConnection',
 				'useSecureConnection'=>false
 			),
 			'accessControl' => 'accessControl',

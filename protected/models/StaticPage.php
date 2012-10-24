@@ -71,10 +71,10 @@ class StaticPage extends CActiveRecord {
 	public function behaviors() {
 		return array(
 			'positionBehavior' => array(
-				'class'=>'ext.qs.db.ar.QsActiveRecordBehaviorPosition'
+				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition'
 			),
 			'cacheClearBehavior' => array(
-				'class'=>'ext.qs.db.ar.QsActiveRecordBehaviorClearCache',
+				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorClearCache',
 				'dependingCacheIds'=>array(
 					'Yii.COutputCache.secondaryMenuHtml......',
 					'QsUrlRuleModelPageStaticPage',

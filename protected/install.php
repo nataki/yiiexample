@@ -20,7 +20,7 @@ $config=array(
 	'name'=>'YiiExample',
 	'commandMap'=>array(
 		'init'=>array(
-			'class'=>'ext.qs.console.commands.QsConsoleCommandInitApplication',
+			'class'=>'ext.qs.lib.console.commands.QsConsoleCommandInitApplication',
 			'localFilePlaceholderLabels'=>array(
 				// Database:
 				'dbHost'=>'Database hostname: ip address or domain name, usually: "localhost"',

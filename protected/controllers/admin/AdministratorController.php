@@ -13,7 +13,7 @@ class AdministratorController extends AdminListController {
 	public function actions() {
 		$actions = parent::actions();
 		$actions['resetpassword'] = array(
-			'class' => 'ext.qs.web.controllers.actions.QsActionAdminCallModelMethod',
+			'class' => 'ext.qs.lib.web.controllers.actions.QsActionAdminCallModelMethod',
 			'modelMethodName' => 'resetPassword',
 			'flashMessage'=>'Password has been resetted successfully.'
 		);

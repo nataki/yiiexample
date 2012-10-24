@@ -11,7 +11,7 @@ class FaqcategoryController extends AdminListController {
 
 	public function actions() {
 		$actions = parent::actions();
-		$actions['move'] = 'ext.qs.web.controllers.actions.QsActionAdminMove';
+		$actions['move'] = 'ext.qs.lib.web.controllers.actions.QsActionAdminMove';
 		return $actions;
 	}
 }

@@ -1,7 +1,7 @@
 <?php /* @var $this IndexController */ ?>
 	<div id="mainmenu">
 		<?php
-		$mainMenu = $this->beginWidget('ext.qs.web.widgets.QsMenu', array(
+		$mainMenu = $this->beginWidget('ext.qs.lib.web.widgets.QsMenu', array(
 			'items' => array(
 				array('label'=>'Home', 'url'=>array('site/index')),
 				array('label'=>'About', 'url'=>array('page/view', 'model'=>'about')),

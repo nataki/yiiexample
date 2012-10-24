@@ -22,15 +22,15 @@ return CMap::mergeArray(
 			'application.models.forms.*',
 			'application.models.users.*',
 			'application.components.*',
-			'ext.qs.email.*'
+			'ext.qs.lib.email.*'
 		),
 		'behaviors' => array(
 			'siteSetting' => array(
-				'class' => 'ext.qs.application.QsApplicationBehaviorParamDb',
+				'class' => 'ext.qs.lib.application.QsApplicationBehaviorParamDb',
 				'paramModelClassName' => 'SiteSetting',
 			),
 			'initFromParam' => array(
-				'class' => 'ext.qs.application.QsApplicationBehaviorInitFromParam',
+				'class' => 'ext.qs.lib.application.QsApplicationBehaviorInitFromParam',
 				'propertyParamNames' => array(
 					'name' => 'site_name'
 				),
@@ -54,10 +54,10 @@ return CMap::mergeArray(
 				)
 			),
 			'user' => array(
-				'class' => 'ext.qs.web.auth.QsWebUser',
+				'class' => 'ext.qs.lib.web.auth.QsWebUser',
 				'behaviors' => array(
 					'modelBehavior' => array(
-						'class' => 'ext.qs.web.auth.QsWebUserBehaviorModelActiveRecord',
+						'class' => 'ext.qs.lib.web.auth.QsWebUserBehaviorModelActiveRecord',
 						'modelFindCondition' => array(
 							'condition' => 'status_id = :status_id',
 							'params' => array(
@@ -66,7 +66,7 @@ return CMap::mergeArray(
 						),
 					),
 					'authLogBehavior' => array(
-						'class' => 'ext.qs.web.auth.QsWebUserBehaviorAuthLogDb',
+						'class' => 'ext.qs.lib.web.auth.QsWebUserBehaviorAuthLogDb',
 					),
 				),
 			),
@@ -93,16 +93,16 @@ return CMap::mergeArray(
 				),
 			),
 			'format' => array(
-				'class' => 'ext.qs.utils.QsFormatter',
+				'class' => 'ext.qs.lib.utils.QsFormatter',
 				'dateFormat' => 'Y/m/d',
 				'timeFormat' => 'H:i:s',
 				'datetimeFormat' => 'Y/m/d H:i:s',
 			),
 			'clientScript' => array(
-				'class' => 'ext.qs.web.QsClientScript'
+				'class' => 'ext.qs.lib.web.QsClientScript'
 			),
 			'email' => array(
-				'class' => 'ext.qs.email.QsEmailManager',
+				'class' => 'ext.qs.lib.email.QsEmailManager',
 				// @see protected/config/local.php
 			),
 		),

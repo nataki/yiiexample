@@ -7,7 +7,7 @@ class SiteController extends IndexController {
 	public function filters() {
 		$filters = parent::filters();
 		$filters[] = array(
-			'ext.qs.web.controllers.filters.QsFilterRedirectNotGuest + login',
+			'ext.qs.lib.web.controllers.filters.QsFilterRedirectNotGuest + login',
 		);
 		return $filters;
 	}
