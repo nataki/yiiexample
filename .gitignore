@@ -24,8 +24,6 @@ local.properties
 atlassian-ide-plugin.xml
 Thumbs.db
 
-/assets/
-protected/runtime/
 .htaccess
 protected/config/local.php
 protected/tests/phpunit.xml
