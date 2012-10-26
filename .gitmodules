@@ -1,0 +1,3 @@
+[submodule "framework"]
+	path = framework
+	url = git@git.quart-soft.com:yiiframework
