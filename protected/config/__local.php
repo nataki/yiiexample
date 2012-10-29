@@ -102,6 +102,13 @@ return array(
 				'10.10.50.60'
 			),
 			'password' => 'admin4phpunit',
+			'components' => array(
+				'selector' => array(
+					'additionalBaseTestSuitePaths' => array(
+						'qs extensions' => dirname(dirname(__FILE__)).'/extensions/qs/tests'
+					),
+				),
+			),
 		),*/
 	),
 );
