@@ -138,7 +138,7 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	protected function initRelatedModel() {
 		$owner = $this->getOwner();
 		$relationName = $this->getRelationName();
-		if ( !is_object($owner->$relationName) ) {
+		if ($owner->getIsNewRecord() || !is_object($owner->$relationName)) {
 			$relatedClassName = $this->getRelationConfigParam('class');
 			$owner->$relationName = new $relatedClassName();
 		}
@@ -152,7 +152,6 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	protected function initOnce() {
 		if ( !$this->getInitialized() ) {
 			$this->initRelation();
-			$this->initRelatedModel();
 			$this->setInitialized(true);
 		}
 		return true;
@@ -210,6 +209,7 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	 */
 	public function afterConstruct($event) {
 		$this->initOnce();
+		$this->initRelatedModel();
 	}
 
 	/**
@@ -225,7 +225,6 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 			if (!$relatedModel->validate()) {
 				$owner = $this->getOwner();
 				$relatedModelErrors = $relatedModel->getErrors();
-
 				foreach ($relatedModelErrors as $attributeName => $errors) {
 					if (is_array($errors)) {
 						foreach ($errors as $error) {
