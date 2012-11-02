@@ -11,7 +11,7 @@
 /**
  * QsUrlRulePostponeInit is a base class for the URL rules, which are similar to {@link CUrlRule},
  * but require postpone initialization to be configurable as common component.
- * This class introduces {@link initOnce()} method, which should be called manually
+ * This class introduces {@link initRelationOnce()} method, which should be called manually
  * by the descendant class.
  *
  * @see CUrlRule
@@ -62,7 +62,7 @@ abstract class QsUrlRulePostponeInit extends CUrlRule {
 	}
 
 	/**
-	 * This method is invoked after {@link initOnce()}.
+	 * This method is invoked after {@link initRelationOnce()}.
 	 * This method can be overridden in order to perform additional initialization.
 	 * @return void
 	 */

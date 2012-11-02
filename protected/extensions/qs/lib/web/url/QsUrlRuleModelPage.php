@@ -143,7 +143,7 @@ class QsUrlRuleModelPage extends QsUrlRulePostponeInit {
 	}
 
 	/**
-	 * This method is invoked after {@link initOnce()}.
+	 * This method is invoked after {@link initRelationOnce()}.
 	 * It checks the {@link pattern} value is correct.
 	 * @return void
 	 */

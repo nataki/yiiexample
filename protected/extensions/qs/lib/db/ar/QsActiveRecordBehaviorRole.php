@@ -33,7 +33,11 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	 * @var boolean indicates if relation has been initialized.
 	 * Internal usage only.
 	 */
-	protected $_initialized = false;
+	protected $_isRelationInitialized = false;
+	/**
+	 * @var boolean indicates if related model has been initialized.
+	 */
+	protected $_isRelatedModelInitialized = false;
 
 	// Set / Get:
 
@@ -54,15 +58,6 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 
 	public function getRelationConfig() {
 		return $this->_relationConfig;
-	}
-
-	public function setInitialized($initialized) {
-		$this->_initialized = $initialized;
-		return true;
-	}
-
-	public function getInitialized() {
-		return $this->_initialized;
 	}
 
 	// Property Access Extension:
@@ -146,13 +141,26 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	}
 
 	/**
-	 * Initializes all necessary entities.
+	 * Initializes relation ensuring this action will be performed only once.
 	 * @return boolean success.
 	 */
-	protected function initOnce() {
-		if ( !$this->getInitialized() ) {
+	protected function initRelationOnce() {
+		if (!$this->_isRelationInitialized) {
 			$this->initRelation();
-			$this->setInitialized(true);
+			$this->_isRelationInitialized = true;
+		}
+		return true;
+	}
+
+	/**
+	 * Initializes related model ensuring this action will be performed only once.
+	 * @return boolean success.
+	 */
+	protected function initRelatedModelOnce() {
+		if (!$this->_isRelatedModelInitialized) {
+			$this->initRelationOnce();
+			$this->initRelatedModel();
+			$this->_isRelatedModelInitialized = true;
 		}
 		return true;
 	}
@@ -182,6 +190,7 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	 * @return CModel related model.
 	 */
 	protected function getRelatedModel() {
+		$this->initRelatedModelOnce();
 		$owner = $this->getOwner();
 		$relationName = $this->getRelationName();
 		return $owner->$relationName;
@@ -208,8 +217,7 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	 * @param CEvent $event event object.
 	 */
 	public function afterConstruct($event) {
-		$this->initOnce();
-		$this->initRelatedModel();
+		$this->initRelatedModelOnce();
 	}
 
 	/**
@@ -219,7 +227,6 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	 * @param CEvent $event event object.
 	 */
 	public function afterValidate($event) {
-		$this->initOnce();
 		$relatedModel = $this->getRelatedModel();
 		if (is_object($relatedModel)) {
 			if (!$relatedModel->validate()) {
@@ -244,7 +251,6 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	 * @param CEvent $event event object.
 	 */
 	public function afterSave($event) {
-		$this->initOnce();
 		$relatedModel = $this->getRelatedModel();
 		if (is_object($relatedModel)) {
 			$owner = $this->getOwner();
@@ -263,7 +269,6 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	 * @param CEvent $event event object.
 	 */
 	public function beforeDelete($event) {
-		$this->initOnce();
 		$relatedModel = $this->getRelatedModel();
 		if (is_object($relatedModel)) {
 			$relatedModel->delete();
@@ -277,7 +282,7 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	 * @param CEvent $event event object.
 	 */
 	public function beforeFind($event) {
-		$this->initOnce();
+		$this->initRelationOnce();
 		$criteria = $event->sender->getDbCriteria(true);
 		if ( !is_array($criteria->with) ) {
 			$criteria->with = array();

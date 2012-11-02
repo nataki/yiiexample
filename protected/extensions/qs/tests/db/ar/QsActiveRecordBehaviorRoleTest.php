@@ -150,10 +150,6 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 		);
 		$this->assertTrue( $behavior->setRelationConfig($testRelationConfig), 'Unable to set relation config!' );
 		$this->assertEquals( $behavior->getRelationConfig(), $testRelationConfig, 'Unable to set relation config correctly!' );
-
-		$testInitialized = 'test_initialzed';
-		$this->assertTrue( $behavior->setInitialized($testInitialized), 'Unable it set initialzied!' );
-		$this->assertEquals( $behavior->getInitialized(), $testInitialized, 'Unable it set initialzied correctly!' );
 	}
 
 	/**
@@ -191,35 +187,35 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 	/**
 	 * @depends testNewActiveRecordRole
 	 */
-	public function testAcriveRecordRoleSave() {
-		$startAcriveRecord = $this->getTestActiveRecordFinder();
+	public function testActiveRecordRoleSave() {
+		$startActiveRecord = $this->getTestActiveRecordFinder();
 
-		$acriveRecord = $startAcriveRecord->find();
+		$activeRecord = $startActiveRecord->find();
 
 		$testSlaveName = 'test first name #'.rand();
-		$acriveRecord->slave->slave_name = $testSlaveName;
+		$activeRecord->slave->slave_name = $testSlaveName;
 
-		$acriveRecord->save();
+		$activeRecord->save();
 
-		$refreshedAcriveRecord = $startAcriveRecord->findByPk( $acriveRecord->getPrimaryKey() );
-		$this->assertEquals( $refreshedAcriveRecord->slave->slave_name, $testSlaveName, 'Unable to save related active record while saving the main one!' );
+		$refreshedActiveRecord = $startActiveRecord->findByPk( $activeRecord->getPrimaryKey() );
+		$this->assertEquals( $refreshedActiveRecord->slave->slave_name, $testSlaveName, 'Unable to save related active record while saving the main one!' );
 	}
 
 	/**
 	 * @depends testNewActiveRecordRole
 	 */
 	public function testActiveRecordRoleValidate() {
-		$startAcriveRecord = $this->getTestActiveRecordFinder();
+		$startActiveRecord = $this->getTestActiveRecordFinder();
 
-		$acriveRecord = $startAcriveRecord->find();
+		$activeRecord = $startActiveRecord->find();
 
-		$this->assertTrue( $acriveRecord->validate(), 'Just found model fails on validate!' );
+		$this->assertTrue( $activeRecord->validate(), 'Just found model fails on validate!' );
 
 
-		$acriveRecord->master_name = 'test master name';
+		$activeRecord->master_name = 'test master name';
 
-		$acriveRecord->slave->slave_name=null;
-		$this->assertFalse( $acriveRecord->validate(), 'Model considered as vallid, while related part is invalid!' );
+		$activeRecord->slave->slave_name=null;
+		$this->assertFalse( $activeRecord->validate(), 'Model considered as vallid, while related part is invalid!' );
 	}
 
 	/**
@@ -229,9 +225,21 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 		$activeRecordName = self::getTestMasterActiveRecordClassName();
 
 		$activeRecord = new $activeRecordName();
-		$testFirstName = 'test_first_name';
-		$activeRecord->slave_name = $testFirstName;
-		$this->assertEquals( $activeRecord->slave->slave_name, $testFirstName, 'Unable to set property for the related active record!' );
-		$this->assertEquals( $activeRecord->slave_name, $testFirstName, 'Unable to get property from the related active record directly!' );
+		$testSlaveName = 'test_slave_name';
+		$activeRecord->slave_name = $testSlaveName;
+		$this->assertEquals( $testSlaveName, $activeRecord->slave->slave_name, 'Unable to set property for the related active record!' );
+		$this->assertEquals( $testSlaveName, $activeRecord->slave_name, 'Unable to get property from the related active record directly!' );
+	}
+
+	/**
+	 * @depends testNewActiveRecordRole
+	 */
+	public function testActiveRecordFinderRolePropertyAccess() {
+		$activeRecordName = self::getTestMasterActiveRecordClassName();
+
+		$activeRecordFinder = CActiveRecord::model($activeRecordName);
+		$testSlaveName = 'test_slave_name';
+		$activeRecordFinder->slave_name = $testSlaveName;
+		$this->assertEquals( $activeRecordFinder->slave->slave_name, $testSlaveName, 'Unable to set property for the related active record!' );
 	}
 }
