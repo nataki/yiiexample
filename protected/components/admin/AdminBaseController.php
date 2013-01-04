@@ -9,22 +9,22 @@ class AdminBaseController extends CController {
 	/**
 	 * @var string the default layout for the controller view.
 	 */
-	public $layout='//layouts/inner';
+	public $layout = '//layouts/inner';
 	/**
 	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
 	 */
-	public $contextMenuItems=array();
+	public $contextMenuItems = array();
 	/**
 	 * @var array the breadcrumbs of the current page. The value of this property will
 	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
 	 * for more details on how to specify this property.
 	 */
-	public $breadcrumbs=array();
+	public $breadcrumbs = array();
 	/**
 	 * @var string contains the title of the current section.
 	 * It should change depending on the particular action.
 	 */
-	public $sectionTitle='Administration Area';
+	public $sectionTitle = 'Administration Area';
 
 	/**
 	 * @return array action filters
@@ -44,10 +44,12 @@ class AdminBaseController extends CController {
 		return array(
 			array(
 				'allow',
-				'roles'=>array('admin')
+				'roles' => array('admin')
 			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
+			// deny all users:
+			array(
+				'deny',
+				'users' => array('*'),
 			),
 		);
 	}
