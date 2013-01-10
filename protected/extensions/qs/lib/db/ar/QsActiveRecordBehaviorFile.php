@@ -23,6 +23,17 @@
  * @see IQsFileStorage
  * @see IQsFileStorageBucket
  *
+ * @property string $filePropertyName public alias of {@link _filePropertyName}.
+ * @property string $fileStorageComponentName public alias of {@link _fileStorageComponentName}.
+ * @property string $fileStorageBucketName public alias of {@link _fileStorageBucketName}.
+ * @property string $subDirTemplate public alias of {@link _subDirTemplate}.
+ * @property string $fileExtensionAttributeName public alias of {@link _fileExtensionAttributeName}.
+ * @property string $fileVersionAttributeName public alias of {@link _fileVersionAttributeName}.
+ * @property integer $fileTabularInputIndex public alias of {@link _fileTabularInputIndex}.
+ * @property CUploadedFile $uploadedFile public alias of {@link _uploadedFile}.
+ * @property string $defaultFileUrl public alias of {@link _defaultFileUrl}.
+ * @method CActiveRecord getOwner()
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
  */
@@ -201,7 +212,6 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 		if (!is_object($fileStorage)) {
 			throw new CException('Unable to find file storage application component "'.$this->getFileStorageComponentName().'"');
 		}
-
 		$bucketName = $this->getFileStorageBucketName();
 		if (!$fileStorage->hasBucket($bucketName)) {
 			$fileStorage->addBucket($bucketName, array());
@@ -273,7 +283,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 		if (empty($subDirTemplate)) {
 			return $subDirTemplate;
 		}
-		$result = preg_replace_callback("/{(\^*(\w+))}/",array($this,'getSubDirPlaceholderValue'),$subDirTemplate);
+		$result = preg_replace_callback('/{(\^*(\w+))}/',array($this,'getSubDirPlaceholderValue'),$subDirTemplate);
 		return $result;
 	}
 
@@ -285,7 +295,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	protected function getSubDirPlaceholderValue($matches) {
 		$placeholderName = $matches[1];
 		$placeholderPartSymbolPosition = strspn($placeholderName, '^')-1;
-		if ( $placeholderPartSymbolPosition >= 0 ) {
+		if ($placeholderPartSymbolPosition >= 0) {
 			$placeholderName = $matches[2];
 		}
 
@@ -313,8 +323,8 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 			}
 		}
 
-		if ( $placeholderPartSymbolPosition >= 0 ) {
-			if ( $placeholderPartSymbolPosition < strlen($placeholderValue) ) {
+		if ($placeholderPartSymbolPosition >= 0) {
+			if ($placeholderPartSymbolPosition < strlen($placeholderValue)) {
 				$placeholderValue = substr($placeholderValue, $placeholderPartSymbolPosition, 1);
 			} else {
 				$placeholderValue = '0';
@@ -408,7 +418,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	 * Associate new file with the owner model.
 	 * This method will determine new file version and extension, and will update the owner
 	 * model correspondingly.
-	 * @param string $sourceFileNameOrUploadedFile file system path to source file or {@link CUploadedFile} instance.
+	 * @param string|CUploadedFile $sourceFileNameOrUploadedFile file system path to source file or {@link CUploadedFile} instance.
 	 * @param boolean $deleteSourceFile determines would the source file be deleted in the process or not,
 	 * if null given file will be deleted if it was uploaded via POST.
 	 * @return boolean save success.
@@ -480,7 +490,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	protected function unlinkFile() {
 		$fileStorageBucket = $this->getFileStorageBucket();
 		$fileName = $this->getFileFullName();
-		if ($fileStorageBucket->exists($fileName)) {
+		if ($fileStorageBucket->fileExists($fileName)) {
 			return $fileStorageBucket->deleteFile($fileName);
 		}
 		return true;
@@ -553,10 +563,9 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	public function getFileUrl() {
 		$fileStorageBucket = $this->getFileStorageBucket();
 		$fileFullName = $this->getFileFullName();
-
 		$defaultFileUrl = $this->getDefaultFileUrl();
-		if ( !empty($defaultFileUrl) ) {
-			if ( !$fileStorageBucket->fileExists($fileFullName) ) {
+		if (!empty($defaultFileUrl)) {
+			if (!$fileStorageBucket->fileExists($fileFullName)) {
 				return $defaultFileUrl;
 			}
 		}
@@ -569,7 +578,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	 * @return string web link to file.
 	 */
 	public function getFileWebSrc() {
-		trigger_error('Method "'.get_class($this).'::getFileWebSrc" is deprecated, use "'.get_class($this).'::getFileUrl" instead', E_USER_DEPRECATED);
+		trigger_error('Method "'.get_class($this).'::getFileWebSrc" is deprecated, use "'.get_class($this).'::getFileUrl" instead', defined('E_USER_DEPRECATED') ? E_USER_DEPRECATED : E_USER_WARNING);
 		return $this->getFileUrl();
 	}
 
@@ -593,7 +602,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	 */
 	public function afterSave($event) {
 		$uploadedFile = $this->getUploadedFile();
-		if ( is_object($uploadedFile) && !$uploadedFile->getHasError() ) {
+		if (is_object($uploadedFile) && !$uploadedFile->getHasError()) {
 			$this->saveFile($uploadedFile);
 		}
 		$this->clearUploadedFile();

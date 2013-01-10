@@ -72,7 +72,7 @@ class QsActiveRecordBehaviorFileImage extends QsActiveRecordBehaviorFileTransfor
 	 * @return boolean success.
 	 */
 	protected function initTransformCallback() {
-		$this->_transformCallback = array($this,'transformImageFileResize');
+		$this->_transformCallback = array($this, 'transformImageFileResize');
 		return true;
 	}
 

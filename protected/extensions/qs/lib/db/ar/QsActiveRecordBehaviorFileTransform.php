@@ -24,6 +24,10 @@ Yii::import('ext.qs.lib.db.ar.QsActiveRecordBehaviorFile');
  * @see IQsFileStorage
  * @see IQsFileStorageBucket
  *
+ * @property array $fileTransforms public alias of {@link _fileTransforms}.
+ * @property callback $transformCallback public alias of {@link _transformCallback}.
+ * @property string|array $defaultFileUrl public alias of {@link _defaultFileUrl}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
  */
@@ -66,7 +70,7 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	}
 
 	public function addFileTransform($name, $transform) {
-		if ( !is_string($name) || !is_array($transform) ) {
+		if (!is_string($name) || !is_array($transform)) {
 			return false;
 		}
 		$this->_fileTransforms[$name] = $transform;
@@ -163,7 +167,7 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 		$fileStorageBucket = $this->getFileStorageBucket();
 		$result = true;
 		foreach ($imageTransforms as $imageTransformName => $imageTransform) {
-			if ( !is_array($imageTransform) && is_numeric($imageTransformName) ) {
+			if (!is_array($imageTransform) && is_numeric($imageTransformName)) {
 				$imageTransformName = $imageTransform;
 			}
 
@@ -205,13 +209,11 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 			@mkdir($filePath, 0777, true);
 			umask($oldUmask);
 		}
-
-		if ( !file_exists($filePath) || !is_dir($filePath) ) {
+		if (!file_exists($filePath) || !is_dir($filePath)) {
 			throw new CException("Unable to resolve temporary file path: '{$filePath}'!");
 		} elseif (!is_writable($filePath)) {
 			throw new CException("Path: '{$filePath}' should be writeable!");
 		}
-
 		return $filePath;
 	}
 
@@ -226,15 +228,14 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 		if (empty($imageTransforms)) {
 			return parent::unlinkFile();
 		}
-
 		$result = true;
 		$fileStorageBucket = $this->getFileStorageBucket();
 		foreach ($imageTransforms as $imageTransformName => $imageTransform) {
-			if ( !is_array($imageTransform) && is_numeric($imageTransformName) ) {
+			if (!is_array($imageTransform) && is_numeric($imageTransformName)) {
 				$imageTransformName = $imageTransform;
 			}
 			$fileName = $this->getFileFullName($imageTransformName);
-			if ($fileStorageBucket->exists($fileName)) {
+			if ($fileStorageBucket->fileExists($fileName)) {
 				$fileDeleteResult = $fileStorageBucket->deleteFile($fileName);
 				$result = $result && $fileDeleteResult;
 			}
@@ -251,7 +252,7 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	 */
 	protected function transformFile($sourceFileName, $destinationFileName, $transformSettings) {
 		$arguments = func_get_args();
-		return call_user_func_array( $this->getTransformCallback(), $arguments);
+		return call_user_func_array($this->getTransformCallback(), $arguments);
 	}
 
 	// File Interface Function Shortcuts:
@@ -263,7 +264,7 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	 */
 	public function fileExists($name=null) {
 		$fileStorageBucket = $this->getFileStorageBucket();
-		return $fileStorageBucket->fileExists( $this->getFileFullName($name) );
+		return $fileStorageBucket->fileExists($this->getFileFullName($name));
 	}
 
 	/**
@@ -273,7 +274,7 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	 */
 	public function getFileContent($name=null) {
 		$fileStorageBucket = $this->getFileStorageBucket();
-		return $fileStorageBucket->getFileContent( $this->getFileFullName($name) );
+		return $fileStorageBucket->getFileContent($this->getFileFullName($name));
 	}
 
 	/**
@@ -284,10 +285,9 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	public function getFileUrl($name=null) {
 		$fileStorageBucket = $this->getFileStorageBucket();
 		$fileFullName = $this->getFileFullName($name);
-
 		$defaultFileUrl = $this->getDefaultFileUrl($name);
-		if ( !empty($defaultFileUrl) ) {
-			if ( !$fileStorageBucket->fileExists($fileFullName) ) {
+		if (!empty($defaultFileUrl)) {
+			if (!$fileStorageBucket->fileExists($fileFullName)) {
 				return $defaultFileUrl;
 			}
 		}
