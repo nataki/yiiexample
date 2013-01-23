@@ -14,6 +14,12 @@
  * In order to achieve better performance behavior uses cache.
  * Cache supposed to be permanent and will be automatically cleared on model save.
  *
+ * @property string $namePropertyName public alias of {@link _namePropertyName}.
+ * @property string $valuePropertyName public alias of {@link _valuePropertyName}.
+ * @property string $autoNamePrefix public alias of {@link _autoNamePrefix}.
+ * @property integer $valuesCacheDuration public alias of {@link _valuesCacheDuration}.
+ * @method CActiveRecord getOwner()
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
  */
@@ -38,7 +44,9 @@ class QsActiveRecordBehaviorNameValue extends CBehavior {
 	// Set / Get:
 
 	public function setNamePropertyName($namePropertyName) {
-		if (!is_string($namePropertyName)) return false;
+		if (!is_string($namePropertyName)) {
+			return false;
+		}
 		$this->_namePropertyName = $namePropertyName;
 		return true;
 	}
@@ -48,7 +56,9 @@ class QsActiveRecordBehaviorNameValue extends CBehavior {
 	}
 
 	public function setValuePropertyName($valuePropertyName) {
-		if (!is_string($valuePropertyName)) return false;
+		if (!is_string($valuePropertyName)) {
+			return false;
+		}
 		$this->_valuePropertyName = $valuePropertyName;
 		return true;
 	}
@@ -58,7 +68,9 @@ class QsActiveRecordBehaviorNameValue extends CBehavior {
 	}
 
 	public function setAutoNamePrefix($autoNamePrefix) {
-		if (!is_string($autoNamePrefix)) return false;
+		if (!is_string($autoNamePrefix)) {
+			return false;
+		}
 		$this->_autoNamePrefix = $autoNamePrefix;
 		return true;
 	}
@@ -68,7 +80,9 @@ class QsActiveRecordBehaviorNameValue extends CBehavior {
 	}
 
 	public function setValuesCacheDuration($valuesCacheDuration) {
-		if (!is_numeric($valuesCacheDuration)) return false;
+		if (!is_numeric($valuesCacheDuration)) {
+			return false;
+		}
 		$this->_valuesCacheDuration = $valuesCacheDuration;
 		return true;
 	}
@@ -93,7 +107,12 @@ class QsActiveRecordBehaviorNameValue extends CBehavior {
 	 * @return string name without prefix.
 	 */
 	protected function trimNamePrefix($name) {
-		$inputName = ltrim($name, $this->_autoNamePrefix);
+		$prefix = $this->_autoNamePrefix;
+		if (strpos($name, $prefix)===0) {
+			$inputName = substr($name, strlen($prefix));
+		} else {
+			$inputName = $name;
+		}
 		return $inputName;
 	}
 

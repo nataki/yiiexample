@@ -22,11 +22,11 @@ class QsActiveRecordBehaviorNameValueTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'behaviors'=>array(
+				'tableName' => $testTableName,
+				'behaviors' => array(
 					'settingBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorNameValue',
-						'autoNamePrefix'=>'test_'
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorNameValue',
+						'autoNamePrefix' => 'test_'
 					),
 				),
 			)
@@ -83,9 +83,10 @@ class QsActiveRecordBehaviorNameValueTest extends CTestCase {
 	}
 
 	// Tests:
+
 	public function testCreate() {
 		$behavior = new QsActiveRecordBehaviorNameValue();
-		$this->assertTrue( is_object($behavior) );
+		$this->assertTrue(is_object($behavior));
 	}
 
 	/**
