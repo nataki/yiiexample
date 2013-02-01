@@ -14,6 +14,6 @@ Use the side bar menu to navigate different sections of your account.
 <?php if ($preLastLoginDate=$this->user->getPreLastLoginDate()): ?>
 <p>
 Last login date:<br />
-<?php echo Yii::app()->getComponent('format')->formatStrDateTime($preLastLoginDate); ?>
+<?php echo Yii::app()->getComponent('format')->formatDateTime($preLastLoginDate); ?>
 </p>
 <?php endif; ?>

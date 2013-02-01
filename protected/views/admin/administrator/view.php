@@ -28,11 +28,11 @@ $this->contextMenuItems = array(
 		'status.name:html:Status',
 		'name',
 		'email:email',
-		'create_date:strdate',
+		'create_date:date',
 		array(
 			'label' => 'Last Login Date',
 			'type' => 'raw',
-			'value' => Yii::app()->format->formatStrDateTime( $model->getLastLoginDate() ),
+			'value' => Yii::app()->format->formatDateTime($model->getLastLoginDate()),
 		),
 	),
 )); ?>

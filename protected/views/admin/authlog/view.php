@@ -15,7 +15,7 @@ $this->contextMenuItems = array(
 	'data' => $model,
 	'attributes' => array(
 		'id',
-		'date:strdatetime',
+		'date:datetime',
 		'username',
 		'user_id',
 		array(

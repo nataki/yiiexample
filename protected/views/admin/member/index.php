@@ -31,7 +31,7 @@ $this->contextMenuItems = array(
 			'value' => '$data->profile->first_name." ".$data->profile->first_name',
 		),*/
 		'email',
-		'create_date:strdate',
+		'create_date:date',
 		array(
 			'header' => 'Status',
 			'name' => 'status_id',
