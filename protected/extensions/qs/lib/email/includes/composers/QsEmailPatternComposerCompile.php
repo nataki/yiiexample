@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -23,6 +23,11 @@
  *
  * See {@link QsEmailPatternComposerCompile::compileText()} for more details.
  * Pay attention: {@link compilePath} should be writeable (or allowed to be created) for the web server.
+ *
+ * @property string $compilePath public alias of {@link _compilePath}.
+ * @property integer $filePermission public alias of {@link _filePermission}.
+ * @property string $leftDelimiter public alias of {@link _leftDelimiter}.
+ * @property string $rightDelimiter public alias of {@link _rightDelimiter}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.email.composers
@@ -55,7 +60,7 @@ class QsEmailPatternComposerCompile extends QsEmailPatternComposerBase {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->setCompilePath( Yii::app()->getBasePath().'/runtime/email_compiled' );
+		$this->setCompilePath( Yii::app()->getBasePath().DIRECTORY_SEPARATOR.'runtime'.DIRECTORY_SEPARATOR.'email_compiled' );
 	}
 
 	// Property Access:
@@ -94,7 +99,9 @@ class QsEmailPatternComposerCompile extends QsEmailPatternComposerBase {
 	}
 
 	public function setRightDelimiter($rightDelimiter) {
-		if (!is_string($rightDelimiter)) return false;
+		if (!is_string($rightDelimiter)) {
+			return false;
+		}
 		$this->_rightDelimiter = $rightDelimiter;
 		return true;
 	}

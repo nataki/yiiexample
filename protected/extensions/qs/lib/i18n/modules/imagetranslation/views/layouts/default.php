@@ -1,6 +1,9 @@
 <?php
+/* @var $this DefaultController */
+/* @var $cs CClientScript */
+/* @var $content string */
 $cs = Yii::app()->clientScript;
-$cs->coreScriptPosition=CClientScript::POS_HEAD;
+$cs->coreScriptPosition = CClientScript::POS_HEAD;
 $cs->scriptMap = array();
 $baseUrl = $this->module->assetsUrl;
 ?>
@@ -30,7 +33,7 @@ $baseUrl = $this->module->assetsUrl;
 			<h1><?php echo Yii::app()->name; ?> Image Translation Manager</h1>
 		</div>
 
-		<?php echo $this->renderPartial( '/common/main_menu'); ?>
+		<?php echo $this->renderPartial('/common/main_menu'); ?>
 	</div><!-- header -->
 
 	<div class="container">

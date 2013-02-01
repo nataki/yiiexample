@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -12,6 +12,8 @@
  * Base class fro all admin panel actions.
  * This class contains the name of view, which will be used in action.
  * This class allows usage controller's properties and methods as own ones.
+ *
+ * @property string $view public alias of {@link _view}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.controllers.actions

@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -14,12 +14,14 @@
  * In case request is made with wrong protocol, it will
  * be redirected to the correct one, keeping route and GET parameters.
  *
+ * @property boolean $useSecureConnection public alias of {@link _useSecureConnection}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.controllers.filters
  */
 class QsFilterSecureConnection extends CFilter {
 	/**
-	 * @var boolan determines should secure or not secure protocol be applied.
+	 * @var boolean determines should secure or not secure protocol be applied.
 	 */
 	protected $_useSecureConnection = true;
 

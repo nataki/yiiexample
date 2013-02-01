@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -15,7 +15,7 @@
  * Use {@link saveCallParams} to save function call arguments into the exception object.
  * <code>
  * class SomeClass {
- *     function someFuncion($someArgument) {
+ *     public function someFunction($someArgument) {
  *         $exception = new QsTestException();
  *         $callback = array($this, __FUNCTION__);
  *         $callbackArguments = func_get_args();
@@ -69,7 +69,7 @@ class QsTestException extends Exception {
 			foreach ($callbackParameters as $callbackParameterIndex => $callbackParameter) {
 				if (array_key_exists($callbackParameterIndex, $callbackArguments)) {
 					$paramValue = $callbackArguments[$callbackParameterIndex];
-				} elseif ( $callbackParameter->isDefaultValueAvailable() ) {
+				} elseif ($callbackParameter->isDefaultValueAvailable()) {
 					$paramValue = $callbackParameter->getDefaultValue();
 				} else {
 					$paramValue = null;

@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -15,12 +15,15 @@
  * Each particular file storage is supposed to use a particular class for its buckets.
  * Name of this class can be set through the {@link bucketClassName}.
  *
+ * @property IQsFileStorageBucket[] $buckets public alias of {@link _buckets}.
+ * @property string $bucketClassName public alias of {@link _bucketClassName}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.files.storages
  */
 abstract class QsFileStorage extends CApplicationComponent implements IQsFileStorage {
 	/**
-	 * @var array list of buckets.
+	 * @var IQsFileStorageBucket[] list of buckets.
 	 */
 	protected $_buckets = array();
 	/**
@@ -29,6 +32,7 @@ abstract class QsFileStorage extends CApplicationComponent implements IQsFileSto
 	protected $_bucketClassName = 'QsFileStorageBucket';
 
 	// Set / Get :
+
 	public function setBucketClassName($bucketClassName) {
 		if (!is_string($bucketClassName)) {
 			throw new CException('"'.get_class($this).'::bucketClassName" should be a string!');

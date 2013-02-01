@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -34,6 +34,11 @@
  * <code>
  * Yii::app()->imageTranslationSource->translate('buttons/add.gif');
  * </code>
+ *
+ * @property string $language public alias of {@link _language}.
+ * @property array $imageUrls public alias of {@link _imageUrls}.
+ * @property string $normalizedDefaultBaseUrl public alias of {@link _normalizedDefaultBaseUrl}.
+ * @property string $normalizedDefaultBasePath public alias of {@link _normalizedDefaultBasePath}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.images

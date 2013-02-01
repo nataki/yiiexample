@@ -1,4 +1,7 @@
 <?php
+/* @var $this DefaultController */
+/* @var $cs CClientScript */
+/* @var $content string */
 $cs = Yii::app()->clientScript;
 $cs->coreScriptPosition=CClientScript::POS_HEAD;
 $cs->scriptMap = array();

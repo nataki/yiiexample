@@ -1,3 +1,6 @@
+<?php /* @var $this PhpUnitLogViewWidget */ ?>
+<?php /* @var $testCase SimpleXMLElement */ ?>
+<?php /* @var $testCaseAttributes array */ ?>
 <b>
 	Test case: &quot;<?php echo $testCaseAttributes['class']; ?>::<?php echo $testCaseAttributes['name']; ?>&quot; <?php if ($testCaseAttributes['file']) { ?>(file: &quot;<?php echo $testCaseAttributes['file']; ?>&quot; at line <?php echo $testCaseAttributes['line']; ?>)<?php } ?>:
 </b><br />

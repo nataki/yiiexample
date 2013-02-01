@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -15,8 +15,8 @@
  * For example:
  * <code>
  * $this->widget('ext.qs.lib.web.widgets.QsDropDownBox',array(
- *	 'label'=>'Click Me',
- *	 'content'=>'Drop down content',
+ *     'label' => 'Click Me',
+ *     'content' => 'Drop down content',
  * ));
  * </code>
  * You may also set the {@link items} property, in this case the internal {@link CMenu}
@@ -37,6 +37,9 @@
  *     ),
  * ));
  * </code>
+ *
+ * @property string $assetsUrl public alias of {@link _assetsUrl}.
+ * @property string $containerId public alias of {@link _containerId}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.widgets
@@ -82,6 +85,8 @@ class QsDropDownBox extends CWidget {
 	 * @see CMenu::items
 	 */
 	public $items = null;
+
+	// Set / Get :
 
 	public function setContainerId($containerId) {
 		$this->_containerId = $containerId;

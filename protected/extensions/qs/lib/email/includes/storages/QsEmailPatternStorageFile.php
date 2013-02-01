@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -25,7 +25,12 @@
  * - fill the attributes with the source file contents.
  * Use {@link fillType} to switch these options.
  * This storage is the best to use with the {@link QsEmailPatternComposerFile}.
+ *
  * @see QsEmailPatternComposerFile
+ *
+ * @property string $sourcePath public alias of {@link _sourcePath}.
+ * @property string $fileExtension public alias of {@link _fileExtension}.
+ * @property string $fillType public alias of {@link _fillType}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.email.storages

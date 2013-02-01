@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -12,16 +12,28 @@
  * QsLinkPager widget is an extension on the standard Yii widget {@link CLinkPager},
  * which allows to render pager based on the specified view file.
  *
+ * @property string $view public alias of {@link _view}.
+ * @property array $buttons public alias of {@link _buttons}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.widgets
  */
 class QsLinkPager extends CLinkPager {
+	/**
+	 * @var string view file.
+	 */
 	protected $_view = 'application.views.index.pagers.pager';
+	/**
+	 * @var array list of page switch buttons.
+	 */
 	protected $_buttons = array();
 
 	// Set / Get:
+
 	public function setView($view) {
-		if ( !is_string($view) && !empty($view)) return false;
+		if (!is_string($view) && !empty($view)) {
+			return false;
+		}
 		$this->_view = $view;
 		return true;
 	}
@@ -39,7 +51,9 @@ class QsLinkPager extends CLinkPager {
 		return $this->_buttons;
 	}
 
-	// Main:
+	/**
+	 * Executes the widget.
+	 */
 	public function run() {
 		if (empty($this->_view)) {
 			parent::run();
@@ -53,16 +67,23 @@ class QsLinkPager extends CLinkPager {
 			$renderData = array(
 				'widget' => $this,
 			);
-			//$this->render($this->_view,$renderData);
 
 			$owner = $this->getOwner();
 			$renderMethod = $owner instanceof CController ? 'renderPartial' : 'render';
-			return $owner->$renderMethod($this->_view, $renderData);
-
+			$owner->$renderMethod($this->_view, $renderData);
 		}
 	}
 
-	protected function createPageButton($label,$page,$class,$hidden,$selected) {
+	/**
+	 * Creates a page button.
+	 * @param string $label the text label for the button.
+	 * @param integer $page the page number.
+	 * @param string $class the CSS class for the page button.
+	 * @param boolean $hidden whether this page button is visible.
+	 * @param boolean $selected whether this page button is selected.
+	 * @return string|array the generated button.
+	 */
+	protected function createPageButton($label, $page, $class, $hidden, $selected) {
 		if (empty($this->_view)) {
 			return parent::createPageButton($label,$page,$class,$hidden,$selected);
 		} else {

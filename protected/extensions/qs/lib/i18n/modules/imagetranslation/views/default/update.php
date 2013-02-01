@@ -1,6 +1,11 @@
 <?php
+/* @var $this DefaultController */
+/* @var $languageManager QsTranslationLanguageManager */
+/* @var $model ImageTranslation */
+/* @var $form CActiveForm */
+
 $this->sectionTitle = 'Update Image Translation "'.$model->name.'"';
-$this->breadcrumbs[$model->name] = array('view','name'=>$model->name);
+$this->breadcrumbs[$model->name] = array('view', 'name'=>$model->name);
 $this->breadcrumbs[] = 'Update';
 
 $this->contextMenuItems = array(
@@ -14,11 +19,11 @@ $this->contextMenuItems = array(
 <?php
 $languageManager = $this->getModule()->getComponent('languageManager');
 
-$form=$this->beginWidget('CActiveForm', array(
-	'id'=>'model-form',
-	'enableAjaxValidation'=>false,
+$form = $this->beginWidget('CActiveForm', array(
+	'id' => 'model-form',
+	'enableAjaxValidation' => false,
 	'htmlOptions' => array(
-		'enctype'=>'multipart/form-data',
+		'enctype' => 'multipart/form-data',
 	)
 )); ?>
 
@@ -27,22 +32,22 @@ $form=$this->beginWidget('CActiveForm', array(
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo CHtml::label('Default image',null) ?>
-		<?php echo CHtml::image( $model->getDefaultUrl() ); ?>
+		<?php echo CHtml::label('Default image', null) ?>
+		<?php echo CHtml::image($model->getDefaultUrl()); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'language'); ?>
-		<?php echo $form->dropDownList($model,'language', CHtml::listData($languageManager->getLanguages(),'locale_code','name') ); ?>
-		<?php echo $form->error($model,'language'); ?>
+		<?php echo $form->labelEx($model, 'language'); ?>
+		<?php echo $form->dropDownList($model, 'language', CHtml::listData($languageManager->getLanguages(),'locale_code','name') ); ?>
+		<?php echo $form->error($model, 'language'); ?>
 	</div>
 	<div class="row">
-		<?php echo CHtml::label('Current image',null) ?>
+		<?php echo CHtml::label('Current image', null) ?>
 		<?php $this->widget($this->getModule()->getName().'.components.widgets.ImageTranslationDynamicImageWidget',array('model'=>$model)); ?>
 	</div>
 	<div class="row">
-		<?php echo $form->labelEx($model,'file'); ?>
-		<?php echo $form->fileField($model,'file'); ?>
-		<?php echo $form->error($model,'file'); ?>
+		<?php echo $form->labelEx($model, 'file'); ?>
+		<?php echo $form->fileField($model, 'file'); ?>
+		<?php echo $form->error($model, 'file'); ?>
 	</div>
 
 	<div class="row buttons">

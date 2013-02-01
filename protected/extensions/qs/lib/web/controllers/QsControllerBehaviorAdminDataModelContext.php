@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -37,7 +37,12 @@ Yii::import('ext.qs.lib.web.controllers.QsControllerBehaviorAdminDataModel');
  *     }
  * }
  * </code>
+ * 
  * @see QsControllerBehaviorAdminDataModel
+ *
+ * @property array $contexts public alias of {@link _contexts}.
+ * @property array $activeContexts public alias of {@link _activeContexts}.
+ * @property boolean $initialized public alias of {@link _initialized}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.controllers
@@ -53,11 +58,11 @@ class QsControllerBehaviorAdminDataModelContext extends QsControllerBehaviorAdmi
 	 * For example:
 	 * <code>
 	 * array(
-	 *	 'user' => array(
-	 *		 'class' => 'User',
-	 *		 'foreignKeyName' => 'user_id',
-	 *		 'controllerId' => 'user',
-	 *	 )
+	 *     'user' => array(
+	 *         'class' => 'User',
+	 *         'foreignKeyName' => 'user_id',
+	 *         'controllerId' => 'user',
+	 *     )
 	 * );
 	 * </code>
 	 */
@@ -74,6 +79,7 @@ class QsControllerBehaviorAdminDataModelContext extends QsControllerBehaviorAdmi
 	protected $_initialized = false;
 
 	// Set / Get:
+
 	public function setInitialized($initialized) {
 		$this->_initialized = $initialized;
 		return true;
@@ -171,7 +177,7 @@ class QsControllerBehaviorAdminDataModelContext extends QsControllerBehaviorAdmi
 	 */
 	protected function initActiveContext($contextName, array $contextConfig, $primaryKey) {
 		$className = $contextConfig['class'];
-		$modelFinder = call_user_func( array($className, 'model') );
+		$modelFinder = call_user_func(array($className, 'model'));
 		$model = $modelFinder->findByPk($primaryKey);
 		if (empty($model)) {
 			throw new CHttpException(404,'The requested page does not exist.');

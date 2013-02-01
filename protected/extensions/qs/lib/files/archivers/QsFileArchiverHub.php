@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
  
@@ -14,12 +14,14 @@
  * The particular file archiver will be determined using the archive file extension
  * according to the {@link archivers} value.
  *
+ * @property IQsFileArchiver[] $archivers public alias of {@link _archivers}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.files.archivers
  */
 class QsFileArchiverHub extends QsFileArchiver {
 	/**
-	 * @var array list of file archivers in format 'file extension' => 'file archiver'.
+	 * @var IQsFileArchiver[] list of file archivers in format 'file extension' => 'file archiver'.
 	 * Note: if no matching archiver will be found the first one in this list will be used.
 	 */
 	protected $_archivers = array(

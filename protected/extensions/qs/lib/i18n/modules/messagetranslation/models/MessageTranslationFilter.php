@@ -4,13 +4,16 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
 /**
  * MessageTranslationFilter is a model, which is used as filter for the
  * {@link MessageTranslationMapper::findAll()}.
+ *
+ * @property array $languages public alias of {@link _languages}.
+ * @property array $contents public alias of {@link _contents}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.messagetranslation
@@ -32,8 +35,8 @@ class MessageTranslationFilter extends CModel {
 	 * For example:
 	 * <code>
 	 * array(
-	 *     'en'=>'some text',
-	 *     'ge'=>'einige text',
+	 *     'en' => 'some text',
+	 *     'ge' => 'einige text',
 	 * );
 	 * </code>
 	 */

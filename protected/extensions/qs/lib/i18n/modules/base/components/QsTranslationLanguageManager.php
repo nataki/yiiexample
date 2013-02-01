@@ -4,13 +4,17 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
 /**
  * QsTranslationLanguageManager is the component, which determines and manages the list of all languages.
  * @see QsWebModuleTranslationBase
+ *
+ * @property string $languageModelClassName public alias of {@link _languageModelClassName}.
+ * @property CDbCriteria|array $languageModelSearchCriteria public alias of {@link _languageModelSearchCriteria}.
+ * @property CActiveRecord[] $languages public alias of {@link _languages}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.base
@@ -21,7 +25,7 @@ class QsTranslationLanguageManager extends CApplicationComponent {
 	 */
 	protected $_languageModelClassName = 'Language';
 	/**
-	 * @var array or CDbCriteria search criteria for the {@link languageModelClassName} model,
+	 * @var CDbCriteria|array search criteria for the {@link languageModelClassName} model,
 	 * which should be applied, while retrieving the list of languages.
 	 * For example:
 	 * <code>
@@ -36,7 +40,7 @@ class QsTranslationLanguageManager extends CApplicationComponent {
 	 */
 	protected $_languageModelSearchCriteria = array();
 	/**
-	 * @var array set of all available languages.
+	 * @var CActiveRecord[] set of all available languages.
 	 */
 	protected $_languages = null;
 

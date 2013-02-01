@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -64,6 +64,16 @@
  *
  * @see QsUrlManagerDefaultParam
  *
+ * @property string $languageModelClassName public alias of {@link _languageModelClassName}.
+ * @property CDbCriteria|array $languageModelSearchCriteria public alias of {@link _languageModelSearchCriteria}.
+ * @property CActiveRecord[] $languages public alias of {@link _languages}.
+ * @property CActiveRecord $current public alias of {@link _current}.
+ * @property string $getParamName public alias of {@link _getParamName}.
+ * @property integer $cookieLifetime public alias of {@link _cookieLifetime}.
+ * @property integer $cacheDuration public alias of {@link _cacheDuration}.
+ * @property boolean $isPassiveMode public alias of {@link _isPassiveMode}.
+ * @property array $countryLanguageCodes public alias of {@link _countryLanguageCodes}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n
  */
@@ -73,7 +83,7 @@ class QsApplicationLanguage extends CApplicationComponent {
 	 */
 	protected $_languageModelClassName = 'Language';
 	/**
-	 * @var array or CDbCriteria search criteria for the {@link languageModelClassName} model,
+	 * @var CDbCriteria|array search criteria for the {@link languageModelClassName} model,
 	 * which should be applied, while retrieving the list of languages.
 	 * For example:
 	 * <code>
@@ -88,7 +98,7 @@ class QsApplicationLanguage extends CApplicationComponent {
 	 */
 	protected $_languageModelSearchCriteria = array();
 	/**
-	 * @var array set of all available languages.
+	 * @var CActiveRecord[] set of all available languages.
 	 */
 	protected $_languages = null;
 	/**
@@ -131,7 +141,7 @@ class QsApplicationLanguage extends CApplicationComponent {
 	}
 
 	// Set / Get :
-	
+
 	public function setLanguageModelClassName($languageModelClassName) {
 		if (!is_string($languageModelClassName)) {
 			throw new CException('"'.get_class($this).'::languageModelClassName" should be a string!');

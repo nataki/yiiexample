@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -29,6 +29,8 @@
  * $this->createIndex("idx_{$tableName}_name", $tableName, 'name', true);
  * $this->createIndex("idx_{$tableName}_timestamp", $tableName, 'timestamp'); 
  * </code>
+ *
+ * @property string $modelClassName public alias of {@link _modelClassName}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.email.storages
@@ -67,13 +69,13 @@ class QsEmailPatternStorageDb extends QsEmailPatternStorageBase {
 			throw new CException('Unable to find email pattern "'.$patternInstance->getId().'" in the database.');
 		}
 
-		if ( isset($emailPatternModel->from) ) {
+		if (isset($emailPatternModel->from)) {
 			$patternInstance->setFrom($emailPatternModel->from);
 		} else {
-			if ( isset($emailPatternModel->from_email) ) {
+			if (isset($emailPatternModel->from_email)) {
 				$patternInstance->setFromEmail($emailPatternModel->from_email);
 			}
-			if ( isset($emailPatternModel->from_name) ) {
+			if (isset($emailPatternModel->from_name)) {
 				$patternInstance->setFromName($emailPatternModel->from_name);
 			}
 		}

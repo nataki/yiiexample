@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -19,6 +19,9 @@ Yii::import('zii.widgets.CMenu');
  *     ...
  * }
  * Set {@link autoRender} to "true" to make QsMenu behave exactly like CMenu.
+ *
+ * @property string $autoRender public alias of {@link _autoRender}.
+ * @property string $itemActivityDirectMatching public alias of {@link _itemActivityDirectMatching}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.widgets
@@ -35,7 +38,7 @@ class QsMenu extends CMenu {
 	protected $_itemActivityDirectMatching = false;
 
 	// Set/Get:
-	
+
 	public function setAutoRender($autoRender) {
 		$this->_autoRender = $autoRender;
 		return true;

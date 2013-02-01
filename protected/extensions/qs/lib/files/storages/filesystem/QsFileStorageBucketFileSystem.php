@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -34,6 +34,9 @@
  *
  * @see QsFileStorageFileSystem
  *
+ * @property string $baseSubPath public alias of {@link _baseSubPath}.
+ * @method QsFileStorageFileSystem getStorage()
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.files.storages.filesystem
  */
@@ -44,7 +47,7 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 	protected $_baseSubPath = '';
 
 	// Set / Get :
-	
+
 	public function setBaseSubPath($baseSubPath) {
 		if (!is_string($baseSubPath)) {
 			throw new CException('"'.get_class($this).'::baseSubPath" should be a string!');

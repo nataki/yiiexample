@@ -1,4 +1,10 @@
 <?php
+/* @var $this DefaultController */
+/* @var $messageTranslationMapper MessageTranslationMapper */
+/* @var $languageManager QsTranslationLanguageManager */
+/* @var $model MessageTranslation */
+/* @var $filter MessageTranslationFilter */
+
 $assetsUrl = $this->getModule()->getAssetsUrl();
 Yii::app()->getClientScript()->registerCssFile($assetsUrl.'/css/translation.css');
 
@@ -21,25 +27,25 @@ foreach ($categoryNames as $categoryName) {
 
 $listColumns = array(
 	array(
-		'class'=>'CButtonColumn',
-		'template'=>'{view} {update}',
-		'viewButtonUrl'=>'Yii::app()->controller->createUrl("view",array("id"=>$data->id))',
-		'updateButtonUrl'=>'Yii::app()->controller->createUrl("update",array("id"=>$data->id))',
+		'class' => 'CButtonColumn',
+		'template' => '{view} {update}',
+		'viewButtonUrl' => 'Yii::app()->controller->createUrl("view",array("id"=>$data->id))',
+		'updateButtonUrl' => 'Yii::app()->controller->createUrl("update",array("id"=>$data->id))',
 	),
 	array(
-		'name'=>'name',
-		'type'=>'text',
-		'header'=>$filter->getAttributeLabel('name'),
+		'name' => 'name',
+		'type' => 'text',
+		'header' => $filter->getAttributeLabel('name'),
 	),
 	array(
-		'name'=>'category_name',
-		'header'=>$filter->getAttributeLabel('category_name'),
-		'filter'=>$categoryFilter
+		'name' => 'category_name',
+		'header' => $filter->getAttributeLabel('category_name'),
+		'filter' => $categoryFilter
 	),
 	array(
-		'name'=>'default_content',
-		'type'=>'text',
-		'header'=>$filter->getAttributeLabel('default_content'),
+		'name' => 'default_content',
+		'type' => 'text',
+		'header' => $filter->getAttributeLabel('default_content'),
 	),
 );
 
@@ -47,10 +53,10 @@ $languageManager = $this->getModule()->getComponent('languageManager');
 foreach ($languageManager->getLanguages() as $language) {
 	$languageKey = $language->locale_code;
 	$languageMessageColumn = array(
-		'header'=>$language->name.' Message',
-		'type'=>'raw',
-		'name'=>'content_'.$languageKey,
-		'value'=>'
+		'header' => $language->name.' Message',
+		'type' => 'raw',
+		'name' => 'content_'.$languageKey,
+		'value' => '
 			CHtml::link(
 				( $translation = $data->getTranslation("'.$languageKey.'") )
 					? CHtml::encode($translation)
@@ -64,8 +70,8 @@ foreach ($languageManager->getLanguages() as $language) {
 }
 
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'record-grid',
-	'dataProvider'=>$model->dataProvider($filter),
-	'filter'=>$filter,
-	'columns'=>$listColumns,
+	'id' => 'record-grid',
+	'dataProvider' => $model->dataProvider($filter),
+	'filter' => $filter,
+	'columns' => $listColumns,
 )); ?>

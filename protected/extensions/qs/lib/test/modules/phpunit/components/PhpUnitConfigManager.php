@@ -4,12 +4,16 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
  
 /**
  * PhpUnitConfigManager manages the PHPUnit configuration params.
+ *
+ * @property string $bootstrapFileName public alias of {@link _bootstrapFileName}.
+ * @property string $originXmlConfigFileName public alias of {@link _originXmlConfigFileName}.
+ * @property string $xmlConfigFileName public alias of {@link _xmlConfigFileName}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.test.modules.phpunit
@@ -20,7 +24,7 @@ class PhpUnitConfigManager extends CApplicationComponent {
 	 */
 	protected $_bootstrapFileName = null;
 	/**
-	 * @var null origin PHPUnit XML config file name.
+	 * @var sting|null origin PHPUnit XML config file name.
 	 * This file will be parsed and use as basis for the real configuration file.
 	 */
 	protected $_originXmlConfigFileName = null;

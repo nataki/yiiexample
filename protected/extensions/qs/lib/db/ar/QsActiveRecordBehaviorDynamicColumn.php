@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -53,6 +53,19 @@
  *
  * Use method {@link getColumnValueModels()} to fetch all related models.
  *
+ * @property CActiveRecord[] $columnModels public alias of {@link _columnModels}.
+ * @property string $columnModelClassName public alias of {@link _columnModelClassName}.
+ * @property CDbCriteria|array $columnModelSearchCriteria public alias of {@link _columnModelSearchCriteria}.
+ * @property callback $columnModelSearchCriteriaCallback public alias of {@link _columnModelSearchCriteriaCallback}.
+ * @property string $columnValueRelationName public alias of {@link _columnValueRelationName}.
+ * @property array $relationConfig public alias of {@link _relationConfig}.
+ * @property array $columnValueModels public alias of {@link _columnValueModels}.
+ * @property array $autoAdjustColumnValueScenarios public alias of {@link _autoAdjustColumnValueScenarios}.
+ * @property string $columnValueColumnForeignKeyName public alias of {@link _columnValueColumnForeignKeyName}.
+ * @property string $columnNameAttributeName public alias of {@link _columnNameAttributeName}.
+ * @property string $columnDefaultValueAttributeName public alias of {@link _columnDefaultValueAttributeName}.
+ * @method CActiveRecord getOwner()
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
  */
@@ -71,11 +84,11 @@ class QsActiveRecordBehaviorDynamicColumn extends CBehavior {
 	 */
 	protected $_columnModelClassName = 'ItemColumn';
 	/**
-	 * @var array column model search criteria.
+	 * @var CDbCriteria|array column model search criteria.
 	 */
 	protected $_columnModelSearchCriteria = array();
 	/**
-	 * @var string|array PHP callback, which should return the search criteria for {@link columnModelClassName} model.
+	 * @var callback PHP callback, which should return the search criteria for {@link columnModelClassName} model.
 	 * The callback should return {@link CDbCriteria} instance or its configuration array.
 	 * The criteria, returned by this callback will be merged with the {@link columnModelSearchCriteria}.
 	 */
@@ -91,7 +104,7 @@ class QsActiveRecordBehaviorDynamicColumn extends CBehavior {
 	 */
 	protected $_relationConfig = array();
 	/**
-	 * @var array|null list of column value models in format: 'column name'=>'column value model'.
+	 * @var CActiveRecord[] list of column value models in format: 'column name'=>'column value model'.
 	 */
 	protected $_columnValueModels = null;
 	/**
@@ -134,6 +147,9 @@ class QsActiveRecordBehaviorDynamicColumn extends CBehavior {
 		return true;
 	}
 
+	/**
+	 * @return CActiveRecord[] column models.
+	 */
 	public function getColumnModels() {
 		if (!is_array($this->_columnModels)) {
 			$this->initColumnModels();
@@ -415,7 +431,7 @@ class QsActiveRecordBehaviorDynamicColumn extends CBehavior {
 	/**
 	 * Returns models related to the main one as dynamic column values
 	 * according to the {@link relationConfig}.
-	 * @return array set of {@link CActiveRecord}.
+	 * @return CActiveRecord[] set of {@link CActiveRecord}.
 	 */
 	protected function getRelationColumnValueModels() {
 		$owner = $this->getOwner();
@@ -425,7 +441,7 @@ class QsActiveRecordBehaviorDynamicColumn extends CBehavior {
 
 	/**
 	 * Adjusts given column value models to be adequate to the {@link columnModelClassName} records.
-	 * @param array $initialColumnValueModels set of initial column value models, found by relation.
+	 * @param array|CActiveRecord[] $initialColumnValueModels set of initial column value models, found by relation.
 	 * @return array set of {@link CActiveRecord}.
 	 */
 	protected function adjustColumnValueModels(array $initialColumnValueModels) {
@@ -441,7 +457,7 @@ class QsActiveRecordBehaviorDynamicColumn extends CBehavior {
 		foreach ($columnModels as $columnModel) {
 			$matchFound = false;
 			foreach ($initialColumnValueModels as $initialColumnValueModel) {
-				if ( $columnModel->getPrimaryKey() == $initialColumnValueModel->$columnForeignKeyName ) {
+				if ($columnModel->getPrimaryKey() == $initialColumnValueModel->$columnForeignKeyName) {
 					$columnValueModels[$columnModel->$nameAttributeName] = $initialColumnValueModel;
 					$confirmedInitialColumnValueModels[] = $initialColumnValueModel;
 					$matchFound = true;
@@ -465,11 +481,11 @@ class QsActiveRecordBehaviorDynamicColumn extends CBehavior {
 			}
 		}
 
-		if ( count($confirmedInitialColumnValueModels) < count($initialColumnValueModels) ) {
+		if (count($confirmedInitialColumnValueModels) < count($initialColumnValueModels)) {
 			foreach ($initialColumnValueModels as $initialColumnValueModel) {
 				$matchFound = false;
 				foreach ($confirmedInitialColumnValueModels as $confirmedInitialVariationModel) {
-					if ( $confirmedInitialVariationModel->getPrimaryKey() == $initialColumnValueModel->getPrimaryKey() ) {
+					if ($confirmedInitialVariationModel->getPrimaryKey() == $initialColumnValueModel->getPrimaryKey()) {
 						$matchFound = true;
 						break;
 					}

@@ -4,13 +4,21 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
 /**
  * QsEmailPattern is service class, which instance is used as data structure,
  * which is passed between different components.
+ *
+ * @property mixed $id public alias of {@link _id}.
+ * @property integer $timestamp public alias of {@link _timestamp}.
+ * @property string $subject public alias of {@link _subject}.
+ * @property string|array $fromEmail public alias of {@link _fromEmail}.
+ * @property string $fromName public alias of {@link _fromName}.
+ * @property string $bodyHtml public alias of {@link _bodyHtml}.
+ * @property string $bodyText public alias of {@link _bodyText}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.email
@@ -29,7 +37,7 @@ class QsEmailPattern extends CComponent {
 	 */
 	protected $_subject = '';
 	/**
-	 * @var mixed email address of sender, or pair senderEmail=>senderName.
+	 * @var string|array email address of sender, or pair senderEmail=>senderName.
 	 */
 	protected $_fromEmail = '';
 	/**
@@ -45,6 +53,10 @@ class QsEmailPattern extends CComponent {
 	 */
 	protected $_bodyText = '';
 
+	/**
+	 * Constructor.
+	 * @param array|null $fields filed values.
+	 */
 	public function __construct($fields=null) {
 		if (is_array($fields)) {
 			foreach ($fields as $name => $value) {

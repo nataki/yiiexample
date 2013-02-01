@@ -4,12 +4,15 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
 /**
  * QsWebModuleTranslationBase is the base web module for the translation modules.
+ *
+ * @property array $accessRules public alias of {@link _accessRules}.
+ * @property string $assetsUrl public alias of {@link _assetsUrl}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.base
@@ -45,7 +48,7 @@ class QsWebModuleTranslationBase extends CWebModule {
 	protected $_assetsUrl = null;
 
 	// Set / Get :
-	
+
 	public function setAccessRules(array $accessRules) {
 		$this->_accessRules = $accessRules;
 		return true;

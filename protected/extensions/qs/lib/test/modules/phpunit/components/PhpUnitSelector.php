@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
  
@@ -16,6 +16,12 @@
  * in order to avoid problem if "AllowEncodedSlashes" is disabled at web server!
  *
  * @see PhpUnitFileSystemManager
+ *
+ * @property array $baseTestSuitePaths public alias of {@link _baseTestSuitePaths}.
+ * @property string $basePath public alias of {@link _basePath}.
+ * @property string $subPath public alias of {@link _subPath}.
+ * @property string $basePathGetParamName public alias of {@link _basePathGetParamName}.
+ * @property string $subPathGetParamName public alias of {@link _subPathGetParamName}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.test.modules.phpunit

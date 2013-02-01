@@ -4,14 +4,20 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
 /**
  * ImageTranslation is a model for the image translations.
  * Each image, which should be translated can be represented with this class.
+ *
  * @see ImageTranslationFilter
+ *
+ * @property string $defaultBasePath public alias of {@link _defaultBasePath}.
+ * @property string $defaultBaseUrl public alias of {@link _defaultBaseUrl}.
+ * @property string $missingImageUrl public alias of {@link _missingImageUrl}.
+ * @property CUploadedFile $file public alias of {@link _file}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.imagetranslation
@@ -54,7 +60,7 @@ class ImageTranslation extends CModel {
 	 */
 	public $height;
 	/**
-	 * @var mixed uploaded file.
+	 * @var CUploadedFile uploaded file.
 	 */
 	protected $_file;
 
@@ -86,6 +92,7 @@ class ImageTranslation extends CModel {
 	}
 
 	// Set / Get :
+
 	public function setDefaultBasePath($defaultImageBasePath) {
 		$this->_defaultBasePath = $defaultImageBasePath;
 		return true;
@@ -132,7 +139,7 @@ class ImageTranslation extends CModel {
 
 	public function getFile() {
 		if (!is_object($this->_file)) {
-			$this->_file = CUploadedFile::getInstance($this, 'file');
+			$this->_file = $this->getUploadedFile();
 		}
 		return $this->_file;
 	}
@@ -185,7 +192,7 @@ class ImageTranslation extends CModel {
 
 	/**
 	 * Returns image translation module.
-	 * @return CModule image translation module.
+	 * @return ImagetranslationModule image translation module.
 	 */
 	public function getImageTranslationModule() {
 		$module = null;
@@ -226,9 +233,9 @@ class ImageTranslation extends CModel {
 	}
 
 	/**
+	 * Validate uploaded image file size.
 	 * @param string $attribute attribute name
 	 * @param array $params validation parameters
-	 * @return void
 	 */
 	public function validateImageSize($attribute,$params) {
 		$file = $this->$attribute;

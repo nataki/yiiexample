@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -13,6 +13,7 @@
  * This composer threats email pattern attribute as name of the file, which contains view code.
  * This file will be rendered in order to receive particular email content.
  * This composer is the best to use with the {@link QsEmailPatternStorageFile}.
+ * 
  * @see QsEmailPatternStorageFile
  *
  * @author Paul Klimov <pklimov@quartsoft.com>

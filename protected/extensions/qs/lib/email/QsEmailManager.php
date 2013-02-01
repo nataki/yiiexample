@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -43,6 +43,14 @@
  * @see QsEmailPatternStorage
  * @see QsEmailPatternComposerCompile
  *
+ * @property boolean $logging public alias of {@link _logging}.
+ * @property mixed $testMode public alias of {@link _testMode}.
+ * @property string $testEmail public alias of {@link _testEmail}.
+ * @property Swift_Transport|array $transport public alias of {@link _transport}.
+ * @property Swift_Mailer $mailer public alias of {@link _mailer}.
+ * @property QsEmailPatternStorageBase|array $patternStorage public alias of {@link _patternStorage}.
+ * @property QsEmailPatternComposerBase|array $patternComposer public alias of {@link _patternComposer}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.email
  */
@@ -70,7 +78,7 @@ class QsEmailManager extends CApplicationComponent {
 	 */
 	protected $_testEmail = 'somename@somedomain.com';
 	/**
-	 * @var array the configuration for the email transport.
+	 * @var Swift_Transport|array the configuration for the email transport.
 	 * Defaults to <code>array('type'=>'php')</code>.
 	 * Specify 'type' parameter in order to set up transport type.
 	 * For example: in order to use SMTP transport use:
@@ -93,14 +101,14 @@ class QsEmailManager extends CApplicationComponent {
 	 */
 	protected $_mailer = null;
 	/**
-	 * @var array the configuration for the email pattern storage.
+	 * @var QsEmailPatternStorageBase|array the configuration for the email pattern storage.
 	 * @see QsEmailPatternStorageDb
 	 */
 	protected $_patternStorage = array(
 		'class' => 'QsEmailPatternStorageDb'
 	);
 	/**
-	 * @var array the configuration for the email pattern composer.
+	 * @var QsEmailPatternComposerBase|array the configuration for the email pattern composer.
 	 * @see QsEmailPatternComposerCompile
 	 */
 	protected $_patternComposer = array(

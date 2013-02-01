@@ -1,9 +1,10 @@
 <?php
-$this->sectionTitle = 'Manage Image Translations';
+/* @var $this DefaultController */
+/* @var $languageManager QsTranslationLanguageManager */
+/* @var $model ImageTranslation */
+/* @var $filter ImageTranslationFilter */
 
-/*$this->contextMenuItems = array(
-	array('label'=>'Create Image Translation', 'url'=>array('create')),
-);*/
+$this->sectionTitle = 'Manage Image Translations';
 ?>
 
 <p>
@@ -34,21 +35,21 @@ $languageManager = $this->getModule()->getComponent('languageManager');
 foreach ($languageManager->getLanguages() as $language) {
 	$languageKey = $language->locale_code;
 	$languageImageColumn = array(
-		'header'=>$language->name.' Image',
-		'type'=>'raw',
-		'name'=>'exist_'.$languageKey,
-		'filter'=>array(
+		'header' => $language->name.' Image',
+		'type' => 'raw',
+		'name' => 'exist_'.$languageKey,
+		'filter' => array(
 			'missing' => 'Missing Only',
 			'present' => 'Present Only',
 		),
-		'value'=>'CHtml::link( CHtml::image( $data->fetchUrl("'.$languageKey.'"), $data->name, array("width"=>$data->width, "height"=>$data->height, "title"=>"Click to update") ) , array("update", "name"=>urlencode($data->name), "language"=>'.$languageKey.'))',
+		'value' => 'CHtml::link( CHtml::image( $data->fetchUrl("'.$languageKey.'"), $data->name, array("width"=>$data->width, "height"=>$data->height, "title"=>"Click to update") ) , array("update", "name"=>urlencode($data->name), "language"=>'.$languageKey.'))',
 	);
 	$listColumns[] = $languageImageColumn;
 }
 
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'record-grid',
-	'dataProvider'=>$model->dataProvider($filter),
-	'filter'=>$filter,
-	'columns'=>$listColumns,
+	'id' => 'record-grid',
+	'dataProvider' => $model->dataProvider($filter),
+	'filter' => $filter,
+	'columns' => $listColumns,
 )); ?>

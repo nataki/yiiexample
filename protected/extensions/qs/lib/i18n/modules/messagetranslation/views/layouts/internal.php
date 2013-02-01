@@ -1,3 +1,5 @@
+<?php /* @var $this DefaultController */ ?>
+<?php /* @var $content string */ ?>
 <?php $this->beginContent($this->module->layout); ?>
 	<?php if (!Yii::app()->user->isGuest) { ?>
 	<?php $this->widget('zii.widgets.CBreadcrumbs', array(

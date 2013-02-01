@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -12,6 +12,11 @@
  * Behavior for the {@link CActiveRecord}, which allows to manage custom order for the records in the model database table.
  * Behavior uses the specific integer field of the database table to set up position index.
  * Due to this the database table, which the model refers to, must contain field {@link positionAttributeName}.
+ *
+ * @property string $positionAttributeName public alias of {@link _positionAttributeName}.
+ * @property array $groupAttributes public alias of {@link _groupAttributes}.
+ * @property boolean $defaultOrdering public alias of {@link _defaultOrdering}.
+ * @method CActiveRecord getOwner()
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
@@ -21,28 +26,30 @@ class QsActiveRecordBehaviorPosition extends CBehavior {
 	 * @var string name owner attribute, which will store position value.
 	 * This attribute should be an integer.
 	 */
-	protected $_positionAttributeName='position';
+	protected $_positionAttributeName = 'position';
 	/**
 	 * @var array list of owner attribute names, which values split records into the groups,
 	 * which should have their own positioning.
-	 * Example: <code>array('group_id','category_id')</code>
+	 * Example: <code>array('group_id', 'category_id')</code>
 	 */
-	protected $_groupAttributes=array();
+	protected $_groupAttributes = array();
 	/**
 	 * @var boolean determines if default order (position ASC) should
 	 * be applied automatically on the search.
 	 */
-	protected $_defaultOrdering=false;
+	protected $_defaultOrdering = false;
 	/**
 	 * @var integer position value, which should be applied to the model on its save.
 	 * Internal usage only.
 	 */
-	protected $_positionOnSave=0;
+	protected $_positionOnSave = 0;
 
 	// Set / Get:
 
 	public function setPositionAttributeName($positionAttributeName) {
-		if (!is_string($positionAttributeName)) return false;
+		if (!is_string($positionAttributeName)) {
+			return false;
+		}
 		$this->_positionAttributeName = $positionAttributeName;
 		return true;
 	}
@@ -70,7 +77,9 @@ class QsActiveRecordBehaviorPosition extends CBehavior {
 	}
 
 	public function setPositionOnSave($positionOnSave) {
-		if (!is_numeric($positionOnSave)) return false;
+		if (!is_numeric($positionOnSave)) {
+			return false;
+		}
 		$this->_positionOnSave = $positionOnSave;
 		return true;
 	}
@@ -86,7 +95,7 @@ class QsActiveRecordBehaviorPosition extends CBehavior {
 	 */
 	protected function createGroupConditionAttributes() {
 		$attributesCondition = array();
-		if ( !empty($this->_groupAttributes) ) {
+		if (!empty($this->_groupAttributes)) {
 			$owner = $this->getOwner();
 			foreach ($this->_groupAttributes as $groupAttributeName) {
 				$attributesCondition[$groupAttributeName] = $owner->getAttribute($groupAttributeName);
@@ -120,15 +129,12 @@ class QsActiveRecordBehaviorPosition extends CBehavior {
 	 */
 	protected function countGroupRecords() {
 		$owner = $this->getOwner();
-		$positionAttributeName = $this->getPositionAttributeName();
-
 		$attributes = $this->createGroupConditionAttributes();
 		if (!empty($attributes)) {
 			$recordsCount = $owner->countByAttributes($attributes);
 		} else {
 			$recordsCount = $owner->count();
 		}
-
 		return $recordsCount;
 	}
 

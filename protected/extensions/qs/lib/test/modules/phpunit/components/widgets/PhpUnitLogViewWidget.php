@@ -4,12 +4,18 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
  
 /**
  * PhpUnitLogViewWidget is the widget, which renders the PHPUnit test result log.
+ *
+ * @property SimpleXMLElement $xml public alias of {@link _xml}.
+ * @property string $consoleCommandOutput public alias of {@link _consoleCommandOutput}.
+ * @property boolean $isFailed public alias of {@link _isFailed}.
+ * @property boolean $isIncomplete public alias of {@link _isIncomplete}.
+ * @property array $colors public alias of {@link _colors}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.test.modules.phpunit
@@ -297,7 +303,7 @@ class PhpUnitLogViewWidget extends CWidget {
 		$testSuiteAttributes = $testSuite->attributes();
 
 		$data = array(
-			'testSuite'=>$testSuite,
+			'testSuite' => $testSuite,
 			'testSuiteAttributes' => $testSuiteAttributes,
 		);
 		$html = $this->render('test_suite_info', $data, true);

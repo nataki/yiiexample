@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -14,6 +14,9 @@
  * Each time when model is saved or deleted depending cache will be cleared.
  * This behavior may be used to clear permanent time cache using event based approach.
  * You may specify dynamic cache ids using {@link dependingCacheIdCallback}
+ *
+ * @property array $dependingCacheIds public alias of {@link _dependingCacheIds}.
+ * @property callback $dependingCacheIdCallback public alias of {@link _dependingCacheIdCallback}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
@@ -106,7 +109,7 @@ class QsActiveRecordBehaviorClearCache extends CBehavior {
 
 	/**
 	 * This event raises after owner saved.
-	 * It clears cahced values.
+	 * It clears cached values.
 	 * @param CEvent $event event instance.
 	 */
 	public function afterSave($event) {
@@ -115,7 +118,7 @@ class QsActiveRecordBehaviorClearCache extends CBehavior {
 
 	/**
 	 * This event raises after owner record deleted.
-	 * It clears cahced values.
+	 * It clears cached values.
 	 * @param CEvent $event event instance.
 	 */
 	public function afterDelete($event) {

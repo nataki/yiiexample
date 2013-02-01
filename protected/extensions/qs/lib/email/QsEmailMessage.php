@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -23,6 +23,8 @@
  * </code>
  * 
  * @see Swift_Message
+ *
+ * @property Swift_Message $rawEmailMessage public alias of {@link _rawEmailMessage}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.email

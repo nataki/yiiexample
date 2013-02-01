@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -31,6 +31,10 @@
  *
  * @see QsImageTranslationSource
  *
+ * @property string $basePath public alias of {@link _basePath}.
+ * @property string $baseUrl public alias of {@link _baseUrl}.
+ * @property integer $filePermission public alias of {@link _filePermission}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.images
  */
@@ -50,7 +54,7 @@ class QsImageTranslationSourceFileSystem extends QsImageTranslationSource {
 	protected $_filePermission = 0755;
 
 	// Set / Get :
-	
+
 	public function setBasePath($basePath) {
 		if (!is_string($basePath)) {
 			throw new CException('"'.get_class($this).'::basePath" should be a string!');

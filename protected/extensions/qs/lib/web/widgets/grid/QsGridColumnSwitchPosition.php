@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -31,6 +31,8 @@ Yii::import('zii.widgets.grid.CDataColumn');
  * @see CGridView
  * @see CDataColumn
  * @see QsActionAdminMove
+ *
+ * @property string $assetsUrl public alias of {@link _assetsUrl}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.widgets.grid

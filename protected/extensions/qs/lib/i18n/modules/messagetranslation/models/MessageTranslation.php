@@ -4,13 +4,15 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
 /**
  * MessageTranslation is a model for the message translations.
  * Each message, which should be translated can be represented with this class.
+ *
+ * @property array $translations public alias of {@link _translations}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.messagetranslation
@@ -20,6 +22,7 @@ class MessageTranslation extends CModel {
 	 * @var array translations set in format: language => content.
 	 */
 	protected $_translations = array();
+
 	// Attributes:
 
 	/**
@@ -121,7 +124,7 @@ class MessageTranslation extends CModel {
 	protected function decodeId($id) {
 		$rawId = base64_decode($id);
 		list($category_name, $name) = explode(DIRECTORY_SEPARATOR, $rawId, 2);
-		if ( empty($category_name) || empty($name) ) {
+		if (empty($category_name) || empty($name)) {
 			throw new CException('Wrong value for the "'.get_class($this).'::id" has been set!');
 		}
 		$result = array(
@@ -143,7 +146,6 @@ class MessageTranslation extends CModel {
 			'language',
 			'content',
 		);
-		//$attributeNames = array_merge( $attributeNames, $this->contentAttributeNames() );
 		return $attributeNames;
 	}
 

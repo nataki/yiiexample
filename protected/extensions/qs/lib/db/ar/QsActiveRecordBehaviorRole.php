@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -13,6 +13,10 @@
  * Behavior will initialize the relation automatically.
  * Behavior allows access to the related model attributes directly as properties of the main model.
  * Related model will be validated and saved automatically with the main one.
+ *
+ * @property string $relationName public alias of {@link _relationName}.
+ * @property array $relationConfig public alias of {@link _relationConfig}.
+ * @method CActiveRecord getOwner()
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
@@ -36,6 +40,7 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 	protected $_isRelationInitialized = false;
 	/**
 	 * @var boolean indicates if related model has been initialized.
+	 * Internal usage only.
 	 */
 	protected $_isRelatedModelInitialized = false;
 
@@ -187,7 +192,7 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 
 	/**
 	 * Returns model related to the main one.
-	 * @return CModel related model.
+	 * @return CActiveRecord related model.
 	 */
 	protected function getRelatedModel() {
 		$this->initRelatedModelOnce();

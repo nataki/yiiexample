@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -12,8 +12,13 @@
  * MessageTranslationMapperDb is a message translation model mapper, which uses the
  * database to store translations.
  * This mapper works with the {@link CDbMessageSource} message source.
+ *
  * @see MessageTranslation
  * @see CDbMessageSource
+ *
+ * @property string $connectionId public alias of {@link _connectionId}.
+ * @property string $sourceMessageTable public alias of {@link _sourceMessageTable}.
+ * @property string $translatedMessageTable public alias of {@link _translatedMessageTable}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.messagetranslation
@@ -84,7 +89,7 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 	protected function initConnectionId() {
 		$connectionId = 'db';
 		$messageSource = Yii::app()->getMessages();
-		if (is_a($messageSource,'CDbMessageSource')) {
+		if (is_a($messageSource, 'CDbMessageSource')) {
 			$connectionId = $messageSource->connectionID;
 		}
 		$this->_connectionId = $connectionId;
@@ -98,7 +103,7 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 	protected function initSourceMessageTable() {
 		$sourceMessageTable = 'SourceMessage';
 		$messageSource = Yii::app()->getMessages();
-		if (is_a($messageSource,'CDbMessageSource')) {
+		if (is_a($messageSource, 'CDbMessageSource')) {
 			$sourceMessageTable = $messageSource->sourceMessageTable;
 		}
 		$this->_sourceMessageTable = $sourceMessageTable;
@@ -112,7 +117,7 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 	protected function initTranslatedMessageTable() {
 		$translatedMessageTable = 'Message';
 		$messageSource = Yii::app()->getMessages();
-		if (is_a($messageSource,'CDbMessageSource')) {
+		if (is_a($messageSource, 'CDbMessageSource')) {
 			$translatedMessageTable = $messageSource->translatedMessageTable;
 		}
 		$this->_translatedMessageTable = $translatedMessageTable;
@@ -125,7 +130,7 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 	 * @return CDbConnection database connection instance.
 	 */
 	protected function getDbConnection() {
-		return Yii::app()->getComponent( $this->getConnectionId() );
+		return Yii::app()->getComponent($this->getConnectionId());
 	}
 
 	/**

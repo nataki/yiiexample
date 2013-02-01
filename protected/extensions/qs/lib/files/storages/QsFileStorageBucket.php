@@ -4,12 +4,15 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
 /** 
  * QsFileStorageBucket is a base class for the file storage buckets.
+ *
+ * @property string $name public alias of {@link _name}.
+ * @property IQsFileStorage $storage public alias of {@link _storage}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.files.storages
@@ -20,7 +23,7 @@ abstract class QsFileStorageBucket extends CComponent implements IQsFileStorageB
 	 */
 	protected $_name = '';
 	/**
-	 * @var IQsFileStorageBucket file storage, which owns the bucket.
+	 * @var IQsFileStorage file storage, which owns the bucket.
 	 */
 	protected $_storage = null;
 

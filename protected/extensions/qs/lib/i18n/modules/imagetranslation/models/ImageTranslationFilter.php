@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -13,7 +13,11 @@
  * {@link ImageTranslation::findAll()}.
  * This model introduces dynamic attributes, which names match pattern "exist_$lang",
  * where $lang - language locale code.
+ *
  * @see ImageTranslation
+ *
+ * @property array $languages public alias of {@link _languages}.
+ * @property array $existences public alias of {@link _existences}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.imagetranslation
@@ -39,8 +43,8 @@ class ImageTranslationFilter extends CModel {
 	 * For example:
 	 * <code>
 	 * array(
-	 *    'en'=>'present',
-	 *    'ge'=>'missing',
+	 *    'en' => 'present',
+	 *    'ge' => 'missing',
 	 * );
 	 * </code>
 	 */

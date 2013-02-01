@@ -4,12 +4,15 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
  
 /**
  * PhpUnitFileSystemUnit is a model of the particular file system unit: directory or file.
+ *
+ * @property string $name public alias of {@link _name}.
+ * @property string $path public alias of {@link _path}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.test.modules.phpunit

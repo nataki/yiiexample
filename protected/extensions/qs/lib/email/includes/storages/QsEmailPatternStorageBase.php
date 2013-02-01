@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -14,6 +14,8 @@
  * This class finds the email pattern for the requested patternId.
  * This class is abstract and should be extended to specify the explicit method of storing and retrieving of patterns.
  *
+ * @property array $cachedPatterns public alias of {@link _cachedPatterns}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.email.storages
  */
@@ -21,7 +23,7 @@ abstract class QsEmailPatternStorageBase extends CComponent {
 	/**
 	 * @var array cache of already found patterns.
 	 */
-	protected $_cachedPatterns=array();
+	protected $_cachedPatterns = array();
 
 	// Cached Patterns:
 	public function setCachedPatterns(array $cachedPatterns) {

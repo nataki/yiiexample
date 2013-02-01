@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -12,8 +12,12 @@
  * MessageTranslationMapperPhp is a message translation model mapper, which uses the
  * php code files to store translations.
  * This mapper works with the {@link CPhpMessageSource} message source.
+ *
  * @see MessageTranslation
  * @see CPhpMessageSource
+ *
+ * @property string $basePath public alias of {@link _basePath}.
+ * @property integer $filePermission public alias of {@link _filePermission}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.messagetranslation
@@ -196,7 +200,7 @@ EOD;
 			@mkdir($path, $dirPermission, true);
 			umask($oldUmask);
 		}
-		if ( !file_exists($path) || !is_dir($path) ) {
+		if (!file_exists($path) || !is_dir($path)) {
 			throw new CException("Unable to resolve path: '{$path}'!");
 		} elseif (!is_writable($path)) {
 			throw new CException("Path: '{$path}' should be writeable!");

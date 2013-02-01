@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -28,6 +28,12 @@
  * $csvFile->delete();
  * exit(0);
  * </code>
+ *
+ * @property string $fileName public alias of {@link _fileName}.
+ * @property string $baseFilePath public alias of {@link _baseFilePath}.
+ * @property integer $entriesCount public alias of {@link _entriesCount}.
+ * @property array $columnNames public alias of {@link _columnNames}.
+ * @property array $columnHeaders public alias of {@link _columnHeaders}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.files.csv

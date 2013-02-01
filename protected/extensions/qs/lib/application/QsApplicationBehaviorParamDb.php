@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -17,7 +17,10 @@
  * create additional params on its own from table fields "name" and "value".
  * Note: you can use {@link QsActiveRecordBehaviorNameValue} behavior attached to the {@link CActiveRecord} model
  * in order to make it sutable for this behavior.
+ * 
  * @see QsActiveRecordBehaviorNameValue
+ *
+ * @property string $paramModelClassName public alias of {@link _paramModelClassName}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.application

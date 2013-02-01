@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -12,7 +12,13 @@
  * QsWebUserBehaviorModelActiveRecord is a behavior for the {@link QsWebUser}, which allows
  * to bound web user with the {@link CActiveRecord} model, which represents him.
  * This behavior also allows to synchronize web user data with the database on each web request.
+ *
  * @see QsWebUser
+ *
+ * @property string $modelClassName public alias of {@link _modelClassName}.
+ * @property mixed $modelFindCondition public alias of {@link _modelFindCondition}.
+ * @property CActiveRecord $model public alias of {@link _model}.
+ * @method QsWebUser getOwner()
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.auth
@@ -37,7 +43,7 @@ class QsWebUserBehaviorModelActiveRecord extends CBehavior {
 	public $autoEnsureModel = true;
 
 	// Set / Get :
-	
+
 	public function setModelClassName($userModelClassName) {
 		$this->_modelClassName = $userModelClassName;
 		return true;

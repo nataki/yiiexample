@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -33,6 +33,11 @@
  * </code>
  *
  * @see QsFileStorageBucketFileSystem
+ *
+ * @property string $basePath public alias of {@link _basePath}.
+ * @property string $baseUrl public alias of {@link _baseUrl}.
+ * @property integer $filePermission public alias of {@link _filePermission}.
+ * @method QsFileStorageBucketFileSystem getBucket()
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.files.storages.filesystem

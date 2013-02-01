@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -50,6 +50,8 @@ require_once( dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'base'.DIRECTORY_SE
  *
  * @see QsWebModuleTranslationBase
  * @see QsImageTranslationSource
+ *
+ * @property string $imageTranslationSourceComponentName public alias of {@link _imageTranslationSourceComponentName}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.imagetranslation

@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -99,7 +99,6 @@ class DefaultController extends QsControllerTranslationBase {
 	 * Updates the image.
 	 * @param string $name - image name.
 	 * @param string $language - translation language, if set will prepend corresponded attribute.
-	 * @return void
 	 */
 	public function actionUpdate($name, $language=null) {
 		$model = $this->loadModel($name);

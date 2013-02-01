@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -16,12 +16,14 @@
  * Note: to avoid any problems make sure all buckets from all storages have
  * unique name.
  *
+ * @property IQsFileStorage[] $storages public alias of {@link _storages}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.files.storages.hub
  */
 class QsFileStorageHub extends CApplicationComponent implements IQsFileStorage {
 	/**
-	 * @var array list of storages.
+	 * @var IQsFileStorage[] list of storages.
 	 */
 	protected $_storages = array();
 
@@ -36,7 +38,7 @@ class QsFileStorageHub extends CApplicationComponent implements IQsFileStorage {
 
 	/**
 	 * Sets the list of available file storages.
-	 * @param array $storages - set of file storage instances or file storage configurations.
+	 * @param IQsFileStorage[]|array $storages - set of file storage instances or file storage configurations.
 	 * @return boolean success.
 	 */
 	public function setStorages(array $storages) {
@@ -56,7 +58,7 @@ class QsFileStorageHub extends CApplicationComponent implements IQsFileStorage {
 
 	/**
 	 * Gets the list of available file storage instances.
-	 * @return array set of file storage instances.
+	 * @return IQsFileStorage[] set of file storage instances.
 	 */
 	public function getStorages() {
 		$result = array();
@@ -69,7 +71,7 @@ class QsFileStorageHub extends CApplicationComponent implements IQsFileStorage {
 	/**
 	 * Gets the file storage instance by name.
 	 * @param string $storageName - name of the storage.
-	 * @return array set of storage instances.
+	 * @return IQsFileStorage file storage instance.
 	 */
 	public function getStorage($storageName) {
 		if (!array_key_exists($storageName, $this->_storages)) {

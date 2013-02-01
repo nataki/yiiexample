@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -29,6 +29,8 @@
  * Note: all encrypted fields in the database table should be in binary format (blob).
  *
  * @see CSecurityManager
+ *
+ * @property array $cryptAttributes public alias of {@link _cryptAttributes}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
@@ -98,7 +100,7 @@ class QsActiveRecordBehaviorCrypt extends CBehavior {
 			}
 			$attributeValue = $owner->$attributeName;
 			if (strlen($attributeValue)>0) {
-				$owner->$attributeName = $this->getSecurityManager()->encrypt($attributeValue,$encryptionKey);
+				$owner->$attributeName = $this->getSecurityManager()->encrypt($attributeValue, $encryptionKey);
 			}
 		}
 		return $owner;
@@ -121,7 +123,7 @@ class QsActiveRecordBehaviorCrypt extends CBehavior {
 			}
 			$attributeValue = $owner->$attributeName;
 			if (strlen($attributeValue)>0) {
-				$owner->$attributeName = $this->getSecurityManager()->decrypt($attributeValue,$encryptionKey);
+				$owner->$attributeName = $this->getSecurityManager()->decrypt($attributeValue, $encryptionKey);
 			}
 		}
 		return $owner;

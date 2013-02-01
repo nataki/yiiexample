@@ -4,13 +4,15 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
 /**
  * Filter, which will redirects authenticated (not guest) user to the specific URL,
  * instead of running action.
+ *
+ * @property mixed $redirectUrl public alias of {@link _redirectUrl}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.controllers.filters

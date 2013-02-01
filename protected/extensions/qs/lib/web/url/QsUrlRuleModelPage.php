@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -42,6 +42,12 @@ Yii::import('ext.qs.lib.web.url.QsUrlRulePostponeInit');
  * As the source of the models {@link CActiveRecord} class - {@link modelClassName} - is used.
  * If matched model has been found, it will be passed to the route {@link route} through the GET parameter {@link modelGetParamName}.
  *
+ * @property string $modelClassName public alias of {@link _modelClassName}.
+ * @property CModel[] $models public alias of {@link _models}.
+ * @property integer $modelCacheDuration public alias of {@link _modelCacheDuration}.
+ * @property string $modelUrlKeywordAttributeName public alias of {@link _modelUrlKeywordAttributeName}.
+ * @property string $modelGetParamName public alias of {@link _modelGetParamName}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.url
  */
@@ -65,7 +71,7 @@ class QsUrlRuleModelPage extends QsUrlRulePostponeInit {
 	 */
 	protected $_modelClassName = 'StaticPage';
 	/**
-	 * @var array which stores all found {@link modelClassName} models
+	 * @var CModel[] which stores all found {@link modelClassName} models
 	 */
 	protected $_models = array();
 	/**
@@ -84,7 +90,7 @@ class QsUrlRuleModelPage extends QsUrlRulePostponeInit {
 	protected $_modelGetParamName = 'model';
 
 	// Set / Get :
-	
+
 	public function setModelClassName($modelClassName) {
 		if (!is_string($modelClassName)) {
 			throw new CException('"'.get_class($this).'::modelClassName" should be a string!');

@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -20,6 +20,7 @@
  *
  * Attention: this extension requires the extension "ext.qs.lib.files.storages" to be attached to the application!
  * Files will be saved using file storage component.
+ * 
  * @see IQsFileStorage
  * @see IQsFileStorageBucket
  *

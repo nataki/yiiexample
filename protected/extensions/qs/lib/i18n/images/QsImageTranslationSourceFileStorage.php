@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -39,6 +39,9 @@
  * @see IQsFileStorage
  * @see IQsFileStorageBucket
  *
+ * @property string $fileStorageComponentName public alias of {@link _fileStorageComponentName}.
+ * @property string $fileStorageBucketName public alias of {@link _fileStorageBucketName}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.images
  */
@@ -54,7 +57,7 @@ class QsImageTranslationSourceFileStorage extends QsImageTranslationSource {
 	protected $_fileStorageBucketName = 'i18n';
 
 	// Set / Get:
-	
+
 	public function setFileStorageComponentName($fileStorageComponentName) {
 		if (!is_string($fileStorageComponentName)) {
 			throw new CException('"'.get_class($this).'::fileStorageComponentName" should be a string!');

@@ -4,13 +4,17 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
 /**
  * MessageTranslationMapper is a base message translation model mapper.
+ * 
  * @see MessageTranslation.
+ *
+ * @property string $defaultMessagePath public alias of {@link _defaultMessagePath}.
+ * @property array $messageCategoryNames public alias of {@link _messageCategoryNames}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.messagetranslation
@@ -64,7 +68,7 @@ abstract class MessageTranslationMapper extends CApplicationComponent {
 		$defaultMessagePath = '';
 
 		$messageSource = Yii::app()->getMessages();
-		if ( is_a($messageSource, 'CPhpMessageSource') ) {
+		if (is_a($messageSource, 'CPhpMessageSource')) {
 			$defaultMessagePath = $messageSource->basePath;
 		}
 		if (empty($defaultMessagePath)) {
@@ -128,7 +132,7 @@ abstract class MessageTranslationMapper extends CApplicationComponent {
 	 * Finds the translation models from default translation files.
 	 * Returns array of {@link MessageTranslation} models, which keys
 	 * created by {@link composeMessageId} method.
-	 * @return array list of message translation models.
+	 * @return MessageTranslation[] list of message translation models.
 	 */
 	public function findDefaults() {
 		$defaultMessageFiles = $this->findDefaultMessageFiles();

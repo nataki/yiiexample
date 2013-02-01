@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -32,6 +32,14 @@
  * All further records should be inserted using this behavior.
  *
  * @see http://en.wikipedia.org/wiki/Nested_set_model
+ *
+ * @property string $leftIndexAttributeName public alias of {@link _leftIndexAttributeName}.
+ * @property string $rightIndexAttributeName public alias of {@link _rightIndexAttributeName}.
+ * @property string $levelAttributeName public alias of {@link _levelAttributeName}.
+ * @property string $refParentPropertyName public alias of {@link _refParentPropertyName}.
+ * @property mixed $refParent public alias of {@link _refParent}.
+ * @property array $groupAttributes public alias of {@link _groupAttributes}.
+ * @method CActiveRecord getOwner()
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
@@ -214,7 +222,6 @@ class QsActiveRecordBehaviorNestedSet extends CBehavior {
 	 * @return CDbCriteria adjusted db criteria.
 	 */
 	protected function createAttributeCriteria($addTableAlias=true) {
-		$owner = $this->getOwner();
 		$criteria = new CDbCriteria();
 		$groupAttributeValues = $this->getGroupAttributeValues($addTableAlias);
 		if (!empty($groupAttributeValues)) {
@@ -716,7 +723,7 @@ class QsActiveRecordBehaviorNestedSet extends CBehavior {
 			$oldRecord = $owner->findByPk( $owner->getPrimaryKey() );
 			$oldParentRecord = $oldRecord->parent()->find();
 			$newParentRecord = $this->fetchParentRecordByRef();
-			if ( $oldParentRecord->getPrimaryKey() == $newParentRecord->getPrimaryKey() ) {
+			if ($oldParentRecord->getPrimaryKey() == $newParentRecord->getPrimaryKey()) {
 				return true;
 			}
 

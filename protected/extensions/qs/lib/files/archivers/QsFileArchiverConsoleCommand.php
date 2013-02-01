@@ -4,13 +4,16 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
  
 /**
  * QsFileArchiverConsoleCommand is a base class for the all file archivers,
  * which use the shell console commands to run the pack/unpack process.
+ *
+ * @property string $packCommandName public alias of {@link _packCommandName}.
+ * @property string $unpackCommandName public alias of {@link _unpackCommandName}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.files.archivers

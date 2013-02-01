@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -46,6 +46,16 @@
  * </div> 
  * <?php endforeach; ?>
  * </code>
+ *
+ * @property string $variationsRelationName public alias of {@link _variationsRelationName}.
+ * @property string $defaultVariationRelationName public alias of {@link _defaultVariationRelationName}.
+ * @property array $relationConfig public alias of {@link _relationConfig}.
+ * @property string $variationOptionForeignKeyName public alias of {@link _variationOptionForeignKeyName}.
+ * @property string $variatorModelClassName public alias of {@link _variatorModelClassName}.
+ * @property callback $defaultVariationOptionForeignKeyCallback public alias of {@link _defaultVariationOptionForeignKeyCallback}.
+ * @property array $autoAdjustVariationScenarios public alias of {@link _autoAdjustVariationScenarios}.
+ * @property array $variationAttributeDefaultValueMap public alias of {@link _variationAttributeDefaultValueMap}.
+ * @method CActiveRecord getOwner()
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
@@ -91,7 +101,7 @@ class QsActiveRecordBehaviorVariation extends CBehavior {
 		'update',
 	);
 	/**
-	 * @var array|null cached variation models.
+	 * @var CActiveRecord[]|null cached variation models.
 	 * This field is for the internal usage only.
 	 */
 	protected $_variationModelsCache = null;
@@ -404,7 +414,7 @@ class QsActiveRecordBehaviorVariation extends CBehavior {
 	/**
 	 * Returns models related to the main one as variations
 	 * according to the {@link relationConfig}.
-	 * @return array set of {@link CActiveRecord}.
+	 * @return CActiveRecord[] set of {@link CActiveRecord}.
 	 */
 	protected function getRelationVariationModels() {
 		$owner = $this->getOwner();
@@ -415,7 +425,7 @@ class QsActiveRecordBehaviorVariation extends CBehavior {
 	/**
 	 * Returns models related to the main one as variations.
 	 * This method adjusts set of related models creating missing variations.
-	 * @return array set of {@link CActiveRecord}.
+	 * @return CActiveRecord[] set of {@link CActiveRecord}.
 	 */
 	public function getVariationModels() {
 		if (is_array($this->_variationModelsCache)) {
@@ -433,8 +443,8 @@ class QsActiveRecordBehaviorVariation extends CBehavior {
 
 	/**
 	 * Adjusts given variation models to be adequate to the {@link variatorModelClassName} records.
-	 * @param array $initialVariationModels set of initial variation models, found by relation
-	 * @return array set of {@link CActiveRecord}
+	 * @param array|CActiveRecord[] $initialVariationModels set of initial variation models, found by relation
+	 * @return CActiveRecord[] set of {@link CActiveRecord}
 	 */
 	protected function adjustVariationModels(array $initialVariationModels) {
 		$variatorModelFinder = CActiveRecord::model( $this->getVariatorModelClassName() );
@@ -448,7 +458,7 @@ class QsActiveRecordBehaviorVariation extends CBehavior {
 		foreach ($variators as $variator) {
 			$matchFound = false;
 			foreach ($initialVariationModels as $initialVariationModel) {
-				if ( $variator->getPrimaryKey() == $initialVariationModel->$variatorForeignKeyName ) {
+				if ($variator->getPrimaryKey() == $initialVariationModel->$variatorForeignKeyName) {
 					$variationModels[] = $initialVariationModel;
 					$confirmedInitialVariationModels[] = $initialVariationModel;
 					$matchFound = true;
@@ -469,7 +479,7 @@ class QsActiveRecordBehaviorVariation extends CBehavior {
 			foreach ($initialVariationModels as $initialVariationModel) {
 				$matchFound = false;
 				foreach ($confirmedInitialVariationModels as $confirmedInitialVariationModel) {
-					if ( $confirmedInitialVariationModel->getPrimaryKey() == $initialVariationModel->getPrimaryKey() ) {
+					if ($confirmedInitialVariationModel->getPrimaryKey() == $initialVariationModel->getPrimaryKey()) {
 						$matchFound = true;
 						break;
 					}

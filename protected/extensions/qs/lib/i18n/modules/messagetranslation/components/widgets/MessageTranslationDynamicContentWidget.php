@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -14,6 +14,11 @@
  *
  * @see MessageTranslation
  * @see MessagetranslationModule
+ *
+ * @property CModel $model public alias of {@link _model}.
+ * @property string $languageInputId public alias of {@link _languageInputId}.
+ * @property string $contentInputId public alias of {@link _contentInputId}.
+ * @property array $languages public alias of {@link _languages}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.i18n.modules.messagetranslation

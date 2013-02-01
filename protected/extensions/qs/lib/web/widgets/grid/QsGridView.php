@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -42,6 +42,10 @@ Yii::import('zii.widgets.grid.CGridView');
  * @see CCheckBoxColumn
  * @see QsActionAdminGroupProcess
  *
+ * @property mixed $formAction public alias of {@link _formAction}.
+ * @property array $groupProcesses public alias of {@link _groupProcesses}.
+ * @property string $additionalCssFile public alias of {@link _additionalCssFile}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.widgets.grid
  */
@@ -51,7 +55,7 @@ class QsGridView extends CGridView {
 	 * These tokens are recognized: {summary}, {items} and {pager}. They will be replaced with the
 	 * summary text, the items, and the pager.
 	 */
-	public $template="{formStart}\n{summary}\n{items}\n{formContent}\n{pager}\n{formEnd}";
+	public $template = "{formStart}\n{summary}\n{items}\n{formContent}\n{pager}\n{formEnd}";
 	/**
 	 * @var mixed group process form action. This value will be used to generate a valid URL.
 	 * By default URL for the action 'groupprocess' of the current controller will be created.
@@ -80,7 +84,7 @@ class QsGridView extends CGridView {
 	protected $_additionalCssFile;
 
 	// Set / Get :
-	
+
 	public function setFormAction($formAction) {
 		$this->_formAction = $formAction;
 		return true;

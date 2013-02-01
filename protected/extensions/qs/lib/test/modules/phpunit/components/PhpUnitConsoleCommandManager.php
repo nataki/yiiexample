@@ -4,12 +4,16 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
 /**
  * PhpUnitConsoleCommandManager runs the PHPUnit console command.
+ *
+ * @property string $phpUnitBinPath public alias of {@link _phpUnitBinPath}.
+ * @property string $consoleCommandOutput public alias of {@link _consoleCommandOutput}.
+ * @property integer $autoProcessIsolationMinTestSuiteCount public alias of {@link _autoProcessIsolationMinTestSuiteCount}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.test.modules.phpunit

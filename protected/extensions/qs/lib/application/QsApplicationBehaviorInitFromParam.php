@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -14,7 +14,10 @@
  * The correspondence between application properties and params determined by {@link propertyParamNames}.
  * Properties, which are bound with the empty params, will be ignored.
  * This behavior make sense, if it is used together with {@link QsApplicationBehaviorParamDb}.
+ *
  * @see QsApplicationBehaviorParamDb
+ *
+ * @property array $propertyParamNames public alias of {@link _propertyParamNames}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.application
@@ -26,8 +29,8 @@ class QsApplicationBehaviorInitFromParam extends CBehavior {
 	 * For example:
 	 * <code>
 	 * array(
-	 *	 'name' => 'application_name',
-	 *	 'charset' => 'application_charset',
+	 *     'name' => 'application_name',
+	 *     'charset' => 'application_charset',
 	 * );
 	 * </code>
 	 */
@@ -44,6 +47,7 @@ class QsApplicationBehaviorInitFromParam extends CBehavior {
 	}
 
 	// Set / Get :
+
 	public function setPropertyParamNames(array $propertyParamNames) {
 		$this->_propertyParamNames = $propertyParamNames;
 		return true;

@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -16,6 +16,11 @@ Yii::import('ext.qs.lib.web.controllers.actions.QsActionAdminInternalDbTransacti
  * otherwise redirect to the "view" action will be performed.
  * Use {@link flashMessage} to setup the user flash message, which should be
  * displayed if action is successful.
+ *
+ * @property string $modelMethodName public alias of {@link _modelMethodName}.
+ * @property array $modelMethodParams public alias of {@link _modelMethodParams}.
+ * @property string $flashMessageKey public alias of {@link _flashMessageKey}.
+ * @property string $flashMessage public alias of {@link _flashMessage}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.controllers.actions
@@ -43,7 +48,7 @@ class QsActionAdminCallModelMethod extends QsActionAdminInternalDbTransaction {
 	protected $_flashMessage = '';
 
 	// Set / Get :
-	
+
 	public function setModelMethodName($modelMethodName) {
 		if (!is_string($modelMethodName)) {
 			throw new CException('"'.get_class($this).'::modelMethodName" should be a string!');

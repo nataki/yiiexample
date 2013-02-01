@@ -4,7 +4,7 @@
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
- * @copyright Copyright &copy; 2010-2012 QuartSoft ltd.
+ * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
 
@@ -12,6 +12,15 @@
  * QsEmailPatternComposerBase is the base class for all email composers.
  * This class compose different parts of the message, filling its pattern with the real data.
  * This class should be extended in order to specify explicit method of composing.
+ *
+ * @property QsEmailPattern $emailPattern public alias of {@link _emailPattern}.
+ * @property array $data public alias of {@link _data}.
+ * @property array $defaultData public alias of {@link _defaultData}.
+ * @property string $viewPath public alias of {@link _viewPath}.
+ * @property string $layout public alias of {@link _layout}.
+ * @property mixed $bodyTextAutoFillType public alias of {@link _bodyTextAutoFillType}.
+ * @property string $bodyTextDefault public alias of {@link _bodyTextDefault}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.email.composers
  */
@@ -62,7 +71,7 @@ abstract class QsEmailPatternComposerBase extends CBaseController {
 	 * Sets up default {@link viewPath}.
 	 */
 	public function __construct() {
-		$this->setViewPath( Yii::app()->getBasePath().'/views/emails' );
+		$this->setViewPath(Yii::app()->getBasePath().'/views/emails');
 	}
 
 	// Property Access:
@@ -176,7 +185,7 @@ abstract class QsEmailPatternComposerBase extends CBaseController {
 	 */
 	public function getViewFile($viewName) {
 		$fileExtension = '.php';
-		$fileName = $this->getViewPath().'/'.$viewName.$fileExtension;
+		$fileName = $this->getViewPath().DIRECTORY_SEPARATOR.$viewName.$fileExtension;
 		return $fileName;
 	}
 
@@ -209,7 +218,7 @@ abstract class QsEmailPatternComposerBase extends CBaseController {
 		}
 		$data = $this->getData();
 		$data['content'] = $content;
-		$wrappedContent = $this->renderInternal( $this->getViewFile($layout), $data, true);
+		$wrappedContent = $this->renderInternal($this->getViewFile($layout), $data, true);
 		return $wrappedContent;
 	}
 
@@ -220,7 +229,7 @@ abstract class QsEmailPatternComposerBase extends CBaseController {
 	 * @return QsEmailPattern - composed email pattern object.
 	 */
 	public function compose(QsEmailPattern $emailPattern, $data=null) {
-		$this->setEmailPattern( clone $emailPattern );
+		$this->setEmailPattern(clone $emailPattern);
 
 		if (!is_array($data)) {
 			$data = array();
@@ -262,7 +271,7 @@ abstract class QsEmailPatternComposerBase extends CBaseController {
 	protected function composeBody() {
 		// HTML:
 		$this->composeBodyHtml();
-		$bodyHtml = $this->wrapLayout( $this->_emailPattern->getBodyHtml() );
+		$bodyHtml = $this->wrapLayout($this->_emailPattern->getBodyHtml());
 		$this->_emailPattern->setBodyHtml($bodyHtml);
 
 		// Plain Text:
@@ -275,7 +284,7 @@ abstract class QsEmailPatternComposerBase extends CBaseController {
 					break;
 				}
 				case self::BodyTextAutoFillFromDefault: {
-					$this->_emailPattern->setBodyText( $this->getBodyTextDefault() );
+					$this->_emailPattern->setBodyText($this->getBodyTextDefault());
 					break;
 				}
 			}
