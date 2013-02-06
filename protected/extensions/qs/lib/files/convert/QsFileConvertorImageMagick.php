@@ -22,6 +22,7 @@
  * </code>
  *
  * @see http://www.imagemagick.org/
+ * @see http://www.imagemagick.org/script/command-line-processing.php
  *
  * @property string $binPath public alias of {@link _binPath}.
  *
@@ -38,7 +39,7 @@ class QsFileConvertorImageMagick extends QsFileConvertor {
 	protected $_binPath = '';
 
 	// Set / Get :
-	
+
 	public function setBinPath($binPath) {
 		if (!is_string($binPath)) {
 			throw new CException('"'.get_class($this).'::binPath" should be a string!');
@@ -61,7 +62,7 @@ class QsFileConvertorImageMagick extends QsFileConvertor {
 		$consoleCommandString = $this->composeConsoleCommand($commandName, $params);
 		$this->log("Execute command: {$consoleCommandString}");
 		exec($consoleCommandString, $output);
-		$this->log("Command output: ".implode("\n",$output));
+		$this->log('Command output: '.implode("\n",$output));
 		return $output;
 	}
 
@@ -72,7 +73,7 @@ class QsFileConvertorImageMagick extends QsFileConvertor {
 	 * @return string - command string.
 	 */
 	protected function composeConsoleCommand($commandName, array $params=array()) {
-		$binPath = rtrim( $this->getBinPath(), DIRECTORY_SEPARATOR );
+		$binPath = rtrim($this->getBinPath(), DIRECTORY_SEPARATOR);
 		if (!empty($binPath)) {
 			$commandFullName = $binPath.DIRECTORY_SEPARATOR.$commandName;
 		} else {
@@ -92,7 +93,7 @@ class QsFileConvertorImageMagick extends QsFileConvertor {
 	 */
 	protected function composeConsoleCommandParams(array $params) {
 		$consoleCommandParts = array();
-		foreach ($params as $paramKey=>$paramValue) {
+		foreach ($params as $paramKey => $paramValue) {
 			if (is_numeric($paramKey)) {
 				$consoleCommandParts[] = $paramValue;
 			} else {
@@ -114,7 +115,15 @@ class QsFileConvertorImageMagick extends QsFileConvertor {
 
 		if (array_key_exists('resize', $options)) {
 			if (is_array($options['resize'])) {
-				$options['resize'] = implode('x', array_values($options['resize']));
+				$dimensions = array_slice($options['resize'], 0, 2);
+				$resizeModifiers = array_slice($options['resize'], 2);
+				$resizeOption = implode('x', array_values($dimensions));
+				if (!empty($resizeModifiers)) {
+					$resizeOption .= implode($resizeModifiers);
+				} else {
+					$resizeOption .= '^';
+				}
+				$options['resize'] = $resizeOption;
 			}
 		}
 
@@ -123,7 +132,7 @@ class QsFileConvertorImageMagick extends QsFileConvertor {
 		);
 		$consoleCommandParams = array_merge($consoleCommandParams, $options);
 
-		$consoleCommandParams[] = '\> '.escapeshellarg($outputFileName);
+		$consoleCommandParams[] = escapeshellarg($outputFileName);
 		$this->executeConsoleCommand('convert', $consoleCommandParams);
 		return true;
 	}
@@ -150,14 +159,14 @@ class QsFileConvertorImageMagick extends QsFileConvertor {
 	 */
 	protected function parseFileInfo(array $consoleOutputLines) {
 		$consoleOutput = implode("\n", $consoleOutputLines);
-		if ( count($consoleOutputLines)<=1 || stripos($consoleOutput, '@ error')!==false ) {
+		if (count($consoleOutputLines)<=1 || stripos($consoleOutput, '@ error')!==false) {
 			throw new CException($consoleOutput);
 		}
 
 		$fileInfoString = trim($consoleOutput);
 		$fileInfo = array();
 
-		if ( preg_match_all('/^([a-z0-9 ]+):(.*)$/im', $fileInfoString, $matches) ) {
+		if (preg_match_all('/^([a-z0-9 ]+):(.*)$/im', $fileInfoString, $matches)) {
 			foreach ($matches[1] as $paramKey => $paramName) {
 				$paramName = trim($paramName);
 				$paramValue = $matches[2][$paramKey];
@@ -165,7 +174,7 @@ class QsFileConvertorImageMagick extends QsFileConvertor {
 			}
 
 			if (array_key_exists('Geometry',$fileInfo)) {
-				if ( preg_match('/([0-9]+)x([0-9]+)/is', $fileInfo['Geometry'], $matches) ) {
+				if (preg_match('/([0-9]+)x([0-9]+)/is', $fileInfo['Geometry'], $matches)) {
 					$imageWidth = $matches[1];
 					$imageHeight = $matches[2];
 					$fileInfo['imageSize'] = array(

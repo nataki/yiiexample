@@ -102,7 +102,7 @@ class QsActiveRecordBehaviorFileImage extends QsActiveRecordBehaviorFileTransfor
 			return $imageFileConvertor->convert($sourceFileName, $destinationFileName, $imageConvertOptions);
 		} else {
 			list($width, $height) = array_values($transformSettings);
-			$command = 'convert '.escapeshellarg($sourceFileName).' -colorspace rgb -resize '.escapeshellarg($width.'x'.$height).'\> '.escapeshellarg($destinationFileName);
+			$command = 'convert '.escapeshellarg($sourceFileName).' -colorspace rgb -resize '.escapeshellarg($width.'x'.$height.'^').' '.escapeshellarg($destinationFileName);
 			exec($command, $output, $returnStatus);
 			if ($returnStatus != 0) {
 				return false;

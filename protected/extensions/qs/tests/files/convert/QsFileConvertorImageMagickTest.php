@@ -102,8 +102,8 @@ class QsFileConvertorImageMagickTest extends CTestCase {
 			'resize' => array($outputImageWidth, $outputImageHeight)
 		);
 
-		$this->assertTrue( $fileConvertor->convert($testSrcFileName, $testOutputFileName, $testConvertOptions), 'Unable to convert file with resize option!' );
-		$this->assertTrue( file_exists($testOutputFileName), 'Output file does not exist!' );
+		$this->assertTrue($fileConvertor->convert($testSrcFileName, $testOutputFileName, $testConvertOptions), 'Unable to convert file with resize option!');
+		$this->assertTrue(file_exists($testOutputFileName), 'Output file does not exist!');
 
 		$outputFileInfo = $fileConvertor->getFileInfo($testOutputFileName);
 		$actualOutputFileImageWidth = $outputFileInfo['imageSize']['width'];
@@ -128,8 +128,8 @@ class QsFileConvertorImageMagickTest extends CTestCase {
 		$outputImageWidth = ceil($srcImageWidth/2);
 		$outputImageHeight = ceil($srcImageHeight/2);
 
-		$this->assertTrue( $fileConvertor->resize($testSrcFileName, $testOutputFileName, $outputImageWidth, $outputImageHeight), 'Unable to resize image file!' );
-		$this->assertTrue( file_exists($testOutputFileName), 'Output file does not exist!' );
+		$this->assertTrue($fileConvertor->resize($testSrcFileName, $testOutputFileName, $outputImageWidth, $outputImageHeight), 'Unable to resize image file!');
+		$this->assertTrue(file_exists($testOutputFileName), 'Output file does not exist!');
 
 		$outputFileInfo = $fileConvertor->getFileInfo($testOutputFileName);
 		$actualOutputFileImageWidth = $outputFileInfo['imageSize']['width'];
