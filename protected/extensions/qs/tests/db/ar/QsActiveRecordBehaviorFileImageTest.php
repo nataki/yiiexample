@@ -30,10 +30,10 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'behaviors'=>array(
+				'tableName' => $testTableName,
+				'behaviors' => array(
 					'imageFileBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorFileImage',
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorFileImage',
 						'fileTransforms' => array(
 							'full' => array(800, 600),
 							'thumbnail' => array(200, 150)
@@ -133,10 +133,10 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 	 */
 	protected static function createFileStorageConfig() {
 		$fileStorageConfig = array(
-			'class'=>'QsFileStorageFileSystem',
-			'basePath'=>self::getTestFileStorageBasePath(),
-			'baseUrl'=>'http://www.mydomain.com/files',
-			'filePermission'=>0777
+			'class' => 'QsFileStorageFileSystem',
+			'basePath' => self::getTestFileStorageBasePath(),
+			'baseUrl' => 'http://www.mydomain.com/files',
+			'filePermission' => 0777
 		);
 		return $fileStorageConfig;
 	}
@@ -146,7 +146,7 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 	 * @return CActiveRecord active record finder instance.
 	 */
 	protected function getActiveRecordFinder() {
-		return CActiveRecord::model( self::getTestTableName() );
+		return CActiveRecord::model(self::getTestTableName());
 	}
 
 	/**
@@ -164,7 +164,7 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 	 * @return string test image file full name.
 	 */
 	protected function getTestImageFileFullName() {
-		$fileFullName = dirname( Yii::getPathOfAlias('application') ).'/css/admin/bg.gif';
+		$fileFullName = dirname(Yii::getPathOfAlias('application')).'/css/admin/bg.gif';
 		return $fileFullName;
 	}
 
@@ -189,7 +189,7 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 
 	public function testCreate() {
 		$behavior = new QsActiveRecordBehaviorFileImage();
-		$this->assertTrue( is_object($behavior) );
+		$this->assertTrue(is_object($behavior));
 	}
 
 	/**
@@ -198,7 +198,7 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 	public function testGetDefaultTransformCallback() {
 		$behavior = new QsActiveRecordBehaviorFileImage();
 		$defaultTransformCallback = $behavior->getTransformCallback();
-		$this->assertFalse( empty($defaultTransformCallback), 'Unable to get default transform callback!' );
+		$this->assertFalse(empty($defaultTransformCallback), 'Unable to get default transform callback!');
 	}
 
 	/**
@@ -207,14 +207,14 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 	public function testSaveFile() {
 		$activeRecordFinder = $this->getActiveRecordFinder();
 		$imageTransforms = $activeRecordFinder->getFileTransforms();
-		$this->assertFalse( empty($imageTransforms), 'Empty image sizes for the test active record class!');
+		$this->assertFalse(empty($imageTransforms), 'Empty image sizes for the test active record class!');
 
 		$activeRecord = $activeRecordFinder->find(null);
 
 		$testFileName = $this->getTestImageFileFullName();
 		$testFileExtension = CFileHelper::getExtension($testFileName);
 
-		$this->assertTrue( $activeRecord->saveFile($testFileName), 'Unable to save file!' );
+		$this->assertTrue($activeRecord->saveFile($testFileName), 'Unable to save file!');
 
 		$refreshedActiveRecord = $activeRecordFinder->findByPk($activeRecord->getPrimaryKey());
 
@@ -222,10 +222,10 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 			$returnedFileFullName = $activeRecord->getFileFullName($imageTransformName);
 			$fileStorageBucket = $activeRecord->getFileStorageBucket();
 
-			$this->assertTrue( $fileStorageBucket->fileExists($returnedFileFullName), "File for transformation name '{$imageTransformName}' does not exist!" );
-			$this->assertEquals( CFileHelper::getExtension($returnedFileFullName), $testFileExtension, 'Saved file has wrong extension!' );
+			$this->assertTrue($fileStorageBucket->fileExists($returnedFileFullName), "File for transformation name '{$imageTransformName}' does not exist!");
+			$this->assertEquals(CFileHelper::getExtension($returnedFileFullName), $testFileExtension, 'Saved file has wrong extension!');
 
-			$this->assertEquals( $refreshedActiveRecord->getFileFullName($imageTransformName), $returnedFileFullName, 'Wrong full file name from the refreshed record!' );
+			$this->assertEquals($refreshedActiveRecord->getFileFullName($imageTransformName), $returnedFileFullName, 'Wrong full file name from the refreshed record!');
 		}
 	}
 
@@ -243,9 +243,8 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 		$activeRecord->imageFileConvertorComponentName = $testImageFileConvertorComponentName;
 
 		$testFileName = $this->getTestImageFileFullName();
-		$testFileExtension = CFileHelper::getExtension($testFileName);
 
-		$this->setExpectedException('CException','convert');
+		$this->setExpectedException('CException', 'convert');
 
 		$activeRecord->saveFile($testFileName);
 	}
@@ -263,7 +262,7 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 		$testFileName = $this->getTestImageFileFullName();
 		$testFileExtension = CFileHelper::getExtension($testFileName);
 
-		$this->assertTrue( $activeRecord->saveFile($testFileName), 'Unable to save file!' );
+		$this->assertTrue($activeRecord->saveFile($testFileName), 'Unable to save file!');
 
 		$refreshedActiveRecord = $activeRecordFinder->findByPk($activeRecord->getPrimaryKey());
 
@@ -271,10 +270,10 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 			$returnedFileFullName = $activeRecord->getFileFullName($imageTransformName);
 			$fileStorageBucket = $activeRecord->getFileStorageBucket();
 
-			$this->assertTrue( $fileStorageBucket->fileExists($returnedFileFullName), "File for transformation name '{$imageTransformName}' does not exist!" );
-			$this->assertEquals( CFileHelper::getExtension($returnedFileFullName), $testFileExtension, 'Saved file has wrong extension!' );
+			$this->assertTrue($fileStorageBucket->fileExists($returnedFileFullName), "File for transformation name '{$imageTransformName}' does not exist!");
+			$this->assertEquals(CFileHelper::getExtension($returnedFileFullName), $testFileExtension, 'Saved file has wrong extension!');
 
-			$this->assertEquals( $refreshedActiveRecord->getFileFullName($imageTransformName), $returnedFileFullName, 'Wrong full file name from the refreshed record!' );
+			$this->assertEquals($refreshedActiveRecord->getFileFullName($imageTransformName), $returnedFileFullName, 'Wrong full file name from the refreshed record!');
 		}
 	}
 }

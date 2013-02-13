@@ -56,9 +56,9 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	protected $_fileStorageBucketName = '';
 	/**
 	 * @var string template of all sub directories, which will store a particular
-	 * model instance's files. Value of this parametre will be parsed per each model instance.
-	 * You can use model attribute names to create sub directories, for example place all tranformed
-	 * files in the subfolder with the name of model' id. To use a dinamic value of attribute
+	 * model instance's files. Value of this parameter will be parsed per each model instance.
+	 * You can use model attribute names to create sub directories, for example place all transformed
+	 * files in the subfolder with the name of model id. To use a dynamic value of attribute
 	 * place attribute name in curly brackets, for example: {id}.
 	 * You may also specify special placeholders:
 	 * {pk} - resolved as primary key value of the owner model,
@@ -67,7 +67,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	 * You may place symbols "^" before any placeholder name, such placeholder will be resolved as single
 	 * symbol of the normal value. Number of symbol determined by count of "^".
 	 * For example:
-	 * if model' id equal to 54321, placeholder {^id} will be resolved as "5", {^^id} - as "4" and so on.
+	 * if model id equal to 54321, placeholder {^id} will be resolved as "5", {^^id} - as "4" and so on.
 	 * Example value:
 	 * '{__model__}/{__file__}/{group_id}/{^pk}/{pk}'
 	 */
@@ -93,16 +93,28 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	 */
 	protected $_uploadedFile = null;
 	/**
-	 * @var string URL which is used to set up web links, which will be returned if requested file does not exists.
+	 * @var string URL which is used to set up web links, which will be returned, if requested file does not exists.
 	 * For example:
-	 * 'http://www.myproject/materials/default/image.jpg'
+	 * 'http://www.myproject.com/materials/default/image.jpg'
 	 */
 	protected $_defaultFileUrl = '';
+	/**
+	 * @var boolean indicates if behavior will attempt to fetch uploaded file automatically
+	 * from the HTTP request.
+	 */
+	public $autoFetchUploadedFile = true;
+	/**
+	 * @var boolean indicates if uploaded file has been fetched from HTTP request.
+	 * This field is for internal usage only.
+	 */
+	protected $_isUploadedFileFetched = false;
 
 	// Set / Get:
 
 	public function setFilePropertyName($filePropertyName) {
-		if (!is_string($filePropertyName)) return false;
+		if (!is_string($filePropertyName)) {
+			return false;
+		}
 		$this->_filePropertyName = $filePropertyName;
 		return true;
 	}
@@ -139,7 +151,9 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	}
 
 	public function setSubDirTemplate($subDirTemplate) {
-		if (!is_string($subDirTemplate)) return false;
+		if (!is_string($subDirTemplate)) {
+			return false;
+		}
 		$this->_subDirTemplate = $subDirTemplate;
 		return true;
 	}
@@ -149,7 +163,9 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	}
 
 	public function setFileExtensionAttributeName($fileExtensionAttributeName) {
-		if (!is_string($fileExtensionAttributeName)) return false;
+		if (!is_string($fileExtensionAttributeName)) {
+			return false;
+		}
 		$this->_fileExtensionAttributeName = $fileExtensionAttributeName;
 		return true;
 	}
@@ -159,7 +175,9 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	}
 
 	public function setFileVersionAttributeName($fileVersionAttributeName) {
-		if (!is_string($fileVersionAttributeName)) return false;
+		if (!is_string($fileVersionAttributeName)) {
+			return false;
+		}
 		$this->_fileVersionAttributeName = $fileVersionAttributeName;
 		return true;
 	}
@@ -178,10 +196,12 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	}
 
 	public function setUploadedFile($uploadedFile) {
-		if ( is_string($uploadedFile) ) {
+		if (is_string($uploadedFile)) {
 			return $this->initUploadedFile($uploadedFile);
 		}
-		if ( !is_a($uploadedFile, 'CUploadedFile') ) return false;
+		if (!is_a($uploadedFile, 'CUploadedFile')) {
+			return false;
+		}
 		$this->_uploadedFile = $uploadedFile;
 		return true;
 	}
@@ -431,7 +451,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 
 		if (is_object($sourceFileNameOrUploadedFile)) {
 			$sourceFileName = $sourceFileNameOrUploadedFile->getTempName();
-			$fileExtension = CFileHelper::getExtension( $sourceFileNameOrUploadedFile->getName() );
+			$fileExtension = CFileHelper::getExtension($sourceFileNameOrUploadedFile->getName());
 		} else {
 			$sourceFileName = $sourceFileNameOrUploadedFile;
 			$fileExtension = CFileHelper::getExtension($sourceFileName);
@@ -505,9 +525,9 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	 * @return boolean success.
 	 */
 	protected function initUploadedFile($fullFileName=null) {
-		if ( is_string($fullFileName) && !empty($fullFileName) ) {
-			$this->_uploadedFile = new CUploadedFile( basename($fullFileName), $fullFileName, CFileHelper::getMimeType($fullFileName), filesize($fullFileName), UPLOAD_ERR_OK );
-		} else {
+		if (is_string($fullFileName) && !empty($fullFileName)) {
+			$this->_uploadedFile = new CUploadedFile(basename($fullFileName), $fullFileName, CFileHelper::getMimeType($fullFileName), filesize($fullFileName), UPLOAD_ERR_OK);
+		} elseif ($this->autoFetchUploadedFile && !$this->_isUploadedFileFetched) {
 			$owner = $this->getOwner();
 			$fileAttributeName = $this->getFilePropertyName();
 			$tabularInputIndex = $this->getFileTabularInputIndex();
@@ -515,6 +535,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 				$fileAttributeName = "[{$tabularInputIndex}]".$fileAttributeName;
 			}
 			$this->_uploadedFile = CUploadedFile::getInstance($owner, $fileAttributeName);
+			$this->_isUploadedFileFetched = true;
 		}
 		return true;
 	}

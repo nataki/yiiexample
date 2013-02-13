@@ -30,10 +30,10 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'behaviors'=>array(
+				'tableName' => $testTableName,
+				'behaviors' => array(
 					'fileBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorFile',
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorFile',
 					)
 				),
 			)
@@ -124,10 +124,10 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 	 */
 	protected static function createFileStorageConfig() {
 		$fileStorageConfig = array(
-			'class'=>'QsFileStorageFileSystem',
-			'basePath'=>self::getTestFileStorageBasePath(),
-			'baseUrl'=>'http://www.mydomain.com/files',
-			'filePermission'=>0777
+			'class' => 'QsFileStorageFileSystem',
+			'basePath' => self::getTestFileStorageBasePath(),
+			'baseUrl' => 'http://www.mydomain.com/files',
+			'filePermission' => 0777
 		);
 		return $fileStorageConfig;
 	}
@@ -150,6 +150,53 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 		return $activeRecord;
 	}
 
+	/**
+	 * Mocks up the global $_FILES with the given file data.
+	 * @param string $fileName file self name.
+	 * @param string $fileContent file content.
+	 * @param integer|boolean $tabularIndex file input tabular index, if false - ni index will be used.
+	 * @return boolean success.
+	 */
+	protected function mockUpUploadedFile($fileName, $fileContent, $tabularIndex = false) {
+		$activeRecordClassName = self::getTestActiveRecordClassName();
+		$activeRecord = $this->getActiveRecordFinder();
+		$filePropertyName = $activeRecord->getFilePropertyName();
+
+		$fullFileName = $this->saveTestFile($fileName, $fileContent);
+
+		if ($tabularIndex===false) {
+			$_FILES[$activeRecordClassName]['name'][$filePropertyName] = basename($fullFileName);
+			$_FILES[$activeRecordClassName]['type'][$filePropertyName] = CFileHelper::getExtension($fullFileName);
+			$_FILES[$activeRecordClassName]['tmp_name'][$filePropertyName] = $fullFileName;
+			$_FILES[$activeRecordClassName]['error'][$filePropertyName] = UPLOAD_ERR_OK;
+			$_FILES[$activeRecordClassName]['size'][$filePropertyName] = filesize($fullFileName);
+		} else {
+			$_FILES[$activeRecordClassName]['name'][$tabularIndex][$filePropertyName] = basename($fullFileName);
+			$_FILES[$activeRecordClassName]['type'][$tabularIndex][$filePropertyName] = CFileHelper::getExtension($fullFileName);
+			$_FILES[$activeRecordClassName]['tmp_name'][$tabularIndex][$filePropertyName] = $fullFileName;
+			$_FILES[$activeRecordClassName]['error'][$tabularIndex][$filePropertyName] = UPLOAD_ERR_OK;
+			$_FILES[$activeRecordClassName]['size'][$tabularIndex][$filePropertyName] = filesize($fullFileName);
+		}
+
+		return true;
+	}
+
+	/**
+	 * Saves the file inside test directory.
+	 * Returns the file absolute name.
+	 * @param string $fileSelfName file self name
+	 * @param string $fileContent file content
+	 * @return string file full name.
+	 */
+	protected function saveTestFile($fileSelfName, $fileContent) {
+		$fullFileName = $this->getTestSourceBasePath().DIRECTORY_SEPARATOR.$fileSelfName;
+		if (file_exists($fullFileName)) {
+			unlink($fullFileName);
+		}
+		file_put_contents($fullFileName, $fileContent);
+		return $fullFileName;
+	}
+
 	// Tests:
 
 	public function testCreate() {
@@ -164,36 +211,36 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 		$behavior = new QsActiveRecordBehaviorFile();
 
 		$testFilePropertyName = 'test_file_property_name';
-		$this->assertTrue( $behavior->setFilePropertyName($testFilePropertyName), 'Unable to set file property name!' );
-		$this->assertEquals( $behavior->getFilePropertyName(), $testFilePropertyName, 'Unable to set file property name correctly!' );
+		$this->assertTrue($behavior->setFilePropertyName($testFilePropertyName), 'Unable to set file property name!');
+		$this->assertEquals($behavior->getFilePropertyName(), $testFilePropertyName, 'Unable to set file property name correctly!');
 
 		$testFileStorageComponentName = 'testFileStorageComponentName';
-		$this->assertTrue( $behavior->setFileStorageComponentName($testFileStorageComponentName), 'Unable to set file storage component name!' );
-		$this->assertEquals( $behavior->getFileStorageComponentName(), $testFileStorageComponentName, 'Unable to set file storage component name correctly!' );
+		$this->assertTrue($behavior->setFileStorageComponentName($testFileStorageComponentName), 'Unable to set file storage component name!');
+		$this->assertEquals($behavior->getFileStorageComponentName(), $testFileStorageComponentName, 'Unable to set file storage component name correctly!');
 
 		$testFileStorageBucketName = 'testFileStorageBucketName';
-		$this->assertTrue( $behavior->setFileStorageBucketName($testFileStorageBucketName), 'Unable to set file storage bucket name!' );
-		$this->assertEquals( $behavior->getFileStorageBucketName(), $testFileStorageBucketName, 'Unable to set file storage bucket name correctly!' );
+		$this->assertTrue($behavior->setFileStorageBucketName($testFileStorageBucketName), 'Unable to set file storage bucket name!');
+		$this->assertEquals($behavior->getFileStorageBucketName(), $testFileStorageBucketName, 'Unable to set file storage bucket name correctly!');
 
 		$testFileExtensionAttributeName = 'test_file_extension_attribute_name';
-		$this->assertTrue( $behavior->setFileExtensionAttributeName($testFileExtensionAttributeName), 'Unable to set file extension attribute name!' );
-		$this->assertEquals( $behavior->getFileExtensionAttributeName(), $testFileExtensionAttributeName, 'Unable to set file extension attribute name correctly!' );
+		$this->assertTrue($behavior->setFileExtensionAttributeName($testFileExtensionAttributeName), 'Unable to set file extension attribute name!');
+		$this->assertEquals($behavior->getFileExtensionAttributeName(), $testFileExtensionAttributeName, 'Unable to set file extension attribute name correctly!');
 
 		$testFileVersionAttributeName = 'test_file_version_attribute_name';
-		$this->assertTrue( $behavior->setFileVersionAttributeName($testFileVersionAttributeName), 'Unable to set file version attribute name!' );
-		$this->assertEquals( $behavior->getFileVersionAttributeName(), $testFileVersionAttributeName, 'Unable to set file version attribute name correctly!' );
+		$this->assertTrue($behavior->setFileVersionAttributeName($testFileVersionAttributeName), 'Unable to set file version attribute name!');
+		$this->assertEquals($behavior->getFileVersionAttributeName(), $testFileVersionAttributeName, 'Unable to set file version attribute name correctly!');
 
 		$testSubDirTemplate = 'test/subdir/template';
-		$this->assertTrue( $behavior->setSubDirTemplate($testSubDirTemplate), 'Unable to set sub dir template!' );
-		$this->assertEquals( $behavior->getSubDirTemplate(), $testSubDirTemplate, 'Unable to set sub dir template correctly!' );
+		$this->assertTrue($behavior->setSubDirTemplate($testSubDirTemplate), 'Unable to set sub dir template!');
+		$this->assertEquals($behavior->getSubDirTemplate(), $testSubDirTemplate, 'Unable to set sub dir template correctly!');
 
 		$testFileTabularInputIndex = rand(1, 100);
-		$this->assertTrue( $behavior->setFileTabularInputIndex($testFileTabularInputIndex), 'Unable to set file tabular input index!' );
-		$this->assertEquals( $behavior->getFileTabularInputIndex(), $testFileTabularInputIndex, 'Unable to set file tabular input index correctly!' );
+		$this->assertTrue($behavior->setFileTabularInputIndex($testFileTabularInputIndex), 'Unable to set file tabular input index!');
+		$this->assertEquals($behavior->getFileTabularInputIndex(), $testFileTabularInputIndex, 'Unable to set file tabular input index correctly!');
 
 		$testDefaultFileUrl = 'http://test/default/file';
-		$this->assertTrue( $behavior->setDefaultFileUrl($testDefaultFileUrl), 'Unable to set default file URL!' );
-		$this->assertEquals( $testDefaultFileUrl, $behavior->getDefaultFileUrl(), 'Unable to set default file URL correctly!' );
+		$this->assertTrue($behavior->setDefaultFileUrl($testDefaultFileUrl), 'Unable to set default file URL!');
+		$this->assertEquals($testDefaultFileUrl, $behavior->getDefaultFileUrl(), 'Unable to set default file URL correctly!');
 	}
 
 	/**
@@ -205,7 +252,7 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 		$activeRecord->setFileStorageBucketName('');
 		$defaultFileStorageBucketName = $activeRecord->getFileStorageBucketName();
 
-		$this->assertFalse( empty($defaultFileStorageBucketName), 'Unable to get default file storage bucket name!' );
+		$this->assertFalse(empty($defaultFileStorageBucketName), 'Unable to get default file storage bucket name!');
 
 		$expectedFileStorageBucketName = get_class($activeRecord).ucfirst($activeRecord->getFilePropertyName());
 		$this->assertEquals($expectedFileStorageBucketName, $defaultFileStorageBucketName, 'Wrong default vallue of file storage bucket name!');
@@ -231,7 +278,7 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 	 * @depends testGetFileStorageBucket
 	 */
 	public function testGetFileStorageBucketIfNotExists() {
-		Yii::app()->fileStorage->setBuckets( array() );
+		Yii::app()->fileStorage->setBuckets(array());
 
 		$testBucketName = 'testBucketNameWhichNotPresentInStorage';
 
@@ -289,26 +336,63 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 
 		$activeRecord = $activeRecordFinder->find(null);
 
-		$testFileSourcePath = $this->getTestSourceBasePath();
-
-		$testFileExtention = 'ext';
-		$testFileName = $testFileSourcePath.'/test_file_name.'.$testFileExtention;
+		$testFileExtension = 'ext';
+		$testFileSelfName = 'test_file_name.'.$testFileExtension;
 		$testFileContent = 'Test File Content';
-		if (file_exists($testFileName)) unlink($testFileName);
-		file_put_contents($testFileName, $testFileContent);
+		$testFileName = $this->saveTestFile($testFileSelfName, $testFileContent);
 
-		$this->assertTrue( $activeRecord->saveFile($testFileName), 'Unable to save file!' );
+		$this->assertTrue($activeRecord->saveFile($testFileName), 'Unable to save file!');
 
 		$returnedFileFullName = $activeRecord->getFileFullName();
 		$fileStorageBucket = $activeRecord->getFileStorageBucket();
 
-		$this->assertTrue( $fileStorageBucket->fileExists($returnedFileFullName), 'Unable to save file in the file storage bucket!' );
+		$this->assertTrue($fileStorageBucket->fileExists($returnedFileFullName), 'Unable to save file in the file storage bucket!');
 
-		$this->assertEquals( $fileStorageBucket->getFileContent($returnedFileFullName), $testFileContent, 'Saved file has wrong content!' );
-		$this->assertEquals( CFileHelper::getExtension($returnedFileFullName), $testFileExtention, 'Saved file has wrong extension!' );
+		$this->assertEquals($fileStorageBucket->getFileContent($returnedFileFullName), $testFileContent, 'Saved file has wrong content!');
+		$this->assertEquals(CFileHelper::getExtension($returnedFileFullName), $testFileExtension, 'Saved file has wrong extension!');
 
 		$refreshedActiveRecord = $activeRecordFinder->findByPk($activeRecord->getPrimaryKey());
-		$this->assertEquals( $refreshedActiveRecord->getFileFullName(), $returnedFileFullName, 'Wrong file full name returned from the refreshed record!' );
+		$this->assertEquals($refreshedActiveRecord->getFileFullName(), $returnedFileFullName, 'Wrong file full name returned from the refreshed record!');
+	}
+
+	/**
+	 * @depends testSetGet
+	 */
+	public function testGetUploadedFileFromRequest() {
+		$activeRecord = $this->newActiveRecord();
+
+		$this->mockUpUploadedFile('test_file_name.txt', 'Test File Content');
+
+		$uploadedFile = $activeRecord->getUploadedFile();
+		$this->assertTrue(is_object($uploadedFile), 'Unable to get uploaded file from request!');
+	}
+
+	/**
+	 * @depends testGetUploadedFileFromRequest
+	 */
+	public function testGetUploadedFileFromRequestDisabledAutoFetch() {
+		$activeRecord = $this->newActiveRecord();
+		$activeRecord->autoFetchUploadedFile = false;
+
+		$this->mockUpUploadedFile('test_file_name.txt', 'Test File Content');
+
+		$uploadedFile = $activeRecord->getUploadedFile();
+		$this->assertFalse(is_object($uploadedFile), 'File found while auto fetch uploaded file is disabled!');
+	}
+
+	/**
+	 * @depends testGetUploadedFileFromRequest
+	 */
+	public function testGetUploadedFileFromRequestTwice() {
+		$activeRecord = $this->newActiveRecord();
+
+		$this->mockUpUploadedFile('test_file_name.txt', 'Test File Content');
+
+		$firstUploadedFile = $activeRecord->getUploadedFile();
+		$activeRecord->clearUploadedFile();
+
+		$secondUploadedFile = $activeRecord->getUploadedFile();
+		$this->assertFalse(is_object($secondUploadedFile), 'Same uploaded file is fetched from request twice!');
 	}
 
 	/**
@@ -317,16 +401,14 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 	public function testFilePropertySetUp() {
 		$activeRecordModel = $this->getActiveRecordFinder();
 
-		$testFileSourcePath = $this->getTestSourceBasePath();
-		$testFileName = $testFileSourcePath.'/test_file_name.test';
+		$testFileSelfName = 'test_file_name.test';
 		$testFileContent = 'Test File Content';
-		if (file_exists($testFileName)) unlink($testFileName);
-		file_put_contents($testFileName, $testFileContent);
+		$testFileName = $this->saveTestFile($testFileSelfName, $testFileContent);
 
 		$activeRecordModel->file = $testFileName;
 
-		$this->assertTrue( is_object($activeRecordModel->file), 'Unable to set file property!' );
-		$this->assertEquals( $activeRecordModel->file->getTempName(), $testFileName, 'Wrong temp file name, while setting file property!' );
+		$this->assertTrue(is_object($activeRecordModel->file), 'Unable to set file property!');
+		$this->assertEquals($activeRecordModel->file->getTempName(), $testFileName, 'Wrong temp file name, while setting file property!');
 	}
 
 	/**
@@ -336,64 +418,44 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 		$activeRecordFinder = $this->getActiveRecordFinder();
 		$activeRecord = $activeRecordFinder->find();
 
-		$testFileSourcePath = $this->getTestSourceBasePath();
-		$testFileName = $testFileSourcePath.'/test_file_name.test';
+		$testFileSelfName = 'test_file_name.test';
 		$testFileContent = 'Test File Content';
-		if (file_exists($testFileName)) {
-			unlink($testFileName);
-		}
-		file_put_contents($testFileName, $testFileContent);
+		$testFileName = $this->saveTestFile($testFileSelfName, $testFileContent);
 
 		$activeRecord->file = $testFileName;
 
-		$this->assertTrue( $activeRecord->save(), 'Unable to save record with file!' );
+		$this->assertTrue($activeRecord->save(), 'Unable to save record with file!');
 
 		$fileStorageBucket = $activeRecord->getFileStorageBucket();
 		$returnedFileFullName = $activeRecord->getFileFullName();
 
-		$this->assertTrue( $fileStorageBucket->fileExists($returnedFileFullName), 'Unable to save file in the file storage bucket!' );
-		$this->assertEquals( $fileStorageBucket->getFileContent($returnedFileFullName), $testFileContent, 'Saved file has wrong content!' );
+		$this->assertTrue($fileStorageBucket->fileExists($returnedFileFullName), 'Unable to save file in the file storage bucket!');
+		$this->assertEquals($fileStorageBucket->getFileContent($returnedFileFullName), $testFileContent, 'Saved file has wrong content!');
 	}
 
 	/**
 	 * @depends testSaveFile
 	 */
 	public function testSaveFileFromWeb() {
-		$activeRecordClassName = self::getTestActiveRecordClassName();
-		$testFileSourcePath = $this->getTestSourceBasePath();
-
 		$activeRecord = $this->newActiveRecord();
 		$activeRecord->name = 'test_name';
 
-		$testFileName = $testFileSourcePath."/test_file_name.txt";
-		$testFileContent = "Test File Content";
-		if (file_exists($testFileName)) {
-			unlink($testFileName);
-		}
-		file_put_contents($testFileName, $testFileContent);
+		$testFileContent = 'Test File Content';
+		$this->mockUpUploadedFile('test_file_name.txt', $testFileContent);
 
-		$_FILES[$activeRecordClassName]['name'][$activeRecord->getFilePropertyName()] = basename($testFileName);
-		$_FILES[$activeRecordClassName]['type'][$activeRecord->getFilePropertyName()] = CFileHelper::getExtension($testFileName);
-		$_FILES[$activeRecordClassName]['tmp_name'][$activeRecord->getFilePropertyName()] = $testFileName;
-		$_FILES[$activeRecordClassName]['error'][$activeRecord->getFilePropertyName()] = UPLOAD_ERR_OK;
-		$_FILES[$activeRecordClassName]['size'][$activeRecord->getFilePropertyName()] = filesize($testFileName);
-
-		$this->assertTrue( $activeRecord->save(), 'Unable to save record with file fetched from Web!' );
+		$this->assertTrue($activeRecord->save(), 'Unable to save record with file fetched from Web!');
 
 		$fileStorageBucket = $activeRecord->getFileStorageBucket();
 		$returnedFileFullName = $activeRecord->getFileFullName();
 
-		$this->assertTrue( $fileStorageBucket->fileExists($returnedFileFullName), 'Unable to save file from Web in the file storage bucket!' );
-		$this->assertEquals( $fileStorageBucket->getFileContent($returnedFileFullName), $testFileContent, 'Saved from Web file has wrong content!' );
+		$this->assertTrue($fileStorageBucket->fileExists($returnedFileFullName), 'Unable to save file from Web in the file storage bucket!');
+		$this->assertEquals($fileStorageBucket->getFileContent($returnedFileFullName), $testFileContent, 'Saved from Web file has wrong content!');
 	}
 
 	/**
 	 * @depends testSaveFileFromWeb
 	 */
 	public function testSaveFromWebTabular() {
-		$activeRecordClassName = self::getTestActiveRecordClassName();
-		$testFileSourcePath = $this->getTestSourceBasePath();
-
 		$activeRecords = array();
 
 		$testActiveRecordCount = 10;
@@ -407,31 +469,21 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 		// Mock up $_FILES:
 		$testFileContents = array();
 		foreach ($activeRecords as $index => $activeRecord) {
-			$testFileName = $testFileSourcePath."/test_file_name_{$index}.test";
 			$testFileContent = "Test File Content {$index}";
-			$testFileContents[$index] = $testFileContent;
-			if (file_exists($testFileName)) {
-				unlink($testFileName);
-			}
-			file_put_contents($testFileName, $testFileContent);
-
-			$_FILES[$activeRecordClassName]['name'][$index][$activeRecord->getFilePropertyName()] = basename($testFileName);
-			$_FILES[$activeRecordClassName]['type'][$index][$activeRecord->getFilePropertyName()] = CFileHelper::getExtension($testFileName);
-			$_FILES[$activeRecordClassName]['tmp_name'][$index][$activeRecord->getFilePropertyName()] = $testFileName;
-			$_FILES[$activeRecordClassName]['error'][$index][$activeRecord->getFilePropertyName()] = UPLOAD_ERR_OK;
-			$_FILES[$activeRecordClassName]['size'][$index][$activeRecord->getFilePropertyName()] = filesize($testFileName);
+			$testFileContents[] = $testFileContent;
+			$this->mockUpUploadedFile("test_file_name_{$index}.test", $testFileContent, $index);
 		}
 
 		foreach ($activeRecords as $index => $activeRecord) {
 			$activeRecord->setFileTabularInputIndex($index);
 
-			$this->assertTrue( $activeRecord->save(), 'Unable to save record with tabular input file!' );
+			$this->assertTrue($activeRecord->save(), 'Unable to save record with tabular input file!');
 
 			$fileStorageBucket = $activeRecord->getFileStorageBucket();
 			$returnedFileFullName = $activeRecord->getFileFullName();
 
-			$this->assertTrue( $fileStorageBucket->fileExists($returnedFileFullName), 'Unable to save file with tabular input!' );
-			$this->assertEquals( $fileStorageBucket->getFileContent($returnedFileFullName), $testFileContents[$index], 'Saved with tabular input file has wrong content!' );
+			$this->assertTrue($fileStorageBucket->fileExists($returnedFileFullName), 'Unable to save file with tabular input!');
+			$this->assertEquals($fileStorageBucket->getFileContent($returnedFileFullName), $testFileContents[$index], 'Saved with tabular input file has wrong content!');
 		}
 	}
 
@@ -446,11 +498,11 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 		$emptyDefaultFileWebSrc = '';
 		$activeRecord->setDefaultFileUrl($emptyDefaultFileWebSrc);
 		$returnedFileWebSrc = $activeRecord->getFileUrl();
-		$this->assertTrue( !empty($returnedFileWebSrc), 'Unable to get file web src with empty default one!' );
+		$this->assertTrue(!empty($returnedFileWebSrc), 'Unable to get file web src with empty default one!');
 
 		$testDefaultFileWebSrc = 'http://test/default/file/web/src';
 		$activeRecord->setDefaultFileUrl($testDefaultFileWebSrc);
 		$returnedFileWebSrc = $activeRecord->getFileUrl();
-		$this->assertEquals( $returnedFileWebSrc, $testDefaultFileWebSrc, 'Default file web src does not used!' );
+		$this->assertEquals($returnedFileWebSrc, $testDefaultFileWebSrc, 'Default file web src does not used!');
 	}
 }

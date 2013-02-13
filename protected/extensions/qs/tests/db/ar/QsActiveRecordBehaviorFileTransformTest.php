@@ -30,11 +30,11 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'behaviors'=>array(
+				'tableName' => $testTableName,
+				'behaviors' => array(
 					'fileTransformBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorFileTransform',
-						'transformCallback'=>'copy',
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorFileTransform',
+						'transformCallback' => 'copy',
 						'fileTransforms' => array(
 							'default' => null,
 							'custom' => null
@@ -134,10 +134,10 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 	 */
 	protected static function createFileStorageConfig() {
 		$fileStorageConfig = array(
-			'class'=>'QsFileStorageFileSystem',
-			'basePath'=>self::getTestFileStorageBasePath(),
-			'baseUrl'=>'http://www.mydomain.com/files',
-			'filePermission'=>0777
+			'class' => 'QsFileStorageFileSystem',
+			'basePath' => self::getTestFileStorageBasePath(),
+			'baseUrl' => 'http://www.mydomain.com/files',
+			'filePermission' => 0777
 		);
 		return $fileStorageConfig;
 	}
@@ -147,7 +147,7 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 	 * @return CActiveRecord active record finder instance.
 	 */
 	protected function getActiveRecordFinder() {
-		return CActiveRecord::model( self::getTestTableName() );
+		return CActiveRecord::model(self::getTestTableName());
 	}
 
 	/**
@@ -173,7 +173,7 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 
 	public function testCreate() {
 		$behavior = new QsActiveRecordBehaviorFileTransform();
-		$this->assertTrue( is_object($behavior) );
+		$this->assertTrue(is_object($behavior));
 	}
 
 	/**
@@ -183,8 +183,8 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 		$behavior = new QsActiveRecordBehaviorFileTransform();
 
 		$testTransformCallBack = 'copy';
-		$this->assertTrue( $behavior->setTransformCallback($testTransformCallBack), 'Unable to set transform callback!' );
-		$this->assertEquals( $behavior->getTransformCallback(), $testTransformCallBack, 'Unable to set transform callback correctly!' );
+		$this->assertTrue($behavior->setTransformCallback($testTransformCallBack), 'Unable to set transform callback!');
+		$this->assertEquals($behavior->getTransformCallback(), $testTransformCallBack, 'Unable to set transform callback correctly!');
 	}
 
 	/**
@@ -194,15 +194,15 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 		$behavior = new QsActiveRecordBehaviorFileTransform();
 
 		$testDefaultFileUrl = 'http://default/file/web/src';
-		$this->assertTrue( $behavior->setDefaultFileUrl($testDefaultFileUrl), 'Unable to set default file URL!' );
-		$this->assertEquals( $behavior->getDefaultFileUrl(), $testDefaultFileUrl, 'Unable to set default file URL correctly!' );
+		$this->assertTrue($behavior->setDefaultFileUrl($testDefaultFileUrl), 'Unable to set default file URL!');
+		$this->assertEquals($behavior->getDefaultFileUrl(), $testDefaultFileUrl, 'Unable to set default file URL correctly!');
 
 		$testDefaultFileUrlArray = array(
 			'name1' => 'http://default/file/web/src/1',
 			'name2' => 'http://default/file/web/src/2',
 		);
-		$this->assertTrue( $behavior->setDefaultFileUrl($testDefaultFileUrlArray), 'Unable to set default file URL with array!' );
-		//$this->assertEquals( $behavior->getDefaultFileUrl(), $testDefaultFileUrlArray, 'Unable to set default file URL with array correctly!' );
+		$this->assertTrue($behavior->setDefaultFileUrl($testDefaultFileUrlArray), 'Unable to set default file URL with array!');
+		//$this->assertEquals($behavior->getDefaultFileUrl(), $testDefaultFileUrlArray, 'Unable to set default file URL with array correctly!');
 	}
 
 	/**
@@ -217,16 +217,16 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 				'param_2' => 'value_2',
 			),
 		);
-		$this->assertTrue( $behavior->setFileTransforms($testFileTransforms), 'Unable to set file transforms!' );
-		$this->assertEquals( $behavior->getFileTransforms(), $testFileTransforms, 'Unable to set file transforms correctly!' );
+		$this->assertTrue($behavior->setFileTransforms($testFileTransforms), 'Unable to set file transforms!');
+		$this->assertEquals($behavior->getFileTransforms(), $testFileTransforms, 'Unable to set file transforms correctly!');
 
 		$testFileTransformName = 'test_file_name';
 		$testFileTransform = array(
 			'single_param_1' => 'single_value_1',
 			'single_param_2' => 'single_value_2',
 		);
-		$this->assertTrue( $behavior->addFileTransform($testFileTransformName, $testFileTransform), 'Unable to add file transform!' );
-		$this->assertEquals( $behavior->getFileTransform($testFileTransformName), $testFileTransform, 'Unable to get single file transform!' );
+		$this->assertTrue($behavior->addFileTransform($testFileTransformName, $testFileTransform), 'Unable to add file transform!');
+		$this->assertEquals($behavior->getFileTransform($testFileTransformName), $testFileTransform, 'Unable to get single file transform!');
 	}
 
 	/**
@@ -243,7 +243,7 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 		$testFileName = $this->getTestFileFullName();
 		$testFileExtension = CFileHelper::getExtension($testFileName);
 
-		$this->assertTrue( $activeRecord->saveFile($testFileName), 'Unable to save file!' );
+		$this->assertTrue($activeRecord->saveFile($testFileName), 'Unable to save file!');
 
 		$refreshedActiveRecord = $activeRecordFinder->findByPk($activeRecord->getPrimaryKey());
 
@@ -251,10 +251,10 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 			$returnedFileFullName = $activeRecord->getFileFullName($fileTransformName);
 			$fileStorageBucket = $activeRecord->getFileStorageBucket();
 
-			$this->assertTrue( $fileStorageBucket->fileExists($returnedFileFullName), "File for transformation name '{$fileTransformName}' does not exist!" );
-			$this->assertEquals( CFileHelper::getExtension($returnedFileFullName), $testFileExtension, 'Saved file has wrong extension!' );
+			$this->assertTrue($fileStorageBucket->fileExists($returnedFileFullName), "File for transformation name '{$fileTransformName}' does not exist!");
+			$this->assertEquals(CFileHelper::getExtension($returnedFileFullName), $testFileExtension, 'Saved file has wrong extension!');
 
-			$this->assertEquals( $refreshedActiveRecord->getFileFullName($fileTransformName), $returnedFileFullName, 'Wrong full file name from the refreshed record!' );
+			$this->assertEquals($refreshedActiveRecord->getFileFullName($fileTransformName), $returnedFileFullName, 'Wrong full file name from the refreshed record!');
 		}
 	}
 
@@ -271,12 +271,12 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 		$emptyDefaultFileWebSrc = '';
 		$activeRecord->setDefaultFileUrl($emptyDefaultFileWebSrc);
 		$returnedFileWebSrc = $activeRecord->getFileUrl();
-		$this->assertTrue( !empty($returnedFileWebSrc), 'Unable to get file web src with empty default one!' );
+		$this->assertFalse(empty($returnedFileWebSrc), 'Unable to get file web src with empty default one!');
 
 		$testDefaultFileWebSrc = 'http://test/default/file/web/src';
 		$activeRecord->setDefaultFileUrl($testDefaultFileWebSrc);
 		$returnedFileWebSrc = $activeRecord->getFileUrl();
-		$this->assertEquals( $returnedFileWebSrc, $testDefaultFileWebSrc, 'Default file web src does not used!' );
+		$this->assertEquals($returnedFileWebSrc, $testDefaultFileWebSrc, 'Default file web src does not used!');
 
 		// Array:
 		$transformNamePrefix = 'test_transform_';
@@ -293,7 +293,7 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 		for ($i=1; $i<=$transformsCount; $i++) {
 			$transformName = $transformNamePrefix.$i;
 			$returnedMainFileWebSrc = $activeRecord->getFileUrl($transformName);
-			$this->assertEquals( $returnedMainFileWebSrc, $testDefaultFileWebSrcArray[$transformName], 'Unable to apply default file web src per each transfromation!' );
+			$this->assertEquals($returnedMainFileWebSrc, $testDefaultFileWebSrcArray[$transformName], 'Unable to apply default file web src per each transfromation!');
 		}
 	}
 }
