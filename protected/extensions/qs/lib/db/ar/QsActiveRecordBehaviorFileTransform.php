@@ -27,6 +27,7 @@ Yii::import('ext.qs.lib.db.ar.QsActiveRecordBehaviorFile');
  * @property array $fileTransforms public alias of {@link _fileTransforms}.
  * @property callback $transformCallback public alias of {@link _transformCallback}.
  * @property string|array $defaultFileUrl public alias of {@link _defaultFileUrl}.
+ * @property string $defaultFileTransformName public alias of {@link _defaultFileTransformName}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.db.ar
@@ -36,10 +37,19 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	 * @var array, which determines all possible file transformations.
 	 * The key of array element is the name of transformation and will be used to create file name.
 	 * The value is an array of parameters for transformation. Its value depends on which {@link transformCallback} you are using.
+	 * If you wish to save original file without transformation, specify a key without value.
+	 * For example:
+	 * <code>
+	 * array(
+	 *     'origin',
+	 *     'main' => array(...),
+	 *     'light' => array(...),
+	 * );
+	 * </code>
 	 */
 	protected $_fileTransforms = array();
 	/**
-	 * @var callback which will be called while image transforming.
+	 * @var callback which will be called while file transforming.
 	 * This should be a valid PHP callback.
 	 */
 	protected $_transformCallback = null;
@@ -47,21 +57,23 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	 * @var string|array URL(s), which is used to set up web links, which will be returned if requested file does not exists.
 	 * If may specify this parameter as string it will be considered as web link and will be used for all transformations.
 	 * For example:
-	 * 'http://www.myproject/materials/default/image.jpg'
+	 * 'http://www.myproject.com/materials/default/image.jpg'
 	 * If you specify this parameter as an array, its key will be considered as transformation name, while value - as web link.
 	 * For example:
 	 * array(
-	 *     'full'=> 'http://www.myproject/materials/default/full.jpg',
-	 *     'thumbnail'=> 'http://www.myproject/materials/default/thumbnail.jpg',
+	 *     'full'=> 'http://www.myproject.com/materials/default/full.jpg',
+	 *     'thumbnail'=> 'http://www.myproject.com/materials/default/thumbnail.jpg',
 	 * )
 	 */
 	protected $_defaultFileUrl = array();
+	/**
+	 * @var string name of the file transformation, which should be used by default,
+	 * if no specific transformation name given.
+	 */
+	protected $_defaultFileTransformName = '';
 
-	public function setFileTransforms($imageTransforms) {
-		if (!is_array($imageTransforms)) {
-			return false;
-		}
-		$this->_fileTransforms = $imageTransforms;
+	public function setFileTransforms(array $fileTransforms) {
+		$this->_fileTransforms = $fileTransforms;
 		return true;
 	}
 
@@ -69,21 +81,9 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 		return $this->_fileTransforms;
 	}
 
-	public function addFileTransform($name, $transform) {
-		if (!is_string($name) || !is_array($transform)) {
-			return false;
-		}
-		$this->_fileTransforms[$name] = $transform;
-		return true;
-	}
-
-	public function getFileTransform($name) {
-		return $this->_fileTransforms[$name];
-	}
-
 	public function setTransformCallback($transformCallback) {
 		if (!is_callable($transformCallback, true)) {
-			return false;
+			throw new CException('"'.get_class($this).'::transformCallback" should be a valid callback, "'.gettype($transformCallback).'" is given.');
 		}
 		$this->_transformCallback = $transformCallback;
 		return true;
@@ -93,6 +93,23 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 		return $this->_transformCallback;
 	}
 
+	public function setDefaultFileTransformName($defaultFileTransformName) {
+		$this->_defaultFileTransformName = $defaultFileTransformName;
+		return true;
+	}
+
+	public function getDefaultFileTransformName() {
+		if (empty($this->_defaultFileTransformName)) {
+			$this->initDefaultFileTransformName();
+		}
+		return $this->_defaultFileTransformName;
+	}
+
+	/**
+	 * Returns the default file URL.
+	 * @param string $name file transformation name.
+	 * @return string default file URL.
+	 */
 	public function getDefaultFileUrl($name=null) {
 		if (is_array($this->_defaultFileUrl)) {
 			if (!empty($name)) {
@@ -109,37 +126,38 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	/**
 	 * Creates file itself name (without path) including version and extension.
 	 * This method overrides parent implementation in order to include transformation name.
-	 * @param string $imageTransformName image transformation name.
+	 * @param string $fileTransformName image transformation name.
 	 * @param integer $fileVersion file version number.
 	 * @param string $fileExtension file extension.
 	 * @return string file self name.
 	 */
-	public function getFileSelfName($imageTransformName=null, $fileVersion=null, $fileExtension=null) {
+	public function getFileSelfName($fileTransformName=null, $fileVersion=null, $fileExtension=null) {
 		$owner = $this->getOwner();
-		if (is_null($imageTransformName)) {
-			$imageNamePrefix = '';
+		if (is_null($fileTransformName)) {
+			$fileNamePrefix = '';
 		} else {
-			$imageNamePrefix = '_'.$imageTransformName;
+			$fileNamePrefix = '_'.$fileTransformName;
 		}
 		if (is_null($fileVersion)) {
 			$fileVersion = $this->getFileVersionCurrent();
 		}
 		if (is_null($fileExtension)) {
-			$fileExtension = $owner->getAttribute( $this->getFileExtensionAttributeName() );
+			$fileExtension = $owner->getAttribute($this->getFileExtensionAttributeName());
 		}
-		return $this->getFileBaseName().$imageNamePrefix.'_'.$fileVersion.'.'.$fileExtension;
+		return $this->getFileBaseName().$fileNamePrefix.'_'.$fileVersion.'.'.$fileExtension;
 	}
 
 	/**
 	 * Creates the file name in the file storage.
 	 * This name contains the sub directory, resolved by {@link subDirTemplate}.
-	 * @param string $imageTransformName image transformation name.
+	 * @param string $fileTransformName file transformation name.
 	 * @param integer $fileVersion file version number.
 	 * @param string $fileExtension file extension.
 	 * @return string file full name.
 	 */
-	public function getFileFullName($imageTransformName=null, $fileVersion=null, $fileExtension=null) {
-		$fileName = $this->getFileSelfName($imageTransformName, $fileVersion,$fileExtension);
+	public function getFileFullName($fileTransformName=null, $fileVersion=null, $fileExtension=null) {
+		$fileTransformName = $this->fetchFileTransformName($fileTransformName);
+		$fileName = $this->getFileSelfName($fileTransformName, $fileVersion,$fileExtension);
 		$subDir = $this->getActualSubDir();
 		if (!empty($subDir)) {
 			$fileName = $subDir.DIRECTORY_SEPARATOR.$fileName;
@@ -148,10 +166,51 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	}
 
 	/**
-	 * Overridden
+	 * Fetches the value of file transform name.
+	 * Returns default file transform name if null incoming one is given.
+	 * @param string|null $fileTransformName file transforms name.
+	 * @return string actual file transform name.
+	 */
+	protected function fetchFileTransformName($fileTransformName=null) {
+		if (is_null($fileTransformName)) {
+			$fileTransformName = $this->getDefaultFileTransformName();
+		}
+		return $fileTransformName;
+	}
+
+	/**
+	 * Initializes the default {@link defaultFileTransform} value.
+	 * @return boolean success.
+	 */
+	protected function initDefaultFileTransformName() {
+		$fileTransforms = $this->ensureFileTransforms();
+		if (isset($fileTransforms[0])) {
+			$defaultFileTransformName = $fileTransforms[0];
+		} else {
+			$defaultFileTransformName = array_shift(array_keys($fileTransforms));
+		}
+		$this->_defaultFileTransformName = $defaultFileTransformName;
+		return true;
+	}
+
+	/**
+	 * Returns the {@link fileTransforms} value, making sure it is valid.
+	 * @throws CException if file transforms value is invalid.
+	 * @return array file transforms.
+	 */
+	protected function ensureFileTransforms() {
+		$fileTransforms = $this->getFileTransforms();
+		if (empty($fileTransforms)) {
+			throw new CException('File transformations list is empty.');
+		}
+		return $fileTransforms;
+	}
+
+	/**
+	 * Overridden.
 	 * Creates the file for the model from the source file.
 	 * File version and extension are passed to this method.
-	 * Parent methd is overridden in order to save several different files
+	 * Parent method is overridden in order to save several different files
 	 * per one particular model.
 	 * @param string $sourceFileName - source full file name.
 	 * @param integer $fileVersion - file version number.
@@ -159,26 +218,23 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	 * @return boolean success.
 	 */
 	protected function newFile($sourceFileName, $fileVersion, $fileExtension) {
-		$imageTransforms = $this->getFileTransforms();
-		if (empty($imageTransforms)) {
-			return parent::newFile($sourceFileName, $fileVersion, $fileExtension);
-		}
+		$fileTransforms = $this->ensureFileTransforms();
 
 		$fileStorageBucket = $this->getFileStorageBucket();
 		$result = true;
-		foreach ($imageTransforms as $imageTransformName => $imageTransform) {
-			if (!is_array($imageTransform) && is_numeric($imageTransformName)) {
-				$imageTransformName = $imageTransform;
+		foreach ($fileTransforms as $fileTransformName => $fileTransform) {
+			if (!is_array($fileTransform) && is_numeric($fileTransformName)) {
+				$fileTransformName = $fileTransform;
 			}
 
-			$fileFullName = $this->getFileFullName($imageTransformName, $fileVersion, $fileExtension);
+			$fileFullName = $this->getFileFullName($fileTransformName, $fileVersion, $fileExtension);
 
-			if (is_array($imageTransform)) {
+			if (is_array($fileTransform)) {
 				$transformTempFilePath = $this->resolveTransformTempFilePath();
 				$tempTransformFileName = basename($fileFullName);
 				$tempTransformFileName = uniqid(rand()).'_'.$tempTransformFileName;
 				$tempTransformFileName = $transformTempFilePath.DIRECTORY_SEPARATOR.$tempTransformFileName;
-				$resizeResult = $this->transformFile($sourceFileName, $tempTransformFileName, $imageTransform);
+				$resizeResult = $this->transformFile($sourceFileName, $tempTransformFileName, $fileTransform);
 				if ($resizeResult) {
 					$copyResult = $fileStorageBucket->copyFileIn($tempTransformFileName, $fileFullName);
 					$result = $result && $copyResult;
@@ -218,23 +274,20 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	}
 
 	/**
-	 * Overridden
+	 * Overridden.
 	 * Deletes file associated with the model without any checks.
-	 * This method is overridden because one model can have several image files.
+	 * This method is overridden because single model can have several files.
 	 * @return boolean success.
 	 */
 	protected function unlinkFile() {
-		$imageTransforms = $this->getFileTransforms();
-		if (empty($imageTransforms)) {
-			return parent::unlinkFile();
-		}
+		$fileTransforms = $this->ensureFileTransforms();
 		$result = true;
 		$fileStorageBucket = $this->getFileStorageBucket();
-		foreach ($imageTransforms as $imageTransformName => $imageTransform) {
-			if (!is_array($imageTransform) && is_numeric($imageTransformName)) {
-				$imageTransformName = $imageTransform;
+		foreach ($fileTransforms as $fileTransformName => $fileTransform) {
+			if (!is_array($fileTransform) && is_numeric($fileTransformName)) {
+				$fileTransformName = $fileTransform;
 			}
-			$fileName = $this->getFileFullName($imageTransformName);
+			$fileName = $this->getFileFullName($fileTransformName);
 			if ($fileStorageBucket->fileExists($fileName)) {
 				$fileDeleteResult = $fileStorageBucket->deleteFile($fileName);
 				$result = $result && $fileDeleteResult;
@@ -247,7 +300,7 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	 * Transforms source file to destination file according to the transformation settings.
 	 * @param string $sourceFileName is the full source file system name.
 	 * @param string $destinationFileName is the full destination file system name.
-	 * @param mixed $transformSettings is the transform settings data, its value is retrieved from {@link imageTransforms}
+	 * @param mixed $transformSettings is the transform settings data, its value is retrieved from {@link fileTransforms}
 	 * @return boolean success.
 	 */
 	protected function transformFile($sourceFileName, $destinationFileName, $transformSettings) {

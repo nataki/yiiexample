@@ -165,7 +165,7 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 	 * @return string test file full name.
 	 */
 	protected function getTestFileFullName() {
-		$fileFullName = dirname( Yii::getPathOfAlias('application') ).'/css/admin/bg.gif';
+		$fileFullName = dirname(Yii::getPathOfAlias('application')).'/css/admin/bg.gif';
 		return $fileFullName;
 	}
 
@@ -179,12 +179,48 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 	/**
 	 * @depends testCreate
 	 */
-	public function testTransformCallbackSetUp() {
+	public function testSetGet() {
 		$behavior = new QsActiveRecordBehaviorFileTransform();
 
-		$testTransformCallBack = 'copy';
-		$this->assertTrue($behavior->setTransformCallback($testTransformCallBack), 'Unable to set transform callback!');
-		$this->assertEquals($behavior->getTransformCallback(), $testTransformCallBack, 'Unable to set transform callback correctly!');
+		$transformCallBack = 'copy';
+		$this->assertTrue($behavior->setTransformCallback($transformCallBack), 'Unable to set transform callback!');
+		$this->assertEquals($behavior->getTransformCallback(), $transformCallBack, 'Unable to set transform callback correctly!');
+
+		$testFileTransforms = array(
+			'test' => array(
+				'param_1' => 'value_1',
+				'param_2' => 'value_2',
+			),
+		);
+		$this->assertTrue($behavior->setFileTransforms($testFileTransforms), 'Unable to set file transforms!');
+		$this->assertEquals($behavior->getFileTransforms(), $testFileTransforms, 'Unable to set file transforms correctly!');
+
+		$defaultFileTransformName = 'test_default_file_transform_name';
+		$this->assertTrue($behavior->setDefaultFileTransformName($defaultFileTransformName), 'Unable to set default file transform name!');
+		$this->assertEquals($defaultFileTransformName, $behavior->getDefaultFileTransformName(), 'Unable to set default file transform name!');
+	}
+
+	/**
+	 * @depends testSetGet
+	 */
+	public function testGetDefaultValueOfDefaultFileTransformName() {
+		$behavior = new QsActiveRecordBehaviorFileTransform();
+
+		// Empty transform options:
+		$behavior->setDefaultFileTransformName('');
+		$expectedDefaultFileTransformName = 'default_file_transform_name_empty_transform_options';
+		$behavior->setFileTransforms(array($expectedDefaultFileTransformName));
+
+		$returnedDefaultFileTransformName = $behavior->getDefaultFileTransformName();
+		$this->assertEquals($expectedDefaultFileTransformName, $returnedDefaultFileTransformName, 'Unable to get default value of default file transform name from empty transform options!');
+
+		// With transform options:
+		$behavior->setDefaultFileTransformName('');
+		$expectedDefaultFileTransformName = 'default_file_transform_name_has_transform_options';
+		$behavior->setFileTransforms(array($expectedDefaultFileTransformName=>array()));
+
+		$returnedDefaultFileTransformName = $behavior->getDefaultFileTransformName();
+		$this->assertEquals($expectedDefaultFileTransformName, $returnedDefaultFileTransformName, 'Unable to get default value of default file transform name with transform options!');
 	}
 
 	/**
@@ -206,37 +242,11 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 	}
 
 	/**
-	 * @depends testCreate
-	 */
-	public function testTransformSetUp() {
-		$behavior = new QsActiveRecordBehaviorFileTransform();
-
-		$testFileTransforms = array(
-			'test' => array(
-				'param_1' => 'value_1',
-				'param_2' => 'value_2',
-			),
-		);
-		$this->assertTrue($behavior->setFileTransforms($testFileTransforms), 'Unable to set file transforms!');
-		$this->assertEquals($behavior->getFileTransforms(), $testFileTransforms, 'Unable to set file transforms correctly!');
-
-		$testFileTransformName = 'test_file_name';
-		$testFileTransform = array(
-			'single_param_1' => 'single_value_1',
-			'single_param_2' => 'single_value_2',
-		);
-		$this->assertTrue($behavior->addFileTransform($testFileTransformName, $testFileTransform), 'Unable to add file transform!');
-		$this->assertEquals($behavior->getFileTransform($testFileTransformName), $testFileTransform, 'Unable to get single file transform!');
-	}
-
-	/**
-	 * @depends testTransformCallbackSetUp
-	 * @depends testTransformSetUp
+	 * @depends testSetGet
 	 */
 	public function testSaveFile() {
 		$activeRecordFinder = $this->getActiveRecordFinder();
 		$fileTransforms = $activeRecordFinder->getFileTransforms();
-		$this->assertFalse( empty($fileTransforms), 'Empty file sizes for the test active record class!');
 
 		$activeRecord = $activeRecordFinder->find(null);
 
@@ -259,9 +269,23 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 	}
 
 	/**
-	 * @depends testTransformCallbackSetUp
+	 * @depends testSaveFile
+	 */
+	public function testSaveFileWithEmptyTransforms() {
+		$activeRecordFinder = $this->getActiveRecordFinder();
+
+		$activeRecord = $activeRecordFinder->find(null);
+		$activeRecord->setFileTransforms(array());
+
+		$testFileName = $this->getTestFileFullName();
+
+		$this->setExpectedException('CException');
+		$activeRecord->saveFile($testFileName);
+	}
+
+	/**
+	 * @depends testSetGet
 	 * @depends testDefaultFileUrlSetUp
-	 * @depends testTransformSetUp
 	 */
 	public function testUseDefaultFileUrl() {
 		$activeRecordModel = $this->getActiveRecordFinder();
@@ -295,5 +319,22 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 			$returnedMainFileWebSrc = $activeRecord->getFileUrl($transformName);
 			$this->assertEquals($returnedMainFileWebSrc, $testDefaultFileWebSrcArray[$transformName], 'Unable to apply default file web src per each transfromation!');
 		}
+	}
+
+	/**
+	 * @depends testSaveFile
+	 * @depends testGetDefaultValueOfDefaultFileTransformName
+	 */
+	public function testUseDefaultFileTransformName() {
+		$activeRecordModel = $this->getActiveRecordFinder();
+		$activeRecord = $activeRecordModel->find(null);
+
+		$testFileName = $this->getTestFileFullName();
+		$activeRecord->saveFile($testFileName);
+
+		$defaultFileTransformName = $activeRecord->getDefaultFileTransformName();
+
+		$this->assertEquals($activeRecord->getFileContent($defaultFileTransformName), $activeRecord->getFileContent(), 'Unable to get file content for default file transform!');
+		$this->assertEquals($activeRecord->getFileUrl($defaultFileTransformName), $activeRecord->getFileUrl(), 'Unable to get file URL for default file transform!');
 	}
 }

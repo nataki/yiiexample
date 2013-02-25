@@ -31,7 +31,7 @@ Yii::import('ext.qs.lib.db.ar.QsActiveRecordBehaviorFileTransform');
  * For example:
  * <code>
  * array(
- *     'original',
+ *     'origin',
  *     'full' => array(800, 600),
  *     'thumbnail' => array(200, 150)
  * );
