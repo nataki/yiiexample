@@ -133,11 +133,8 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	 */
 	public function getFileSelfName($fileTransformName=null, $fileVersion=null, $fileExtension=null) {
 		$owner = $this->getOwner();
-		if (is_null($fileTransformName)) {
-			$fileNamePrefix = '';
-		} else {
-			$fileNamePrefix = '_'.$fileTransformName;
-		}
+		$fileTransformName = $this->fetchFileTransformName($fileTransformName);
+		$fileNamePrefix = '_'.$fileTransformName;
 		if (is_null($fileVersion)) {
 			$fileVersion = $this->getFileVersionCurrent();
 		}
@@ -156,7 +153,6 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 	 * @return string file full name.
 	 */
 	public function getFileFullName($fileTransformName=null, $fileVersion=null, $fileExtension=null) {
-		$fileTransformName = $this->fetchFileTransformName($fileTransformName);
 		$fileName = $this->getFileSelfName($fileTransformName, $fileVersion,$fileExtension);
 		$subDir = $this->getActualSubDir();
 		if (!empty($subDir)) {

@@ -334,6 +334,8 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 
 		$defaultFileTransformName = $activeRecord->getDefaultFileTransformName();
 
+		$this->assertEquals($activeRecord->getFileSelfName($defaultFileTransformName), $activeRecord->getFileSelfName(), 'Unable to get file self name for default file transform!');
+		$this->assertEquals($activeRecord->getFileFullName($defaultFileTransformName), $activeRecord->getFileFullName(), 'Unable to get file full name for default file transform!');
 		$this->assertEquals($activeRecord->getFileContent($defaultFileTransformName), $activeRecord->getFileContent(), 'Unable to get file content for default file transform!');
 		$this->assertEquals($activeRecord->getFileUrl($defaultFileTransformName), $activeRecord->getFileUrl(), 'Unable to get file URL for default file transform!');
 	}
