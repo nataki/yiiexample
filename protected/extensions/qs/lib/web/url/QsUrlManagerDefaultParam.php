@@ -20,18 +20,18 @@
  * <code>
  * array(
  *     ...
- *     'components'=>array(
- *         'urlManager'=>array(
- *              'class'=>'ext.qs.lib.web.url.UrlManagerDefaultParam',
- *              'defaultParamName'=>'lang',
- *              'urlFormat'=>'path',
- *              'showScriptName'=>false,
- *              'rules'=>array(
- *                  '<lang:\w+>'=>'site/index',
- *                  '<lang:\w+>/<controller:\w+>/<id:\d+>*'=>'<controller>/view',
- *                  '<lang:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>*'=>'<controller>/<action>',
- *                  '<lang:\w+>/<controller:\w+>'=>'<controller>/index',
- *                  '<lang:\w+>/<controller:\w+>/<action:\w+>*'=>'<controller>/<action>',
+ *     'components' => array(
+ *         'urlManager' => array(
+ *              'class' => 'ext.qs.lib.web.url.UrlManagerDefaultParam',
+ *              'defaultParamName' => 'lang',
+ *              'urlFormat' => 'path',
+ *              'showScriptName' => false,
+ *              'rules' => array(
+ *                  '<lang:\w+>' => 'site/index',
+ *                  '<lang:\w+>/<controller:\w+>/<id:\d+>*' => '<controller>/view',
+ *                  '<lang:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>*' => '<controller>/<action>',
+ *                  '<lang:\w+>/<controller:\w+>' => '<controller>/index',
+ *                  '<lang:\w+>/<controller:\w+>/<action:\w+>*' => '<controller>/<action>',
  *              ),
  *         )
  *     )
@@ -44,7 +44,7 @@
  * $languageCode = $_GET['lang'];
  * if (empty($languageCode)) {
  *     $_GET['lang'] = 'en';
- *     Yii::app()->urlManager->redirect( Yii::app()->controller->getRoute(), $_GET );
+ *     Yii::app()->urlManager->redirect(Yii::app()->controller->getRoute(), $_GET);
  * }
  * </code>
  *
@@ -109,7 +109,7 @@ class QsUrlManagerDefaultParam extends CUrlManager {
 	 * @param string $ampersand the token separating name-value pairs in the URL. Defaults to '&'.
 	 * @return string the constructed URL
 	 */
-	public function createUrl($route,$params=array(),$ampersand='&') {
+	public function createUrl($route, $params=array(), $ampersand='&') {
 		if (!is_array($params)) {
 			$params = array();
 		}
@@ -120,12 +120,12 @@ class QsUrlManagerDefaultParam extends CUrlManager {
 			$defaultParams[$defaultParamName] = $params[$defaultParamName];
 			unset($params[$defaultParamName]);
 		} else {
-			if ( array_key_exists($defaultParamName, $_GET) ) {
+			if (array_key_exists($defaultParamName, $_GET)) {
 				$defaultParams[$defaultParamName] = $_GET[$defaultParamName];
 			}
 		}
 
-		if ( $this->getIsDefaultParamPrependRoute() ) {
+		if ($this->getIsDefaultParamPrependRoute()) {
 			if ($this->getIsDefaultParamNameDisplay()) {
 				$routeLead = $this->createPathInfo($defaultParams, '/', '/');
 			} else {

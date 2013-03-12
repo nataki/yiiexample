@@ -16,6 +16,34 @@
  * Note: to avoid any problems make sure all buckets from all storages have
  * unique name.
  *
+ * Configuration example:
+ * <code>
+ * 'fileStorage' => array(
+ *     'class' => 'QsFileStorageHub',
+ *     'storages' => array(
+ *         array(
+ *             'class' => 'QsFileStorageFileSystem',
+ *             ...
+ *             'buckets' => array(
+ *                 'fileSystemBucket' => array(...),
+ *             ),
+ *         ),
+ *         array(
+ *             'class' => 'FileStorageFtp',
+ *             ...
+ *             'buckets' => array(
+ *                 'ftpBucket' => array(...),
+ *             ),
+ *         ),
+ *     )
+ * )
+ * </code>
+ * Usage example:
+ * <code>
+ * $fileSystemBucket = Yii::app()->fileStorage->getBucket('fileSystemBucket');
+ * $ftpBucket = Yii::app()->fileStorage->getBucket('ftpBucket');
+ * </code>
+ *
  * @property IQsFileStorage[] $storages public alias of {@link _storages}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
@@ -44,7 +72,7 @@ class QsFileStorageHub extends CApplicationComponent implements IQsFileStorage {
 	public function setStorages(array $storages) {
 		$this->_storages = array();
 		foreach ($storages as $storageKey => $storageValue) {
-			if ( is_numeric($storageKey) && is_string($storageValue) ) {
+			if (is_numeric($storageKey) && is_string($storageValue)) {
 				$storageName = $storageValue;
 				$storageData = array();
 			} else {
@@ -120,7 +148,7 @@ class QsFileStorageHub extends CApplicationComponent implements IQsFileStorage {
 	 */
 	protected function getDefaultStorage() {
 		$storagesList = $this->_storages;
-		$defaultStorageName = array_shift( array_keys($storagesList) );
+		$defaultStorageName = array_shift(array_keys($storagesList));
 		if (empty($defaultStorageName)) {
 			throw new CException('Unable to determine default storage in the hub!');
 		}

@@ -58,9 +58,9 @@ abstract class QsActionAdminInternalDbTransaction extends QsActionAdminBase {
 	 * @param CController $controller the controller who owns this action.
 	 * @param string $id id of the action.
 	 */
-	public function __construct($controller,$id) {
-		parent::__construct($controller,$id);
-		$this->attachBehavior('internalDbTransactionBehavior',$this->createInternalDbTransactionBehaviorConfig());
+	public function __construct($controller, $id) {
+		parent::__construct($controller, $id);
+		$this->attachBehavior('internalDbTransactionBehavior', $this->createInternalDbTransactionBehaviorConfig());
 	}
 
 	/**

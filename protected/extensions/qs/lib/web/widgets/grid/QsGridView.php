@@ -18,19 +18,19 @@ Yii::import('zii.widgets.grid.CGridView');
  * For example:
  * <code>
  * $this->widget('ext.qs.lib.web.widgets.grid.QsGridView', array(
- *     'id'=>'record-grid',
- *       'dataProvider'=>$model->dataProviderAdmin(),
- *       'groupProcesses'=>array(
+ *     'id' => 'record-grid',
+ *       'dataProvider' => $model->dataProviderAdmin(),
+ *       'groupProcesses' => array(
  *         'delete' => 'Delete'
  *     ),
- *     'columns'=>array(
+ *     'columns' => array(
  *         array(
- *             'class'=>'CCheckBoxColumn',
- *             'id'=>'row_keys',
- *             'selectableRows'=>2,
+ *             'class' => 'CCheckBoxColumn',
+ *             'id' => 'row_keys',
+ *             'selectableRows' => 2,
  *         ),
  *         array(
- *             'class'=>'CButtonColumn'
+ *             'class' => 'CButtonColumn'
  *         ),
  *         'id',
  *         'name',
@@ -135,7 +135,7 @@ class QsGridView extends CGridView {
 	 */
 	protected function renderFormStart() {
 		if (!empty($this->_groupProcesses)) {
-			echo CHtml::beginForm($this->getFormAction(),'post',array('enctype'=>'multipart/form-data'));
+			echo CHtml::beginForm($this->getFormAction(), 'post', array('enctype'=>'multipart/form-data'));
 		}
 	}
 
@@ -188,7 +188,7 @@ class QsGridView extends CGridView {
 
 		echo '<li>';
 		$dropDownData = array(
-			''=>'',
+			'' => '',
 		);
 		$dropDownData = array_merge($dropDownData, $this->_groupProcesses);
 		echo CHtml::dropDownList($this->groupProcessInputName, null, $dropDownData);
@@ -197,9 +197,9 @@ class QsGridView extends CGridView {
 		echo '<li>';
 		$submitHtmlOptions = array(
 			'class' => 'button',
-			'onclick'=>"return confirm('Are you sure you wish to perform this action?');"
+			'onclick' => "return confirm('Are you sure you wish to perform this action?');"
 		);
-		echo CHtml::submitButton('Perform',$submitHtmlOptions);
+		echo CHtml::submitButton('Perform', $submitHtmlOptions);
 		echo '</li>';
 
 		echo '</ul>';

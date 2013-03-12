@@ -18,13 +18,13 @@ Yii::import('zii.widgets.grid.CDataColumn');
  * Example:
  * <code>
  * $this->widget('zii.widgets.grid.CGridView', array(
- * ...
- * 'columns'=>array(
- *     array(
- *         'class'=>'ext.qs.lib.web.widgets.grid.QsGridColumnSwitchPosition',
- *         'name'=>'position'
+ *     ...
+ *     'columns' => array(
+ *         array(
+ *             'class' => 'ext.qs.lib.web.widgets.grid.QsGridColumnSwitchPosition',
+ *             'name' => 'position'
+ *         ),
  *     ),
- * ),
  * ));
  * </code>
  *
@@ -91,7 +91,7 @@ class QsGridColumnSwitchPosition extends CDataColumn {
 	 */
 	public function init() {
 		parent::init();
-		if ( !array_key_exists('style',$this->htmlOptions) && !array_key_exists('class',$this->htmlOptions) ) {
+		if (!array_key_exists('style', $this->htmlOptions) && !array_key_exists('class', $this->htmlOptions)) {
 			$this->htmlOptions['style'] = 'text-align:center';
 		}
 	}
@@ -112,13 +112,13 @@ class QsGridColumnSwitchPosition extends CDataColumn {
 	 * @param integer $row the row number (zero-based)
 	 * @param mixed $data the data associated with the row
 	 */
-	protected function renderSwitchPositionLink($direction,$row,$data) {
+	protected function renderSwitchPositionLink($direction, $row, $data) {
 		$assetsUrl = $this->getAssetsUrl();
 		$text = CHtml::image($assetsUrl."/{$direction}.png", $direction);
 
 		$directionUrlFieldName = $direction.'Url';
 		$rawUrl = $this->$directionUrlFieldName;
-		$url = $rawUrl!==null ? $this->evaluateExpression($rawUrl,array('data'=>$data,'row'=>$row)) : '#';
+		$url = $rawUrl!==null ? $this->evaluateExpression($rawUrl, array('data'=>$data, 'row'=>$row)) : '#';
 
 		$link = CHtml::link($text,$url);
 		echo $link;
@@ -130,8 +130,8 @@ class QsGridColumnSwitchPosition extends CDataColumn {
 	 * @param integer $row the row number (zero-based)
 	 * @param mixed $data the data associated with the row
 	 */
-	protected function renderValue($row,$data) {
-		parent::renderDataCellContent($row,$data);
+	protected function renderValue($row, $data) {
+		parent::renderDataCellContent($row, $data);
 	}
 
 	/**
@@ -140,11 +140,11 @@ class QsGridColumnSwitchPosition extends CDataColumn {
 	 * @param integer $row the row number (zero-based)
 	 * @param mixed $data the data associated with the row
 	 */
-	protected function renderDataCellContent($row,$data) {
+	protected function renderDataCellContent($row, $data) {
 		$tr = array();
 		ob_start();
 
-		$this->renderValue($row,$data);
+		$this->renderValue($row, $data);
 		$tr['{value}'] = ob_get_contents();
 		ob_clean();
 
@@ -155,11 +155,11 @@ class QsGridColumnSwitchPosition extends CDataColumn {
 			'last',
 		);
 		foreach ($directions as $direction) {
-			$this->renderSwitchPositionLink($direction,$row,$data);
+			$this->renderSwitchPositionLink($direction, $row, $data);
 			$tr['{'.$direction.'}'] = ob_get_contents();
 			ob_clean();
 		}
 		ob_end_clean();
-		echo strtr($this->template,$tr);
+		echo strtr($this->template, $tr);
 	}
 }

@@ -14,7 +14,7 @@
  * You should specify the label and content for the drop down box.
  * For example:
  * <code>
- * $this->widget('ext.qs.lib.web.widgets.QsDropDownBox',array(
+ * $this->widget('ext.qs.lib.web.widgets.QsDropDownBox', array(
  *     'label' => 'Click Me',
  *     'content' => 'Drop down content',
  * ));
@@ -23,16 +23,16 @@
  * widget will be used to create a drop down box content.
  * For example:
  * <code>
- * $this->widget('ext.qs.lib.web.widgets.QsDropDownBox',array(
- *     'label'=>'Click Me',
- *     'items'=>array(
+ * $this->widget('ext.qs.lib.web.widgets.QsDropDownBox', array(
+ *     'label' => 'Click Me',
+ *     'items' => array(
  *         array(
- *             'label'=>'Index page',
- *             'url'=>array('index'),
+ *             'label' => 'Index page',
+ *             'url' => array('index'),
  *         ),
  *         array(
- *             'label'=>'Edit data',
- *             'url'=>array('edit'),
+ *             'label' => 'Edit data',
+ *             'url' => array('edit'),
  *         ),
  *     ),
  * ));
@@ -159,7 +159,7 @@ class QsDropDownBox extends CWidget {
 		if (!array_key_exists('class', $htmlOptions)) {
 			$htmlOptions['class'] = 'drop-down-box-trigger';
 		}
-		echo CHtml::link($this->label,'#',$htmlOptions);
+		echo CHtml::link($this->label, '#', $htmlOptions);
 	}
 
 	/**
@@ -182,10 +182,10 @@ class QsDropDownBox extends CWidget {
 	protected function renderContainerContent() {
 		if (is_array($this->items)) {
 			$menuOptions = array(
-				'id'=>$this->getId().'_menu',
-				'items'=>$this->items
+				'id' => $this->getId().'_menu',
+				'items' => $this->items
 			);
-			$this->widget('zii.widgets.CMenu',$menuOptions);
+			$this->widget('zii.widgets.CMenu', $menuOptions);
 		} else {
 			echo $this->content;
 		}

@@ -44,11 +44,11 @@ class QsActionAdminUpdate extends QsActionAdminInsert {
 			if ($this->saveModel($model)) {
 				$getParameters = $_GET;
 				unset($getParameters['id']);
-				$controller->redirect( array_merge( array('view','id'=>$model->id), $getParameters ) );
+				$controller->redirect(array_merge(array('view', 'id'=>$model->id), $getParameters));
 			}
 		}
 
-		$controller->render($this->getView(),array(
+		$controller->render($this->getView(), array(
 			'model' => $model,
 		));
 	}

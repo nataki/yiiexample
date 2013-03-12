@@ -56,11 +56,11 @@ class QsActionAdminInsert extends QsActionAdminInternalDbTransaction {
 			$model->attributes = $_POST[$modelClassName];
 			if ($this->saveModel($model)) {
 				$getParameters = $_GET;
-				$controller->redirect( array_merge( array('view','id'=>$model->id), $getParameters ) );
+				$controller->redirect(array_merge(array('view', 'id'=>$model->id), $getParameters));
 			}
 		}
 
-		$controller->render($this->getView(),array(
+		$controller->render($this->getView(), array(
 			'model' => $model,
 		));
 	}
@@ -72,7 +72,7 @@ class QsActionAdminInsert extends QsActionAdminInternalDbTransaction {
 	 * @param boolean $runValidation indicates if model validation should be run.
 	 * @return boolean indicates if saving was successful.
 	 */
-	protected function saveModel(CModel $model,$runValidation=true) {
+	protected function saveModel(CModel $model, $runValidation=true) {
 		try {
 			$this->beginInternalDbTransaction();
 			$result = $model->save($runValidation);

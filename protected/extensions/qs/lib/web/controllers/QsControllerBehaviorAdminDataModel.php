@@ -89,10 +89,10 @@ class QsControllerBehaviorAdminDataModel extends CBehavior {
 	 */
 	public function loadModel($pk) {
 		$modelClassName = $this->getModelClassName();
-		$modelFinder = call_user_func( array($modelClassName, 'model') );
+		$modelFinder = call_user_func(array($modelClassName, 'model'));
 		$model = $modelFinder->findByPk($pk);
 		if ($model===null) {
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404, 'The requested page does not exist.');
 		}
 		return $model;
 	}

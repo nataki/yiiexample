@@ -66,9 +66,9 @@ class ImageTranslationFilter extends CModel {
 	public $height;
 
 	public function __set($name,$value) {
-		if ( in_array($name, $this->existAttributeNames()) ) {
+		if (in_array($name, $this->existAttributeNames())) {
 			$language = str_replace('exist_', '', $name);
-			if ( in_array($language, $this->getLanguages()) ) {
+			if (in_array($language, $this->getLanguages())) {
 				$this->_existences[$language] = $value;
 			} else {
 				parent::__set($name,$value);
@@ -79,9 +79,9 @@ class ImageTranslationFilter extends CModel {
 	}
 
 	public function __get($name) {
-		if ( in_array($name, $this->existAttributeNames()) ) {
+		if (in_array($name, $this->existAttributeNames())) {
 			$language = str_replace('exist_', '', $name);
-			if ( in_array($language, $this->getLanguages()) ) {
+			if (in_array($language, $this->getLanguages())) {
 				return array_key_exists($language,$this->_existences) ? $this->_existences[$language] : null;
 			} else {
 				return parent::__get($name);
@@ -128,14 +128,12 @@ class ImageTranslationFilter extends CModel {
 	 */
 	protected function initLanguages() {
 		$languages = array();
-
 		$languageManager = $this->getImageTranslationModule()->getComponent('languageManager');
 		$languageModels = $languageManager->getLanguages();
 		foreach ($languageModels as $languageModel) {
 			$languages[] = $languageModel->locale_code;
 		}
 		$this->_languages = $languages;
-
 		return true;
 	}
 
@@ -165,7 +163,7 @@ class ImageTranslationFilter extends CModel {
 			'width',
 			'height',
 		);
-		$attributeNames = array_merge( $attributeNames, $this->existAttributeNames() );
+		$attributeNames = array_merge($attributeNames, $this->existAttributeNames());
 		return $attributeNames;
 	}
 
@@ -188,7 +186,7 @@ class ImageTranslationFilter extends CModel {
 	 */
 	public function rules() {
 		return array(
-			array( implode( ',', $this->attributeNames() ), 'safe' ),
+			array(implode(',', $this->attributeNames()), 'safe'),
 		);
 	}
 
@@ -212,12 +210,12 @@ class ImageTranslationFilter extends CModel {
 				return false;
 			}
 		}
-		if ( !empty($this->width) && is_numeric($this->width) ) {
+		if (!empty($this->width) && is_numeric($this->width)) {
 			if ($model->width != $this->width) {
 				return false;
 			}
 		}
-		if ( !empty($this->height) && is_numeric($this->height) ) {
+		if (!empty($this->height) && is_numeric($this->height)) {
 			if ($model->height != $this->height) {
 				return false;
 			}

@@ -33,8 +33,8 @@ class QsActionAdminView extends QsActionAdminBase {
 	public function run($id) {
 		$controller = $this->getController();
 		$model = $controller->loadModel($id);
-		$controller->render($this->getView(),array(
-			'model'=>$model,
+		$controller->render($this->getView(), array(
+			'model' => $model,
 		));
 	}
 }

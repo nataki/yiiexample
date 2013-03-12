@@ -34,7 +34,7 @@ class QsApplicationBehaviorInitFromParamTest extends CTestCase {
 	
 	public function testCreate() {
 		$behavior = new QsApplicationBehaviorInitFromParam();
-		$this->assertTrue( is_object($behavior), 'Unable to create "QsApplicationBehaviorInitFromParam" instance!' );
+		$this->assertTrue(is_object($behavior), 'Unable to create "QsApplicationBehaviorInitFromParam" instance!');
 	}
 
 	/**
@@ -47,8 +47,8 @@ class QsApplicationBehaviorInitFromParamTest extends CTestCase {
 			'test_property_name_1' => 'test_param_name_1',
 			'test_property_name_2' => 'test_param_name_2',
 		);
-		$this->assertTrue( $behavior->setPropertyParamNames($testPropertyParamNames), 'Unable to set property param names!' );
-		$this->assertEquals( $behavior->getPropertyParamNames(), $testPropertyParamNames, 'Unable to set property param names correctly!' );
+		$this->assertTrue($behavior->setPropertyParamNames($testPropertyParamNames), 'Unable to set property param names!');
+		$this->assertEquals($behavior->getPropertyParamNames(), $testPropertyParamNames, 'Unable to set property param names correctly!');
 	}
 
 	/**
@@ -74,7 +74,7 @@ class QsApplicationBehaviorInitFromParamTest extends CTestCase {
 		$testEvent = new CEvent(Yii::app());
 		$behavior->beginRequest($testEvent);
 
-		$this->assertEquals( Yii::app()->name, $testApplicationName, 'Unable to set up application name from params!' );
-		$this->assertEquals( Yii::app()->charset, $testApplicationCharset, 'Unable to set up application charset from params!' );
+		$this->assertEquals(Yii::app()->name, $testApplicationName, 'Unable to set up application name from params!');
+		$this->assertEquals(Yii::app()->charset, $testApplicationCharset, 'Unable to set up application charset from params!');
 	}
 }

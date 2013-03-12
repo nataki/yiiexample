@@ -41,10 +41,10 @@ class QsActionAdminList extends QsActionAdminBase {
 		$viewData = array(
 			'model' => $model,
 		);
-		if ( Yii::app()->getRequest()->getIsAjaxRequest() ) {
-			$controller->renderPartial($this->getView(),$viewData);
+		if (Yii::app()->getRequest()->getIsAjaxRequest()) {
+			$controller->renderPartial($this->getView(), $viewData);
 		} else {
-			$controller->render($this->getView(),$viewData);
+			$controller->render($this->getView(), $viewData);
 		}
 	}
 }

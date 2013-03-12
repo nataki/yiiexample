@@ -45,7 +45,7 @@ class QsTranslationLanguageManager extends CApplicationComponent {
 	protected $_languages = null;
 
 	// Set / Get :
-	
+
 	public function setLanguageModelClassName($languageModelClassName) {
 		if (!is_string($languageModelClassName)) {
 			throw new CException('"'.get_class($this).'::languageModelClassName" should be a string!');
@@ -84,8 +84,8 @@ class QsTranslationLanguageManager extends CApplicationComponent {
 	 * @return boolean success.
 	 */
 	protected function initLanguages() {
-		$languageFinder = CActiveRecord::model( $this->getLanguageModelClassName() );
-		$languages = $languageFinder->findAll( $this->getLanguageModelSearchCriteria() );
+		$languageFinder = CActiveRecord::model($this->getLanguageModelClassName());
+		$languages = $languageFinder->findAll($this->getLanguageModelSearchCriteria());
 		$this->_languages = $languages;
 		return true;
 	}

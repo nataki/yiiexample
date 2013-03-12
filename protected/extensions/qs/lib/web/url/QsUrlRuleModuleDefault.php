@@ -15,12 +15,12 @@ Yii::import('ext.qs.lib.web.url.QsUrlRulePostponeInit');
  * application modules at once.
  * Applying of this rule is equal to following set of common rules:
  * <code>
- * 'mymodule1'=>'mymodule1',
- * 'mymodule1/<controller:\w+>'=>'mymodule1/<controller>',
- * 'mymodule1/<controller:\w+>/<action:\w+>*'=>'mymodule1/<controller>/<action>',
- * 'mymodule2'=>'mymodule2',
- * 'mymodule2/<controller:\w+>'=>'mymodule2/<controller>',
- * 'mymodule2/<controller:\w+>/<action:\w+>*'=>'mymodule2/<controller>/<action>',
+ * 'mymodule1' => 'mymodule1',
+ * 'mymodule1/<controller:\w+>' => 'mymodule1/<controller>',
+ * 'mymodule1/<controller:\w+>/<action:\w+>*' => 'mymodule1/<controller>/<action>',
+ * 'mymodule2' => 'mymodule2',
+ * 'mymodule2/<controller:\w+>' => 'mymodule2/<controller>',
+ * 'mymodule2/<controller:\w+>/<action:\w+>*' => 'mymodule2/<controller>/<action>',
  * ...
  * </code>
  *
@@ -28,21 +28,21 @@ Yii::import('ext.qs.lib.web.url.QsUrlRulePostponeInit');
  *
  * Example URl manager config:
  * <code>
- * 'components'=>array(
+ * 'components' => array(
  *     ...
- *     'urlManager'=>array(
- *         'urlFormat'=>'path',
- *         'showScriptName'=>false,
- *         'rules'=>array(
- *             '/'=>'site/index',
+ *     'urlManager' => array(
+ *         'urlFormat' => 'path',
+ *         'showScriptName' =>false,
+ *         'rules' => array(
+ *             '/' => 'site/index',
  *             array(
- *                 'class'=>'ext.qs.lib.url.QsUrlRuleModuleDefault',
+ *                 'class' => 'ext.qs.lib.url.QsUrlRuleModuleDefault',
  *             ),
- *             '<controller:\w+>/<id:\d+>*'=>'<controller>/view',
- *             '<controller:\w+>/<action:\w+>/<id:\d+>*'=>'<controller>/<action>',
- *             '<controller:\w+>/<action:\w+>*'=>'<controller>/<action>',
+ *             '<controller:\w+>/<id:\d+>*' => '<controller>/view',
+ *             '<controller:\w+>/<action:\w+>/<id:\d+>*' => '<controller>/<action>',
+ *             '<controller:\w+>/<action:\w+>*' => '<controller>/<action>',
  *         ),
- *     )
+ *     ),
  * ),
  * </code>
  * Remember: you can always append your own URL rule for more specific actions of the module.
@@ -73,9 +73,8 @@ class QsUrlRuleModuleDefault extends QsUrlRulePostponeInit {
 	 * @param string $ampersand the token separating name-value pairs in the URL.
 	 * @return mixed the constructed URL. False if this rule does not apply.
 	 */
-	public function createUrl($manager,$route,$params,$ampersand) {
+	public function createUrl($manager, $route, $params, $ampersand) {
 		$this->initOnce();
-
 		if (!empty($route)) {
 			$routeParts = explode('/', $route);
 			$moduleName = array_shift($routeParts);
@@ -92,7 +91,7 @@ class QsUrlRuleModuleDefault extends QsUrlRulePostponeInit {
 						$route .= '/'.$defaultActionName;
 					}
 				}
-				return parent::createUrl($manager,$route,$params,$ampersand);
+				return parent::createUrl($manager, $route, $params, $ampersand);
 			}
 		}
 		return false;
@@ -106,15 +105,13 @@ class QsUrlRuleModuleDefault extends QsUrlRulePostponeInit {
 	 * @param string $rawPathInfo path info that contains the potential URL suffix
 	 * @return mixed the route that consists of the controller ID and action ID. False if this rule does not apply.
 	 */
-	public function parseUrl($manager,$request,$pathInfo,$rawPathInfo) {
+	public function parseUrl($manager, $request, $pathInfo, $rawPathInfo) {
 		$this->initOnce();
-
 		$getBackup = $_GET;
 		$requestBackup = $_REQUEST;
-
-		$route = parent::parseUrl($manager,$request,$pathInfo,$rawPathInfo);
+		$route = parent::parseUrl($manager, $request, $pathInfo, $rawPathInfo);
 		if ($route!==false) {
-			$routeParts = explode('/',$route);
+			$routeParts = explode('/', $route);
 			list($moduleName) = $routeParts;
 			if (!Yii::app()->hasModule($moduleName)) {
 				$_GET = $getBackup;

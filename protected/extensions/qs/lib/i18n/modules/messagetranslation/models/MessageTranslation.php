@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  * MessageTranslation class file.
  *
@@ -255,7 +255,6 @@ class MessageTranslation extends CModel {
 	 */
 	public function dataProvider($filter=null) {
 		$rawData = $this->findAll($filter);
-
 		$sortAttributes = array(
 			'name',
 			'category_name',
@@ -266,7 +265,6 @@ class MessageTranslation extends CModel {
 		foreach ($languageManager->getLanguages() as $language) {
 			$sortAttributes[] = 'content_'.$language->locale_code;
 		}
-
 		$options = array(
 			'id' => get_class($this),
 			'keyField' => 'name',

@@ -16,9 +16,9 @@
  * <code>
  * class MyComponent extends CApplicationComponent {
  *     public $behaviors = array(
- *         'dataCacheBehavior'=>array(
- *             'class'=>'ext.qs.lib.caching.QsBehaviorDataCache',
- *             'cacheDuration'=>3600
+ *         'dataCacheBehavior' => array(
+ *             'class' => 'ext.qs.lib.caching.QsBehaviorDataCache',
+ *             'cacheDuration' => 3600
  *         )
  *     );
  *     ...
@@ -83,7 +83,7 @@ class QsBehaviorDataCache extends CBehavior {
 	 * @return boolean success.
 	 */
 	public function setDataToCache($cacheId, $data) {
-		if ( Yii::app()->hasComponent('cache') && $this->getCacheDuration()>=0 ) {
+		if (Yii::app()->hasComponent('cache') && $this->getCacheDuration()>=0) {
 			$cacheId = $this->normalizeCacheId($cacheId);
 			return Yii::app()->cache->set($cacheId, $data, $this->getCacheDuration());
 		}
@@ -96,7 +96,7 @@ class QsBehaviorDataCache extends CBehavior {
 	 * @return mixed restored data, false if the value is not in the cache or expired.
 	 */
 	public function getDataFromCache($cacheId) {
-		if ( Yii::app()->hasComponent('cache') && $this->getCacheDuration()>=0 ) {
+		if (Yii::app()->hasComponent('cache') && $this->getCacheDuration()>=0) {
 			$cacheId = $this->normalizeCacheId($cacheId);
 			return Yii::app()->cache->get($cacheId);
 		}
@@ -126,7 +126,7 @@ class QsBehaviorDataCache extends CBehavior {
 	 * @return boolean if no error happens during deletion
 	 */
 	public function deleteDataCache($cacheId) {
-		if ( Yii::app()->hasComponent('cache') && $this->getCacheDuration()>=0 ) {
+		if (Yii::app()->hasComponent('cache') && $this->getCacheDuration()>=0) {
 			$cacheId = $this->normalizeCacheId($cacheId);
 			return Yii::app()->cache->delete($cacheId);
 		}

@@ -107,10 +107,10 @@ class DefaultController extends QsControllerTranslationBase {
 			$model->language = $language;
 		}
 
-		if ( array_key_exists( get_class($model), $_POST ) ) {
+		if (array_key_exists(get_class($model), $_POST)) {
 			$model->attributes = $_POST[get_class($model)];
 			if ($model->save()) {
-				$this->redirect( array('view','name'=>urlencode($model->name)) );
+				$this->redirect(array('view','name'=>urlencode($model->name)));
 			}
 		}
 

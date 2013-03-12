@@ -192,7 +192,7 @@ class QsCsvFile extends CComponent {
 	 * @return boolean limit is reached.
 	 */
 	public function isMaxEntriesLimitReached() {
-		return ( $this->maxEntriesCount > 0 && $this->_entriesCount >= $this->maxEntriesCount );
+		return ($this->maxEntriesCount > 0 && $this->_entriesCount >= $this->maxEntriesCount);
 	}
 
 	/**
@@ -234,7 +234,7 @@ class QsCsvFile extends CComponent {
 			@mkdir($path, $dirPermission, true);
 			umask($oldUmask);
 		}
-		if ( !file_exists($path) || !is_dir($path) ) {
+		if (!file_exists($path) || !is_dir($path)) {
 			throw new CException("Unable to resolve path: '{$path}'!");
 		} elseif (!is_writable($path)) {
 			throw new CException("Path: '{$path}' should be writeable!");
@@ -249,7 +249,7 @@ class QsCsvFile extends CComponent {
 	 */
 	public function open() {
 		if ($this->_fileHandler===null) {
-			$this->resolvePath( dirname($this->getFullFileName()) );
+			$this->resolvePath(dirname($this->getFullFileName()));
 			$this->_fileHandler = fopen($this->getFullFileName(), 'w+');
 			if ($this->_fileHandler===false) {
 				throw new CException('Unable to create/open file "'.$this->getFullFileName().'".');
@@ -367,7 +367,7 @@ class QsCsvFile extends CComponent {
 	 * @return string CSV format row
 	 */
 	protected function composeRowContent(array $rowData) {
-		$securedRowData = array_map( array($this,'secureValue'), $rowData );
+		$securedRowData = array_map(array($this,'secureValue'), $rowData);
 		if ($this->_entriesCount>0) {
 			$rowContent = $this->rowDelimiter;
 		} else {
@@ -385,10 +385,10 @@ class QsCsvFile extends CComponent {
 	protected function writeColumnHeaders(array $rowData) {
 		$result = 0;
 		$columnHeaders = $this->getColumnHeaders();
-		if ( empty($columnHeaders) && $this->autoComposeColumnHeaders ) {
+		if (empty($columnHeaders) && $this->autoComposeColumnHeaders) {
 			$columnHeaders = array_keys($rowData);
 		}
-		if ( !empty($columnHeaders) ) {
+		if (!empty($columnHeaders)) {
 			$content = $this->composeRowContent($columnHeaders);
 			$result += $this->writeContent($content);
 		}

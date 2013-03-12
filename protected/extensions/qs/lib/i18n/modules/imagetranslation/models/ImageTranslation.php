@@ -70,7 +70,7 @@ class ImageTranslation extends CModel {
 	 * @return ImageTranslation image translation model finder.
 	 */
 	public static function model($className=__CLASS__) {
-		if ( array_key_exists($className, self::$_models) ) {
+		if (array_key_exists($className, self::$_models)) {
 			return self::$_models[$className];
 		} else {
 			$model = self::$_models[$className] = new $className(null);
@@ -242,9 +242,9 @@ class ImageTranslation extends CModel {
 		if (is_object($file)) {
 			$fileName = $file->getTempName();
 			@list($imageWidth, $imageHeight) = getimagesize($fileName, $imageInfo);
-			if ( empty($imageWidth) || empty($imageHeight) ) {
+			if (empty($imageWidth) || empty($imageHeight)) {
 				$this->addError($attribute, "Uploaded file should be an image.");
-			} elseif ( ( $this->width>0 && $this->width!=$imageWidth ) || ($this->height>0 && $this->height!=$imageHeight) ) {
+			} elseif ( ($this->width>0 && $this->width!=$imageWidth) || ($this->height>0 && $this->height!=$imageHeight) ) {
 				$this->addError($attribute, "Uploaded image should be {$this->width}x{$this->height} size.");
 			}
 		}
@@ -321,7 +321,7 @@ class ImageTranslation extends CModel {
 			$filterModel = $this->fetchFilterModel($filter);
 			foreach ($files as $file) {
 				$model = $this->populateModel($file, $filePath);
-				if ( !is_object($filterModel) || $filterModel->checkModelAllowed($model) ) {
+				if (!is_object($filterModel) || $filterModel->checkModelAllowed($model)) {
 					$models[] = $model;
 				}
 			}
@@ -364,9 +364,9 @@ class ImageTranslation extends CModel {
 
 		$fileSelfName = str_replace($fileBasePath.DIRECTORY_SEPARATOR, '', $fileFullName);
 
-		$model->setDefaultBasePath( $this->getDefaultBasePath() );
-		$model->setDefaultBaseUrl( $this->getDefaultBaseUrl() );
-		$model->setMissingImageUrl( $this->getMissingImageUrl() );
+		$model->setDefaultBasePath($this->getDefaultBasePath());
+		$model->setDefaultBaseUrl($this->getDefaultBaseUrl());
+		$model->setMissingImageUrl($this->getMissingImageUrl());
 
 		$model->name = $fileSelfName;
 		$model->language = $this->language;

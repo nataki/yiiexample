@@ -16,23 +16,23 @@ Yii::import('ext.qs.lib.web.url.QsUrlRulePostponeInit');
  * This URL Rule is suitable for the static pages.
  * Example URl manager config: 
  * <code>
- * 'components'=>array(
+ * 'components' => array(
  *     ...
- *     'urlManager'=>array(
- *         'urlFormat'=>'path',
- *         'showScriptName'=>false,
- *         'rules'=>array(
- *             '/'=>'site/index',
+ *     'urlManager' => array(
+ *         'urlFormat' => 'path',
+ *         'showScriptName' => false,
+ *         'rules' => array(
+ *             '/' => 'site/index',
  *             array(
- *                 'class'=>'ext.qs.lib.web.url.QsUrlRuleModelPage',
- *                 'modelClassName'=>'StaticPage',
- *                 'modelUrlKeywordAttributeName'=>'url_keyword',
- *                 'pattern'=>'<model:[\w-]+>',
- *                 'route'=>'page/view',
+ *                 'class' => 'ext.qs.lib.web.url.QsUrlRuleModelPage',
+ *                 'modelClassName' => 'StaticPage',
+ *                 'modelUrlKeywordAttributeName' => 'url_keyword',
+ *                 'pattern' => '<model:[\w-]+>',
+ *                 'route' => 'page/view',
  *             ),
- *             '<controller:\w+>/<id:\d+>*'=>'<controller>/view',
- *             '<controller:\w+>/<action:\w+>/<id:\d+>*'=>'<controller>/<action>',
- *             '<controller:\w+>/<action:\w+>*'=>'<controller>/<action>',
+ *             '<controller:\w+>/<id:\d+>*' => '<controller>/view',
+ *             '<controller:\w+>/<action:\w+>/<id:\d+>*' => '<controller>/<action>',
+ *             '<controller:\w+>/<action:\w+>*' => '<controller>/<action>',
  *         ),
  *     )
  * ),
@@ -154,7 +154,7 @@ class QsUrlRuleModelPage extends QsUrlRulePostponeInit {
 	 * @return void
 	 */
 	protected function afterInitOnce() {
-		if (!array_key_exists($this->getModelGetParamName(),$this->params)) {
+		if (!array_key_exists($this->getModelGetParamName(), $this->params)) {
 			throw new CException('"'.get_class($this).'::pattern" should contain the reference to the page model GET param!');
 		}
 	}
@@ -166,7 +166,7 @@ class QsUrlRuleModelPage extends QsUrlRulePostponeInit {
 	 */
 	protected function findModel($urlKeyword) {
 		$this->initModels();
-		if (array_key_exists($urlKeyword,$this->_models)) {
+		if (array_key_exists($urlKeyword, $this->_models)) {
 			return $this->_models[$urlKeyword];
 		} else {
 			return null;
@@ -209,7 +209,7 @@ class QsUrlRuleModelPage extends QsUrlRulePostponeInit {
 	 * @return mixed cached values.
 	 */
 	protected function getModelsFromCache() {
-		if ( Yii::app()->hasComponent('cache') && $this->getModelCacheDuration()>=0 ) {
+		if (Yii::app()->hasComponent('cache') && $this->getModelCacheDuration()>=0) {
 			$modelFinder = CActiveRecord::model($this->getModelClassName()); // Make sure model class has been loaded.
 			$cacheId = $this->getModelsCacheId();
 			return Yii::app()->cache->get($cacheId);
@@ -219,10 +219,11 @@ class QsUrlRuleModelPage extends QsUrlRulePostponeInit {
 
 	/**
 	 * Set values into the cache.
+	 * @param CModels[] $models list of models.
 	 * @return boolean success.
 	 */
 	protected function setModelsToCache($models) {
-		if ( Yii::app()->hasComponent('cache') && $this->getModelCacheDuration()>=0 ) {
+		if (Yii::app()->hasComponent('cache') && $this->getModelCacheDuration()>=0) {
 			$cacheId = $this->getModelsCacheId();
 			return Yii::app()->cache->set($cacheId, $models, $this->getModelCacheDuration());
 		}
@@ -258,18 +259,17 @@ class QsUrlRuleModelPage extends QsUrlRulePostponeInit {
 	 * @param string $ampersand the token separating name-value pairs in the URL.
 	 * @return mixed the constructed URL. False if this rule does not apply.
 	 */
-	public function createUrl($manager,$route,$params,$ampersand) {
+	public function createUrl($manager, $route, $params, $ampersand) {
 		$this->initOnce();
-
 		$modelGetParamName = $this->getModelGetParamName();
-		if ( !is_array($params) || !array_key_exists($modelGetParamName,$params) ) {
+		if (!is_array($params) || !array_key_exists($modelGetParamName, $params)) {
 			return false;
 		}
 		if (is_object($model = $params[$modelGetParamName])) {
 			$urlKeywordAttributeName = $this->getModelUrlKeywordAttributeName();
 			$params[$modelGetParamName] = $model->$urlKeywordAttributeName;
 		}
-		return parent::createUrl($manager,$route,$params,$ampersand);
+		return parent::createUrl($manager, $route, $params, $ampersand);
 	}
 
 	/**
@@ -280,12 +280,11 @@ class QsUrlRuleModelPage extends QsUrlRulePostponeInit {
 	 * @param string $rawPathInfo path info that contains the potential URL suffix
 	 * @return mixed the route that consists of the controller ID and action ID. False if this rule does not apply.
 	 */
-	public function parseUrl($manager,$request,$pathInfo,$rawPathInfo) {
+	public function parseUrl($manager, $request, $pathInfo, $rawPathInfo) {
 		$this->initOnce();
 		$getBackup = $_GET;
 		$requestBackup = $_REQUEST;
-
-		$route = parent::parseUrl($manager,$request,$pathInfo,$rawPathInfo);
+		$route = parent::parseUrl($manager, $request, $pathInfo, $rawPathInfo);
 		if ($route!==false) {
 			$modelGetParamKey = $this->getModelGetParamName();
 			$model = $this->findModel($_GET[$modelGetParamKey]);

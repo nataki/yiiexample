@@ -25,7 +25,9 @@ abstract class QsActionAdminBase extends CAction {
 	protected $_view = '';
 
 	public function setView($view) {
-		if (!is_string($view)) return false;
+		if (!is_string($view)) {
+			return false;
+		}
 		$this->_view = $view;
 		return true;
 	}
@@ -36,7 +38,7 @@ abstract class QsActionAdminBase extends CAction {
 
 	// Controller access extension:
 
-	public function __set($name,$value) {
+	public function __set($name, $value) {
 		try {
 			parent::__set($name,$value);
 		} catch (CException $selfException) {
@@ -70,13 +72,13 @@ abstract class QsActionAdminBase extends CAction {
 		}
 	}
 
-	public function __call($name,$parameters) {
+	public function __call($name, $parameters) {
 		try {
 			return parent::__call($name,$parameters);
 		} catch (CException $selfException) {
 			$controller = $this->getController();
 			if (is_object($controller)) {
-				return call_user_func_array( array($controller, $name), $parameters);
+				return call_user_func_array(array($controller, $name), $parameters);
 			} else {
 				throw $selfException;
 			}

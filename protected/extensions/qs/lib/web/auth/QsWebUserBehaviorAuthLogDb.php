@@ -124,7 +124,7 @@ class QsWebUserBehaviorAuthLogDb extends CBehavior {
 		$states = array();
 		$webUser = $this->getOwner();
 		$stateNamePrefix = $webUser->getStateKeyPrefix();
-		if ( is_array($_SESSION) ) {
+		if (is_array($_SESSION)) {
 			foreach ($_SESSION as $name => $value) {
 				if (strpos($value, $stateNamePrefix)===0) {
 					$states[$name] = $value;
@@ -154,12 +154,12 @@ class QsWebUserBehaviorAuthLogDb extends CBehavior {
 			$defaultLogData['ip'] = $_SERVER['REMOTE_ADDR'];
 			$defaultLogData['host'] = @gethostbyaddr($_SERVER['REMOTE_ADDR']);
 		}
-		if ( isset($_SERVER['HTTP_HOST']) && isset($_SERVER['REQUEST_URI']) ) {
+		if (isset($_SERVER['HTTP_HOST']) && isset($_SERVER['REQUEST_URI'])) {
 			$defaultLogData['url'] = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		}
 
 		if ($this->allowAuthLogAllStates) {
-			$defaultLogData = array_merge( $defaultLogData, $this->getWebUserStates() );
+			$defaultLogData = array_merge($defaultLogData, $this->getWebUserStates());
 		}
 		return $defaultLogData;
 	}
@@ -171,7 +171,7 @@ class QsWebUserBehaviorAuthLogDb extends CBehavior {
 	 */
 	protected function composeAuthLogData(array $data) {
 		$defaultData = $this->getDefaultAuthLogData();
-		$logData = array_merge( $defaultData, $data );
+		$logData = array_merge($defaultData, $data);
 		return $logData;
 	}
 
@@ -184,7 +184,7 @@ class QsWebUserBehaviorAuthLogDb extends CBehavior {
 		$data = $this->composeAuthLogData($data);
 		$tableSchema = $this->getAuthLogTableSchema();
 		$primaryKeyColumnName = $tableSchema->primaryKey;
-		if ( array_key_exists($primaryKeyColumnName, $data) ) {
+		if (array_key_exists($primaryKeyColumnName, $data)) {
 			unset($data[$primaryKeyColumnName]);
 		}
 		return $this->insertAuthLogData($data);

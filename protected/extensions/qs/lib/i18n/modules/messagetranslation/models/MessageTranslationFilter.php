@@ -58,9 +58,9 @@ class MessageTranslationFilter extends CModel {
 	public $default_content;
 
 	public function __set($name,$value) {
-		if ( in_array($name, $this->contentAttributeNames()) ) {
+		if (in_array($name, $this->contentAttributeNames())) {
 			$language = str_replace('content_', '', $name);
-			if ( in_array($language, $this->getLanguages()) ) {
+			if (in_array($language, $this->getLanguages())) {
 				return $this->setContent($language, $value);
 			} else {
 				return parent::__set($name,$value);
@@ -71,9 +71,9 @@ class MessageTranslationFilter extends CModel {
 	}
 
 	public function __get($name) {
-		if ( in_array($name, $this->contentAttributeNames()) ) {
+		if (in_array($name, $this->contentAttributeNames())) {
 			$language = str_replace('content_', '', $name);
-			if ( in_array($language, $this->getLanguages()) ) {
+			if (in_array($language, $this->getLanguages())) {
 				return $this->getContent($language);
 			} else {
 				return parent::__get($name);
@@ -111,7 +111,7 @@ class MessageTranslationFilter extends CModel {
 	}
 
 	public function getContent($language) {
-		return array_key_exists($language,$this->_contents) ? $this->_contents[$language] : null;
+		return array_key_exists($language, $this->_contents) ? $this->_contents[$language] : null;
 	}
 
 	/**
@@ -120,14 +120,12 @@ class MessageTranslationFilter extends CModel {
 	 */
 	protected function initLanguages() {
 		$languages = array();
-
 		$languageManager = $this->getMessageTranslationModule()->getComponent('languageManager');
 		$languageModels = $languageManager->getLanguages();
 		foreach ($languageModels as $languageModel) {
 			$languages[] = $languageModel->locale_code;
 		}
 		$this->_languages = $languages;
-
 		return true;
 	}
 
@@ -170,7 +168,7 @@ class MessageTranslationFilter extends CModel {
 			'category_name',
 			'default_content',
 		);
-		$attributeNames = array_merge( $attributeNames, $this->contentAttributeNames() );
+		$attributeNames = array_merge($attributeNames, $this->contentAttributeNames());
 		return $attributeNames;
 	}
 
@@ -180,7 +178,7 @@ class MessageTranslationFilter extends CModel {
 	 */
 	public function rules() {
 		return array(
-			array( implode( ',', $this->attributeNames() ), 'safe' ),
+			array(implode(',', $this->attributeNames()), 'safe'),
 		);
 	}
 
@@ -256,7 +254,7 @@ class MessageTranslationFilter extends CModel {
 		foreach ($this->_contents as $language => $content) {
 			$translationContent = $model->getTranslation($language);
 			if (!empty($content)) {
-				if ( empty($translationContent) || strpos($translationContent, $content) === false ) {
+				if (empty($translationContent) || strpos($translationContent, $content) === false) {
 					return false;
 				}
 			}

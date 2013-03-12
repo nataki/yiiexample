@@ -36,11 +36,11 @@ class QsClientScript extends CClientScript {
 	 */
 	public function registerMetaTag($content, $name=null, $httpEquiv=null, $options=array()) {
 		$this->hasScripts = true;
-		if($name !== null) {
-			$options['name']=$name;
+		if ($name !== null) {
+			$options['name'] = $name;
 		}
-		if($httpEquiv !== null) {
-			$options['http-equiv']=$httpEquiv;
+		if ($httpEquiv !== null) {
+			$options['http-equiv'] = $httpEquiv;
 		}
 		$options['content'] = $content;
 		$this->metaTags[] = $options;

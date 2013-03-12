@@ -51,7 +51,7 @@ class QsWebUser extends CWebUser {
 	 * @param CEvent $event the event parameter
 	 */
 	public function onAfterRestore($event) {
-		$this->raiseEvent('onAfterRestore',$event);
+		$this->raiseEvent('onAfterRestore', $event);
 	}
 
 	/**
@@ -67,7 +67,7 @@ class QsWebUser extends CWebUser {
 	 * @return boolean whether the user should be logged in
 	 * @since 1.1.3
 	 */
-	protected function beforeLogin($id,$states,$fromCookie) {
+	protected function beforeLogin($id, $states, $fromCookie) {
 		$allowLogin = true;
 		if ($this->hasEventHandler('onBeforeLogin')) {
 			$eventParams = array(
@@ -76,7 +76,7 @@ class QsWebUser extends CWebUser {
 				'states' => $states,
 				'fromCookie' => $fromCookie
 			);
-			$this->onBeforeLogin( new CEvent($this, $eventParams) );
+			$this->onBeforeLogin(new CEvent($this, $eventParams));
 		}
 		return $allowLogin;
 	}
@@ -86,7 +86,7 @@ class QsWebUser extends CWebUser {
 	 * @param CEvent $event the event parameter
 	 */
 	public function onBeforeLogin($event) {
-		$this->raiseEvent('onBeforeLogin',$event);
+		$this->raiseEvent('onBeforeLogin', $event);
 	}
 
 	/**
@@ -101,7 +101,7 @@ class QsWebUser extends CWebUser {
 			$eventParams = array(
 				'fromCookie' => $fromCookie
 			);
-			$this->onAfterLogin( new CEvent($this, $eventParams) );
+			$this->onAfterLogin(new CEvent($this, $eventParams));
 		}
 	}
 
@@ -110,7 +110,7 @@ class QsWebUser extends CWebUser {
 	 * @param CEvent $event the event parameter
 	 */
 	public function onAfterLogin($event) {
-		$this->raiseEvent('onAfterLogin',$event);
+		$this->raiseEvent('onAfterLogin', $event);
 	}
 
 	/**
@@ -127,7 +127,7 @@ class QsWebUser extends CWebUser {
 			$eventParams = array(
 				'allowLogout' => &$allowLogout
 			);
-			$this->onBeforeLogout( new CEvent($this, $eventParams) );
+			$this->onBeforeLogout(new CEvent($this, $eventParams));
 		}
 		return $allowLogout;
 	}
@@ -137,7 +137,7 @@ class QsWebUser extends CWebUser {
 	 * @param CEvent $event the event parameter
 	 */
 	public function onBeforeLogout($event) {
-		$this->raiseEvent('onBeforeLogout',$event);
+		$this->raiseEvent('onBeforeLogout', $event);
 	}
 
 	/**
@@ -147,7 +147,7 @@ class QsWebUser extends CWebUser {
 	 */
 	protected function afterLogout() {
 		if ($this->hasEventHandler('onAfterLogout')) {
-			$this->onAfterLogout( new CEvent($this) );
+			$this->onAfterLogout(new CEvent($this));
 		}
 	}
 
@@ -156,6 +156,6 @@ class QsWebUser extends CWebUser {
 	 * @param CEvent $event the event parameter
 	 */
 	public function onAfterLogout($event) {
-		$this->raiseEvent('onAfterLogout',$event);
+		$this->raiseEvent('onAfterLogout', $event);
 	}
 }

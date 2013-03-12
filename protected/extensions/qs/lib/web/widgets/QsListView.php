@@ -14,33 +14,41 @@ Yii::import('zii.widgets.CListView');
  * QsListView widget is an extension on the standard Yii widget {@link CListView},
  * which allows to render sorter, summary and entire content based on the view files.
  * Widget usage example:
+ * <code>
  * $this->widget('ext.qs.lib.web.widgets.QsListView', array(
- *    'dataProvider'=>$model->search(),
- *    'contentView'=>'_list',
- *    'itemView'=>'_row',
- *    'summaryView'=>'_summary',
- *    'sorterView'=>'_sorter',
- *    'sortableAttributes'=>array(
- *    'name',
- *    'create_date'=>'Post Date',
- *  )
+ *     'dataProvider' => $model->search(),
+ *     'contentView' => '_list',
+ *     'itemView' => '_row',
+ *     'summaryView' => '_summary',
+ *     'sorterView' => '_sorter',
+ *     'sortableAttributes' => array(
+ *         'name',
+ *         'create_date' => 'Post Date',
+ *     )
+ * ));
+ * </code>
  * 
  * List view file example:
+ * <code>
  * <?php echo $summary; ?>
  * <?php echo $sorter; ?>
  * <?php echo $items; ?>
  * <?php echo $pager; ?>
+ * </code>
  * 
  * Sorter view file example:
+ * <code>
  * <div class="<?php echo $cssClass; ?>">
  * <?php echo $header; ?>
  * <?php foreach ($links as $link) { ?>
- * <li><?php echo $link; ?></li>
+ *     <li><?php echo $link; ?></li>
  * <?php } ?>
  * <?php echo $footer; ?>
  * </div>
+ * </code>
  * 
  * Summary view file example:
+ * <code>
  * <div class="<?php echo $cssClass; ?>">
  *     <?php if ($count <= 0) { ?>
  *     No result(s) to display.
@@ -48,6 +56,7 @@ Yii::import('zii.widgets.CListView');
  *     Displaying <?php if ($start>0) { ?><?php echo $start; ?>-<?php echo $end; ?> of <?php } ?><?php echo $count; ?> result(s).
  *     <?php } ?>
  * </div>
+ * </code>
  * 
  * Set specific view to null in order to use default {@link CListView} functionality for this part.
  *
@@ -60,7 +69,9 @@ class QsListView extends CListView {
 	 * By defaults uses {@link QsLinkPager}.
 	 * @see enablePagination
 	 */
-	public $pager = array('class'=>'ext.qs.lib.web.widgets.QsLinkPager');
+	public $pager = array(
+		'class' => 'ext.qs.lib.web.widgets.QsLinkPager'
+	);
 	/**
 	 * @string name of the view, which should be used to render the main list content.
 	 */
@@ -150,22 +161,22 @@ class QsListView extends CListView {
 		);
 
 		if ($this->enablePagination) {
-			$pagination=$this->dataProvider->getPagination();
-			$total=$this->dataProvider->getTotalItemCount();
-			$start=$pagination->currentPage*$pagination->pageSize+1;
-			$end=$start+$count-1;
+			$pagination = $this->dataProvider->getPagination();
+			$total = $this->dataProvider->getTotalItemCount();
+			$start = $pagination->currentPage*$pagination->pageSize+1;
+			$end = $start + $count - 1;
 
 			if ($end>$total) {
-				$end=$total;
-				$start=$end-$count+1;
+				$end = $total;
+				$start = $end-$count+1;
 			}
 
 			$additionalData = array(
-				'start'=>$start,
-				'end'=>$end,
-				'count'=>$total,
-				'page'=>$pagination->currentPage+1,
-				'pages'=>$pagination->pageCount,
+				'start' => $start,
+				'end' => $end,
+				'count' => $total,
+				'page' => $pagination->currentPage+1,
+				'pages' => $pagination->pageCount,
 			);
 			$data = array_merge($data, $additionalData);
 		} else {
@@ -190,11 +201,11 @@ class QsListView extends CListView {
 		$sort = $this->dataProvider->getSort();
 
 		$links = array();
-		foreach ($this->sortableAttributes as $name=>$label) {
+		foreach ($this->sortableAttributes as $name => $label) {
 			if (is_integer($name)) {
 				$links[] = $sort->link($label);
 			} else {
-				$links[] = $sort->link($name,$label);
+				$links[] = $sort->link($name, $label);
 			}
 		}
 
@@ -219,7 +230,7 @@ class QsListView extends CListView {
 		} else {
 			$emptyText = $this->emptyText===null ? Yii::t('zii','No results found.') : $this->emptyText;
 			$data = array(
-				'emptyText'=>$emptyText
+				'emptyText' => $emptyText
 			);
 			$this->renderByOwner($this->emptyTextView, $data);
 		}

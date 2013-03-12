@@ -20,10 +20,10 @@
  * Application configuration example:
  * <code>
  * array(
- *     'components'=>array(
+ *     'components' => array(
  *         ...
- *         'imageTranslationSource'=>array(
- *             'class'=>'...',
+ *         'imageTranslationSource' => array(
+ *             'class' => '...',
  *         ),
  *         ...
  *     )
@@ -167,7 +167,7 @@ abstract class QsImageTranslationSource extends CApplicationComponent {
 	 * @param string $language the target language. If null (default), the {@link CApplication::getLanguage application language} will be used.
 	 * @return string the translated message (or the original message if translation is not needed)
 	 */
-	public function translate($imageName,$language=null) {
+	public function translate($imageName, $language=null) {
 		if ($language===null) {
 			$language = Yii::app()->getLanguage();
 		}
@@ -184,11 +184,11 @@ abstract class QsImageTranslationSource extends CApplicationComponent {
 	 * @param string $language the target language.
 	 * @return boolean image translation exists.
 	 */
-	public function translationExists($imageName,$language=null) {
+	public function translationExists($imageName, $language=null) {
 		if ($language===null) {
 			$language = Yii::app()->getLanguage();
 		}
-		return $this->imageTranslationExists($imageName,$language);
+		return $this->imageTranslationExists($imageName, $language);
 	}
 
 	/**
@@ -198,11 +198,11 @@ abstract class QsImageTranslationSource extends CApplicationComponent {
 	 * @param string $language the target language.
 	 * @return boolean image translation exists.
 	 */
-	public function saveTranslation($srcFileName,$imageName,$language=null) {
+	public function saveTranslation($srcFileName, $imageName, $language=null) {
 		if ($language===null) {
 			$language = Yii::app()->getLanguage();
 		}
-		return $this->saveImageTranslation($imageName,$language,$srcFileName);
+		return $this->saveImageTranslation($imageName, $language, $srcFileName);
 	}
 
 	/**
@@ -222,7 +222,7 @@ abstract class QsImageTranslationSource extends CApplicationComponent {
 	 * @param string $language the target language
 	 * @return string the translated image URL
 	 */
-	protected function translateImage($imageName,$language) {
+	protected function translateImage($imageName, $language) {
 		$key = $language;
 		if (!array_key_exists($key, $this->_imageUrls)) {
 			$this->_imageUrls[$key] = array();
@@ -230,7 +230,7 @@ abstract class QsImageTranslationSource extends CApplicationComponent {
 		if (array_key_exists($imageName, $this->_imageUrls[$key])) {
 			return $this->_imageUrls[$key][$imageName];
 		} else {
-			if ( !$this->checkTranslationExists || $this->imageTranslationExists($imageName,$language) ) {
+			if (!$this->checkTranslationExists || $this->imageTranslationExists($imageName,$language)) {
 				$imageUrl = $this->loadImageTranslation($imageName,$language);
 				if (!empty($imageUrl)) {
 					$this->_imageUrls[$key][$imageName] = $imageUrl;
@@ -244,7 +244,7 @@ abstract class QsImageTranslationSource extends CApplicationComponent {
 				);
 				$event = new CEvent($this,$eventParams);
 				$this->onMissingTranslation($event);
-				if ( is_array($event->params) && array_key_exists('imageUrl', $event->params) ) {
+				if (is_array($event->params) && array_key_exists('imageUrl', $event->params)) {
 					return $event->params['imageUrl'];
 				}
 			}
@@ -260,7 +260,7 @@ abstract class QsImageTranslationSource extends CApplicationComponent {
 	 * @param CEvent $event the event parameter
 	 */
 	public function onMissingTranslation($event) {
-		$this->raiseEvent('onMissingTranslation',$event);
+		$this->raiseEvent('onMissingTranslation', $event);
 	}
 
 	/**
@@ -269,7 +269,7 @@ abstract class QsImageTranslationSource extends CApplicationComponent {
 	 * @param string $language the target language.
 	 * @return string the target image URL.
 	 */
-	abstract protected function loadImageTranslation($imageName,$language);
+	abstract protected function loadImageTranslation($imageName, $language);
 
 	/**
 	 * Checks if the image translation for the specified language exists.
@@ -277,7 +277,7 @@ abstract class QsImageTranslationSource extends CApplicationComponent {
 	 * @param string $language the target language.
 	 * @return boolean image translation exists.
 	 */
-	abstract protected function imageTranslationExists($imageName,$language);
+	abstract protected function imageTranslationExists($imageName, $language);
 
 	/**
 	 * Checks if the image translation for the specified language exists.
@@ -286,5 +286,5 @@ abstract class QsImageTranslationSource extends CApplicationComponent {
 	 * @param string $srcFileName the source file name.
 	 * @return boolean image translation exists.
 	 */
-	abstract protected function saveImageTranslation($imageName,$language,$srcFileName);
+	abstract protected function saveImageTranslation($imageName, $language, $srcFileName);
 }

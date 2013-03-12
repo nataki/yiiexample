@@ -36,7 +36,7 @@ Yii::import('ext.qs.lib.files.csv.QsCsvFile');
  *           'cellDelimiter' => ";",
  *     )
  * );
- * $dataProvider = new CActiveDataProvider( 'Item', array('pagination'=>array('pageSize'=>100)) );
+ * $dataProvider = new CActiveDataProvider('Item', array('pagination'=>array('pageSize'=>100)));
  * $csvExporter->exportDataProvider($dataProvider);
  * $csvExporter->output();
  * </code>
@@ -144,13 +144,11 @@ class QsCsvExporter extends CComponent {
 						throw $exception;
 					}
 				}
-
 				// Ensure garbage collection:
-				if ( is_object($row) && is_a($row, 'CComponent') ) {
+				if (is_object($row) && is_a($row, 'CComponent')) {
 					$row->detachBehaviors();
 				}
 			}
-
 			$pageNumber++;
 			if ($pageNumber>=$pageCount) {
 				if (is_object($csvFile)) {
@@ -183,7 +181,7 @@ class QsCsvExporter extends CComponent {
 				$archivePath = $exportFileDir;
 				$exportFilesAreAtSameDir = true;
 			} else {
-				if (!strcmp($archivePath,$exportFileDir)===0) {
+				if (!strcmp($archivePath, $exportFileDir)===0) {
 					$exportFilesAreAtSameDir = false;
 					break;
 				}
@@ -191,22 +189,22 @@ class QsCsvExporter extends CComponent {
 		}
 		if ($exportFilesAreAtSameDir) {
 			$filesAtArchivePath = CFileHelper::findFiles($archivePath);
-			if ( count($filesAtArchivePath) == count($exportFiles) ) {
-				return $this->archivePath($archivePath,$archiveFileName);
+			if (count($filesAtArchivePath) == count($exportFiles)) {
+				return $this->archivePath($archivePath, $archiveFileName);
 			}
 		}
 
 		// Use temporary directory:
 		$tmpDirectory = Yii::getPathOfAlias('application.runtime').DIRECTORY_SEPARATOR.get_class($this).uniqid('_tmp_',true);
 		if (!file_exists($tmpDirectory)) {
-			mkdir($tmpDirectory,0777,true);
+			mkdir($tmpDirectory, 0777, true);
 		}
 		foreach ($exportFiles as $exportFile) {
 			$tmpFile = $tmpDirectory.DIRECTORY_SEPARATOR.basename($exportFile);
-			copy($exportFile,$tmpFile);
+			copy($exportFile, $tmpFile);
 		}
-		$result = $this->archivePath($tmpDirectory,$archiveFileName);
-		exec( 'rm -rf '.escapeshellarg($tmpDirectory) );
+		$result = $this->archivePath($tmpDirectory, $archiveFileName);
+		exec('rm -rf '.escapeshellarg($tmpDirectory));
 		return $result;
 	}
 
@@ -272,7 +270,7 @@ class QsCsvExporter extends CComponent {
 	 * @param boolean $deleteExportFiles indicates if exported files should be deleted afterwards.
 	 * @param boolean $terminate whether to terminate the current application after calling this method
 	 */
-	public function output($deleteExportFiles=true,$terminate=true) {
+	public function output($deleteExportFiles=true, $terminate=true) {
 		$exportFiles = $this->getExportFiles();
 		if (empty($exportFiles)) {
 			throw new CException('There is no export file.');
@@ -286,13 +284,13 @@ class QsCsvExporter extends CComponent {
 			$fullFileName = $archiveFileName;
 			$this->archiveExportFiles($fullFileName);
 		}
-				
+		
 		$this->sendFile($fullFileName);
 
 		if ($deleteExportFiles) {
 			$this->deleteExportFiles();
 		}
-		if ( isset($archiveFileName) && file_exists($archiveFileName) ) {
+		if (isset($archiveFileName) && file_exists($archiveFileName)) {
 			unlink($archiveFileName);
 		}
 		if ($terminate) {
@@ -307,6 +305,6 @@ class QsCsvExporter extends CComponent {
 	protected function sendFile($fullFileName) {
 		$fileName = basename($fullFileName);
 		$fileContent = file_get_contents($fullFileName);
-		Yii::app()->getRequest()->sendFile($fileName,$fileContent,null,false);
+		Yii::app()->getRequest()->sendFile($fileName, $fileContent, null, false);
 	}
 }

@@ -46,7 +46,7 @@ class QsActionAdminDelete extends QsActionAdminInternalDbTransaction {
 			} else {
 				$getParams = $_GET;
 				unset($getParams['id']);
-				$redirectUrl = array_merge( array('index'), $getParams );
+				$redirectUrl = array_merge(array('index'), $getParams);
 			}
 			$controller->redirect($redirectUrl);
 		}

@@ -18,13 +18,13 @@ Yii::import('ext.qs.lib.web.controllers.actions.QsActionAdminUpdate');
  *
  * View example:
  * <code>
- * <?php $form=$this->beginWidget('CActiveForm'); ?>
+ * <?php $form = $this->beginWidget('CActiveForm'); ?>
  *     <?php foreach ($models as $i => $model):?>
  *         <?php echo CHtml::label("{$model->title}:", false, array('required'=>$model->is_required) ); ?>
  *         <div class="row">
- *             <?php echo $form->textField($model,'['.$model->getPrimaryKey().']value',array('size'=>80,'maxlength'=>255)); ?>
+ *             <?php echo $form->textField($model, '['.$model->getPrimaryKey().']value', array('size'=>80,'maxlength'=>255)); ?>
  *         </div>
- *         <?php echo $form->error($model,"value"); ?>
+ *         <?php echo $form->error($model, "value"); ?>
  *     <?php endforeach;?>
  * <?php $this->endWidget(); ?>
  * </code>
@@ -77,8 +77,8 @@ class QsActionAdminUpdateSetting extends QsActionAdminUpdate {
 			}
 
 		}
-		$controller->render($this->getView(),array(
-			'models'=>$models,
+		$controller->render($this->getView(), array(
+			'models' => $models,
 		));
 	}
 }

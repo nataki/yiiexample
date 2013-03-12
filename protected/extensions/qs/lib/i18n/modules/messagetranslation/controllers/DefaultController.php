@@ -68,11 +68,9 @@ class DefaultController extends QsControllerTranslationBase {
 	public function actionIndex() {
 		$model = new MessageTranslation();
 		$filter = new MessageTranslationFilter();
-
 		if (isset($_GET[get_class($filter)])) {
 			$filter->attributes = $_GET[get_class($filter)];
 		}
-
 		$viewData = array(
 			'model' => $model,
 			'filter' => $filter,
@@ -88,18 +86,15 @@ class DefaultController extends QsControllerTranslationBase {
 	 */
 	public function actionUpdate($id, $language=null) {
 		$model = $this->loadModel($id);
-
 		if (!empty($language)) {
 			$model->language = $language;
 		}
-
-		if ( array_key_exists( get_class($model), $_POST ) ) {
+		if (array_key_exists(get_class($model), $_POST)) {
 			$model->attributes = $_POST[get_class($model)];
 			if ($model->save()) {
-				$this->redirect( array('view','id'=>$model->id) );
+				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
-
 		$viewData = array(
 			'model' => $model,
 		);

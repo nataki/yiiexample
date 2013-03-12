@@ -20,7 +20,7 @@ class QsBehaviorDataCacheTest extends CTestCase {
 
 	public static function tearDownAfterClass() {
 		if (is_object(self::$_cacheBackup)) {
-			Yii::app()->setComponent('cache',self::$_cacheBackup);
+			Yii::app()->setComponent('cache', self::$_cacheBackup);
 		}
 	}
 
@@ -67,8 +67,8 @@ class {$className} extends CFormModel {
 
 	public function behaviors() {
 		return array(
-			'dataCacheBehavior'=>array(
-				'class'=>'QsBehaviorDataCache'
+			'dataCacheBehavior' => array(
+				'class' => 'QsBehaviorDataCache'
 			),
 		);
 	}
@@ -86,12 +86,12 @@ EOD;
 		$behavior = new QsBehaviorDataCache();
 
 		$testCacheDuration = rand(100,200);
-		$this->assertTrue( $behavior->setCacheDuration($testCacheDuration), 'Unable to set cache duration!' );
-		$this->assertEquals( $testCacheDuration, $behavior->getCacheDuration(), 'Unable to set cache duration correctly!' );
+		$this->assertTrue($behavior->setCacheDuration($testCacheDuration), 'Unable to set cache duration!');
+		$this->assertEquals($testCacheDuration, $behavior->getCacheDuration(), 'Unable to set cache duration correctly!');
 
 		$testOwnerIdPropertyName = 'test_owner_id';
-		$this->assertTrue( $behavior->setOwnerIdPropertyName($testOwnerIdPropertyName), 'Unable to set owner id property name!' );
-		$this->assertEquals( $testOwnerIdPropertyName, $behavior->getOwnerIdPropertyName(), 'Unable to set owner id property name correctly!' );
+		$this->assertTrue($behavior->setOwnerIdPropertyName($testOwnerIdPropertyName), 'Unable to set owner id property name!');
+		$this->assertEquals($testOwnerIdPropertyName, $behavior->getOwnerIdPropertyName(), 'Unable to set owner id property name correctly!');
 	}
 
 	/**
@@ -102,8 +102,8 @@ EOD;
 
 		$testCacheId = 'test_cache_id';
 		$testData = 'test data';
-		$this->assertTrue( $component->setDataToCache($testCacheId,$testData), 'Unable to set data to cache!' );
-		$this->assertEquals( $testData, $component->getDataFromCache($testCacheId), 'Unable to set data to cache correctly!' );
+		$this->assertTrue($component->setDataToCache($testCacheId,$testData), 'Unable to set data to cache!');
+		$this->assertEquals($testData, $component->getDataFromCache($testCacheId), 'Unable to set data to cache correctly!');
 	}
 
 	/**
@@ -117,7 +117,7 @@ EOD;
 		$testData = 'test data';
 		$firstComponent->setDataToCache($testCacheId,$testData);
 
-		$this->assertFalse( $secondComponent->getDataFromCache($testCacheId), 'Cache id class dependency failed!' );
+		$this->assertFalse($secondComponent->getDataFromCache($testCacheId), 'Cache id class dependency failed!');
 	}
 
 	/**
@@ -133,9 +133,9 @@ EOD;
 		$testComponentId = rand(1,10);
 		$component->id = $testComponentId;
 		$component->setDataToCache($testCacheId,$testData);
-		$this->assertEquals( $testData, $component->getDataFromCache($testCacheId), 'Unable to set cache value when vary by owner id!' );
+		$this->assertEquals($testData, $component->getDataFromCache($testCacheId), 'Unable to set cache value when vary by owner id!');
 
 		$component->id = $testComponentId.'_'.rand(1,10);
-		$this->assertFalse( $component->getDataFromCache($testCacheId), 'Cache id component id dependency failed!' );
+		$this->assertFalse($component->getDataFromCache($testCacheId), 'Cache id component id dependency failed!');
 	}
 }

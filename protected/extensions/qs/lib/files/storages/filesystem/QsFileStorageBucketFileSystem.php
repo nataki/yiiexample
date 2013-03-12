@@ -14,19 +14,19 @@
  * 
  * Configuration example:
  * <code>
- * 'fileStorage'=>array(
- *     'class'=>'QsFileStorageFileSystem',
- *     'basePath'=>'/home/www/files',
- *     'baseUrl'=>'http://www.mydomain.com/files',
- *     'filePermission'=>0777,
- *     'buckets'=>array(
- *         'tempFiles'=>array(
- *             'baseSubPath'=>'temp',
- *             'fileSubDirTemplate'=>'{^name}/{^^name}',
+ * 'fileStorage' => array(
+ *     'class' => 'QsFileStorageFileSystem',
+ *     'basePath' => '/home/www/files',
+ *     'baseUrl' => 'http://www.mydomain.com/files',
+ *     'filePermission' => 0777,
+ *     'buckets' => array(
+ *         'tempFiles' => array(
+ *             'baseSubPath' => 'temp',
+ *             'fileSubDirTemplate' => '{^name}/{^^name}',
  *         ),
- *         'imageFiles'=>array(
- *             'baseSubPath'=>'image',
- *             'fileSubDirTemplate'=>'{ext}/{^name}/{^^name}',
+ *         'imageFiles' => array(
+ *             'baseSubPath' => 'image',
+ *             'fileSubDirTemplate' => '{ext}/{^name}/{^^name}',
  *         ),
  *     )
  * )
@@ -111,7 +111,7 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 			@mkdir($fullBasePath, $dirPermission, true);
 			umask($oldUmask);
 		}
-		if ( !file_exists($fullBasePath) || !is_dir($fullBasePath) ) {
+		if (!file_exists($fullBasePath) || !is_dir($fullBasePath)) {
 			throw new CException("Unable to resolve full base path: '{$fullBasePath}'!");
 		} elseif (!is_writable($fullBasePath)) {
 			throw new CException("Path: '{$fullBasePath}' should be writeable!");
@@ -353,7 +353,7 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 		$result = $this->copyFileInternal($srcFile, $destFile);
 		if ($result) {
 			$fullSrcFileName = $this->getFullFileNameByReference($srcFile);
-			$result = ( $result && unlink($fullSrcFileName) );
+			$result = ($result && unlink($fullSrcFileName));
 		}
 		return $result;
 	}

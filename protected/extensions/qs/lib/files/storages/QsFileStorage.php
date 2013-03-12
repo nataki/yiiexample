@@ -79,7 +79,7 @@ abstract class QsFileStorage extends CApplicationComponent implements IQsFileSto
 	 */
 	public function setBuckets(array $buckets) {
 		foreach ($buckets as $bucketKey => $bucketValue) {
-			if ( is_numeric($bucketKey) && is_string($bucketValue) ) {
+			if (is_numeric($bucketKey) && is_string($bucketValue)) {
 				$bucketName = $bucketValue;
 				$bucketData = array();
 			} else {

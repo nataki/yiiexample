@@ -19,17 +19,18 @@ require_once( dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'base'.DIRECTORY_SE
  * <code>
  * array(
  *     ...
- *     'modules'=>array(
- *         'messagetranslation'=>array(
- *             'class'=>'ext.qs.lib.i18n.modules.messagetranslation.MessagetranslationModule',
- *             'layout'=>'//layouts/main',
- *             'accessRules'=>array(
+ *     'modules' => array(
+ *         'messagetranslation' => array(
+ *             'class' => 'ext.qs.lib.i18n.modules.messagetranslation.MessagetranslationModule',
+ *             'layout' => '//layouts/main',
+ *             'accessRules' => array(
  *                 array(
  *                     'allow',
- *                     'roles'=>array('admin')
+ *                     'roles' => array('admin')
  *                 ),
- *                 array('deny',
- *                     'users'=>array('*'),
+ *                 array(
+ *                     'deny',
+ *                     'users' => array('*'),
  *                 ),
  *             ),
  *         )
@@ -59,10 +60,9 @@ class MessagetranslationModule extends QsWebModuleTranslationBase {
 	 */
 	protected function registerCoreComponents() {
 		parent::registerCoreComponents();
-
-		$components=array(
-			'messageTranslationMapper'=>array(
-				'class'=>$this->chooseMessageTranslationMapperClassName(),
+		$components = array(
+			'messageTranslationMapper' => array(
+				'class' => $this->chooseMessageTranslationMapperClassName(),
 			),
 		);
 		$this->setComponents($components);
@@ -76,7 +76,7 @@ class MessagetranslationModule extends QsWebModuleTranslationBase {
 	protected function chooseMessageTranslationMapperClassName() {
 		$messageTranslationMapperClassName = 'MessageTranslationMapperPhp';
 		$messageSource = Yii::app()->getMessages();
-		if ( is_a($messageSource, 'CDbMessageSource') ) {
+		if (is_a($messageSource, 'CDbMessageSource')) {
 			$messageTranslationMapperClassName = 'MessageTranslationMapperDb';
 		}
 		return $messageTranslationMapperClassName;

@@ -119,7 +119,7 @@ class QsActionAdminGroupProcess extends QsActionAdminInternalDbTransaction {
 		$groupProcessName = $_REQUEST[$this->groupProcessNameParamName];
 		$modelKeys = $_REQUEST[$this->modelKeysParamName];
 
-		if ( !empty($groupProcessName) && is_array($modelKeys) ) {
+		if (!empty($groupProcessName) && is_array($modelKeys)) {
 			$models = $this->findModels($modelKeys);
 			if (is_array($models)) {
 				try {
@@ -145,7 +145,7 @@ class QsActionAdminGroupProcess extends QsActionAdminInternalDbTransaction {
 		$getParameters = $_GET;
 		unset($getParameters[$this->groupProcessNameParamName]);
 		unset($getParameters[$this->modelKeysParamName]);
-		$controller->redirect( array_merge( array('index'), $getParameters ) );
+		$controller->redirect(array_merge(array('index'), $getParameters));
 	}
 
 	/**
@@ -158,10 +158,10 @@ class QsActionAdminGroupProcess extends QsActionAdminInternalDbTransaction {
 			if (!is_string($this->allowedModelMethods)) {
 				throw new CException('"'.get_class($this).'::allowedModelMethods" should be array or a string!');
 			} else {
-				if ( trim($this->allowedModelMethods) === '*' ) {
+				if (trim($this->allowedModelMethods) === '*') {
 					return true;
 				} else {
-					$allowedMethods = explode(',',$this->allowedModelMethods);
+					$allowedMethods = explode(',', $this->allowedModelMethods);
 					$allowedMethods = array_map('trim', $allowedMethods);
 					$this->allowedModelMethods = $allowedMethods;
 				}

@@ -33,10 +33,11 @@ class QsWebModuleTranslationBase extends CWebModule {
 	 * array(
 	 *     array(
 	 *         'allow',
-	 *         'roles'=>array('admin')
+	 *         'roles' => array('admin')
 	 *     ),
-	 *     array('deny',
-	 *         'users'=>array('*'),
+	 *     array(
+	 *         'deny',
+	 *         'users' => array('*'),
 	 *     ),
 	 * );
 	 * </code>
@@ -104,7 +105,6 @@ class QsWebModuleTranslationBase extends CWebModule {
 		$selfPath = dirname(__FILE__);
 		$baseAlias = str_replace($applicationAliasPath,'application',$selfPath);
 		$baseAlias = str_replace(DIRECTORY_SEPARATOR,'.',$baseAlias);
-
 		Yii::import("{$baseAlias}.components.QsTranslationLanguageManager");
 		Yii::import("{$baseAlias}.components.QsControllerTranslationBase");
 	}
@@ -113,9 +113,9 @@ class QsWebModuleTranslationBase extends CWebModule {
 	 * Registers the core application components.
 	 */
 	protected function registerCoreComponents() {
-		$components=array(
-			'languageManager'=>array(
-				'class'=>'QsTranslationLanguageManager',
+		$components = array(
+			'languageManager' => array(
+				'class' => 'QsTranslationLanguageManager',
 			),
 		);
 		$this->setComponents($components);

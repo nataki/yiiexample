@@ -15,9 +15,11 @@ Yii::import('zii.widgets.CMenu');
  * it allows to render menu inline in view file, where the widget was created.
  * Use {@link CBaseController::beginWidget} and {@link CBaseController::endWidget}, after the widget has been created, 
  * its internal {@link items} are normalized and should be placed in the cycle operator:
+ * <code>
  * foreach ($widget->items as $item) {
  *     ...
  * }
+ * </code>
  * Set {@link autoRender} to "true" to make QsMenu behave exactly like CMenu.
  *
  * @property string $autoRender public alias of {@link _autoRender}.
@@ -86,7 +88,7 @@ class QsMenu extends CMenu {
 			$items[$itemKey]['url'] = CHtml::normalizeUrl($item['url']);
 			if ($item['active']) {
 				if ($activeItemKey !== null) {
-					if ( strlen($items[$itemKey]['url']) > strlen($items[$activeItemKey]['url']) ) {
+					if (strlen($items[$itemKey]['url']) > strlen($items[$activeItemKey]['url'])) {
 						$items[$activeItemKey]['active'] = false;
 						$activeItemKey = $itemKey;
 					} else {
@@ -119,7 +121,7 @@ class QsMenu extends CMenu {
 			return false;
 		}
 
-		if ( !isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME']) ) {
+		if (!isset($_SERVER['REQUEST_URI']) || !isset($_SERVER['SCRIPT_NAME'])) {
 			return false;
 		}
 
@@ -129,7 +131,7 @@ class QsMenu extends CMenu {
 
 		$requestHead = dirname( $_SERVER['SCRIPT_NAME'] );
 		$localItemUrl = trim( str_replace($requestHead, '', $itemUrl), '/' );
-		if ( empty($localItemUrl) ) {
+		if (empty($localItemUrl)) {
 			$localRequestUri = trim( str_replace($requestHead, '', $compareUri), '/' );
 			if (empty($localRequestUri)) {
 				return true;
@@ -138,7 +140,7 @@ class QsMenu extends CMenu {
 			}
 		}
 
-		if ( strpos($compareUri.'/', $itemUrl.'/')===0 ) {
+		if (strpos($compareUri.'/', $itemUrl.'/')===0) {
 			return true;
 		} else {
 			return false;

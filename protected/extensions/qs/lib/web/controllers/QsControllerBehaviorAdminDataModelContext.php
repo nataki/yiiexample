@@ -22,7 +22,7 @@ Yii::import('ext.qs.lib.web.controllers.QsControllerBehaviorAdminDataModel');
  *     public function behaviors() {
  *         return array(
  *             'dataModelBehavior' => array(
- *                 'class'=>'ext.qs.lib.web.controllers.QsControllerBehaviorAdminDataModelContext',
+ *                 'class' => 'ext.qs.lib.web.controllers.QsControllerBehaviorAdminDataModelContext',
  *                 'modelClassName' => 'ItemModel',
  *                 'contexts' => array(
  *                     'category' => array(
@@ -191,7 +191,7 @@ class QsControllerBehaviorAdminDataModelContext extends QsControllerBehaviorAdmi
 	 * @return boolean success.
 	 */
 	protected function initOnce() {
-		if ( !$this->getInitialized() ) {
+		if (!$this->getInitialized()) {
 			$this->initActiveContexts();
 			$this->setInitialized(true);
 		}

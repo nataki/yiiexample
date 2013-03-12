@@ -45,8 +45,8 @@ class QsFilterGetParamRequired extends CFilter {
 	 */
 	protected function preFilter($filterChain) {
 		foreach ($this->getGetParamNames() as $getParamName) {
-			if (!array_key_exists($getParamName,$_GET)) {
-				throw new CHttpException(400,'Invalid request. Some mandatory parameters are missing.');
+			if (!array_key_exists($getParamName, $_GET)) {
+				throw new CHttpException(400, 'Invalid request. Some mandatory parameters are missing.');
 			}
 		}
 		return true;

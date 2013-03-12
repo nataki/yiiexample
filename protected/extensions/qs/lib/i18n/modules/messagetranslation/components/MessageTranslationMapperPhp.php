@@ -64,7 +64,7 @@ class MessageTranslationMapperPhp extends MessageTranslationMapper {
 		$basePath = '';
 
 		$messageSource = Yii::app()->getMessages();
-		if ( is_a($messageSource, 'CPhpMessageSource') ) {
+		if (is_a($messageSource, 'CPhpMessageSource')) {
 			$basePath = $messageSource->basePath;
 		}
 		if (empty($defaultMessagePath)) {
@@ -132,14 +132,12 @@ class MessageTranslationMapperPhp extends MessageTranslationMapper {
 	 */
 	protected function saveTranslation($category, $name, $language, $content) {
 		$translationFileName = $this->getBasePath().DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$category.'.php';
-
 		if (file_exists($translationFileName)) {
 			$translations = require($translationFileName);
 		} else {
 			$translations = array();
 		}
 		$translations[$name] = $content;
-
 		return $this->saveTranslationFile($translationFileName, $translations);
 	}
 
@@ -150,13 +148,13 @@ class MessageTranslationMapperPhp extends MessageTranslationMapper {
 	 * @return boolean success.
 	 */
 	protected function saveTranslationFile($fileName, array $translations) {
-		$this->resolvePath( dirname($fileName) );
+		$this->resolvePath(dirname($fileName));
 		if (file_exists($fileName)) {
 			unlink($fileName);
 		}
 
 		ksort($translations);
-		$arrayString = str_replace("\r",'',var_export($translations,true));
+		$arrayString = str_replace("\r", '', var_export($translations, true));
 
 		$generatorName = get_class($this);
 

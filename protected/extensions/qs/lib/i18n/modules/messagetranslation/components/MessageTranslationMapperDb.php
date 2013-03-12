@@ -189,11 +189,11 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 		$dbCommand = $this->createDbCommand();
 		$dbCommand
 			->select('*')
-			->from( $this->getSourceMessageTable() )
+			->from($this->getSourceMessageTable())
 			->where('category = :category AND message = :name');
 		$params = array(
-			'category'=>$category,
-			'name'=>$name
+			'category' => $category,
+			'name' => $name
 		);
 		$sourceMessage = $dbCommand->queryRow(true, $params);
 		return $sourceMessage;
@@ -208,10 +208,10 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 	protected function insertSourceMessage($category, $name) {
 		$dbCommand = $this->createDbCommand();
 		$columns = array(
-			'category'=>$category,
-			'message'=>$name,
+			'category' => $category,
+			'message' => $name,
 		);
-		$insertResult = $dbCommand->insert( $this->getSourceMessageTable(), $columns );
+		$insertResult = $dbCommand->insert($this->getSourceMessageTable(), $columns);
 		return ($insertResult>0);
 	}
 
@@ -225,11 +225,11 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 		$dbCommand = $this->createDbCommand();
 		$dbCommand
 			->select('*')
-			->from( $this->getTranslatedMessageTable() )
+			->from($this->getTranslatedMessageTable())
 			->where('id = :id AND language = :language');
 		$params = array(
-			'id'=>$sourceMessageId,
-			'language'=>$language
+			'id' => $sourceMessageId,
+			'language' => $language
 		);
 		$translatedMessage = $dbCommand->queryRow(true,$params);
 		return $translatedMessage;
@@ -245,11 +245,11 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 	protected function insertTranslatedMessage($sourceMessageId, $language, $content) {
 		$dbCommand = $this->createDbCommand();
 		$columns = array(
-			'id'=>$sourceMessageId,
-			'language'=>$language,
-			'translation'=>$content,
+			'id' => $sourceMessageId,
+			'language' => $language,
+			'translation' => $content,
 		);
-		$insertResult = $dbCommand->insert( $this->getTranslatedMessageTable(), $columns );
+		$insertResult = $dbCommand->insert($this->getTranslatedMessageTable(), $columns);
 		return ($insertResult>0);
 	}
 
@@ -263,13 +263,13 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 	protected function updateTranslatedMessage($sourceMessageId, $language, $content) {
 		$dbCommand = $this->createDbCommand();
 		$columns = array(
-			'translation'=>$content,
+			'translation' => $content,
 		);
 		$params = array(
-			'id'=>$sourceMessageId,
-			'language'=>$language,
+			'id' => $sourceMessageId,
+			'language' => $language,
 		);
-		$updateResult = $dbCommand->update( $this->getTranslatedMessageTable(), $columns, 'id=:id AND language=:language', $params );
+		$updateResult = $dbCommand->update($this->getTranslatedMessageTable(), $columns, 'id=:id AND language=:language', $params);
 		return ($updateResult>0);
 	}
 

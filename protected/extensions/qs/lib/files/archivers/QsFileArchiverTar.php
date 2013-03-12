@@ -9,7 +9,7 @@
  */
 
 /**
- * QsFileArchiverZip is a file archiver for the tar formats.
+ * QsFileArchiverTar is a file archiver for the tar formats.
  * This archiver handles the following archive formats: *.tar. *.tbz
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
@@ -38,7 +38,7 @@ class QsFileArchiverTar extends QsFileArchiverConsoleCommand {
 
 		$mainParam = 'cf';
 		$archiveFileExtension = CFileHelper::getExtension($outputFileName);
-		if ( strcasecmp($archiveFileExtension,'tar')!==0 ) {
+		if (strcasecmp($archiveFileExtension, 'tar')!==0) {
 			$mainParam .= 'j';
 		}
 		$consoleCommandParams[] = $mainParam;

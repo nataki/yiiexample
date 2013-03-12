@@ -203,7 +203,7 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 	 */
 	public function init() {
 		parent::init();
-		Yii::setPathOfAlias('webroot',dirname(Yii::getPathOfAlias('application')));
+		Yii::setPathOfAlias('webroot', dirname(Yii::getPathOfAlias('application')));
 	}
 
 	/**
@@ -252,7 +252,7 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 
 		if (!empty($logPath)) {
 			if (!file_exists($logPath)) {
-				mkdir($logPath,null,true);
+				mkdir($logPath, null, true);
 			}
 		}
 
@@ -303,7 +303,7 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 			$this->populateFromConfigFile($this->config);
 		}
 		$this->initLog();
-		return parent::beforeAction($action,$params);
+		return parent::beforeAction($action, $params);
 	}
 
 	/**
@@ -316,7 +316,7 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 		if (!$this->interactive) {
 			return true;
 		}
-		return parent::confirm($message,$default);
+		return parent::confirm($message, $default);
 	}
 
 	/**
@@ -501,18 +501,16 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 		$filePermissions = 0777;
 		foreach ($this->getLocalDirectories() as $directory) {
 			$directoryPath = $this->getRealFilePath($directory);
-
 			if (!file_exists($directoryPath)) {
 				$this->log("\nCreating directory '{$directoryPath}'...");
-				if ( mkdir($directoryPath,$filePermissions,true) ) {
+				if (mkdir($directoryPath, $filePermissions, true)) {
 					$this->log("complete.\n");
 				} else {
 					$this->log("Unable to create directory '{$directoryPath}'!", CLogger::LEVEL_ERROR);
 				}
-
 			}
 			$this->log("Setting permissions '".decoct($filePermissions)."' for '{$directoryPath}'...");
-			if (chmod($directoryPath,$filePermissions)) {
+			if (chmod($directoryPath, $filePermissions)) {
 				$this->log("complete.\n");
 			} else {
 				$this->log("Unable to set permissions '".decoct($filePermissions)."' for '{$directoryPath}'!", CLogger::LEVEL_ERROR);
@@ -536,9 +534,9 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 				'.hgignore',
 				'.hgkeep',
 			);
-			foreach($temporaryDirectories as $temporaryDirectory) {
+			foreach ($temporaryDirectories as $temporaryDirectory) {
 				$tmpDirFullName = $this->getRealFilePath($temporaryDirectory);
-				if ( $dir!==null && (strpos($tmpDirFullName,$dir)===false) ) {
+				if ($dir!==null && (strpos($tmpDirFullName,$dir)===false)) {
 					continue;
 				}
 				if (!is_dir($tmpDirFullName)) {
@@ -548,7 +546,7 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 				$this->log("\nClearing directory '{$tmpDirFullName}'...");
 				$tmpDirHandle = opendir($tmpDirFullName);
 				while (($fileSystemObjectName = readdir($tmpDirHandle)) !== false) {
-					if($fileSystemObjectName==='.' || $fileSystemObjectName==='..') {
+					if ($fileSystemObjectName==='.' || $fileSystemObjectName==='..') {
 						continue;
 					}
 					if (in_array($fileSystemObjectName, $excludeNames)) {
@@ -602,7 +600,7 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 		$this->log("\nCreating local files:\n");
 		foreach ($this->getLocalFiles() as $localFileRawName) {
 			$localFileRealName = $this->getRealFilePath($localFileRawName);
-			if ( $file!==null && (strpos($localFileRealName,$file)===false) ) {
+			if ($file!==null && (strpos($localFileRealName,$file)===false)) {
 				continue;
 			}
 			$this->log("\nProcessing local file '{$localFileRealName}':\n");
@@ -631,7 +629,7 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 	 * @param string $file output config file name.
 	 * @param boolean $overwrite indicates, if existing configuration file should be overwritten in the process.
 	 */
-	public function actionGenerateConfig($file='init.cfg.php',$overwrite=false) {
+	public function actionGenerateConfig($file='init.cfg.php', $overwrite=false) {
 		$fileName = $file;
 		if (file_exists($fileName)) {
 			if (!$overwrite) {
@@ -682,7 +680,7 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 		$this->log("Creating local file '{$localFileName}':\n");
 
 		$placeholderNames = $this->parseExampleFile($exampleFileName);
-		if ( !empty($placeholderNames) && $this->interactive ) {
+		if (!empty($placeholderNames) && $this->interactive) {
 			$this->log("Specify local file placeholder values. Enter empty string to apply default value. Enter whitespace to specify empty value.\n");
 		}
 		$placeholders = array();

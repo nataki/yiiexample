@@ -60,7 +60,9 @@ class QsLinkPager extends CLinkPager {
 		} else {
 			$this->registerClientScript();
 			$buttons=$this->createPageButtons();
-			if (empty($buttons)) return;
+			if (empty($buttons)) {
+				return;
+			}
 
 			$this->setButtons($buttons);
 
@@ -85,7 +87,7 @@ class QsLinkPager extends CLinkPager {
 	 */
 	protected function createPageButton($label, $page, $class, $hidden, $selected) {
 		if (empty($this->_view)) {
-			return parent::createPageButton($label,$page,$class,$hidden,$selected);
+			return parent::createPageButton($label, $page, $class, $hidden, $selected);
 		} else {
 			if ($hidden || $selected) {
 				$class.=' '.($hidden ? self::CSS_HIDDEN_PAGE : self::CSS_SELECTED_PAGE);
@@ -94,7 +96,7 @@ class QsLinkPager extends CLinkPager {
 			$button = array(
 				'label' => $label,
 				'class' => $class,
-				'url' => CHtml::normalizeUrl( $this->createPageUrl($page) ),
+				'url' => CHtml::normalizeUrl($this->createPageUrl($page)),
 				'page' => $page,
 				'hidden' => $hidden,
 				'selected' => $selected,

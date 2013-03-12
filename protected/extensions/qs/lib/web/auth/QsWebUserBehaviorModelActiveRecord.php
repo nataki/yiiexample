@@ -94,8 +94,8 @@ class QsWebUserBehaviorModelActiveRecord extends CBehavior {
 	 */
 	protected function findModel() {
 		$webUser = $this->getOwner();
-		$modelFinder = CActiveRecord::model( $this->getModelClassName() );
-		$model = $modelFinder->findByPk( $webUser->getId(), $this->getModelFindCondition() );
+		$modelFinder = CActiveRecord::model($this->getModelClassName());
+		$model = $modelFinder->findByPk($webUser->getId(), $this->getModelFindCondition());
 		return $model;
 	}
 
@@ -122,7 +122,7 @@ class QsWebUserBehaviorModelActiveRecord extends CBehavior {
 	 * @return boolean success.
 	 */
 	public function ensureModel() {
-		if ( $this->refreshStatesFromModel() ) {
+		if ($this->refreshStatesFromModel()) {
 			return true;
 		} else {
 			$webUser = $this->getOwner();

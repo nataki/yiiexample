@@ -45,7 +45,7 @@ class QsTestController extends CController {
 		if (true) {
 			$callback = array($this, __FUNCTION__);
 			$callbackArguments = func_get_args();
-			throw new QsTestExceptionRender( $callback, $callbackArguments );
+			throw new QsTestExceptionRender($callback, $callbackArguments);
 		}
 		return parent::render($view, $data, $return);
 	}

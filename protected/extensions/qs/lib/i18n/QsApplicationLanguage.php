@@ -278,10 +278,10 @@ class QsApplicationLanguage extends CApplicationComponent {
 	 */
 	protected function initLanguages() {
 		if (!is_array($this->_languages)) {
-			$languageFinder = CActiveRecord::model( $this->getLanguageModelClassName() );
+			$languageFinder = CActiveRecord::model($this->getLanguageModelClassName());
 			$languages = $this->getCacheLanguages();
 			if (!is_array($languages)) {
-				$languages = $languageFinder->findAll( $this->getLanguageModelSearchCriteria() );
+				$languages = $languageFinder->findAll($this->getLanguageModelSearchCriteria());
 				$this->setCacheLanguages($languages);
 			}
 			$this->_languages = $languages;
@@ -334,7 +334,7 @@ class QsApplicationLanguage extends CApplicationComponent {
 	 * @return boolean success.
 	 */
 	protected function setCookie($languageCode) {
-		if ( headers_sent() || $this->getIsPassiveMode() ) {
+		if (headers_sent() || $this->getIsPassiveMode()) {
 			return false;
 		}
 		$cookieName = $this->getCookieName();
@@ -366,9 +366,9 @@ class QsApplicationLanguage extends CApplicationComponent {
 
 		$result = $this->setCurrent($currentLanguage);
 
-		if ( strcmp( $this->determineCurrentCodeFromGet(), $currentLanguage->code )!=0 ) {
-			$url = Yii::app()->createUrl('site/index', array($this->getGetParamName()=>$currentLanguage->code) );
-			Yii::app()->request->redirect( $url );
+		if (strcmp($this->determineCurrentCodeFromGet(), $currentLanguage->code)!=0) {
+			$url = Yii::app()->createUrl('site/index', array($this->getGetParamName()=>$currentLanguage->code));
+			Yii::app()->request->redirect($url);
 		}
 
 		return $result;
@@ -384,7 +384,7 @@ class QsApplicationLanguage extends CApplicationComponent {
 			$languageCode = $this->determineCurrentCodeFromCookie();
 			if (!$languageCode) {
 				$languageCode = $this->determineCurrentCodeFromIp();
-				if ( !$languageCode || !$this->findLanguageByCode($languageCode) ) {
+				if (!$languageCode || !$this->findLanguageByCode($languageCode)) {
 					$languageCode = $this->determineCurrentCodeFromPreferredLanguage();
 				}
 			}
@@ -459,7 +459,7 @@ class QsApplicationLanguage extends CApplicationComponent {
 	 */
 	protected function determineCurrentCodeFromPreferredLanguage() {
 		$preferredLanguage = Yii::app()->request->getPreferredLanguage();
-		$preferredLanguage = substr($preferredLanguage,0,2);
+		$preferredLanguage = substr($preferredLanguage, 0, 2);
 		return $preferredLanguage;
 	}
 
@@ -471,7 +471,7 @@ class QsApplicationLanguage extends CApplicationComponent {
 	protected function findLanguageByCode($languageCode) {
 		$languages = $this->getLanguages();
 		foreach ($languages as $language) {
-			if ( strcasecmp($language->code, $languageCode)==0 ) {
+			if (strcasecmp($language->code, $languageCode)==0) {
 				return $language;
 			}
 		}
@@ -486,7 +486,7 @@ class QsApplicationLanguage extends CApplicationComponent {
 	protected function findLanguageByPk($languagePk) {
 		$languages = $this->getLanguages();
 		foreach ($languages as $language) {
-			if ( strcasecmp($language->getPrimaryKey(), $languagePk)==0 ) {
+			if (strcasecmp($language->getPrimaryKey(), $languagePk)==0) {
 				return $language;
 			}
 		}
@@ -501,7 +501,7 @@ class QsApplicationLanguage extends CApplicationComponent {
 	public function createSwitchUrl(CActiveRecord $language) {
 		$currentLanguage = $this->getCurrent();
 		if (empty($currentLanguage)) {
-			$switchUrl = Yii::app()->createUrl('site/index', array($this->getGetParamName()=>$language->code) );
+			$switchUrl = Yii::app()->createUrl('site/index', array($this->getGetParamName() => $language->code));
 		} else {
 			$controller = Yii::app()->getController();
 			if (is_object($controller)) {

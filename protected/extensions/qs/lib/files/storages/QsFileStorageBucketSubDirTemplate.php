@@ -75,7 +75,7 @@ abstract class QsFileStorageBucketSubDirTemplate extends QsFileStorageBucket {
 			return $subDirTemplate;
 		}
 		$this->_internalCache['getFileSubDirFileName'] = $fileName;
-		$result = preg_replace_callback("/{(\^*(\w+))}/",array($this,'getFileSubDirPlaceholderValue'),$subDirTemplate);
+		$result = preg_replace_callback("/{(\^*(\w+))}/", array($this,'getFileSubDirPlaceholderValue'), $subDirTemplate);
 		unset($this->_internalCache['getFileSubDirFileName']);
 		return $result;
 	}
@@ -88,7 +88,7 @@ abstract class QsFileStorageBucketSubDirTemplate extends QsFileStorageBucket {
 	protected function getFileSubDirPlaceholderValue($matches) {
 		$placeholderName = $matches[1];
 		$placeholderPartSymbolPosition = strspn($placeholderName, '^')-1;
-		if ( $placeholderPartSymbolPosition >= 0 ) {
+		if ($placeholderPartSymbolPosition >= 0) {
 			$placeholderName = $matches[2];
 		}
 
@@ -111,15 +111,15 @@ abstract class QsFileStorageBucketSubDirTemplate extends QsFileStorageBucket {
 
 		$defaultPlaceholderValue = '0';
 
-		if ( $placeholderPartSymbolPosition >= 0 ) {
-			if ( $placeholderPartSymbolPosition < strlen($placeholderValue) ) {
+		if ($placeholderPartSymbolPosition >= 0) {
+			if ($placeholderPartSymbolPosition < strlen($placeholderValue)) {
 				$placeholderValue = substr($placeholderValue, $placeholderPartSymbolPosition, 1);
 			} else {
 				$placeholderValue = $defaultPlaceholderValue;
 			}
 		}
 
-		if ( strlen($placeholderValue)<=0 || in_array($placeholderValue,array('.')) ) {
+		if (strlen($placeholderValue)<=0 || in_array($placeholderValue,array('.'))) {
 			$placeholderValue = $defaultPlaceholderValue;
 		}
 		return $placeholderValue;

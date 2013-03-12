@@ -110,7 +110,7 @@ abstract class QsFileArchiverConsoleCommand extends QsFileArchiver {
 	public function pack($sourcePath, $outputFileName) {
 		$this->log("Pack '{$sourcePath}' into '{$outputFileName}'");
 		$params = $this->determinePackConsoleCommandParams($sourcePath, $outputFileName);
-		return $this->executeConsoleCommand($this->getPackCommandName(),$params);
+		return $this->executeConsoleCommand($this->getPackCommandName(), $params);
 	}
 
 	/**
@@ -122,7 +122,7 @@ abstract class QsFileArchiverConsoleCommand extends QsFileArchiver {
 	public function unpack($sourceFileName, $outputPath) {
 		$this->log("Unpack '{$sourceFileName}' into '{$outputPath}'");
 		$params = $this->determineUnpackConsoleCommandParams($sourceFileName, $outputPath);
-		return $this->executeConsoleCommand($this->getUnpackCommandName(),$params);
+		return $this->executeConsoleCommand($this->getUnpackCommandName(), $params);
 	}
 
 	/**
@@ -137,18 +137,18 @@ abstract class QsFileArchiverConsoleCommand extends QsFileArchiver {
 
 		// Check if command not found:
 		if (stripos($consoleCommandOutput, 'command not found')!==false) {
-			$composedErrorMessage = trim($consoleCommandOutput,"\n");
+			$composedErrorMessage = trim($consoleCommandOutput, "\n");
 			$this->log($composedErrorMessage, CLogger::LEVEL_ERROR);
 			throw new CException($composedErrorMessage);
 		}
 
 		// Search for error message:
 		$error = '';
-		if ( preg_match('/error\s*(.+)\n/im', $consoleCommandOutput, $matches) ) {
+		if (preg_match('/error\s*(.+)\n/im', $consoleCommandOutput, $matches)) {
 			$error = trim($matches[0]);
 		}
 
-		if ( !empty($error) ) {
+		if (!empty($error)) {
 			$composedErrorMessage = "Unable to perform archive command: {$error}";
 			$this->log($composedErrorMessage, CLogger::LEVEL_ERROR);
 			throw new CException($composedErrorMessage);

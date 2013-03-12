@@ -66,7 +66,7 @@ class QsBehaviorInternalDbTransactionTest extends CTestCase {
 	 */
 	protected function assertTestTableRecordExists(array $columns, $message='') {
 		$record = $this->findTestTableRecord($columns);
-		$this->assertFalse( empty($record), $message );
+		$this->assertFalse(empty($record), $message);
 	}
 
 	/**
@@ -76,7 +76,7 @@ class QsBehaviorInternalDbTransactionTest extends CTestCase {
 	 */
 	protected function assertTestTableRecordNotExists(array $columns, $message='') {
 		$record = $this->findTestTableRecord($columns);
-		$this->assertTrue( empty($record), $message );
+		$this->assertTrue(empty($record), $message);
 	}
 
 	// Tests:
@@ -85,8 +85,8 @@ class QsBehaviorInternalDbTransactionTest extends CTestCase {
 		$behavior = new QsBehaviorInternalDbTransaction();
 
 		$testInternalDbTransaction = Yii::app()->getDb()->beginTransaction();
-		$this->assertTrue( $behavior->setInternalDbTransaction($testInternalDbTransaction), 'Unable to set internal db transaction!' );
-		$this->assertEquals( $testInternalDbTransaction,$behavior->getInternalDbTransaction(), 'Unable to set internal db transaction correctly!' );
+		$this->assertTrue($behavior->setInternalDbTransaction($testInternalDbTransaction), 'Unable to set internal db transaction!');
+		$this->assertEquals($testInternalDbTransaction,$behavior->getInternalDbTransaction(), 'Unable to set internal db transaction correctly!');
 	}
 
 	/**
@@ -122,9 +122,9 @@ class QsBehaviorInternalDbTransactionTest extends CTestCase {
 		$behavior->commitInternalDbTransaction();
 
 		$currentDbTransaction = Yii::app()->db->getCurrentTransaction();
-		$this->assertTrue( empty($currentDbTransaction), 'Active db transaction is present after the internal transaction commit!' );
+		$this->assertTrue(empty($currentDbTransaction), 'Active db transaction is present after the internal transaction commit!');
 
-		$this->assertTestTableRecordExists( array('name'=>$testRecordName), 'Data has not been inserted!' );
+		$this->assertTestTableRecordExists(array('name'=>$testRecordName), 'Data has not been inserted!');
 	}
 
 	/**
@@ -146,8 +146,8 @@ class QsBehaviorInternalDbTransactionTest extends CTestCase {
 		$behavior->rollbackInternalDbTransaction();
 
 		$currentDbTransaction = Yii::app()->db->getCurrentTransaction();
-		$this->assertTrue( empty($currentDbTransaction), 'Active db transaction is present after the internal transaction commit!' );
+		$this->assertTrue(empty($currentDbTransaction), 'Active db transaction is present after the internal transaction commit!');
 
-		$this->assertTestTableRecordNotExists( array('name'=>$testRecordName), 'Data has been inserted!' );
+		$this->assertTestTableRecordNotExists(array('name'=>$testRecordName), 'Data has been inserted!');
 	}
 }

@@ -39,7 +39,7 @@ class QsFileArchiverZip extends QsFileArchiverConsoleCommand {
 		$packCommandName = $this->getPackCommandName();
 		$this->setPackCommandName('');
 		try {
-			$result = $this->executeConsoleCommand($this->getPackCommandName(),$params);
+			$result = $this->executeConsoleCommand($this->getPackCommandName(), $params);
 		} catch (Exception $exception) {
 			$this->setPackCommandName($packCommandName);
 			throw $exception;

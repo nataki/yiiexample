@@ -46,11 +46,11 @@ class QsActionAdminInsertDynamicColumn extends QsActionAdminInsert {
 		$modelClassName = get_class($model);
 		$columnValueClassName = $model->getRelationConfigParam('class');
 
-		if ( isset($_POST[$modelClassName]) || isset($_POST[$columnValueClassName]) ) {
-			if ( isset($_POST[$modelClassName])) {
+		if (isset($_POST[$modelClassName]) || isset($_POST[$columnValueClassName])) {
+			if (isset($_POST[$modelClassName])) {
 				$model->attributes = $_POST[$modelClassName];
 			}
-			if ( isset($_POST[$columnValueClassName]) && is_array($_POST[$columnValueClassName]) ) {
+			if (isset($_POST[$columnValueClassName]) && is_array($_POST[$columnValueClassName])) {
 				$columnValueModels = $model->getColumnValueModels();
 				foreach ($columnValueModels as $columnValueModelKey => $columnValueModel) {
 					if (isset($_POST[$columnValueClassName][$columnValueModelKey])) {
@@ -60,11 +60,11 @@ class QsActionAdminInsertDynamicColumn extends QsActionAdminInsert {
 			}
 			if ($this->saveModel($model)) {
 				$getParameters = $_GET;
-				$controller->redirect( array_merge( array('view','id'=>$model->id), $getParameters ) );
+				$controller->redirect(array_merge(array('view', 'id'=>$model->id), $getParameters));
 			}
 		}
 
-		$controller->render($this->getView(),array(
+		$controller->render($this->getView(), array(
 			'model' => $model,
 		));
 	}

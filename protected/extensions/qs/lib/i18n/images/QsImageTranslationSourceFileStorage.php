@@ -17,16 +17,16 @@
  * Application configuration example:
  * <code>
  * array(
- *     'components'=>array(
+ *     'components' => array(
  *         ...
- *         'fileStorage'=>array(
- *             'class'=>'QsFileStorageFileSystem',
- *             'basePath'=>'/home/www/mydomain/materials',
- *             'baseUrl'=>'http://www.mydomain.com/materials',
- *             'filePermission'=>0777,
+ *         'fileStorage' => array(
+ *             'class' => 'QsFileStorageFileSystem',
+ *             'basePath' => '/home/www/mydomain/materials',
+ *             'baseUrl' => 'http://www.mydomain.com/materials',
+ *             'filePermission' => 0777,
  *         ),
- *         'imageTranslationSource'=>array(
- *             'class'=>'QsImageTranslationSourceFileStorage',
+ *         'imageTranslationSource' => array(
+ *             'class' => 'QsImageTranslationSourceFileStorage',
  *             'defaultBaseUrl' => 'http://www.mydomain.com/images/i18n',
  *             'defaultBasePath' => '/home/www/mydomain/images/i18n',
  *         ),
@@ -107,7 +107,7 @@ class QsImageTranslationSourceFileStorage extends QsImageTranslationSource {
 	 * @param string $language the target language.
 	 * @return string name of the file in storage bucket.
 	 */
-	protected function composeStorageBucketFileName($imageName,$language) {
+	protected function composeStorageBucketFileName($imageName, $language) {
 		return $language.'/'.$imageName;
 	}
 
@@ -117,9 +117,9 @@ class QsImageTranslationSourceFileStorage extends QsImageTranslationSource {
 	 * @param string $language the target language.
 	 * @return string the target image URL.
 	 */
-	protected function loadImageTranslation($imageName,$language) {
+	protected function loadImageTranslation($imageName, $language) {
 		$fileStorageBucket = $this->getFileStorageBucket();
-		$fileName = $this->composeStorageBucketFileName($imageName,$language);
+		$fileName = $this->composeStorageBucketFileName($imageName, $language);
 		return $fileStorageBucket->getFileUrl($fileName);
 	}
 
@@ -129,8 +129,8 @@ class QsImageTranslationSourceFileStorage extends QsImageTranslationSource {
 	 * @param string $language the target language.
 	 * @return boolean image translation exists.
 	 */
-	protected function imageTranslationExists($imageName,$language) {
-		$fileName = $this->composeStorageBucketFileName($imageName,$language);
+	protected function imageTranslationExists($imageName, $language) {
+		$fileName = $this->composeStorageBucketFileName($imageName, $language);
 		$fileStorageBucket = $this->getFileStorageBucket();
 		return $fileStorageBucket->fileExists($fileName);
 	}
@@ -142,9 +142,9 @@ class QsImageTranslationSourceFileStorage extends QsImageTranslationSource {
 	 * @param string $srcFileName the source file name.
 	 * @return boolean image translation exists.
 	 */
-	protected function saveImageTranslation($imageName,$language,$srcFileName) {
-		$fileName = $this->composeStorageBucketFileName($imageName,$language);
+	protected function saveImageTranslation($imageName, $language, $srcFileName) {
+		$fileName = $this->composeStorageBucketFileName($imageName, $language);
 		$fileStorageBucket = $this->getFileStorageBucket();
-		return $fileStorageBucket->copyFileIn($srcFileName,$fileName);
+		return $fileStorageBucket->copyFileIn($srcFileName, $fileName);
 	}
 }

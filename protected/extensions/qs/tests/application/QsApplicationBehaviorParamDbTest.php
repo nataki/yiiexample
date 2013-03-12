@@ -22,11 +22,11 @@ class QsApplicationBehaviorParamDbTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'behaviors'=>array(
+				'tableName' => $testTableName,
+				'behaviors' => array(
 					'settingBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorNameValue',
-						'autoNamePrefix'=>'test_'
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorNameValue',
+						'autoNamePrefix' => 'test_'
 					),
 				),
 			)
@@ -78,7 +78,7 @@ class QsApplicationBehaviorParamDbTest extends CTestCase {
 
 	public function testCreate() {
 		$behavior = new QsApplicationBehaviorParamDb();
-		$this->assertTrue( is_object($behavior), 'Unable to create "QsApplicationBehaviorParamDb" instance!' );
+		$this->assertTrue(is_object($behavior), 'Unable to create "QsApplicationBehaviorParamDb" instance!');
 	}
 
 	/**
@@ -88,8 +88,8 @@ class QsApplicationBehaviorParamDbTest extends CTestCase {
 		$behavior = new QsApplicationBehaviorParamDb();
 
 		$testParamModelClassName = 'TestParamModelClassName';
-		$this->assertTrue( $behavior->setParamModelClassName($testParamModelClassName), 'Unable to set param model class name!' );
-		$this->assertEquals( $behavior->getParamModelClassName(), $testParamModelClassName, 'Unable to set param model class name correctly!' );
+		$this->assertTrue($behavior->setParamModelClassName($testParamModelClassName), 'Unable to set param model class name!');
+		$this->assertEquals($behavior->getParamModelClassName(), $testParamModelClassName, 'Unable to set param model class name correctly!');
 	}
 
 	/**
@@ -107,7 +107,7 @@ class QsApplicationBehaviorParamDbTest extends CTestCase {
 		$paramModelValues = CActiveRecord::model($testParamModelName)->getValues();
 
 		foreach ($paramModelValues as $paramName => $paramValue) {
-			$this->assertEquals( Yii::app()->params[$paramName], $paramValue, 'CApplicationParams does not contain value from the param model!' );
+			$this->assertEquals(Yii::app()->params[$paramName], $paramValue, 'CApplicationParams does not contain value from the param model!');
 		}
 	}
 
@@ -122,8 +122,8 @@ class QsApplicationBehaviorParamDbTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'className'=>$testParamModelName,
-				'tableName'=>self::getTestTableName(),
+				'className' => $testParamModelName,
+				'tableName' => self::getTestTableName(),
 			)
 		);
 
@@ -135,7 +135,7 @@ class QsApplicationBehaviorParamDbTest extends CTestCase {
 		$paramModels = CActiveRecord::model($testParamModelName)->findAll();
 
 		foreach ($paramModels as $paramModel) {
-			$this->assertEquals( Yii::app()->params[$paramModel->name], $paramModel->value, 'CApplicationParams does not contain value from the regular model!' );
+			$this->assertEquals(Yii::app()->params[$paramModel->name], $paramModel->value, 'CApplicationParams does not contain value from the regular model!');
 		}
 	}
 }

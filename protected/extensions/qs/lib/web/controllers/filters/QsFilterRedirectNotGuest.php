@@ -42,9 +42,9 @@ class QsFilterRedirectNotGuest extends CFilter {
 	 * should be executed.
 	 */
 	protected function preFilter($filterChain) {
-		if (!Yii::app()->user->getIsGuest()) {
+		if (!Yii::app()->getComponent('user')->getIsGuest()) {
 			$controller = $filterChain->controller;
-			$controller->redirect( $this->getRedirectUrl() );
+			$controller->redirect($this->getRedirectUrl());
 			return false;
 		}
 		return true;

@@ -56,7 +56,7 @@ class QsFileArchiverHub extends QsFileArchiver {
 	public function setArchivers(array $archivers) {
 		$this->_archivers = array();
 		foreach ($archivers as $archiverKey => $archiverValue) {
-			if ( is_numeric($archiverKey) && is_string($archiverValue) ) {
+			if (is_numeric($archiverKey) && is_string($archiverValue)) {
 				$archiverFileExtension = $archiverValue;
 				$archiverData = array();
 			} else {
@@ -109,7 +109,7 @@ class QsFileArchiverHub extends QsFileArchiver {
 		if (!is_string($archiverFileExtension)) {
 			throw new CException('Name of the archiver should be a string!');
 		}
-		if (is_scalar($archiverData) || empty ($archiverData) ) {
+		if (is_scalar($archiverData) || empty ($archiverData)) {
 			throw new CException('Data of the archiver should be an file archiver object or configuration array!');
 		}
 		$this->_archivers[$archiverFileExtension] = $archiverData;
@@ -132,7 +132,7 @@ class QsFileArchiverHub extends QsFileArchiver {
 	 */
 	protected function getDefaultArchiver() {
 		$archiversList = $this->_archivers;
-		$defaultArchiverName = array_shift( array_keys($archiversList) );
+		$defaultArchiverName = array_shift(array_keys($archiversList));
 		if (empty($defaultArchiverName)) {
 			throw new CException('Unable to determine default archiver in the hub!');
 		}
@@ -157,7 +157,7 @@ class QsFileArchiverHub extends QsFileArchiver {
 	 */
 	protected function chooseArchiver($archiveFileName) {
 		$fileExtension = $this->getFileExtension($archiveFileName);
-		if ( $this->hasArchiver($fileExtension) ) {
+		if ($this->hasArchiver($fileExtension)) {
 			return $this->getArchiver($fileExtension);
 		} else {
 			return $this->getDefaultArchiver();

@@ -29,9 +29,9 @@ class QsTestHttpRequest extends CHttpRequest {
 	public function __construct() {
 		if (Yii::app()->hasComponent('request') ) {
 			$currentRequest = Yii::app()->getComponent('request');
-			$this->setHostInfo( $currentRequest->getHostInfo() );
-			$this->setBaseUrl( $currentRequest->getBaseUrl() );
-			$this->setScriptUrl( $currentRequest->getScriptUrl() );
+			$this->setHostInfo($currentRequest->getHostInfo());
+			$this->setBaseUrl($currentRequest->getBaseUrl());
+			$this->setScriptUrl($currentRequest->getScriptUrl());
 		}
 	}
 
@@ -44,13 +44,13 @@ class QsTestHttpRequest extends CHttpRequest {
 	 * @param integer $statusCode the HTTP status code. Defaults to 302. See {@link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html}
 	 * for details about HTTP status code. This parameter has been available since version 1.0.4.
 	 */
-	public function redirect($url,$terminate=true,$statusCode=302) {
+	public function redirect($url, $terminate=true, $statusCode=302) {
 		if (true) {
 			$callback = array($this, __FUNCTION__);
 			$callbackArguments = func_get_args();
 			throw new QsTestExceptionRedirect($callback, $callbackArguments);
 		}
-		return parent::redirect($url,$terminate,$statusCode);
+		parent::redirect($url,$terminate,$statusCode);
 	}
 
 	/**

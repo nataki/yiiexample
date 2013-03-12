@@ -40,7 +40,7 @@ class QsActionAdminMove extends QsActionAdminInternalDbTransaction {
 		$this->moveModel($model, $to);
 
 		$redirectUrl = $this->createSuccessRedirectUrl($model);
-		$controller->redirect( $redirectUrl );
+		$controller->redirect($redirectUrl);
 	}
 
 	/**
@@ -112,7 +112,7 @@ class QsActionAdminMove extends QsActionAdminInternalDbTransaction {
 			$getParameters[$sortGetParameterName] = $sortAttributeName;
 		}
 
-		$url = array_merge( array('index'),$getParameters);
+		$url = array_merge(array('index'), $getParameters);
 		return $url;
 	}
 }

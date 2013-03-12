@@ -110,7 +110,7 @@ class QsActionAdminCallModelMethod extends QsActionAdminInternalDbTransaction {
 
 		try {
 			$this->beginInternalDbTransaction();
-			call_user_func_array( array($model,$methodName), array() );
+			call_user_func_array(array($model, $methodName), array());
 			$this->commitInternalDbTransaction();
 		} catch (Exception $exception) {
 			$this->rollbackInternalDbTransaction();
@@ -134,10 +134,10 @@ class QsActionAdminCallModelMethod extends QsActionAdminInternalDbTransaction {
 		$view = $this->getView();
 		if (empty($view)) {
 			$getParameters = $_GET;
-			$controller->redirect( array_merge( array('view','id'=>$model->id), $getParameters ) );
+			$controller->redirect(array_merge(array('view', 'id'=>$model->id), $getParameters));
 		} else {
-			$controller->render($view,array(
-				'model'=>$model,
+			$controller->render($view, array(
+				'model' => $model,
 			));
 		}
 	}
@@ -152,8 +152,8 @@ class QsActionAdminCallModelMethod extends QsActionAdminInternalDbTransaction {
 		$flashMessageKey = $this->getFlashMessageKey();
 		$flashMessageContent = $this->getFlashMessage();
 
-		if ( !empty($flashMessageKey) && !empty($flashMessageContent) ) {
-			Yii::app()->user->setFlash($flashMessageKey,$flashMessageContent);
+		if (!empty($flashMessageKey) && !empty($flashMessageContent)) {
+			Yii::app()->getComponent('user')->setFlash($flashMessageKey, $flashMessageContent);
 		}
 		return true;
 	}

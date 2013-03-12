@@ -44,7 +44,7 @@ class QsFilterSecureConnection extends CFilter {
 	 * should be executed.
 	 */
 	protected function preFilter($filterChain) {
-		if (Yii::app()->request->isSecureConnection) {
+		if (Yii::app()->getComponent('request')->isSecureConnection) {
 			if (!$this->_useSecureConnection) {
 				$schema = 'http';
 				$this->redirectToSchema($filterChain, $schema);
@@ -62,15 +62,15 @@ class QsFilterSecureConnection extends CFilter {
 	
 	/**
 	 * Redirects to the requested URL with specified schema.
+	 * @param CFilterChain $filterChain filter chain.
 	 * @param string $schema schema to use (e.g. http, https).
 	 */
 	protected function redirectToSchema(CFilterChain $filterChain, $schema) {
 		$controller = $filterChain->controller;
 		$action = $filterChain->action;
-
 		$route = "{$controller->id}/{$action->id}";
 		$params = $_GET;
-		$controller->redirect( $controller->createAbsoluteUrl($route, $params, $schema) );
+		$controller->redirect($controller->createAbsoluteUrl($route, $params, $schema));
 		return true;
 	}
 }

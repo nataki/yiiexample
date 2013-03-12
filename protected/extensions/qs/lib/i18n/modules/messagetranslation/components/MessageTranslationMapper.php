@@ -90,7 +90,7 @@ abstract class MessageTranslationMapper extends CApplicationComponent {
 		$messageCategoryNames = array();
 		$defaultMessageFiles = $this->findDefaultMessageFiles();
 		foreach ($defaultMessageFiles as $defaultMessageFile) {
-			$messageCategoryName = basename($defaultMessageFile,'.php');
+			$messageCategoryName = basename($defaultMessageFile, '.php');
 			$messageCategoryNames[] = $messageCategoryName;
 		}
 		$this->_messageCategoryNames = $messageCategoryNames;
@@ -103,7 +103,7 @@ abstract class MessageTranslationMapper extends CApplicationComponent {
 	 * @return boolean success.
 	 */
 	public function save(MessageTranslation $model) {
-		return $this->saveTranslation( $model->category_name, $model->name, $model->language, $model->content );
+		return $this->saveTranslation($model->category_name, $model->name, $model->language, $model->content);
 	}
 
 	/**
@@ -118,7 +118,7 @@ abstract class MessageTranslationMapper extends CApplicationComponent {
 		if (is_array($messageTranslations)) {
 			foreach ($messageTranslations as $messageTranslation) {
 				$messageId = $this->composeMessageId($messageTranslation['category'], $messageTranslation['name']);
-				if ( array_key_exists($messageId, $models) ) {
+				if (array_key_exists($messageId, $models)) {
 					$model = $models[$messageId];
 					$model->addTranslation($messageTranslation['language'], $messageTranslation['content']);
 				}
@@ -145,7 +145,7 @@ abstract class MessageTranslationMapper extends CApplicationComponent {
 				$model->name = $messageName;
 				$model->category_name = $categoryName;
 				$model->default_content = $messageContent;
-				$models[ $this->composeMessageId($categoryName,$messageName) ] = $model;
+				$models[$this->composeMessageId($categoryName, $messageName)] = $model;
 			}
 		}
 		return $models;

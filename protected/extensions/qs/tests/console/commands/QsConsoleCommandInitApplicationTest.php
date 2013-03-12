@@ -12,7 +12,7 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 
 		$testFilePath = self::getTestFilePath();
 		if (!file_exists($testFilePath)) {
-			mkdir($testFilePath,0777,true);
+			mkdir($testFilePath, 0777, true);
 		}
 
 		if (Yii::app()->hasComponent('log')) {
@@ -35,7 +35,7 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 	 * @return QsConsoleCommandInitApplication console command instance.
 	 */
 	protected function createConsoleCommand() {
-		$consoleCommand = new QsConsoleCommandInitApplication('install',null);
+		$consoleCommand = new QsConsoleCommandInitApplication('install', null);
 		$consoleCommand->interactive = false;
 		$consoleCommand->outputlog = false;
 		return $consoleCommand;
@@ -55,50 +55,50 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		$consoleCommand = $this->createConsoleCommand();
 
 		$testLocalFileExampleNamePattern = 'test_local_file_example_pattern';
-		$this->assertTrue( $consoleCommand->setLocalFileExampleNamePattern($testLocalFileExampleNamePattern), 'Unable to set local file example name pattern!' );
-		$this->assertEquals( $testLocalFileExampleNamePattern, $consoleCommand->getLocalFileExampleNamePattern(), 'Unable to set local file example name pattern correctly!' );
+		$this->assertTrue($consoleCommand->setLocalFileExampleNamePattern($testLocalFileExampleNamePattern), 'Unable to set local file example name pattern!');
+		$this->assertEquals($testLocalFileExampleNamePattern, $consoleCommand->getLocalFileExampleNamePattern(), 'Unable to set local file example name pattern correctly!');
 
 		$testLocalDirectories = array(
 			'/test/local/dir1',
 			'/test/local/dir2',
 		);
-		$this->assertTrue( $consoleCommand->setLocalDirectories($testLocalDirectories), 'Unable to set local directories!' );
-		$this->assertEquals( $testLocalDirectories, $consoleCommand->getLocalDirectories(), 'Unable to set local directories correctly!' );
+		$this->assertTrue($consoleCommand->setLocalDirectories($testLocalDirectories), 'Unable to set local directories!');
+		$this->assertEquals($testLocalDirectories, $consoleCommand->getLocalDirectories(), 'Unable to set local directories correctly!');
 
 		$testTemporaryDirectories = array(
 			'/test/tmp/dir1',
 			'/test/tmp/dir2',
 		);
-		$this->assertTrue( $consoleCommand->setTemporaryDirectories($testTemporaryDirectories), 'Unable to set temporary directories!' );
-		$this->assertEquals( $testTemporaryDirectories, $consoleCommand->getTemporaryDirectories(), 'Unable to set temporary directories correctly!' );
+		$this->assertTrue($consoleCommand->setTemporaryDirectories($testTemporaryDirectories), 'Unable to set temporary directories!');
+		$this->assertEquals($testTemporaryDirectories, $consoleCommand->getTemporaryDirectories(), 'Unable to set temporary directories correctly!');
 
 		$testLocalFiles = array(
 			'/test/local/file1',
 			'/test/local/file2',
 		);
-		$this->assertTrue( $consoleCommand->setLocalFiles($testLocalFiles), 'Unable to set local files!' );
-		$this->assertEquals( $testLocalFiles, $consoleCommand->getLocalFiles(), 'Unable to set local files correctly!' );
+		$this->assertTrue($consoleCommand->setLocalFiles($testLocalFiles), 'Unable to set local files!');
+		$this->assertEquals($testLocalFiles, $consoleCommand->getLocalFiles(), 'Unable to set local files correctly!');
 
 		$testLocalFilePlaceholderLabels = array(
 			'test_placeholder_name_1' => 'Test placeholder label 1',
 			'test_placeholder_name_2' => 'Test placeholder label 2',
 		);
-		$this->assertTrue( $consoleCommand->setLocalFilePlaceholderLabels($testLocalFilePlaceholderLabels), 'Unable to set local file placeholder labels!' );
-		$this->assertEquals( $testLocalFilePlaceholderLabels, $consoleCommand->getLocalFilePlaceholderLabels(), 'Unable to set local file placeholder labels correctly!' );
+		$this->assertTrue($consoleCommand->setLocalFilePlaceholderLabels($testLocalFilePlaceholderLabels), 'Unable to set local file placeholder labels!');
+		$this->assertEquals($testLocalFilePlaceholderLabels, $consoleCommand->getLocalFilePlaceholderLabels(), 'Unable to set local file placeholder labels correctly!');
 
 		$testLocalFilePlaceholderDefaultValues = array(
 			'test_placeholder_name_1' => 'test_placeholder_value_1',
 			'test_placeholder_name_2' => 'test_placeholder_value_2',
 		);
-		$this->assertTrue( $consoleCommand->setLocalFilePlaceholderDefaultValues($testLocalFilePlaceholderDefaultValues), 'Unable to set local file placeholder default values!' );
-		$this->assertEquals( $testLocalFilePlaceholderDefaultValues, $consoleCommand->getLocalFilePlaceholderDefaultValues(), 'Unable to set local file placeholder default values correctly!' );
+		$this->assertTrue($consoleCommand->setLocalFilePlaceholderDefaultValues($testLocalFilePlaceholderDefaultValues), 'Unable to set local file placeholder default values!');
+		$this->assertEquals($testLocalFilePlaceholderDefaultValues, $consoleCommand->getLocalFilePlaceholderDefaultValues(), 'Unable to set local file placeholder default values correctly!');
 
 		$testExecuteFiles = array(
 			'/test/execute/file1',
 			'/test/execute/file2',
 		);
-		$this->assertTrue( $consoleCommand->setExecuteFiles($testExecuteFiles), 'Unable to set execute files!' );
-		$this->assertEquals( $testExecuteFiles, $consoleCommand->getExecuteFiles(), 'Unable to set execute files correctly!' );
+		$this->assertTrue($consoleCommand->setExecuteFiles($testExecuteFiles), 'Unable to set execute files!');
+		$this->assertEquals($testExecuteFiles, $consoleCommand->getExecuteFiles(), 'Unable to set execute files correctly!');
 	}
 
 	/**
@@ -112,7 +112,7 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 
 		$consoleCommand->actionLocalDir();
 
-		$this->assertTrue( file_exists($testLocalDirectory), 'Unable to create local directory!' );
+		$this->assertTrue(file_exists($testLocalDirectory), 'Unable to create local directory!');
 	}
 
 	/**
@@ -125,14 +125,14 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		$testLocalFileFullName = self::getTestFilePath().DIRECTORY_SEPARATOR.$testLocalFileSelfName;
 		$consoleCommand->setLocalFiles(array($testLocalFileFullName));
 
-		$testExampleFileSelfName = str_replace('{filename}',$testLocalFileSelfName,$consoleCommand->getLocalFileExampleNamePattern());
+		$testExampleFileSelfName = str_replace('{filename}', $testLocalFileSelfName, $consoleCommand->getLocalFileExampleNamePattern());
 		$testExampleFileFullName = self::getTestFilePath().DIRECTORY_SEPARATOR.$testExampleFileSelfName;
 		$testExampleFileContent = 'Some test content.';
-		file_put_contents($testExampleFileFullName,$testExampleFileContent);
+		file_put_contents($testExampleFileFullName, $testExampleFileContent);
 
 		$consoleCommand->actionLocalFile();
 
-		$this->assertTrue( file_exists($testLocalFileFullName), 'Unable to create local file!' );
+		$this->assertTrue(file_exists($testLocalFileFullName), 'Unable to create local file!');
 	}
 
 	/**
@@ -152,17 +152,17 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		$testLocalFileFullName = self::getTestFilePath().DIRECTORY_SEPARATOR.$testLocalFileSelfName;
 		$consoleCommand->setLocalFiles(array($testLocalFileFullName));
 
-		$testExampleFileSelfName = str_replace('{filename}',$testLocalFileSelfName,$consoleCommand->getLocalFileExampleNamePattern());
+		$testExampleFileSelfName = str_replace('{filename}', $testLocalFileSelfName, $consoleCommand->getLocalFileExampleNamePattern());
 		$testExampleFileFullName = self::getTestFilePath().DIRECTORY_SEPARATOR.$testExampleFileSelfName;
 		$testExampleFileContent = 'Some {{'.$testPlaceholderName.'}} content.';
-		file_put_contents($testExampleFileFullName,$testExampleFileContent);
+		file_put_contents($testExampleFileFullName, $testExampleFileContent);
 
 		$consoleCommand->actionLocalFile();
 
 		$this->assertTrue( file_exists($testLocalFileFullName), 'Unable to create local file!' );
 
 		$localFileContent = file_get_contents($testLocalFileFullName);
-		$this->assertContains( $testPlaceholderValue, $localFileContent, 'Unable to replace placeholder by default value!' );
+		$this->assertContains($testPlaceholderValue, $localFileContent, 'Unable to replace placeholder by default value!');
 	}
 
 	/**
@@ -175,18 +175,18 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		$testLocalFileFullName = self::getTestFilePath().DIRECTORY_SEPARATOR.$testLocalFileSelfName;
 		$consoleCommand->setLocalFiles(array($testLocalFileFullName));
 
-		$testExampleFileSelfName = str_replace('{filename}',$testLocalFileSelfName,$consoleCommand->getLocalFileExampleNamePattern());
+		$testExampleFileSelfName = str_replace('{filename}', $testLocalFileSelfName, $consoleCommand->getLocalFileExampleNamePattern());
 		$testExampleFileFullName = self::getTestFilePath().DIRECTORY_SEPARATOR.$testExampleFileSelfName;
 
 		$testExampleFileContent = 'Some test content.';
-		file_put_contents($testExampleFileFullName,$testExampleFileContent);
+		file_put_contents($testExampleFileFullName, $testExampleFileContent);
 
 		$consoleCommand->actionLocalFile();
 
 		$initialLocalFileTimestamp = filemtime($testLocalFileFullName);
 
 		sleep(1);
-		$consoleCommand->actionLocalFile(null,true);
+		$consoleCommand->actionLocalFile(null, true);
 
 		$overwrittenLocalFileTimestamp = filemtime($testLocalFileFullName);
 		$this->assertTrue($overwrittenLocalFileTimestamp>$initialLocalFileTimestamp, 'Unable to override local file!');
@@ -202,17 +202,17 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		$testLocalFileFullName = self::getTestFilePath().DIRECTORY_SEPARATOR.$testLocalFileSelfName;
 		$consoleCommand->setLocalFiles(array($testLocalFileFullName));
 
-		$testExampleFileSelfName = str_replace('{filename}',$testLocalFileSelfName,$consoleCommand->getLocalFileExampleNamePattern());
+		$testExampleFileSelfName = str_replace('{filename}', $testLocalFileSelfName, $consoleCommand->getLocalFileExampleNamePattern());
 		$testExampleFileFullName = self::getTestFilePath().DIRECTORY_SEPARATOR.$testExampleFileSelfName;
 
 		$testExampleFileContent = 'Some test content.';
-		file_put_contents($testExampleFileFullName,$testExampleFileContent);
+		file_put_contents($testExampleFileFullName, $testExampleFileContent);
 
 		$consoleCommand->actionLocalFile();
 
 		sleep(1);
 		$testExampleFileContentOverridden = 'Some test content overridden.';
-		file_put_contents($testExampleFileFullName,$testExampleFileContentOverridden);
+		file_put_contents($testExampleFileFullName, $testExampleFileContentOverridden);
 		$consoleCommand->actionLocalFile();
 
 		$localFileContent = file_get_contents($testLocalFileFullName);
@@ -235,9 +235,9 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		$testConfigFileContent = '<?php return '.var_export($testConfig,true).';';
 		file_put_contents($testConfigFileName, $testConfigFileContent);
 
-		$this->assertTrue( $consoleCommand->populateFromConfigFile($testConfigFileName), 'Unable to populate from file!' );
+		$this->assertTrue($consoleCommand->populateFromConfigFile($testConfigFileName), 'Unable to populate from file!');
 
-		$this->assertEquals( $testFieldValue, $consoleCommand->$testFieldName, 'Unable to setup field, while populating from file!' );
+		$this->assertEquals($testFieldValue, $consoleCommand->$testFieldName, 'Unable to setup field, while populating from file!');
 	}
 
 	/**
@@ -247,7 +247,7 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		$consoleCommand = $this->createConsoleCommand();
 
 		$testFileName = self::getTestFilePath().DIRECTORY_SEPARATOR.'test_execute_file.php';
-		file_put_contents($testFileName,'some executable content');
+		file_put_contents($testFileName, 'some executable content');
 
 		$testExecuteFiles = array(
 			$testFileName
@@ -257,7 +257,7 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		$consoleCommand->actionExecuteFile();
 
 		$filePermissions = substr(sprintf('%o', fileperms($testFileName)), -4);
-		$this->assertEquals( '0755', $filePermissions, 'Wrong execute file permissions!' );
+		$this->assertEquals('0755', $filePermissions, 'Wrong execute file permissions!');
 	}
 
 	/**
@@ -270,13 +270,13 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 
 		$consoleCommand->actionGenerateConfig($testConfigFileName);
 
-		$this->assertTrue( file_exists($testConfigFileName), 'Unable to generate configuration file!');
+		$this->assertTrue(file_exists($testConfigFileName), 'Unable to generate configuration file!');
 
 		@$configData = require($testConfigFileName);
-		$this->assertTrue( is_array($configData), 'Unable to read data from config!' );
+		$this->assertTrue(is_array($configData), 'Unable to read data from config!');
 
 		foreach ($configData as $name => $value) {
-			$this->assertEquals( $value, $consoleCommand->$name, 'Config parameter does not match the console command instance!' );
+			$this->assertEquals($value, $consoleCommand->$name, 'Config parameter does not match the console command instance!');
 		}
 	}
 
@@ -293,7 +293,7 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		$testConfigFileName = self::getTestFilePath().DIRECTORY_SEPARATOR.'test_config_file.php';
 		$consoleCommand->actionGenerateConfig($testConfigFileName);
 
-		$this->assertTrue( file_exists($testLogFileName), 'Unable to generate log file!');
+		$this->assertTrue(file_exists($testLogFileName), 'Unable to generate log file!');
 	}
 
 	/**
@@ -314,8 +314,8 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 
 		$consoleCommand->actionClearTmpDir();
 
-		$this->assertFalse( file_exists($testTmpFileFullName), 'Unable to remove files from temporary directory!' );
-		$this->assertFalse( file_exists($testTemporarySubDirectory), 'Unable to remove directory from temporary directory!' );
+		$this->assertFalse(file_exists($testTmpFileFullName), 'Unable to remove files from temporary directory!');
+		$this->assertFalse(file_exists($testTemporarySubDirectory), 'Unable to remove directory from temporary directory!');
 	}
 
 	/**
@@ -334,6 +334,6 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 
 		$consoleCommand->actionClearTmpDir();
 
-		$this->assertTrue( file_exists($testSpecialFileFullName), 'Unable to keep special file, while clearing temporary directory!' );
+		$this->assertTrue(file_exists($testSpecialFileFullName), 'Unable to keep special file, while clearing temporary directory!');
 	}
 }

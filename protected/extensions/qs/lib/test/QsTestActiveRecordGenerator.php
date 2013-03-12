@@ -22,18 +22,18 @@ class QsTestActiveRecordGenerator extends CComponent {
 	 * @return boolean success.
 	 */
 	public function generate(array $config) {
-		if (!array_key_exists('tableName',$config)) {
+		if (!array_key_exists('tableName', $config)) {
 			throw new CException('Parameter "tableName" should be specified');
 		}
 		$tableName = $config['tableName'];
 		$className = array_key_exists('className', $config) ? $config['className'] : $tableName;
 
-		$rules = $this->generateArrayDataCodeFromConfig('rules',$config);
-		$relations = $this->generateArrayDataCodeFromConfig('relations',$config);
-		$attributeLabels = $this->generateArrayDataCodeFromConfig('attributeLabels',$config);
-		$behaviors = $this->generateArrayDataCodeFromConfig('behaviors',$config);
-		$scopes = $this->generateArrayDataCodeFromConfig('scopes',$config);
-		$defaultScope = $this->generateArrayDataCodeFromConfig('defaultScope',$config);
+		$rules = $this->generateArrayDataCodeFromConfig('rules', $config);
+		$relations = $this->generateArrayDataCodeFromConfig('relations', $config);
+		$attributeLabels = $this->generateArrayDataCodeFromConfig('attributeLabels', $config);
+		$behaviors = $this->generateArrayDataCodeFromConfig('behaviors', $config);
+		$scopes = $this->generateArrayDataCodeFromConfig('scopes', $config);
+		$defaultScope = $this->generateArrayDataCodeFromConfig('defaultScope', $config);
 
 		$additionalCode = array_key_exists('additionalCode', $config) ? $config['additionalCode'] : '';
 
@@ -85,7 +85,7 @@ EOD;
 	 */
 	protected function generateArrayDataCode($sourceData) {
 		if (is_array($sourceData)) {
-			return str_replace("\r",'',var_export($sourceData,true));
+			return str_replace("\r", '', var_export($sourceData, true));
 		} elseif (is_scalar($sourceData)) {
 			return $sourceData;
 		} else {

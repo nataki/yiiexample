@@ -8,7 +8,7 @@
  * @license http://www.quartsoft.com/license/
  */
 
-require_once( dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'QsWebModuleTranslationBase.php' );
+require_once(dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'QsWebModuleTranslationBase.php');
 
 /**
  * ImagetranslationModule is a module, which provides the ability to manage
@@ -20,26 +20,27 @@ require_once( dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'base'.DIRECTORY_SE
  * Example application configuration:
  * <code>
  * array(
- *     'components'=>array(
+ *     'components' => array(
  *         ...
- *         'imageTranslationSource'=>array(
- *             'class'=>'QsImageTranslationSourceFileStorage',
+ *         'imageTranslationSource' => array(
+ *             'class' => 'QsImageTranslationSourceFileStorage',
  *             ...
  *         ),
  *         ...
  *     ),
  *     ...
- *     'modules'=>array(
- *         'imagetranslation'=>array(
- *             'class'=>'ext.qs.lib.i18n.modules.imagetranslation.ImagetranslationModule',
- *             'layout'=>'//layouts/main',
- *             'accessRules'=>array(
+ *     'modules' => array(
+ *         'imagetranslation' => array(
+ *             'class' => 'ext.qs.lib.i18n.modules.imagetranslation.ImagetranslationModule',
+ *             'layout' => '//layouts/main',
+ *             'accessRules' => array(
  *                 array(
  *                     'allow',
- *                     'roles'=>array('admin')
+ *                     'roles' => array('admin')
  *                 ),
- *                 array('deny',
- *                     'users'=>array('*'),
+ *                 array(
+ *                     'deny',
+ *                     'users' => array('*'),
  *                 ),
  *             ),
  *         )
@@ -81,7 +82,7 @@ class ImagetranslationModule extends QsWebModuleTranslationBase {
 	 * @return QsImageTranslationSource image translation source application component.
 	 */
 	public function getImageTranslationSource() {
-		$imageTranslationSource = Yii::app()->getComponent( $this->getImageTranslationSourceComponentName() );
+		$imageTranslationSource = Yii::app()->getComponent($this->getImageTranslationSourceComponentName());
 		if (!is_object($imageTranslationSource)) {
 			throw new CException('Unable to find image translation source component');
 		}

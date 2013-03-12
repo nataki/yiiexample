@@ -14,19 +14,19 @@
  *
  * Configuration example:
  * <code>
- * 'fileStorage'=>array(
- *     'class'=>'QsFileStorageFileSystem',
- *     'basePath'=>'/home/www/files',
- *     'baseUrl'=>'http://www.mydomain.com/files',
- *     'filePermission'=>0777,
- *     'buckets'=>array(
- *         'tempFiles'=>array(
- *             'baseSubPath'=>'temp',
- *             'fileSubDirTemplate'=>'{^name}/{^^name}',
+ * 'fileStorage' => array(
+ *     'class' => 'QsFileStorageFileSystem',
+ *     'basePath' => '/home/www/files',
+ *     'baseUrl' => 'http://www.mydomain.com/files',
+ *     'filePermission' => 0777,
+ *     'buckets' => array(
+ *         'tempFiles' => array(
+ *             'baseSubPath' => 'temp',
+ *             'fileSubDirTemplate' => '{^name}/{^^name}',
  *         ),
- *         'imageFiles'=>array(
- *             'baseSubPath'=>'image',
- *             'fileSubDirTemplate'=>'{ext}/{^name}/{^^name}',
+ *         'imageFiles' => array(
+ *             'baseSubPath' => 'image',
+ *             'fileSubDirTemplate' => '{ext}/{^name}/{^^name}',
  *         ),
  *     )
  * )

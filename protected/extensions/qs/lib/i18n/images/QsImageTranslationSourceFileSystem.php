@@ -1,6 +1,6 @@
 <?php
 /**
- * QsImageTranslationSourceFileStorage class file.
+ * QsImageTranslationSourceFileSystem class file.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
@@ -15,10 +15,10 @@
  * Application configuration example:
  * <code>
  * array(
- *     'components'=>array(
+ *     'components' => array(
  *         ...
- *         'imageTranslationSource'=>array(
- *             'class'=>'QsImageTranslationSourceFileSystem',
+ *         'imageTranslationSource' => array(
+ *             'class' => 'QsImageTranslationSourceFileSystem',
  *             'defaultBaseUrl' => 'http://www.mydomain.com/images/i18n',
  *             'defaultBasePath' => '/home/www/mydomain/images/i18n',
  *             'baseUrl' => 'http://www.mydomain.com/materials/i18n',
@@ -94,7 +94,7 @@ class QsImageTranslationSourceFileSystem extends QsImageTranslationSource {
 	 * @param string $language the target language.
 	 * @return string full file name.
 	 */
-	public function getFullFileName($imageName,$language) {
+	public function getFullFileName($imageName, $language) {
 		return $this->getBasePath().DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$imageName;
 	}
 
@@ -104,7 +104,7 @@ class QsImageTranslationSourceFileSystem extends QsImageTranslationSource {
 	 * @param string $language the target language.
 	 * @return string full file URL.
 	 */
-	public function getFullFileUrl($imageName,$language) {
+	public function getFullFileUrl($imageName, $language) {
 		return $this->getBaseUrl().'/'.$language.'/'.$imageName;
 	}
 
@@ -122,7 +122,7 @@ class QsImageTranslationSourceFileSystem extends QsImageTranslationSource {
 			@mkdir($path, $dirPermission, true);
 			umask($oldUmask);
 		}
-		if ( !file_exists($path) || !is_dir($path) ) {
+		if (!file_exists($path) || !is_dir($path)) {
 			throw new CException("Unable to resolve path: '{$path}'!");
 		} elseif (!is_writable($path)) {
 			throw new CException("Path: '{$path}' should be writeable!");
@@ -136,8 +136,8 @@ class QsImageTranslationSourceFileSystem extends QsImageTranslationSource {
 	 * @param string $language the target language.
 	 * @return string the target image URL.
 	 */
-	protected function loadImageTranslation($imageName,$language) {
-		return $this->getFullFileUrl($imageName,$language);
+	protected function loadImageTranslation($imageName, $language) {
+		return $this->getFullFileUrl($imageName, $language);
 	}
 
 	/**
@@ -146,8 +146,8 @@ class QsImageTranslationSourceFileSystem extends QsImageTranslationSource {
 	 * @param string $language the target language.
 	 * @return boolean image translation exists.
 	 */
-	protected function imageTranslationExists($imageName,$language) {
-		$fullFileName = $this->getFullFileName($imageName,$language);
+	protected function imageTranslationExists($imageName, $language) {
+		$fullFileName = $this->getFullFileName($imageName, $language);
 		return file_exists($fullFileName);
 	}
 
@@ -158,15 +158,15 @@ class QsImageTranslationSourceFileSystem extends QsImageTranslationSource {
 	 * @param string $srcFileName the source file name.
 	 * @return boolean image translation exists.
 	 */
-	protected function saveImageTranslation($imageName,$language,$srcFileName) {
-		$fullFileName = $this->getFullFileName($imageName,$language);
+	protected function saveImageTranslation($imageName, $language, $srcFileName) {
+		$fullFileName = $this->getFullFileName($imageName, $language);
 		$path = dirname($fullFileName);
 		$this->resolvePath($path);
 		if (file_exists($fullFileName)) {
 			unlink($fullFileName);
 		}
 		copy($srcFileName, $fullFileName);
-		chmod($fullFileName, $this->getFilePermission() );
+		chmod($fullFileName, $this->getFilePermission());
 		return true;
 	}
 }

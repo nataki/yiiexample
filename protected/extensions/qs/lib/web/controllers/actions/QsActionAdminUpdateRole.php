@@ -38,17 +38,17 @@ class QsActionAdminUpdateRole extends QsActionAdminUpdate {
 
 		$this->performAjaxValidation($model);
 
-		if ( isset($_POST[$modelClassName]) && isset($_POST[$subModelPostName]) ) {
+		if (isset($_POST[$modelClassName]) && isset($_POST[$subModelPostName])) {
 			$model->attributes = $_POST[$modelClassName];
 			$model->$roleRelationName->attributes = $_POST[$subModelPostName];
 			if ($this->saveModel($model)) {
 				$getParameters = $_GET;
 				unset($getParameters['id']);
-				$controller->redirect( array_merge( array('view','id'=>$model->id), $getParameters ) );
+				$controller->redirect(array_merge(array('view', 'id'=>$model->id), $getParameters));
 			}
 		}
 
-		$controller->render($this->getView(),array(
+		$controller->render($this->getView(), array(
 			'model' => $model,
 		));
 	}
