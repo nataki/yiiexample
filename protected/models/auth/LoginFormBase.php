@@ -53,15 +53,15 @@ abstract class LoginFormBase extends CFormModel {
 		$isCaptchaRequired = false;
 		if (CCaptcha::checkRequirements()) {
 			$criteria = array(
-				'condition'=>'username = :username',
-				'order'=>'date DESC',
-				'limit'=>2,
-				'params'=>array(
-					'username'=>$this->username
+				'condition' => 'username = :username',
+				'order' => 'date DESC',
+				'limit' => 2,
+				'params' => array(
+					'username' => $this->username
 				)
 			);
 			$authLogs = AuthLog::model()->findAll($criteria);
-			if ( is_array($authLogs) && !empty($authLogs) ) {
+			if (is_array($authLogs) && !empty($authLogs)) {
 				$isCaptchaRequired = true;
 				foreach ($authLogs as $authLog) {
 					if ($authLog->getIsSuccessful()) {
@@ -81,7 +81,7 @@ abstract class LoginFormBase extends CFormModel {
 	 */
 	protected function createIdentity() {
 		$className = $this->_identityClassName;
-		$identity = new $className($this->username,$this->password);
+		$identity = new $className($this->username, $this->password);
 		return $identity;
 	}
 
@@ -110,9 +110,9 @@ abstract class LoginFormBase extends CFormModel {
 	 */
 	public function attributeLabels() {
 		return array(
-			'username'=>Yii::t('auth', 'Username or email'),
-			'password'=>Yii::t('auth', 'Password'),
-			'rememberMe'=>Yii::t('auth', 'Remember me next time'),
+			'username' => Yii::t('auth', 'Username or email'),
+			'password' => Yii::t('auth', 'Password'),
+			'rememberMe' => Yii::t('auth', 'Remember me next time'),
 		);
 	}
 
@@ -122,14 +122,14 @@ abstract class LoginFormBase extends CFormModel {
 	 * @param string $attribute validated attribute name.
 	 * @param array $params validation parameters.
 	 */
-	public function authenticate($attribute,$params) {
+	public function authenticate($attribute, $params) {
 		$this->_identity = $this->createIdentity();
 		if (!$this->_identity->authenticate()) {
-			if ( $this->_useIdentityErrorMessage && !empty($this->_identity->errorMessage) ) {
-				$this->addError($attribute,$this->_identity->errorMessage);
+			if ($this->_useIdentityErrorMessage && !empty($this->_identity->errorMessage)) {
+				$this->addError($attribute, $this->_identity->errorMessage);
 			} else {
 				$defaultErrorMessage = Yii::t('auth', 'Incorrect username or password.');
-				$this->addError($attribute,$defaultErrorMessage);
+				$this->addError($attribute, $defaultErrorMessage);
 			}
 			// Log auth error:
 			Yii::app()->user->writeAuthLogFromUserIdentity($this->_identity);
@@ -141,9 +141,9 @@ abstract class LoginFormBase extends CFormModel {
 	 * @param string $attribute validated attribute name.
 	 * @param array $params validation parameters.
 	 */
-	public function validateCaptcha($attribute,$params) {
+	public function validateCaptcha($attribute, $params) {
 		if ($this->getIsCaptchaRequired()) {
-			$captchaValidator = CValidator::createValidator('captcha',$this,$attribute,$params);
+			$captchaValidator = CValidator::createValidator('captcha', $this, $attribute, $params);
 			$captchaValidator->validate($this);
 		}
 	}
@@ -161,7 +161,7 @@ abstract class LoginFormBase extends CFormModel {
 			}
 			if ($this->_identity->errorCode===CBaseUserIdentity::ERROR_NONE) {
 				$duration = $this->rememberMe ? 3600*24*30 : 0; // 30 days
-				Yii::app()->user->login($this->_identity,$duration);
+				Yii::app()->getComponent('user')->login($this->_identity, $duration);
 				return true;
 			}
 		}

@@ -27,10 +27,10 @@ abstract class UserIdentityDb extends CUserIdentity {
 			$this->errorMessage = Yii::t('auth', 'Such username is not registered.');
 		} else {
 			$this->setState('id', $user->id);
-			if ( strcmp($user->status_id,User::STATUS_ACTIVE)!==0 ) {
+			if (strcmp($user->status_id, User::STATUS_ACTIVE)!==0) {
 				$this->errorCode = self::ERROR_USER_INACTIVE;
 				$this->errorMessage = Yii::t('auth', 'This account is inactive.');
-			} elseif ( strcmp($user->password,$user->encryptPassword($this->password))!==0 ) {
+			} elseif (strcmp($user->password, $user->encryptPassword($this->password))!==0) {
 				$this->errorCode = self::ERROR_PASSWORD_INVALID;
 				$this->errorMessage = Yii::t('auth', 'Invalid password.');
 			} else {
@@ -75,7 +75,7 @@ abstract class UserIdentityDb extends CUserIdentity {
 	protected function findUserModel() {
 		$userModelFinder = $this->getUserModelFinder();
 		$userTableAlias = $userModelFinder->getTableAlias();
-		$userModel = $userModelFinder->find("{$userTableAlias}.name=:username OR {$userTableAlias}.email=:username",array(':username'=>$this->username));
+		$userModel = $userModelFinder->find("{$userTableAlias}.name=:username OR {$userTableAlias}.email=:username", array(':username'=>$this->username));
 		return $userModel;
 	}
 }

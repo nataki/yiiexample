@@ -29,7 +29,7 @@ class WebTestCase extends CWebTestCase {
 	 */
 	protected function getUserSessionData() {
 		$session = Yii::app()->session;
-		$sessionId = $this->getCookieByName( $session->getSessionName() );
+		$sessionId = $this->getCookieByName($session->getSessionName());
 		$session->setSessionId($sessionId);
 		$session->open();
 		$result = $_SESSION;

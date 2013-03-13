@@ -71,11 +71,11 @@ class StaticPage extends CActiveRecord {
 	public function behaviors() {
 		return array(
 			'positionBehavior' => array(
-				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition'
+				'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition'
 			),
 			'cacheClearBehavior' => array(
-				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorClearCache',
-				'dependingCacheIds'=>array(
+				'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorClearCache',
+				'dependingCacheIds' => array(
 					'Yii.COutputCache.secondaryMenuHtml......',
 					'QsUrlRuleModelPageStaticPage',
 					//'QsUrlRuleModelPage'.get_class($this),
@@ -89,17 +89,17 @@ class StaticPage extends CActiveRecord {
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function dataProviderAdmin() {
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.url_keyword',$this->url_keyword,true);
-		$criteria->compare('t.title',$this->title,true);
-		$criteria->compare('t.meta_description',$this->meta_description,true);
-		$criteria->compare('t.content',$this->content,true);
-		$criteria->compare('t.position',$this->position);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.url_keyword', $this->url_keyword, true);
+		$criteria->compare('t.title', $this->title, true);
+		$criteria->compare('t.meta_description', $this->meta_description, true);
+		$criteria->compare('t.content', $this->content, true);
+		$criteria->compare('t.position', $this->position);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -110,10 +110,10 @@ class StaticPage extends CActiveRecord {
 	 */
 	public function dataProvider(array $config=array()) {
 		$criteria = $this->getDbCriteria();
-		if (array_key_exists('criteria',$config)) {
+		if (array_key_exists('criteria', $config)) {
 			$criteria->mergeWith($config['criteria']);
 		}
 		$config['criteria'] = $criteria;
-		return new CActiveDataProvider(get_class($this),$config);
+		return new CActiveDataProvider(get_class($this), $config);
 	}
 }

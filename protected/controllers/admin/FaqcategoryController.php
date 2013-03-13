@@ -3,9 +3,8 @@
 class FaqcategoryController extends AdminListController {
 	public function init() {
 		$this->setModelClassName('FaqCategory');
-
-		$this->breadcrumbs=array(
-			'FAQ Categories'=>array($this->getId().'/'),
+		$this->breadcrumbs = array(
+			'FAQ Categories' => array($this->getId().'/'),
 		);
 	}
 

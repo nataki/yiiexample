@@ -60,11 +60,11 @@ class User extends CActiveRecord {
 			array('new_password, new_password_repeat', 'required', 'on'=>'insert'),
 			array('status_id, group_id', 'numerical', 'integerOnly'=>true),
 			array('name, email, password', 'length', 'max'=>255),
-			array('email','email'),
+			array('email', 'email'),
 			array('new_password', 'compare', 'compareAttribute'=>'new_password_repeat'),
 			array('new_password, new_password_repeat', 'safe', 'on'=>'insert, update'),
-			array('name,email','unique','className'=>'User','attributeName'=>'name','caseSensitive'=>false),
-			array('name,email','unique','className'=>'User','attributeName'=>'email','caseSensitive'=>false),
+			array('name,email', 'unique', 'className'=>'User', 'attributeName'=>'name', 'caseSensitive'=>false),
+			array('name,email', 'unique', 'className'=>'User', 'attributeName'=>'email', 'caseSensitive'=>false),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, email, create_date, status_id, group_id', 'safe', 'on'=>'search'),
@@ -76,11 +76,11 @@ class User extends CActiveRecord {
 	 */
 	public function relations() {
 		return array(
-			'status'=>array(
+			'status' => array(
 				self::BELONGS_TO, 'UserStatus', 'status_id',
 				'joinType' => 'INNER JOIN',
 			),
-			'group'=>array(
+			'group' => array(
 				self::BELONGS_TO, 'UserGroup', 'group_id',
 				'joinType' => 'INNER JOIN',
 			)
@@ -93,12 +93,12 @@ class User extends CActiveRecord {
 	public function scopes() {
 		$mainTableAlias = $this->getTableAlias();
 		return array(
-			'active'=>array(
-				'condition'=>$mainTableAlias.'.status_id='.self::STATUS_ACTIVE,
+			'active' => array(
+				'condition' => $mainTableAlias.'.status_id='.self::STATUS_ACTIVE,
 			),
-			'recently'=>array(
-				'order'=>$mainTableAlias.'.create_date DESC',
-				'limit'=>5,
+			'recently' => array(
+				'order' => $mainTableAlias.'.create_date DESC',
+				'limit' => 5,
 			),
 		);
 	}
@@ -136,31 +136,31 @@ class User extends CActiveRecord {
 	public function dataProviderAdmin() {
 		$criteria = new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.name',$this->name,true);
-		$criteria->compare('t.email',$this->email,true);
-		$criteria->compare('t.password',$this->email,true);
-		$criteria->compare('t.create_date',$this->create_date,true);
-		$criteria->compare('t.status_id',$this->status_id);
-		$criteria->compare('t.group_id',$this->group_id);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.name', $this->name, true);
+		$criteria->compare('t.email', $this->email, true);
+		$criteria->compare('t.password', $this->email, true);
+		$criteria->compare('t.create_date', $this->create_date, true);
+		$criteria->compare('t.status_id', $this->status_id);
+		$criteria->compare('t.group_id', $this->group_id);
 
-		$attributeNames = array_keys( $this->getAttributes() );
+		$attributeNames = array_keys($this->getAttributes());
 		$sortAttributes = array();
 		foreach ($attributeNames as $attributeName) {
 			$sortAttributes[$attributeName] = array(
-				'asc'=>"t.{$attributeName} asc",
-				'desc'=>"t.{$attributeName} desc",
+				'asc' => "t.{$attributeName} asc",
+				'desc' => "t.{$attributeName} desc",
 			);
 		}
 		$sortAttributes['status_id'] = array(
-			'asc'=>'status.name asc',
-			'desc'=>'status.name desc'
+			'asc' => 'status.name asc',
+			'desc' => 'status.name desc'
 		);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
-			'sort'=>array(
-				'attributes'=>$sortAttributes
+			'criteria' => $criteria,
+			'sort' => array(
+				'attributes' => $sortAttributes
 			),
 		));
 	}
@@ -172,11 +172,11 @@ class User extends CActiveRecord {
 	 */
 	public function dataProvider(array $config=array()) {
 		$criteria = $this->getDbCriteria();
-		if (array_key_exists('criteria',$config)) {
+		if (array_key_exists('criteria', $config)) {
 			$criteria->mergeWith($config['criteria']);
 		}
 		$config['criteria'] = $criteria;
-		return new CActiveDataProvider(get_class($this),$config);
+		return new CActiveDataProvider(get_class($this), $config);
 	}
 
 	/**
@@ -206,7 +206,7 @@ class User extends CActiveRecord {
 	 */
 	protected function generatePassword() {
 		$password = sha1( uniqid( Yii::app()->name.rand(1,1000) ) );
-		$password = substr($password,0,16);
+		$password = substr($password, 0, 16);
 		return $password;
 	}
 

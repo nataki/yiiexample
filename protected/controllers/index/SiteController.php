@@ -19,8 +19,8 @@ class SiteController extends IndexController {
 	public function actions() {
 		return array(
 			// captcha action renders the CAPTCHA image displayed on the forgot password page
-			'captcha'=>array(
-				'class'=>'CCaptchaAction',
+			'captcha' => array(
+				'class' => 'CCaptchaAction',
 				'backColor' => 0xFFFFFF,
 				'testLimit' => 1
 			),
@@ -98,18 +98,18 @@ class SiteController extends IndexController {
 			$model->attributes = $_POST[get_class($model)];
 			// validate user input and redirect to the previous page if valid
 			if ($model->login()) {
-				$this->redirect( Yii::app()->user->getReturnUrl( array('account/index') ) );
+				$this->redirect(Yii::app()->getComponent('user')->getReturnUrl(array('account/index')));
 			}
 		}
 		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->render('login', array('model'=>$model));
 	}
 
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */
 	public function actionLogout() {
-		Yii::app()->user->logout();
+		Yii::app()->getComponent('user')->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
 
@@ -121,10 +121,10 @@ class SiteController extends IndexController {
 		if (isset($_POST['ForgotPasswordForm'])) {
 			$model->attributes = $_POST['ForgotPasswordForm'];
 			if ($model->resetPassword()) {
-				Yii::app()->user->setFlash('forgotPassword','Your password has been resetted. Check your email inbox.');
+				Yii::app()->getComponent('user')->setFlash('forgotPassword', 'Your password has been resetted. Check your email inbox.');
 				$this->refresh();
 			}
 		}
-		$this->render('forgot_password',array('model'=>$model));
+		$this->render('forgot_password', array('model'=>$model));
 	}
 }

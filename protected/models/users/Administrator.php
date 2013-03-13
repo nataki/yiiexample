@@ -36,12 +36,12 @@ class Administrator extends User {
 	public function defaultScope() {
 		$defaultScope = parent::defaultScope();
 
-		$mainTableAlias = $this->getTableAlias(false,false);
+		$mainTableAlias = $this->getTableAlias(false, false);
 
 		$additionalScope = array(
-			'condition'=>$mainTableAlias.'.group_id=:groupId',
-			'params'=>array(
-				'groupId'=>self::GROUP_ADMIN
+			'condition' => $mainTableAlias.'.group_id=:groupId',
+			'params' => array(
+				'groupId' => self::GROUP_ADMIN
 			),
 		);
 		$defaultScope = array_merge($defaultScope, $additionalScope);

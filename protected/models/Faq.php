@@ -82,15 +82,15 @@ class Faq extends CActiveRecord {
 	public function behaviors() {
 		return array(
 			'positionBehavior' => array(
-				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition',
-				'defaultOrdering'=>true,
-				'groupAttributes'=>array(
+				'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition',
+				'defaultOrdering' => true,
+				'groupAttributes' => array(
 					'category_id'
 				)
 			),
 			'cacheClearBehavior' => array(
-				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorClearCache',
-				'dependingCacheIds'=>array(
+				'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorClearCache',
+				'dependingCacheIds' => array(
 					'Yii.COutputCache.faqListHtml..help/faq....'
 				)
 			),
@@ -103,31 +103,31 @@ class Faq extends CActiveRecord {
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function dataProviderAdmin() {
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.category_id',$this->category_id);
-		$criteria->compare('t.question',$this->question,true);
-		$criteria->compare('t.answer',$this->answer,true);
-		$criteria->compare('t.position',$this->position);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.category_id', $this->category_id);
+		$criteria->compare('t.question', $this->question, true);
+		$criteria->compare('t.answer', $this->answer, true);
+		$criteria->compare('t.position', $this->position);
 
-		$attributeNames = array_keys( $this->getAttributes() );
+		$attributeNames = array_keys($this->getAttributes());
 		$sortAttributes = array();
 		foreach ($attributeNames as $attributeName) {
 			$sortAttributes[$attributeName] = array(
-				'asc'=>"t.{$attributeName} asc",
-				'desc'=>"t.{$attributeName} desc",
+				'asc' => "t.{$attributeName} asc",
+				'desc' => "t.{$attributeName} desc",
 			);
 		}
 		$sortAttributes['status_id'] = array(
-			'asc'=>'category.name asc',
-			'desc'=>'category.name desc'
+			'asc' => 'category.name asc',
+			'desc' => 'category.name desc'
 		);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
-			'sort'=>array(
-				'attributes'=>$sortAttributes
+			'criteria' => $criteria,
+			'sort' => array(
+				'attributes' => $sortAttributes
 			),
 		));
 	}
@@ -139,10 +139,10 @@ class Faq extends CActiveRecord {
 	 */
 	public function dataProvider(array $config=array()) {
 		$criteria = $this->getDbCriteria();
-		if (array_key_exists('criteria',$config)) {
+		if (array_key_exists('criteria', $config)) {
 			$criteria->mergeWith($config['criteria']);
 		}
 		$config['criteria'] = $criteria;
-		return new CActiveDataProvider(get_class($this),$config);
+		return new CActiveDataProvider(get_class($this), $config);
 	}
 }

@@ -2,13 +2,13 @@
  
 class MaintenanceController extends AdminBaseController {
 	public function init() {
-		$this->breadcrumbs=array(
-			'Maintenance'=>array($this->getId().'/'),
+		$this->breadcrumbs = array(
+			'Maintenance' => array($this->getId().'/'),
 		);
 	}
 
 	protected function setResultMessage($message) {
-		return Yii::app()->user->setFlash('maintenanceResult',$message);
+		return Yii::app()->getComponent('user')->setFlash('maintenanceResult', $message);
 	}
 
 	protected function renderIndex($message=null) {
@@ -21,7 +21,7 @@ class MaintenanceController extends AdminBaseController {
 	}
 
 	public function actionClearcache() {
-		Yii::app()->cache->flush();
+		Yii::app()->getComponent('cache')->flush();
 		$this->renderIndex('Cache has been cleared successfully.');
 	}
 }

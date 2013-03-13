@@ -29,13 +29,13 @@ class FaqController extends AdminListController {
 	public function behaviors() {
 		$behaviors = parent::behaviors();
 		$behaviors['dataModelBehavior'] = array(
-			'class'=>'ext.qs.lib.web.controllers.QsControllerBehaviorAdminDataModelContext',
-			'contexts'=>array(
-				'category'=>array(
-					'class'=>'FaqCategory',
-					'foreignKeyName'=>'category_id',
-					'controllerId'=>'faqcategory',
-					'controllerTitle'=>'FAQ category'
+			'class' => 'ext.qs.lib.web.controllers.QsControllerBehaviorAdminDataModelContext',
+			'contexts' => array(
+				'category' => array(
+					'class' => 'FaqCategory',
+					'foreignKeyName' => 'category_id',
+					'controllerId' => 'faqcategory',
+					'controllerTitle' => 'FAQ category'
 				),
 			),
 		);

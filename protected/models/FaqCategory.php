@@ -71,12 +71,12 @@ class FaqCategory extends CActiveRecord {
 	public function behaviors() {
 		return array(
 			'positionBehavior' => array(
-				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition',
-				'defaultOrdering'=>true
+				'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition',
+				'defaultOrdering' => true
 			),
 			'cacheClearBehavior' => array(
-				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorClearCache',
-				'dependingCacheIds'=>array(
+				'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorClearCache',
+				'dependingCacheIds' => array(
 					'Yii.COutputCache.faqListHtml..help/faq....'
 				)
 			),
@@ -89,15 +89,15 @@ class FaqCategory extends CActiveRecord {
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function dataProviderAdmin() {
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.name',$this->name,true);
-		$criteria->compare('t.description',$this->description,true);
-		$criteria->compare('t.position',$this->position);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.name', $this->name ,true);
+		$criteria->compare('t.description', $this->description, true);
+		$criteria->compare('t.position', $this->position);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -108,10 +108,10 @@ class FaqCategory extends CActiveRecord {
 	 */
 	public function dataProvider(array $config=array()) {
 		$criteria = $this->getDbCriteria();
-		if (array_key_exists('criteria',$config)) {
+		if (array_key_exists('criteria', $config)) {
 			$criteria->mergeWith($config['criteria']);
 		}
 		$config['criteria'] = $criteria;
-		return new CActiveDataProvider(get_class($this),$config);
+		return new CActiveDataProvider(get_class($this), $config);
 	}
 }

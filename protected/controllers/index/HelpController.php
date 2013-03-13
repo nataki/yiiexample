@@ -17,7 +17,7 @@ class HelpController extends IndexController {
 	}
 
 	public function actionIndex() {
-		$this->redirect( array('contact') );
+		$this->redirect(array('contact'));
 	}
 
 	public function actionContact() {
@@ -30,7 +30,7 @@ class HelpController extends IndexController {
 				$this->refresh();
 			}
 		}
-		$this->render('contact',array('model'=>$model));
+		$this->render('contact', array('model'=>$model));
 	}
 
 	public function actionFaq() {

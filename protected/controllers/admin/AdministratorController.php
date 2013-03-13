@@ -1,12 +1,11 @@
 <?php
 
 class AdministratorController extends AdminListController {
-
 	public function init() {
 		$this->setModelClassName('Administrator');
 
-		$this->breadcrumbs=array(
-			'Administrators'=>array($this->getId().'/'),
+		$this->breadcrumbs = array(
+			'Administrators' => array($this->getId().'/'),
 		);
 	}
 
@@ -15,7 +14,7 @@ class AdministratorController extends AdminListController {
 		$actions['resetpassword'] = array(
 			'class' => 'ext.qs.lib.web.controllers.actions.QsActionAdminCallModelMethod',
 			'modelMethodName' => 'resetPassword',
-			'flashMessage'=>'Password has been resetted successfully.'
+			'flashMessage' => 'Password has been resetted successfully.'
 		);
 		return $actions;
 	}

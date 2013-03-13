@@ -83,18 +83,18 @@ class EmailPattern extends CActiveRecord {
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function dataProviderAdmin() {
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.timestamp',$this->timestamp);
-		$criteria->compare('t.name',$this->name,true);
-		$criteria->compare('t.from_email',$this->from_email,true);
-		$criteria->compare('t.from_name',$this->from_name,true);
-		$criteria->compare('t.subject',$this->subject,true);
-		$criteria->compare('t.body',$this->body,true);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.timestamp', $this->timestamp);
+		$criteria->compare('t.name', $this->name, true);
+		$criteria->compare('t.from_email', $this->from_email, true);
+		$criteria->compare('t.from_name', $this->from_name, true);
+		$criteria->compare('t.subject', $this->subject, true);
+		$criteria->compare('t.body', $this->body, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 } 

@@ -46,7 +46,7 @@ class SignupController extends IndexController {
 					throw new CException('Unable to log in new user!');
 				}
 
-				$this->redirect( array('account/') );
+				$this->redirect(array('account/'));
 			}
 		}
 

@@ -23,7 +23,7 @@ class AdminListController extends AdminBaseController {
 	public function behaviors() {
 		return array(
 			'dataModelBehavior' => array(
-				'class'=>'ext.qs.lib.web.controllers.QsControllerBehaviorAdminDataModel'
+				'class' => 'ext.qs.lib.web.controllers.QsControllerBehaviorAdminDataModel'
 			)
 		);
 	}

@@ -32,11 +32,11 @@ class SignupForm extends CFormModel {
 
 			array('email','email'),
 			array('new_password', 'compare', 'compareAttribute'=>'new_password_repeat'),
-			array('name,email','unique','className'=>'User','attributeName'=>'name','caseSensitive'=>false),
-			array('name,email','unique','className'=>'User','attributeName'=>'email','caseSensitive'=>false),
+			array('name,email', 'unique', 'className'=>'User', 'attributeName'=>'name', 'caseSensitive'=>false),
+			array('name,email', 'unique', 'className'=>'User', 'attributeName'=>'email', 'caseSensitive'=>false),
 
 			// verifyCode needs to be entered correctly
-			array('verifyCode', 'captcha', 'allowEmpty'=>( !Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements() ) ),
+			array('verifyCode', 'captcha', 'allowEmpty'=>(!Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements()) ),
 		);
 	}
 
@@ -53,7 +53,7 @@ class SignupForm extends CFormModel {
 			'last_name' => 'Last Name',
 			'new_password' => 'Password',
 			'new_password_repeat' => 'Password Repeat',
-			'verifyCode'=>'Verification Code',
+			'verifyCode' => 'Verification Code',
 		);
 	}
 
@@ -63,7 +63,7 @@ class SignupForm extends CFormModel {
 	 * @return CActiveRecord new user model, false - if fails.
 	 */
 	public function save($runValidation=true) {
-		if ( !$runValidation || $this->validate() ) {
+		if (!$runValidation || $this->validate()) {
 			$user = $this->newUserModel();
 			$user = $this->applyUserModelAttributes($user);
 			$user->save(false);
@@ -86,7 +86,7 @@ class SignupForm extends CFormModel {
 
 	/**
 	 * Fills the user model with the data from the form.
-	 * @param CActiveRecord user model.
+	 * @param CActiveRecord $user user model.
 	 * @return CActiveRecord user model.
 	 */
 	protected function applyUserModelAttributes(CActiveRecord $user) {
@@ -94,7 +94,7 @@ class SignupForm extends CFormModel {
 			'verifyCode'
 		);
 		foreach ($this->getAttributes() as $attributeName => $attributeValue) {
-			if ( array_search($attributeName, $excludedAttributeNames, true) !== false ) {
+			if (array_search($attributeName, $excludedAttributeNames, true) !== false) {
 				continue;
 			}
 			$user->$attributeName = $attributeValue;
@@ -104,11 +104,12 @@ class SignupForm extends CFormModel {
 
 	/**
 	 * Send email confirmation
+	 * @param CActiveRecord $user user model.
 	 * @return boolean success.
 	 */
 	protected function sendConfirmationEmail(CActiveRecord $user) {
 		$data = array(
-			'member'=>$user
+			'member' => $user
 		);
 		$emailMessage = Yii::app()->email->createEmailByPattern('signup', $data);
 		$emailMessage->setTo($user->email);

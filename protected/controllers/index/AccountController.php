@@ -43,7 +43,7 @@ class AccountController extends IndexController {
 		$this->layout = "//{$this->id}/layout";
 
 		$this->breadcrumbs = array(
-			'Account'=>array($this->getId().'/'),
+			'Account' => array($this->getId().'/'),
 		);
 	}
 
@@ -53,7 +53,7 @@ class AccountController extends IndexController {
 	 */
 	protected function initUser() {
 		if (!is_object($this->_user)) {
-			$this->_user = Yii::app()->user->model;
+			$this->_user = Yii::app()->getComponent('user')->model;
 		}
 		return true;
 	}
@@ -70,17 +70,15 @@ class AccountController extends IndexController {
 	 */
 	public function actionProfile() {
 		$model = $this->user;
-
-		if ( isset($_POST[get_class($model)]) || isset($_POST[get_class($model->profile)])) {
+		if (isset($_POST[get_class($model)]) || isset($_POST[get_class($model->profile)])) {
 			$model->attributes = $_POST[get_class($model)];
 			$model->profile->attributes = $_POST[get_class($model->profile)];
 			if ($model->validate()) {
 				$model->save(false);
-				Yii::app()->user->setFlash( 'account_profile' ,'Your profile data has been updated.');
+				Yii::app()->getComponent('user')->setFlash('account_profile', 'Your profile data has been updated.');
 				$this->refresh();
 			}
 		}
-
-		$this->render('profile',array('model'=>$model));
+		$this->render('profile', array('model'=>$model));
 	}
 }

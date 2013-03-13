@@ -71,16 +71,16 @@ class AuthLog extends CActiveRecord {
 	public function scopes() {
 		$mainTableAlias = $this->getTableAlias();
 		return array(
-			'successful'=>array(
-				'condition'=>$mainTableAlias.'.error_code=:successErrorCode',
-				'params'=>array(
-					'successErrorCode'=>CBaseUserIdentity::ERROR_NONE
+			'successful' => array(
+				'condition' => $mainTableAlias.'.error_code=:successErrorCode',
+				'params' => array(
+					'successErrorCode' => CBaseUserIdentity::ERROR_NONE
 				),
 			),
-			'failed'=>array(
-				'condition'=>$mainTableAlias.'.error_code<>:successErrorCode',
-				'params'=>array(
-					'successErrorCode'=>CBaseUserIdentity::ERROR_NONE
+			'failed' => array(
+				'condition' => $mainTableAlias.'.error_code<>:successErrorCode',
+				'params' => array(
+					'successErrorCode' => CBaseUserIdentity::ERROR_NONE
 				),
 			),
 		);
@@ -91,25 +91,25 @@ class AuthLog extends CActiveRecord {
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function dataProviderAdmin() {
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.date',$this->date,true);
-		$criteria->compare('t.ip',$this->ip,true);
-		$criteria->compare('t.host',$this->host,true);
-		$criteria->compare('t.url',$this->url,true);
-		$criteria->compare('t.script_name',$this->script_name,true);
-		$criteria->compare('t.user_id',$this->user_id);
-		$criteria->compare('t.username',$this->username,true);
-		$criteria->compare('t.error_code',$this->error_code,true);
-		$criteria->compare('t.error_message',$this->error_message,true);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.date', $this->date, true);
+		$criteria->compare('t.ip', $this->ip, true);
+		$criteria->compare('t.host', $this->host, true);
+		$criteria->compare('t.url', $this->url, true);
+		$criteria->compare('t.script_name', $this->script_name, true);
+		$criteria->compare('t.user_id', $this->user_id);
+		$criteria->compare('t.username', $this->username, true);
+		$criteria->compare('t.error_code', $this->error_code, true);
+		$criteria->compare('t.error_message', $this->error_message, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
-			'pagination'=>array(
-				'pageSize'=>20
+			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 20
 			),
-			'sort'=>array(
+			'sort' => array(
 				'defaultOrder' => 'date DESC'
 			),
 		));

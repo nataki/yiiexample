@@ -6,7 +6,7 @@
 class SignupTest extends WebTestCase {
 	public function tearDown() {
 		$attributes = array(
-			'name'=>$this->getTestUserName()
+			'name' => $this->getTestUserName()
 		);
 		$model = Member::model()->findByAttributes($attributes);
 		if (!empty($model)) {
@@ -79,7 +79,7 @@ class SignupTest extends WebTestCase {
 
 		$user = User::model()->find();
 		if (!empty($user)) {
-			$this->type('name=SignupForm[name]',$user->name);
+			$this->type('name=SignupForm[name]', $user->name);
 			$this->submitSignupForm();
 			$this->assertTextPresent('"'.$user->name.'" has already been taken');
 		}
@@ -92,13 +92,13 @@ class SignupTest extends WebTestCase {
 		$this->open('signup');
 
 		$testEmail = 'invalid_email';
-		$this->type('name=SignupForm[email]',$testEmail);
+		$this->type('name=SignupForm[email]', $testEmail);
 		$this->submitSignupForm();
 		$this->assertTextPresent('Email is not a valid email address.');
 
 		$user = User::model()->find();
 		if (!empty($user)) {
-			$this->type('name=SignupForm[email]',$user->email);
+			$this->type('name=SignupForm[email]', $user->email);
 			$this->submitSignupForm();
 			$this->assertTextPresent('"'.$user->email.'" has already been taken');
 		}
@@ -112,8 +112,8 @@ class SignupTest extends WebTestCase {
 
 		$testPassword = '123456';
 		$testPasswordRepeat = $testPassword.'tail';
-		$this->type('name=SignupForm[new_password]',$testPassword);
-		$this->type('name=SignupForm[new_password_repeat]',$testPasswordRepeat);
+		$this->type('name=SignupForm[new_password]', $testPassword);
+		$this->type('name=SignupForm[new_password_repeat]', $testPasswordRepeat);
 		$this->submitSignupForm();
 		$this->assertTextPresent('Password must be repeated exactly');
 	}
@@ -128,15 +128,15 @@ class SignupTest extends WebTestCase {
 
 		$userData = $this->getTestUserData();
 
-		$this->type('name=SignupForm[name]',$userData['name']);
-		$this->type('name=SignupForm[email]',$userData['email']);
-		$this->type('name=SignupForm[first_name]',$userData['first_name']);
-		$this->type('name=SignupForm[last_name]',$userData['last_name']);
-		$this->type('name=SignupForm[new_password]',$userData['password']);
-		$this->type('name=SignupForm[new_password_repeat]',$userData['password']);
+		$this->type('name=SignupForm[name]', $userData['name']);
+		$this->type('name=SignupForm[email]', $userData['email']);
+		$this->type('name=SignupForm[first_name]', $userData['first_name']);
+		$this->type('name=SignupForm[last_name]', $userData['last_name']);
+		$this->type('name=SignupForm[new_password]', $userData['password']);
+		$this->type('name=SignupForm[new_password_repeat]', $userData['password']);
 
 		$captchaCode = $this->getCaptchaCode();
-		$this->type('name=SignupForm[verifyCode]',$captchaCode);
+		$this->type('name=SignupForm[verifyCode]', $captchaCode);
 
 		$this->submitSignupForm();
 		$this->assertTextNotPresent('error');
@@ -144,10 +144,10 @@ class SignupTest extends WebTestCase {
 
 		// Ensure new user has been created:
 		$attributes = array(
-			'name'=>$userData['name']
+			'name' => $userData['name']
 		);
 		$model = Member::model()->findByAttributes($attributes);
-		$this->assertTrue( is_object($model), 'No new user has been created!' );
+		$this->assertTrue(is_object($model), 'No new user has been created!');
 
 		// Ensure the user is logged out:
 		if ($this->isTextPresent('Logout')) {
@@ -156,8 +156,8 @@ class SignupTest extends WebTestCase {
 
 		// Login new user:
 		$this->clickAndWait('link=Login');
-		$this->type('name=LoginFormIndex[username]',$userData['name']);
-		$this->type('name=LoginFormIndex[password]',$userData['password']);
+		$this->type('name=LoginFormIndex[username]', $userData['name']);
+		$this->type('name=LoginFormIndex[password]', $userData['password']);
 		$this->clickAndWait("//input[@value='Login']");
 
 		$this->assertTextPresent('Logout');

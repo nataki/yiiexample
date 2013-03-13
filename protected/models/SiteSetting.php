@@ -69,18 +69,18 @@ class SiteSetting extends CActiveRecord {
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function dataProviderAdmin() {
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.name',$this->name,true);
-		$criteria->compare('t.value',$this->value,true);
-		$criteria->compare('t.is_required',$this->is_required);
-		$criteria->compare('t.title',$this->title,true);
-		$criteria->compare('t.description',$this->description,true);
-		$criteria->compare('t.position',$this->position,true);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.name', $this->name, true);
+		$criteria->compare('t.value', $this->value, true);
+		$criteria->compare('t.is_required', $this->is_required);
+		$criteria->compare('t.title', $this->title, true);
+		$criteria->compare('t.description', $this->description, true);
+		$criteria->compare('t.position', $this->position, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -90,12 +90,12 @@ class SiteSetting extends CActiveRecord {
 	public function behaviors() {
 		return array(
 			'settingBehavior' => array(
-				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorNameValue',
+				'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorNameValue',
 				'autoNamePrefix' => 'site_'
 			),
 			'positionBehavior' => array(
-				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition',
-				'defaultOrdering'=>true,
+				'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition',
+				'defaultOrdering' => true,
 			)
 		);
 	}

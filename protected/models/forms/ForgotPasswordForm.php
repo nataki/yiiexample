@@ -8,8 +8,8 @@ class ForgotPasswordForm extends CFormModel {
 	 * Initializes this model.
 	 */
 	public function init() {
-		if (!Yii::app()->user->getIsGuest()) {
-			$this->email = Yii::app()->user->email;
+		if (!Yii::app()->getComponent('user')->getIsGuest()) {
+			$this->email = Yii::app()->getComponent('user')->email;
 		}
 	}
 
@@ -21,7 +21,7 @@ class ForgotPasswordForm extends CFormModel {
 		return array(
 			array('email', 'required'),
 			array('email', 'email'),
-			array('verifyCode', 'captcha', 'allowEmpty'=>( !Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements() ) ),
+			array('verifyCode', 'captcha', 'allowEmpty'=>(!Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements()) ),
 		);
 	}
 

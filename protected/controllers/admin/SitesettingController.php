@@ -1,12 +1,11 @@
 <?php
 
 class SitesettingController extends AdminListController {
-
 	public function init() {
 		$this -> setModelClassName('SiteSetting');
 
-		$this->breadcrumbs=array(
-			'Site Settings'=>array($this->getId().'/'),
+		$this->breadcrumbs = array(
+			'Site Settings' => array($this->getId().'/'),
 		);
 	}
 

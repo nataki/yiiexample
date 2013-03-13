@@ -6,7 +6,7 @@
 class LoginLogoutTest extends WebTestCase {
 	public function tearDown() {
 		$attributes = array(
-			'name'=>$this->getTestUserName()
+			'name' => $this->getTestUserName()
 		);
 		$model = Member::model()->findByAttributes($attributes);
 		if (!empty($model)) {
@@ -103,8 +103,8 @@ class LoginLogoutTest extends WebTestCase {
 		$this->assertTextPresent('Password cannot be blank');
 
 		$unexistingUserName = get_class($this).'_'.uniqid();
-		$this->type('name=LoginFormIndex[username]',$unexistingUserName);
-		$this->type('name=LoginFormIndex[password]',$unexistingUserName.'_password');
+		$this->type('name=LoginFormIndex[username]', $unexistingUserName);
+		$this->type('name=LoginFormIndex[password]', $unexistingUserName.'_password');
 		$this->submitLoginForm();
 		$this->assertTextPresent('Incorrect username or password');
 	}
@@ -117,8 +117,8 @@ class LoginLogoutTest extends WebTestCase {
 
 		// Login:
 		$testUser = $this->registerTestUser();
-		$this->type('name=LoginFormIndex[username]',$testUser->name);
-		$this->type('name=LoginFormIndex[password]',$testUser->new_password);
+		$this->type('name=LoginFormIndex[username]', $testUser->name);
+		$this->type('name=LoginFormIndex[password]', $testUser->new_password);
 		$this->submitLoginForm();
 		$this->assertTextPresent('Logout');
 		$this->assertTextPresent($testUser->name);

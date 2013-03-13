@@ -37,13 +37,13 @@ class ContactTest extends WebTestCase {
 	public function testSuccessfulSubmit() {
 		$this->open('help/contact');
 
-		$this->type('name=ContactForm[name]','tester');
-		$this->type('name=ContactForm[email]','tester@example.com');
-		$this->type('name=ContactForm[subject]','test subject');
-		$this->type('name=ContactForm[body]','Test body');
+		$this->type('name=ContactForm[name]', 'tester');
+		$this->type('name=ContactForm[email]', 'tester@example.com');
+		$this->type('name=ContactForm[subject]', 'test subject');
+		$this->type('name=ContactForm[body]', 'Test body');
 
 		$captchaCode = $this->getCaptchaCode();
-		$this->type('name=ContactForm[verifyCode]',$captchaCode);
+		$this->type('name=ContactForm[verifyCode]', $captchaCode);
 
 		$this->clickAndWait("//input[@value='Submit']");
 

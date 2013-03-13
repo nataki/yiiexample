@@ -11,7 +11,7 @@ class SiteController extends AdminBaseController {
 			array(
 				array(
 					'allow',
-					'actions' => array('error','captcha'),
+					'actions' => array('error', 'captcha'),
 					'users' => array('*'),
 				),
 				array(
@@ -37,10 +37,10 @@ class SiteController extends AdminBaseController {
 	public function actions() {
 		return array(
 			// captcha action renders the CAPTCHA image displayed on the contact page
-			'captcha'=>array(
-				'class'=>'CCaptchaAction',
-				'foreColor'=>0x444444,
-				'backColor'=>0xFFFFFF,
+			'captcha' => array(
+				'class' => 'CCaptchaAction',
+				'foreColor' => 0x444444,
+				'backColor' => 0xFFFFFF,
 			),
 		);
 	}
@@ -86,18 +86,18 @@ class SiteController extends AdminBaseController {
 			$model->attributes = $_POST[get_class($model)];
 			// validate user input and redirect to the previous page if valid
 			if ($model->login()) {
-				$this->redirect( Yii::app()->user->getReturnUrl( array('site/index') ) );
+				$this->redirect(Yii::app()->user->getReturnUrl(array('site/index')));
 			}
 		}
 		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->render('login', array('model'=>$model));
 	}
 
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */
 	public function actionLogout() {
-		Yii::app()->user->logout();
+		Yii::app()->getComponent('user')->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
 }

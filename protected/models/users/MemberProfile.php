@@ -82,21 +82,21 @@ class MemberProfile extends CActiveRecord {
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function dataProviderAdmin() {
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.user_id',$this->user_id);
-		$criteria->compare('t.first_name',$this->first_name,true);
-		$criteria->compare('t.last_name',$this->last_name,true);
-		$criteria->compare('t.address1',$this->address1,true);
-		$criteria->compare('t.address2',$this->address2,true);
-		$criteria->compare('t.city',$this->city,true);
-		$criteria->compare('t.postal_code',$this->postal_code,true);
-		$criteria->compare('t.phone_home',$this->phone_home,true);
-		$criteria->compare('t.phone_mobile',$this->phone_mobile,true);
+		$criteria->compare('t.id', $this->id);
+		$criteria->compare('t.user_id', $this->user_id);
+		$criteria->compare('t.first_name', $this->first_name, true);
+		$criteria->compare('t.last_name', $this->last_name, true);
+		$criteria->compare('t.address1', $this->address1, true);
+		$criteria->compare('t.address2', $this->address2, true);
+		$criteria->compare('t.city', $this->city, true);
+		$criteria->compare('t.postal_code', $this->postal_code, true);
+		$criteria->compare('t.phone_home', $this->phone_home, true);
+		$criteria->compare('t.phone_mobile', $this->phone_mobile, true);
 
 		return new CActiveDataProvider(get_class($this), array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 } 

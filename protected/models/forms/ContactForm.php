@@ -16,9 +16,9 @@ class ContactForm extends CFormModel {
 	 * Initializes this model.
 	 */
 	public function init() {
-		if (!Yii::app()->user->getIsGuest()) {
-			$this->name = Yii::app()->user->name;
-			$this->email = Yii::app()->user->email;
+		if (!Yii::app()->getComponent('user')->getIsGuest()) {
+			$this->name = Yii::app()->getComponent('user')->name;
+			$this->email = Yii::app()->getComponent('user')->email;
 		}
 	}
 
@@ -33,7 +33,7 @@ class ContactForm extends CFormModel {
 			// email has to be a valid email address
 			array('email', 'email'),
 			// verifyCode needs to be entered correctly
-			array('verifyCode', 'captcha', 'allowEmpty'=>( !Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements() ) ),
+			array('verifyCode', 'captcha', 'allowEmpty'=>(!Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements()) ),
 		);
 	}
 
@@ -41,10 +41,11 @@ class ContactForm extends CFormModel {
 	 * Declares customized attribute labels.
 	 * If not declared here, an attribute would have a label that is
 	 * the same as its name with the first letter in upper case.
+	 * @return array attribute labels.
 	 */
 	public function attributeLabels() {
 		return array(
-			'verifyCode'=>'Verification Code',
+			'verifyCode' => 'Verification Code',
 		);
 	}
 
@@ -61,7 +62,7 @@ class ContactForm extends CFormModel {
 		// Set all site administrators as receivers:
 		$administrators = Administrator::model()->active()->findAll();
 		foreach ($administrators as $administrator) {
-			$emailMessage->addTo( $administrator->email );
+			$emailMessage->addTo($administrator->email);
 		}
 		return $emailMessage->send();
 	}

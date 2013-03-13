@@ -6,19 +6,19 @@ class m110228_132242_create_tables_auth extends CDbMigration {
 
 		// _auth_item
 		$columns = array(
-			'name'=>'string',
-			'type'=>'integer NOT NULL',
-			'description'=>'text',
-			'bizrule'=>'text',
-			'data'=>'text',
+			'name' => 'string',
+			'type' => 'integer NOT NULL',
+			'description' => 'text',
+			'bizrule' => 'text',
+			'data' => 'text',
 			'PRIMARY KEY(name)'
 		);
 		$this->createTable('_auth_item', $columns, $tableEngine);
 		
 		// _auth_item_child
 		$columns = array(
-			'parent'=>'string',
-			'child'=>'string',
+			'parent' => 'string',
+			'child' => 'string',
 			'PRIMARY KEY(parent,child)'
 		);
 		$this->createTable('_auth_item_child', $columns, $tableEngine);
@@ -27,10 +27,10 @@ class m110228_132242_create_tables_auth extends CDbMigration {
 
 		// _auth_assignment
 		$columns = array(
-			'itemname'=>'string',
-			'userid'=>'string',
-			'bizrule'=>'text',
-			'data'=>'text',
+			'itemname' => 'string',
+			'userid' => 'string',
+			'bizrule' => 'text',
+			'data' => 'text',
 			'PRIMARY KEY(itemname, userid)'
 		);
 		$this->createTable('_auth_assignment', $columns, $tableEngine);

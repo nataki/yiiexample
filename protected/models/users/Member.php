@@ -36,12 +36,12 @@ class Member extends User {
 	public function defaultScope() {
 		$defaultScope = parent::defaultScope();
 
-		$mainTableAlias = $this->getTableAlias(false,false);
+		$mainTableAlias = $this->getTableAlias(false, false);
 
 		$additionalScope = array(
-			'condition'=>$mainTableAlias.'.group_id=:groupId',
-			'params'=>array(
-				'groupId'=>self::GROUP_MEMBER
+			'condition' => $mainTableAlias.'.group_id=:groupId',
+			'params' => array(
+				'groupId' => self::GROUP_MEMBER
 			),
 		);
 		$defaultScope = array_merge($defaultScope, $additionalScope);
@@ -54,9 +54,9 @@ class Member extends User {
 	public function behaviors() {
 		return array(
 			'memberRoleBehavior' => array(
-				'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorRole',
-				'relationName'=>'profile',
-				'relationConfig'=>array('MemberProfile', 'user_id'),
+				'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorRole',
+				'relationName' => 'profile',
+				'relationConfig' => array('MemberProfile', 'user_id'),
 			)
 		);
 	}
@@ -72,8 +72,8 @@ class Member extends User {
 		$sortAttributes = $sort->attributes;
 
 		$sortAttributes['profile.first_name'] = array(
-			'asc'=>'profile.first_name asc',
-			'desc'=>'profile.first_name desc'
+			'asc' => 'profile.first_name asc',
+			'desc' => 'profile.first_name desc'
 		);
 
 		$sort->attributes = $sortAttributes;
