@@ -77,18 +77,18 @@ class QsTranslationLanguageManagerTest extends CTestCase {
 		$languageManager = $this->createQsTranslationLanguageManager();
 
 		$testLanguageModelClassName = 'testLanguageModelClassName';
-		$this->assertTrue( $languageManager->setLanguageModelClassName($testLanguageModelClassName), 'Unable to set language model class name!' );
-		$this->assertEquals( $languageManager->getLanguageModelClassName(), $testLanguageModelClassName, 'Unable to set language model class name correctly!' );
+		$this->assertTrue($languageManager->setLanguageModelClassName($testLanguageModelClassName), 'Unable to set language model class name!');
+		$this->assertEquals($languageManager->getLanguageModelClassName(), $testLanguageModelClassName, 'Unable to set language model class name correctly!');
 
 		$testLanguageModelSearchCriteria = array(
 			'condition' => 'id = test'
 		);
-		$this->assertTrue( $languageManager->setLanguageModelSearchCriteria($testLanguageModelSearchCriteria), 'Unable to set language model search criteria!' );
-		$this->assertEquals( $languageManager->getLanguageModelSearchCriteria(), $testLanguageModelSearchCriteria, 'Unable to set language model search criteria correctly!' );
+		$this->assertTrue($languageManager->setLanguageModelSearchCriteria($testLanguageModelSearchCriteria), 'Unable to set language model search criteria!');
+		$this->assertEquals($languageManager->getLanguageModelSearchCriteria(), $testLanguageModelSearchCriteria, 'Unable to set language model search criteria correctly!');
 
-		$testLanguages = CActiveRecord::model( self::getTestLanguageActiveRecordClassName() )->findAll();
-		$this->assertTrue( $languageManager->setLanguages($testLanguages), 'Unable to set languages!' );
-		$this->assertEquals( $languageManager->getLanguages(), $testLanguages, 'Unable to set languages correctly!' );
+		$testLanguages = CActiveRecord::model(self::getTestLanguageActiveRecordClassName())->findAll();
+		$this->assertTrue($languageManager->setLanguages($testLanguages), 'Unable to set languages!');
+		$this->assertEquals($languageManager->getLanguages(), $testLanguages, 'Unable to set languages correctly!');
 	}
 
 	/**
@@ -98,9 +98,9 @@ class QsTranslationLanguageManagerTest extends CTestCase {
 		$languageManager = $this->createQsTranslationLanguageManager();
 
 		$defaultLanguages = $languageManager->getLanguages();
-		$this->assertFalse( empty($defaultLanguages), 'Unable to get default languages!' );
+		$this->assertFalse(empty($defaultLanguages), 'Unable to get default languages!');
 
-		$languages = CActiveRecord::model( self::getTestLanguageActiveRecordClassName() )->findAll();
-		$this->assertEquals( count($languages), count($defaultLanguages), 'Wrong count of default languages!' );
+		$languages = CActiveRecord::model(self::getTestLanguageActiveRecordClassName())->findAll();
+		$this->assertEquals(count($languages), count($defaultLanguages), 'Wrong count of default languages!');
 	}
 }

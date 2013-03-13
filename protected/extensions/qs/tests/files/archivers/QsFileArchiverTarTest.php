@@ -5,7 +5,6 @@
  * @see QsFileArchiverTar
  */
 class QsFileArchiverTarTest extends CTestCase {
-
 	public static function setUpBeforeClass() {
 		Yii::import('ext.qs.lib.files.archivers.*');
 	}
@@ -50,8 +49,8 @@ class QsFileArchiverTarTest extends CTestCase {
 		$testOutputPath = $this->getTestOutputPath();
 		$testArchiveFileName = $testOutputPath.DIRECTORY_SEPARATOR.'test_archive.tar';
 
-		$this->assertTrue( $fileArchiver->pack($testSourceFileName, $testArchiveFileName), 'Unable to run pack process!' );
-		$this->assertTrue( file_exists($testArchiveFileName), 'No archive file has been created!' );
+		$this->assertTrue($fileArchiver->pack($testSourceFileName, $testArchiveFileName), 'Unable to run pack process!');
+		$this->assertTrue(file_exists($testArchiveFileName), 'No archive file has been created!');
 	}
 
 	/**
@@ -65,11 +64,11 @@ class QsFileArchiverTarTest extends CTestCase {
 		$testArchiveFileName = $testOutputPath.DIRECTORY_SEPARATOR.'test_archive.tar';
 		$fileArchiver->pack($testSourceFileName, $testArchiveFileName);
 
-		$this->assertTrue( $fileArchiver->unpack($testArchiveFileName, $testOutputPath), 'Unable to run unpack process!' );
+		$this->assertTrue($fileArchiver->unpack($testArchiveFileName, $testOutputPath), 'Unable to run unpack process!');
 
 		$sourceFileBaseName = basename($testSourceFileName);
 		$expectedUnpackedFileName = $testOutputPath.DIRECTORY_SEPARATOR.$sourceFileBaseName;
-		$this->assertTrue( file_exists($expectedUnpackedFileName), 'No output file has been created!' );
+		$this->assertTrue(file_exists($expectedUnpackedFileName), 'No output file has been created!');
 	}
 
 	/**
@@ -82,8 +81,8 @@ class QsFileArchiverTarTest extends CTestCase {
 		$testOutputPath = $this->getTestOutputPath();
 		$testArchiveFileName = $testOutputPath.DIRECTORY_SEPARATOR.'test_archive.tbz';
 
-		$this->assertTrue( $fileArchiver->pack($testSourceFileName, $testArchiveFileName), 'Unable to run pack process!' );
-		$this->assertTrue( file_exists($testArchiveFileName), 'No archive file has been created!' );
+		$this->assertTrue($fileArchiver->pack($testSourceFileName, $testArchiveFileName), 'Unable to run pack process!');
+		$this->assertTrue(file_exists($testArchiveFileName), 'No archive file has been created!');
 	}
 
 	/**
@@ -98,10 +97,10 @@ class QsFileArchiverTarTest extends CTestCase {
 		$testArchiveFileName = $testOutputPath.DIRECTORY_SEPARATOR.'test_archive.tbz';
 		$fileArchiver->pack($testSourceFileName, $testArchiveFileName);
 
-		$this->assertTrue( $fileArchiver->unpack($testArchiveFileName, $testOutputPath), 'Unable to run unpack process!' );
+		$this->assertTrue($fileArchiver->unpack($testArchiveFileName, $testOutputPath), 'Unable to run unpack process!');
 
 		$sourceFileBaseName = basename($testSourceFileName);
 		$expectedUnpackedFileName = $testOutputPath.DIRECTORY_SEPARATOR.$sourceFileBaseName;
-		$this->assertTrue( file_exists($expectedUnpackedFileName), 'No output file has been created!' );
+		$this->assertTrue(file_exists($expectedUnpackedFileName), 'No output file has been created!');
 	}
 }

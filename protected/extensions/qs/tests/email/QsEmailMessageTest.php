@@ -17,7 +17,7 @@ class QsEmailMessageTest extends CTestCase {
 
 	public static function tearDownAfterClass() {
 		if (is_object(self::$_emailManagerBackup)) {
-			Yii::app()->setComponent('email',self::$_emailManagerBackup);
+			Yii::app()->setComponent('email', self::$_emailManagerBackup);
 		}
 	}
 
@@ -32,7 +32,7 @@ class QsEmailMessageTest extends CTestCase {
 			);
 			$emailComponent = Yii::createComponent($emailComponentConfig);
 			$emailComponent->init();
-			Yii::app()->setComponent('email',$emailComponent);
+			Yii::app()->setComponent('email', $emailComponent);
 		}
 	}
 
@@ -40,7 +40,7 @@ class QsEmailMessageTest extends CTestCase {
 
 	public function testCreate() {
 		$emailMessage = new QsEmailMessage();
-		$this->assertTrue( is_object($emailMessage) );
+		$this->assertTrue(is_object($emailMessage));
 	}
 
 	/**
@@ -53,10 +53,10 @@ class QsEmailMessageTest extends CTestCase {
 		$emailMessage->setFrom($testFrom);
 
 		$returnedFrom = $emailMessage->getFrom();
-		$this->assertTrue( array_key_exists($testFrom,$returnedFrom), 'Unable to set "from"!' );
+		$this->assertTrue(array_key_exists($testFrom, $returnedFrom), 'Unable to set "from"!');
 
 		$returnedReplyTo = $emailMessage->getReplyTo();
-		$this->assertTrue( array_key_exists($testFrom,$returnedReplyTo), 'Unable to set "reply-to"!' );
+		$this->assertTrue(array_key_exists($testFrom, $returnedReplyTo), 'Unable to set "reply-to"!');
 	}
 
 	/**
@@ -90,7 +90,7 @@ class QsEmailMessageTest extends CTestCase {
 		$testBodyText = 'Test plain text content.';
 		$emailMessage->addBodyText($testBodyText);
 
-		$this->assertGreaterThan(0, $emailMessage->send(), 'Unable to send email message with alternative body!' );
+		$this->assertGreaterThan(0, $emailMessage->send(), 'Unable to send email message with alternative body!');
 	}
 
 	/**
@@ -105,13 +105,13 @@ class QsEmailMessageTest extends CTestCase {
 		$emailMessage->setBodyHtml('Test Yii Email Attachment body');
 
 		$testFileName = __FILE__;
-		$this->assertTrue( $emailMessage->attachFile($testFileName), 'Unable to attach file to the email message!' );
+		$this->assertTrue($emailMessage->attachFile($testFileName), 'Unable to attach file to the email message!');
 
 		$testAttachmentContent = 'Test Attachment Content';
 		$testAttachmentFileName = 'test_attachment_file_name.txt';
-		$this->assertTrue( $emailMessage->createAttachment($testAttachmentContent, $testAttachmentFileName), 'Unable to create attachment to the email message!' );
+		$this->assertTrue($emailMessage->createAttachment($testAttachmentContent, $testAttachmentFileName), 'Unable to create attachment to the email message!');
 
-		$this->assertGreaterThan(0, $emailMessage->send(), 'Unable to send email message with attachment!' );
+		$this->assertGreaterThan(0, $emailMessage->send(), 'Unable to send email message with attachment!');
 	}
 
 	/**
@@ -130,8 +130,8 @@ class QsEmailMessageTest extends CTestCase {
 		$testBodyText = 'Test body text';
 		$testEmailPattern->setBodyText($testBodyText);
 
-		$this->assertTrue( $emailMessage->applyPattern($testEmailPattern), 'Unable to apply pattern!' );
-		$this->assertSame( $emailMessage->getSubject(), $testEmailPattern->getSubject(), 'Unable to apply subject!' );
-		$this->assertTrue( in_array($testEmailPattern->getFrom(), $emailMessage->getFrom()) || array_key_exists($testEmailPattern->getFrom(), $emailMessage->getFrom()), 'Unable to apply from!' );
+		$this->assertTrue($emailMessage->applyPattern($testEmailPattern), 'Unable to apply pattern!');
+		$this->assertSame($emailMessage->getSubject(), $testEmailPattern->getSubject(), 'Unable to apply subject!');
+		$this->assertTrue(in_array($testEmailPattern->getFrom(), $emailMessage->getFrom()) || array_key_exists($testEmailPattern->getFrom(), $emailMessage->getFrom()), 'Unable to apply from!');
 	}
 }

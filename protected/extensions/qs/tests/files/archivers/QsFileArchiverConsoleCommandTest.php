@@ -5,7 +5,6 @@
  * @see QsFileArchiverConsoleCommand
  */
 class QsFileArchiverConsoleCommandTest extends CTestCase {
-
 	public static function setUpBeforeClass() {
 		Yii::import('ext.qs.lib.files.archivers.*');
 	}
@@ -19,7 +18,7 @@ class QsFileArchiverConsoleCommandTest extends CTestCase {
 			'determinePackConsoleCommandParams',
 			'determineUnpackConsoleCommandParams',
 		);
-		$archiver = $this->getMock('QsFileArchiverConsoleCommand',$methodsList);
+		$archiver = $this->getMock('QsFileArchiverConsoleCommand', $methodsList);
 		return $archiver;
 	}
 
@@ -27,11 +26,11 @@ class QsFileArchiverConsoleCommandTest extends CTestCase {
 		$archiver = $this->createTestArchiver();
 
 		$testPackCommandName = '/test/pack/command/name';
-		$this->assertTrue( $archiver->setPackCommandName($testPackCommandName), 'Unable to set pack command name!' );
-		$this->assertEquals( $archiver->getPackCommandName(), $testPackCommandName, 'Unable to set pack command name correctly!' );
+		$this->assertTrue($archiver->setPackCommandName($testPackCommandName), 'Unable to set pack command name!');
+		$this->assertEquals($archiver->getPackCommandName(), $testPackCommandName, 'Unable to set pack command name correctly!');
 
 		$testUnpackCommandName = '/test/unpack/command/name';
-		$this->assertTrue( $archiver->setUnpackCommandName($testUnpackCommandName), 'Unable to set unpack command name!' );
-		$this->assertEquals( $archiver->getUnpackCommandName(), $testUnpackCommandName, 'Unable to set unpack command name correctly!' );
+		$this->assertTrue($archiver->setUnpackCommandName($testUnpackCommandName), 'Unable to set unpack command name!');
+		$this->assertEquals($archiver->getUnpackCommandName(), $testUnpackCommandName, 'Unable to set unpack command name correctly!');
 	}
 }

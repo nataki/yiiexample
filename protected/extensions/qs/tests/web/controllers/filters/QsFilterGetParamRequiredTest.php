@@ -16,7 +16,7 @@ class QsFilterGetParamRequiredTest extends CTestCase {
 	protected function createTestFilterChain() {
 		$controller = new QsTestController();
 		$action = new CInlineAction($controller, 'test');
-		$filterChain = $this->getMock('CFilterChain',array('run'),array($controller,$action));
+		$filterChain = $this->getMock('CFilterChain', array('run'), array($controller, $action));
 		return $filterChain;
 	}
 
@@ -29,8 +29,8 @@ class QsFilterGetParamRequiredTest extends CTestCase {
 			'test_get_param_name_1',
 			'test_get_param_name_2',
 		);
-		$this->assertTrue( $filter->setGetParamNames($testGetParamNames), 'Unable to set get param names!' );
-		$this->assertEquals( $testGetParamNames, $filter->getGetParamNames(), 'Unable to set get param names correctly!' );
+		$this->assertTrue($filter->setGetParamNames($testGetParamNames), 'Unable to set get param names!');
+		$this->assertEquals($testGetParamNames, $filter->getGetParamNames(), 'Unable to set get param names correctly!');
 	}
 
 	/**

@@ -24,10 +24,10 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'behaviors'=>array(
+				'tableName' => $testTableName,
+				'behaviors' => array(
 					'positionBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition',
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition',
 						'groupAttributes' => array('ref_group')
 					)
 				),
@@ -95,13 +95,13 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 		$positionAttributeName = $activeRecordModel->getPositionAttributeName();
 
 		$criteria = array(
-			'order'=>"{$positionAttributeName} ASC"
+			'order' => "{$positionAttributeName} ASC"
 		);
 
 		$attributes = array(
 			'ref_group' => 1
 		);
-		$records = $activeRecordModel->findAllByAttributes($attributes,$criteria);
+		$records = $activeRecordModel->findAllByAttributes($attributes, $criteria);
 		foreach ($records as $recordNumber => $record) {
 			$this->assertEquals($record->$positionAttributeName, $recordNumber+1, 'List positions have been broken!');
 		}
@@ -109,7 +109,7 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 		$attributes = array(
 			'ref_group' => 2
 		);
-		$records = $activeRecordModel->findAllByAttributes($attributes,$criteria);
+		$records = $activeRecordModel->findAllByAttributes($attributes, $criteria);
 		foreach ($records as $recordNumber => $record) {
 			$this->assertEquals($record->$positionAttributeName, $recordNumber+1, 'List positions have been broken!');
 		}
@@ -129,24 +129,24 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 			$groupAttributeName => $testGroupValue
 		);
 		$currentActiveRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($currentActiveRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($currentActiveRecord), 'Unable to find active record for the test!');
 
 		$attributes = array(
 			$positionAttributeName => $testCurrentPositionValue-1,
 			$groupAttributeName => $testGroupValue
 		);
 		$previousActiveRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($previousActiveRecord), 'Unable to find previous active record for the test!' );
+		$this->assertTrue(is_object($previousActiveRecord), 'Unable to find previous active record for the test!');
 
-		$this->assertTrue( $currentActiveRecord->movePrev(), 'Unable to move record to the prev!' );
+		$this->assertTrue($currentActiveRecord->movePrev(), 'Unable to move record to the prev!');
 
-		$this->assertEquals( $testCurrentPositionValue-1, $currentActiveRecord->$positionAttributeName, 'While moving record to the prev current object does not updated!' );
+		$this->assertEquals($testCurrentPositionValue-1, $currentActiveRecord->$positionAttributeName, 'While moving record to the prev current object does not updated!');
 
 		$controlCurrentActiveRecord = $activeRecordModel->findByPk( $currentActiveRecord->getPrimaryKey() );
-		$this->assertEquals( $testCurrentPositionValue-1, $controlCurrentActiveRecord->$positionAttributeName, 'While moving record to the prev wrong position granted!' );
+		$this->assertEquals($testCurrentPositionValue-1, $controlCurrentActiveRecord->$positionAttributeName, 'While moving record to the prev wrong position granted!');
 
 		$controlPreviousActiveRecord = $previousActiveRecord->findByPk( $previousActiveRecord->getPrimaryKey() );
-		$this->assertEquals( $testCurrentPositionValue, $controlPreviousActiveRecord->$positionAttributeName, 'While moving record to the prev wrong position granted to the previous record!' );
+		$this->assertEquals($testCurrentPositionValue, $controlPreviousActiveRecord->$positionAttributeName, 'While moving record to the prev wrong position granted to the previous record!');
 
 		$this->assertListCorrect();
 	}
@@ -163,24 +163,24 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 			$groupAttributeName => $testGroupValue
 		);
 		$currentActiveRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($currentActiveRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($currentActiveRecord), 'Unable to find active record for the test!');
 
 		$attributes = array(
 			$positionAttributeName => $testCurrentPositionValue+1,
 			$groupAttributeName => $testGroupValue
 		);
 		$nextActiveRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($nextActiveRecord), 'Unable to find next active record for the test!' );
+		$this->assertTrue(is_object($nextActiveRecord), 'Unable to find next active record for the test!');
 
-		$this->assertTrue( $currentActiveRecord->moveNext(), 'Unable to move record to the next!' );
+		$this->assertTrue($currentActiveRecord->moveNext(), 'Unable to move record to the next!');
 
-		$this->assertEquals( $testCurrentPositionValue+1, $currentActiveRecord->$positionAttributeName, 'While moving record to the next current object does not updated!' );
+		$this->assertEquals($testCurrentPositionValue+1, $currentActiveRecord->$positionAttributeName, 'While moving record to the next current object does not updated!');
 
 		$controlCurrentActiveRecord = $activeRecordModel->findByPk( $currentActiveRecord->getPrimaryKey() );
-		$this->assertEquals( $testCurrentPositionValue+1, $controlCurrentActiveRecord->$positionAttributeName, 'While moving record to the next wrong position granted!' );
+		$this->assertEquals($testCurrentPositionValue+1, $controlCurrentActiveRecord->$positionAttributeName, 'While moving record to the next wrong position granted!');
 
 		$controlNextActiveRecord = $nextActiveRecord->findByPk( $nextActiveRecord->getPrimaryKey() );
-		$this->assertEquals( $testCurrentPositionValue, $controlNextActiveRecord->$positionAttributeName, 'While moving record to the next wrong position granted to the next record!' );
+		$this->assertEquals($testCurrentPositionValue, $controlNextActiveRecord->$positionAttributeName, 'While moving record to the next wrong position granted to the next record!');
 
 		$this->assertListCorrect();
 	}
@@ -197,14 +197,14 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 			$groupAttributeName => $testGroupValue
 		);
 		$currentActiveRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($currentActiveRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($currentActiveRecord), 'Unable to find active record for the test!');
 
-		$this->assertTrue( $currentActiveRecord->moveFirst(), 'Unable to move record to first!' );
+		$this->assertTrue($currentActiveRecord->moveFirst(), 'Unable to move record to first!');
 
-		$this->assertEquals( 1, $currentActiveRecord->$positionAttributeName, 'While moving record first current object does not updated!' );
+		$this->assertEquals(1, $currentActiveRecord->$positionAttributeName, 'While moving record first current object does not updated!');
 
-		$controlCurrentActiveRecord = $activeRecordModel->findByPk( $currentActiveRecord->getPrimaryKey() );
-		$this->assertEquals( 1, $controlCurrentActiveRecord->$positionAttributeName, 'While moving record to first wrong position granted!' );
+		$controlCurrentActiveRecord = $activeRecordModel->findByPk($currentActiveRecord->getPrimaryKey());
+		$this->assertEquals(1, $controlCurrentActiveRecord->$positionAttributeName, 'While moving record to first wrong position granted!');
 
 		$this->assertListCorrect();
 	}
@@ -216,20 +216,20 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 
 		$testGroupValue = 2;
 		$testCurrentPositionValue = 2;
-		$recordsCount = $activeRecordModel->countByAttributes( array($groupAttributeName=>$testGroupValue) );
+		$recordsCount = $activeRecordModel->countByAttributes(array($groupAttributeName => $testGroupValue));
 		$attributes = array(
 			$positionAttributeName => $testCurrentPositionValue,
 			$groupAttributeName => $testGroupValue
 		);
 		$currentActiveRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($currentActiveRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($currentActiveRecord), 'Unable to find active record for the test!');
 
-		$this->assertTrue( $currentActiveRecord->moveLast(), 'Unable to move record to last!' );
+		$this->assertTrue($currentActiveRecord->moveLast(), 'Unable to move record to last!');
 
-		$this->assertEquals( $recordsCount, $currentActiveRecord->$positionAttributeName, 'While moving record last current object does not updated!' );
+		$this->assertEquals($recordsCount, $currentActiveRecord->$positionAttributeName, 'While moving record last current object does not updated!');
 
-		$controlCurrentActiveRecord = $activeRecordModel->findByPk( $currentActiveRecord->getPrimaryKey() );
-		$this->assertEquals( $recordsCount, $controlCurrentActiveRecord->$positionAttributeName, 'While moving record to last wrong position granted!' );
+		$controlCurrentActiveRecord = $activeRecordModel->findByPk($currentActiveRecord->getPrimaryKey());
+		$this->assertEquals($recordsCount, $controlCurrentActiveRecord->$positionAttributeName, 'While moving record to last wrong position granted!');
 
 		$this->assertListCorrect();
 	}
@@ -246,15 +246,15 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 			$groupAttributeName => $testGroupValue
 		);
 		$currentActiveRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($currentActiveRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($currentActiveRecord), 'Unable to find active record for the test!');
 
 		$testPositionToMove = 3;
-		$this->assertTrue( $currentActiveRecord->moveToPosition($testPositionToMove), 'Unable to move record to the specific position down!' );
+		$this->assertTrue($currentActiveRecord->moveToPosition($testPositionToMove), 'Unable to move record to the specific position down!');
 
-		$this->assertEquals( $testPositionToMove, $currentActiveRecord->$positionAttributeName, 'While moving record to the specific position down current object does not updated!' );
+		$this->assertEquals($testPositionToMove, $currentActiveRecord->$positionAttributeName, 'While moving record to the specific position down current object does not updated!');
 
-		$controlCurrentActiveRecord = $activeRecordModel->findByPk( $currentActiveRecord->getPrimaryKey() );
-		$this->assertEquals( $testPositionToMove, $controlCurrentActiveRecord->$positionAttributeName, 'Unable to move record to the specific position down correctly!' );
+		$controlCurrentActiveRecord = $activeRecordModel->findByPk($currentActiveRecord->getPrimaryKey());
+		$this->assertEquals($testPositionToMove, $controlCurrentActiveRecord->$positionAttributeName, 'Unable to move record to the specific position down correctly!');
 
 		$testCurrentPositionValue = 3;
 		$attributes = array(
@@ -264,12 +264,12 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 		$currentActiveRecord = $activeRecordModel->findByAttributes($attributes);
 		$testPositionToMove = 2;
 
-		$this->assertTrue( $currentActiveRecord->moveToPosition($testPositionToMove), 'Unable to move record to the specific position up!' );
+		$this->assertTrue($currentActiveRecord->moveToPosition($testPositionToMove), 'Unable to move record to the specific position up!');
 
-		$this->assertEquals( $testPositionToMove, $currentActiveRecord->$positionAttributeName, 'While moving record to the specific position up current object does not updated!' );
+		$this->assertEquals($testPositionToMove, $currentActiveRecord->$positionAttributeName, 'While moving record to the specific position up current object does not updated!');
 
-		$controlCurrentActiveRecord = $activeRecordModel->findByPk( $currentActiveRecord->getPrimaryKey() );
-		$this->assertEquals( $testPositionToMove, $controlCurrentActiveRecord->$positionAttributeName, 'Unable to move record to the specific position up correctly!' );
+		$controlCurrentActiveRecord = $activeRecordModel->findByPk($currentActiveRecord->getPrimaryKey());
+		$this->assertEquals($testPositionToMove, $controlCurrentActiveRecord->$positionAttributeName, 'Unable to move record to the specific position up correctly!');
 
 		$this->assertListCorrect();
 	}
@@ -289,7 +289,7 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 			$groupAttributeName => $testGroupValue
 		);
 		$currentActiveRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($currentActiveRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($currentActiveRecord), 'Unable to find active record for the test!');
 
 		$testNewPositionValue = $testCurrentPositionValue-1;
 		$currentActiveRecord->$positionAttributeName = $testNewPositionValue;
@@ -316,7 +316,7 @@ class QsActiveRecordBehaviorPositionGroupTest extends CTestCase {
 			$groupAttributeName => $testGroupValue
 		);
 		$currentActiveRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($currentActiveRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($currentActiveRecord), 'Unable to find active record for the test!');
 
 		$testNewGroupValue = 1;
 		$currentActiveRecord->setAttribute($groupAttributeName, $testNewGroupValue);

@@ -30,8 +30,8 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testVariatorTableName,
-				'rules'=>array(
+				'tableName' => $testVariatorTableName,
+				'rules' => array(
 					array('name', 'required'),
 				),
 			)
@@ -49,8 +49,8 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testVariationTableName,
-				'rules'=>array(
+				'tableName' => $testVariationTableName,
+				'rules' => array(
 					array('variation_name', 'required'),
 				),
 			)
@@ -66,24 +66,24 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testMainTableName,
-				'rules'=>array(
+				'tableName' => $testMainTableName,
+				'rules' => array(
 					array('name', 'required'),
 				),
-				'behaviors'=>array(
+				'behaviors' => array(
 					'variationBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorVariation',
-						'variatorModelClassName'=>$testVariatorTableName,
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorVariation',
+						'variatorModelClassName' => $testVariatorTableName,
 						'variationsRelationName' => 'variations',
 						'defaultVariationRelationName' => 'variation',
-						'relationConfig'=>array(
+						'relationConfig' => array(
 							$testVariationTableName, 'variation_main_id'
 						),
 						'variationOptionForeignKeyName' => 'option_id',
 						'defaultVariationOptionForeignKeyCallback' => array($testMainTableName, 'findDefaultOptionId'),
 					)
 				),
-				'additionalCode'=>'
+				'additionalCode' => '
 					public static function findDefaultOptionId() {
 						// Place logic to determine default option here:
 						return "1";
@@ -187,7 +187,7 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 
 	public function testCreate() {
 		$behavior = new QsActiveRecordBehaviorVariation();
-		$this->assertTrue( is_object($behavior) );
+		$this->assertTrue(is_object($behavior));
 	}
 
 	/**
@@ -197,52 +197,52 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 		$behavior = new QsActiveRecordBehaviorVariation();
 
 		$testInitialized = 'test_initialzed';
-		$this->assertTrue( $behavior->setInitialized($testInitialized), 'Unable it set initialzied!' );
-		$this->assertEquals( $behavior->getInitialized(), $testInitialized, 'Unable it set initialzied correctly!' );
+		$this->assertTrue($behavior->setInitialized($testInitialized), 'Unable it set initialzied!');
+		$this->assertEquals($behavior->getInitialized(), $testInitialized, 'Unable it set initialzied correctly!');
 
 		$testVariationsRelationName = 'test_variations_relation_name';
-		$this->assertTrue( $behavior->setVariationsRelationName($testVariationsRelationName), 'Unable to set variations relation name!' );
-		$this->assertEquals( $behavior->getVariationsRelationName(), $testVariationsRelationName, 'Unable to set variations relation name correctly!' );
+		$this->assertTrue($behavior->setVariationsRelationName($testVariationsRelationName), 'Unable to set variations relation name!');
+		$this->assertEquals($behavior->getVariationsRelationName(), $testVariationsRelationName, 'Unable to set variations relation name correctly!');
 
 		$testDefaultVariationRelationName = 'test_default_variation_relation_name';
-		$this->assertTrue( $behavior->setDefaultVariationRelationName($testDefaultVariationRelationName), 'Unable to set default variation relation config!' );
-		$this->assertEquals( $behavior->getDefaultVariationRelationName(), $testDefaultVariationRelationName, 'Unable to set default variation relation config correctly!' );
+		$this->assertTrue($behavior->setDefaultVariationRelationName($testDefaultVariationRelationName), 'Unable to set default variation relation config!');
+		$this->assertEquals($behavior->getDefaultVariationRelationName(), $testDefaultVariationRelationName, 'Unable to set default variation relation config correctly!');
 
 		$testRelationConfig = array(
 			'testArg1',
 			'testArg2'
 		);
-		$this->assertTrue( $behavior->setRelationConfig($testRelationConfig), 'Unable to set relation config!' );
-		$this->assertEquals( $behavior->getRelationConfig(), $testRelationConfig, 'Unable to set relation config correctly!' );
+		$this->assertTrue($behavior->setRelationConfig($testRelationConfig), 'Unable to set relation config!');
+		$this->assertEquals($behavior->getRelationConfig(), $testRelationConfig, 'Unable to set relation config correctly!');
 
 		$testVariationOptionForeignKeyName = 'test_variation_option_id';
-		$this->assertTrue( $behavior->setVariationOptionForeignKeyName($testVariationOptionForeignKeyName), 'Unable to set variation option id name!' );
-		$this->assertEquals( $behavior->getVariationOptionForeignKeyName(), $testVariationOptionForeignKeyName, 'Unable to set variation option id name correctly!' );
+		$this->assertTrue($behavior->setVariationOptionForeignKeyName($testVariationOptionForeignKeyName), 'Unable to set variation option id name!');
+		$this->assertEquals($behavior->getVariationOptionForeignKeyName(), $testVariationOptionForeignKeyName, 'Unable to set variation option id name correctly!');
 
 		$testVariatorModelClassName = 'TestVariatorModelClassName';
-		$this->assertTrue( $behavior->setVariatorModelClassName($testVariatorModelClassName), 'Unable to set variator model class name!' );
-		$this->assertEquals( $behavior->getVariatorModelClassName(), $testVariatorModelClassName, 'Unable to set variator model class name correctly!' );
+		$this->assertTrue($behavior->setVariatorModelClassName($testVariatorModelClassName), 'Unable to set variator model class name!');
+		$this->assertEquals($behavior->getVariatorModelClassName(), $testVariatorModelClassName, 'Unable to set variator model class name correctly!');
 
 		$testDefaultVariationOptionForeignKeyCallback = array(
 			'test_class_name',
 			'test_class_method'
 		);
-		$this->assertTrue( $behavior->setDefaultVariationOptionForeignKeyCallback($testDefaultVariationOptionForeignKeyCallback), 'Unable to set default foreign key callback!' );
-		$this->assertEquals( $behavior->getDefaultVariationOptionForeignKeyCallback(), $testDefaultVariationOptionForeignKeyCallback, 'Unable to set default foreign key callback correctly!' );
+		$this->assertTrue($behavior->setDefaultVariationOptionForeignKeyCallback($testDefaultVariationOptionForeignKeyCallback), 'Unable to set default foreign key callback!');
+		$this->assertEquals($behavior->getDefaultVariationOptionForeignKeyCallback(), $testDefaultVariationOptionForeignKeyCallback, 'Unable to set default foreign key callback correctly!');
 
 		$testAutoAdjustVariationScenarios = array(
 			'test_scenario_1',
 			'test_scenario_2',
 		);
-		$this->assertTrue( $behavior->setAutoAdjustVariationScenarios($testAutoAdjustVariationScenarios), 'Unable to set auto adjust variation scenarios!' );
-		$this->assertEquals( $behavior->getAutoAdjustVariationScenarios(), $testAutoAdjustVariationScenarios, 'Unable to set auto adjust variation scenarios correctly!' );
+		$this->assertTrue($behavior->setAutoAdjustVariationScenarios($testAutoAdjustVariationScenarios), 'Unable to set auto adjust variation scenarios!');
+		$this->assertEquals($behavior->getAutoAdjustVariationScenarios(), $testAutoAdjustVariationScenarios, 'Unable to set auto adjust variation scenarios correctly!');
 
 		$testVariationAttributeDefaultValueMap = array(
 			'test_variation_attribute_1' => 'test_main_attribute_1',
 			'test_variation_attribute_2' => 'test_main_attribute_2',
 		);
-		$this->assertTrue( $behavior->setVariationAttributeDefaultValueMap($testVariationAttributeDefaultValueMap), 'Unable to set variation attribute default value map!' );
-		$this->assertEquals( $behavior->getVariationAttributeDefaultValueMap(), $testVariationAttributeDefaultValueMap, 'Unable to set variation attribute default value map correctly!' );
+		$this->assertTrue($behavior->setVariationAttributeDefaultValueMap($testVariationAttributeDefaultValueMap), 'Unable to set variation attribute default value map!');
+		$this->assertEquals($behavior->getVariationAttributeDefaultValueMap(), $testVariationAttributeDefaultValueMap, 'Unable to set variation attribute default value map correctly!');
 	}
 
 	/**
@@ -273,8 +273,8 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 		$activeRecordName = self::getTestMainActiveRecordClassName();
 		$activeRecord = new $activeRecordName();
 
-		$this->assertTrue( is_object($activeRecord) );
-		$this->assertTrue( is_object($activeRecord->variation) );
+		$this->assertTrue(is_object($activeRecord));
+		$this->assertTrue(is_object($activeRecord->variation));
 	}
 
 	/**
@@ -284,8 +284,8 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 		$activeRecordBase = $this->getActiveRecordFinder();
 		$testActiveRecord = $activeRecordBase->find();
 
-		$this->assertTrue( is_object($testActiveRecord), 'Unable to find active record!' );
-		$this->assertTrue( is_object($testActiveRecord->variation), 'Unable to find active record\'s default variation!' );
+		$this->assertTrue(is_object($testActiveRecord), 'Unable to find active record!');
+		$this->assertTrue(is_object($testActiveRecord->variation), 'Unable to find active record\'s default variation!');
 	}
 
 	/**
@@ -297,8 +297,8 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 		$activeRecord = new $activeRecordName();
 		$testVariationName = 'test_variation_name';
 		$activeRecord->variation_name = $testVariationName;
-		$this->assertEquals( $activeRecord->variation->variation_name, $testVariationName, 'Unable to set property for the default variation active record!' );
-		$this->assertEquals( $activeRecord->variation_name, $testVariationName, 'Unable to get property from the default variation active record directly!' );
+		$this->assertEquals($activeRecord->variation->variation_name, $testVariationName, 'Unable to set property for the default variation active record!');
+		$this->assertEquals($activeRecord->variation_name, $testVariationName, 'Unable to get property from the default variation active record directly!');
 	}
 
 	/**
@@ -308,14 +308,14 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 		$startActiveRecord = $this->getActiveRecordFinder();
 		$activeRecord = $startActiveRecord->find();
 
-		$this->assertTrue( $activeRecord->validate(), 'Just found model fails on validate!' );
+		$this->assertTrue($activeRecord->validate(), 'Just found model fails on validate!');
 
 		$variationModel =$activeRecord->variations[0];
 		$variationModel->variation_name = null;
-		$this->assertFalse( $activeRecord->validate(), 'Model considered as valid, while one of variation models is invalid!' );
+		$this->assertFalse($activeRecord->validate(), 'Model considered as valid, while one of variation models is invalid!');
 
 		$activeRecord->setAutoAdjustVariationScenarios(array());
-		$this->assertTrue( $activeRecord->validate(), 'Model considered as invalid, while auto adjust scenarios are unset!' );
+		$this->assertTrue($activeRecord->validate(), 'Model considered as invalid, while auto adjust scenarios are unset!');
 	}
 
 	/**
@@ -334,11 +334,11 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 
 		$activeRecord->save(false);
 
-		$refreshedActiveRecord = $startActiveRecord->findByPk( $activeRecord->getPrimaryKey() );
+		$refreshedActiveRecord = $startActiveRecord->findByPk($activeRecord->getPrimaryKey());
 
 		foreach ($refreshedActiveRecord->variations as $key => $variationActiveRecord) {
 			$testVariationName = $testVariationNameBase.'#'.$key;
-			$this->assertEquals( $variationActiveRecord->variation_name, $testVariationName, 'Unable to save variation active records while saving the main one!' );
+			$this->assertEquals($variationActiveRecord->variation_name, $testVariationName, 'Unable to save variation active records while saving the main one!');
 		}
 
 		// Auto adjust scenarios:
@@ -350,9 +350,9 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 		$variationModel->variation_name = $testVariationName;
 
 		$activeRecord->save();
-		$refreshedActiveRecord = $startActiveRecord->findByPk( $activeRecord->getPrimaryKey() );
+		$refreshedActiveRecord = $startActiveRecord->findByPk($activeRecord->getPrimaryKey());
 
-		$this->assertNotEquals( $refreshedActiveRecord->variations[0]->variation_name, $testVariationName, 'Variation active records are saved while auto adjust scenarios are unset!' );
+		$this->assertNotEquals($refreshedActiveRecord->variations[0]->variation_name, $testVariationName, 'Variation active records are saved while auto adjust scenarios are unset!');
 	}
 
 	/**
@@ -364,12 +364,12 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 
 		$variationModels = $activeRecord->getVariationModels();
 
-		$this->assertTrue( !empty($variationModels), 'Variation models are empty for the new active record!' );
+		$this->assertTrue(!empty($variationModels), 'Variation models are empty for the new active record!');
 
 		$variatorModelClassName = $activeRecord->getVariatorModelClassName();
 		$variators = CActiveRecord::model($variatorModelClassName)->findAll();
 
-		$this->assertEquals( count($variators), count($variationModels), 'Count of variations missmatch the count of the variators!' );
+		$this->assertEquals(count($variators), count($variationModels), 'Count of variations missmatch the count of the variators!');
 	}
 
 	/**
@@ -399,7 +399,7 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 
 		$foundActiveRecord = $activeRecordFinder->findByPk($mainId);
 		$variationModels = $foundActiveRecord->getVariationModels();
-		$this->assertTrue( count($variationModels) == count($variatorModels), 'Count of variation models missmatch the count of variators!' );
+		$this->assertTrue(count($variationModels) == count($variatorModels), 'Count of variation models missmatch the count of variators!');
 	}
 
 	/**
@@ -437,7 +437,7 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 
 		$foundActiveRecord = $activeRecordFinder->findByPk($mainId);
 		$variationModels = $foundActiveRecord->getVariationModels();
-		$this->assertTrue( count($variationModels) == count($variatorModels), 'Count of variation models missmatch the count of variators!' );
+		$this->assertTrue(count($variationModels) == count($variatorModels), 'Count of variation models missmatch the count of variators!');
 	}
 
 	/**
@@ -458,8 +458,8 @@ class QsActiveRecordBehaviorVariationTest extends CTestCase {
 
 		$activeRecord->$testMainAttributeName = $testMainAttributeValue;
 
-		$this->assertEquals( $testMainAttributeValue, $activeRecord->fetchDefaultVariationAttributeValue($testVariationAttributeName), 'Unable to fetch default variation attribute name!' );
+		$this->assertEquals($testMainAttributeValue, $activeRecord->fetchDefaultVariationAttributeValue($testVariationAttributeName), 'Unable to fetch default variation attribute name!');
 
-		$this->assertEquals( $testMainAttributeValue, $activeRecord->$testVariationAttributeName, 'Unable to fetch default variation attribute name through the direct access!' );
+		$this->assertEquals($testMainAttributeValue, $activeRecord->$testVariationAttributeName, 'Unable to fetch default variation attribute name through the direct access!');
 	}
 }

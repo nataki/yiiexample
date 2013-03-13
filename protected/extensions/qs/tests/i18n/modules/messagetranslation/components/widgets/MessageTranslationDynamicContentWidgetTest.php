@@ -16,23 +16,23 @@ class MessageTranslationDynamicContentWidgetTest extends CTestCase {
 		$widget = new MessageTranslationDynamicContentWidget();
 
 		$testModel = new MessageTranslation();
-		$this->assertTrue( $widget->setModel($testModel), 'Unable to set model!' );
-		$this->assertEquals( $widget->getModel(), $testModel, 'Unable to set model correctly!' );
+		$this->assertTrue($widget->setModel($testModel), 'Unable to set model!');
+		$this->assertEquals($widget->getModel(), $testModel, 'Unable to set model correctly!');
 
 		$testLanguageInputId = 'test_language_input_id';
-		$this->assertTrue( $widget->setLanguageInputId($testLanguageInputId), 'Unable to set language input id!' );
-		$this->assertEquals( $widget->getLanguageInputId(), $testLanguageInputId, 'Unable to set language input id correctly!' );
+		$this->assertTrue($widget->setLanguageInputId($testLanguageInputId), 'Unable to set language input id!');
+		$this->assertEquals($widget->getLanguageInputId(), $testLanguageInputId, 'Unable to set language input id correctly!');
 
 		$testContentInputId = 'test_content_input_id';
-		$this->assertTrue( $widget->setContentInputId($testContentInputId), 'Unable to set content input id!' );
-		$this->assertEquals( $widget->getContentInputId(), $testContentInputId, 'Unable to set content input id correctly!' );
+		$this->assertTrue($widget->setContentInputId($testContentInputId), 'Unable to set content input id!');
+		$this->assertEquals($widget->getContentInputId(), $testContentInputId, 'Unable to set content input id correctly!');
 
 		$testLanguages = array(
 			'test_lang_1',
 			'test_lang_2'
 		);
-		$this->assertTrue( $widget->setLanguages($testLanguages), 'Unable to set languages!' );
-		$this->assertEquals( $widget->getLanguages(), $testLanguages, 'Unable to set languages correctly!' );
+		$this->assertTrue($widget->setLanguages($testLanguages), 'Unable to set languages!');
+		$this->assertEquals($widget->getLanguages(), $testLanguages, 'Unable to set languages correctly!');
 	}
 
 	/**
@@ -45,10 +45,11 @@ class MessageTranslationDynamicContentWidgetTest extends CTestCase {
 		$widget->setModel($testModel);
 
 		$defaultLanguageInputId = $widget->getLanguageInputId();
-		$this->assertFalse( empty($defaultLanguageInputId), 'Unable to get default language input id!' );
+		$this->assertFalse(empty($defaultLanguageInputId), 'Unable to get default language input id!');
 
-		$expectedLanguageInputId = CHtml::getIdByName( CHtml::resolveName($testModel, $modelAttribute='language') );
-		$this->assertEquals( $expectedLanguageInputId, $defaultLanguageInputId, 'Default language input id has wrong value!' );
+		$modelAttribute = 'language';
+		$expectedLanguageInputId = CHtml::getIdByName(CHtml::resolveName($testModel, $modelAttribute));
+		$this->assertEquals($expectedLanguageInputId, $defaultLanguageInputId, 'Default language input id has wrong value!');
 	}
 
 	/**
@@ -61,9 +62,10 @@ class MessageTranslationDynamicContentWidgetTest extends CTestCase {
 		$widget->setModel($testModel);
 
 		$defaultContentInputId = $widget->getContentInputId();
-		$this->assertFalse( empty($defaultContentInputId), 'Unable to get default language input id!' );
+		$this->assertFalse(empty($defaultContentInputId), 'Unable to get default language input id!');
 
-		$expectedLanguageInputId = CHtml::getIdByName( CHtml::resolveName($testModel, $modelAttribute='content') );
-		$this->assertEquals( $expectedLanguageInputId, $defaultContentInputId, 'Default content input id has wrong value!' );
+		$modelAttribute = 'content';
+		$expectedLanguageInputId = CHtml::getIdByName(CHtml::resolveName($testModel, $modelAttribute));
+		$this->assertEquals($expectedLanguageInputId, $defaultContentInputId, 'Default content input id has wrong value!');
 	}
 }

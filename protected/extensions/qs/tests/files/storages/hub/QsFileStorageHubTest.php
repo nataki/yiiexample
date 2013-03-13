@@ -5,7 +5,6 @@
  * @see QsFileStorageHub
  */
 class QsFileStorageHubTest extends CTestCase {
-
 	public static function setUpBeforeClass() {
 		Yii::import('ext.qs.lib.files.storages.*');
 		Yii::import('ext.qs.lib.files.storages.filesystem.*');
@@ -16,7 +15,7 @@ class QsFileStorageHubTest extends CTestCase {
 		$methodsList = array(
 			'init',
 		);
-		$fileStorage = $this->getMock('QsFileStorage',$methodsList);
+		$fileStorage = $this->getMock('QsFileStorage', $methodsList);
 		return $fileStorage;
 	}
 
@@ -37,7 +36,7 @@ class QsFileStorageHubTest extends CTestCase {
 			'moveFileInternal',
 			'getFileUrl',
 		);
-		$bucket = $this->getMock('QsFileStorageBucket',$methodsList);
+		$bucket = $this->getMock('QsFileStorageBucket', $methodsList);
 		return $bucket;
 	}
 
@@ -56,12 +55,12 @@ class QsFileStorageHubTest extends CTestCase {
 			for ($bucketCount=1; $bucketCount<=$maxBucketCount; $bucketCount++) {
 				$testBucketName = $bucketNamePrefix.'_'.$storageCount.'_'.$bucketCount;
 				$testBuckets[$testBucketName] = array(
-					'class'=>$testBucketClassName
+					'class' => $testBucketClassName
 				);
 			}
 			$testStorage = array(
 				'class'=> $testStorageClassName,
-				'buckets'=>$testBuckets
+				'buckets' => $testBuckets
 			);
 
 			$testStorageName = $storageNamePrefix.'_'.$storageCount;
@@ -78,7 +77,7 @@ class QsFileStorageHubTest extends CTestCase {
 		$testStorageName = 'testStorageName';
 		$testStorage = $this->createFileStorage();
 
-		$this->assertTrue( $fileStorageHub->addStorage($testStorageName, $testStorage), 'Unable to add storage object!' );
+		$this->assertTrue($fileStorageHub->addStorage($testStorageName, $testStorage), 'Unable to add storage object!');
 
 		$returnedStorage = $fileStorageHub->getStorage($testStorageName);
 		$this->assertTrue(is_object($returnedStorage), 'Unable to get added storage!');
@@ -97,11 +96,11 @@ class QsFileStorageHubTest extends CTestCase {
 		$testStorageConfig = array(
 			'class' => $testStorageClassName
 		);
-		$this->assertTrue( $fileStorageHub->addStorage($testStorageName, $testStorageConfig), 'Unable to add storage as config!' );
+		$this->assertTrue($fileStorageHub->addStorage($testStorageName, $testStorageConfig), 'Unable to add storage as config!');
 
 		$returnedStorage = $fileStorageHub->getStorage($testStorageName);
-		$this->assertTrue( is_object($returnedStorage), 'Unable to get storage added by config!' );
-		$this->assertEquals($testStorageClassName, get_class($returnedStorage), 'Added by config storage has wrong class name!' );
+		$this->assertTrue(is_object($returnedStorage), 'Unable to get storage added by config!');
+		$this->assertEquals($testStorageClassName, get_class($returnedStorage), 'Added by config storage has wrong class name!');
 	}
 
 	/**
@@ -118,9 +117,9 @@ class QsFileStorageHubTest extends CTestCase {
 			$testStorages[$testStorageName] = $testStorage;
 		}
 
-		$this->assertTrue( $fileStorageHub->setStorages($testStorages), 'Unable to set storages list!' );
+		$this->assertTrue($fileStorageHub->setStorages($testStorages), 'Unable to set storages list!');
 		$returnedStorages = $fileStorageHub->getStorages();
-		$this->assertEquals( count($returnedStorages), count($testStorages), 'Wrong count of the set storages!' );
+		$this->assertEquals(count($returnedStorages), count($testStorages), 'Wrong count of the set storages!');
 	}
 
 	/**
@@ -130,11 +129,11 @@ class QsFileStorageHubTest extends CTestCase {
 		$fileStorageHub = Yii::createComponent('QsFileStorageHub');
 
 		$testStorageName = 'test_storage_name';
-		$this->assertFalse( $fileStorageHub->hasStorage($testStorageName), 'Not added storage present in the storage!' );
+		$this->assertFalse($fileStorageHub->hasStorage($testStorageName), 'Not added storage present in the storage!');
 
 		$testStorage = $this->createFileStorage();
 		$fileStorageHub->addStorage($testStorageName, $testStorage);
-		$this->assertTrue( $fileStorageHub->hasStorage($testStorageName), 'Added storage does not present in the storage!' );
+		$this->assertTrue($fileStorageHub->hasStorage($testStorageName), 'Added storage does not present in the storage!');
 	}
 
 	/**
@@ -150,7 +149,7 @@ class QsFileStorageHubTest extends CTestCase {
 		$testBucketName = 'testBucketName';
 		$testBucket = $this->createFileStorageBucket();
 
-		$this->assertTrue( $fileStorageHub->addBucket($testBucketName, $testBucket), 'Unable to add bucket object to the hub!' );
+		$this->assertTrue($fileStorageHub->addBucket($testBucketName, $testBucket), 'Unable to add bucket object to the hub!');
 
 		$returnedBucket = $fileStorageHub->getBucket($testBucketName);
 		$this->assertEquals($testBucketName, $returnedBucket->getName(), 'Added bucket has wrong name!');
@@ -174,9 +173,9 @@ class QsFileStorageHubTest extends CTestCase {
 			$testBuckets[$testBucketName] = $testBucket;
 		}
 
-		$this->assertTrue( $fileStorageHub->setBuckets($testBuckets), 'Unable to set buckets list!' );
+		$this->assertTrue($fileStorageHub->setBuckets($testBuckets), 'Unable to set buckets list!');
 		$returnedBuckets = $fileStorageHub->getBuckets();
-		$this->assertEquals( count($returnedBuckets), count($testBuckets), 'Wrong count of the set buckets!' );
+		$this->assertEquals(count($returnedBuckets), count($testBuckets), 'Wrong count of the set buckets!');
 	}
 
 	/**
@@ -205,10 +204,10 @@ class QsFileStorageHubTest extends CTestCase {
 		$fileStorageHub = $this->createFilledFileStorageHub($maxStorageCount, $maxBucketCount, $storageNamePrefix, $bucketNamePrefix);
 
 		$testBucketName = $bucketNamePrefix.'_'.rand(1,$maxStorageCount).'_'.rand(1, $maxBucketCount);
-		$this->assertTrue( $fileStorageHub->hasBucket($testBucketName), 'Unable to determine bucket existance!' );
+		$this->assertTrue($fileStorageHub->hasBucket($testBucketName), 'Unable to determine bucket existance!');
 
 		$testUnexistingBucketName = 'unexisting_bucket_name';
-		$this->assertFalse( $fileStorageHub->hasBucket($testUnexistingBucketName), 'Unexisting bucket reported to be present!' );
+		$this->assertFalse($fileStorageHub->hasBucket($testUnexistingBucketName), 'Unexisting bucket reported to be present!');
 	}
 
 	/**
@@ -224,6 +223,6 @@ class QsFileStorageHubTest extends CTestCase {
 		$testBucketName = $bucketNamePrefix.'_'.rand(1,$maxStorageCount).'_'.rand(1, $maxBucketCount);
 		$returnedBucket = $fileStorageHub->getBucket($testBucketName);
 
-		$this->assertTrue( is_object($returnedBucket), 'Unable to get bucket from complex hub!' );
+		$this->assertTrue(is_object($returnedBucket), 'Unable to get bucket from complex hub!');
 	}
 }

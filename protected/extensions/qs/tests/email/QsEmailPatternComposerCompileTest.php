@@ -25,7 +25,7 @@ class QsEmailPatternComposerCompileTest extends CTestCase {
 
 	public function testCreate() {
 		$emailComposer = new QsEmailPatternComposerCompile();
-		$this->assertTrue( is_object($emailComposer) );
+		$this->assertTrue(is_object($emailComposer));
 	}
 
 	/**
@@ -35,20 +35,20 @@ class QsEmailPatternComposerCompileTest extends CTestCase {
 		$emailComposer = new QsEmailPatternComposerCompile();
 
 		$testCompilePath = 'test_compile_dir';
-		$this->assertTrue( $emailComposer->setCompilePath($testCompilePath), 'Can not set compilePath!' );
-		$this->assertEquals( $emailComposer->getCompilePath(), $testCompilePath, 'Can not set compilePath correctly!' );
+		$this->assertTrue($emailComposer->setCompilePath($testCompilePath), 'Can not set compilePath!');
+		$this->assertEquals($emailComposer->getCompilePath(), $testCompilePath, 'Can not set compilePath correctly!');
 
 		$testFilePermissions = 0777;
-		$this->assertTrue( $emailComposer->setFilePermission($testFilePermissions), 'Can not set file permissions!' );
-		$this->assertEquals( $emailComposer->getFilePermission(), $testFilePermissions, 'Can not set file permissions correctly!' );
+		$this->assertTrue($emailComposer->setFilePermission($testFilePermissions), 'Can not set file permissions!');
+		$this->assertEquals($emailComposer->getFilePermission(), $testFilePermissions, 'Can not set file permissions correctly!');
 
 		$testLeftDelimiter = 'test_left_delimiter';
-		$this->assertTrue( $emailComposer->setLeftDelimiter($testLeftDelimiter), 'Can not set leftDelimiter!' );
-		$this->assertEquals( $emailComposer->getLeftDelimiter(), $testLeftDelimiter, 'Can not set leftDelimiter correctly!' );
+		$this->assertTrue($emailComposer->setLeftDelimiter($testLeftDelimiter), 'Can not set leftDelimiter!');
+		$this->assertEquals($emailComposer->getLeftDelimiter(), $testLeftDelimiter, 'Can not set leftDelimiter correctly!');
 
 		$testRightDelimiter = 'test_right_delimiter';
-		$this->assertTrue( $emailComposer->setRightDelimiter($testRightDelimiter), 'Can not set rightDelimiter!' );
-		$this->assertEquals( $emailComposer->getRightDelimiter(), $testRightDelimiter, 'Can not set rightDelimiter correctly!' );
+		$this->assertTrue($emailComposer->setRightDelimiter($testRightDelimiter), 'Can not set rightDelimiter!');
+		$this->assertEquals($emailComposer->getRightDelimiter(), $testRightDelimiter, 'Can not set rightDelimiter correctly!');
 	}
 
 	/**
@@ -100,7 +100,7 @@ class QsEmailPatternComposerCompileTest extends CTestCase {
 		$testBodyHtml = '<html>Test Body Html with {name}</html>';
 		$testEmailPattern->setBodyHtml($testBodyHtml);
 
-		$this->assertTrue( $emailComposer->compilePattern($testEmailPattern), 'Unable to compile email pattern!' );
+		$this->assertTrue($emailComposer->compilePattern($testEmailPattern), 'Unable to compile email pattern!');
 	}
 
 	/**
@@ -149,7 +149,7 @@ class QsEmailPatternComposerCompileTest extends CTestCase {
 		$this->assertEquals($expectedComposedFrom, $composedEmailPattern->getFrom(), 'Unable to compose email pattern from with compile!');
 
 		$composedBodyHtml = $composedEmailPattern->getBodyHtml();
-		$this->assertTrue( !empty($composedBodyHtml), 'Composed by compile bodyHtml is empty!' );
+		$this->assertFalse(empty($composedBodyHtml), 'Composed by compile bodyHtml is empty!');
 		$this->assertContains($expectedComposedBodyHtml, $composedEmailPattern->getBodyHtml(), 'Unable to compose email pattern bodyHtml with compile!');
 
 		$this->assertContains($expectedComposedBodyText, $composedEmailPattern->getBodyText(), 'Unable to compose email pattern bodyText with compile!');

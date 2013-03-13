@@ -43,22 +43,22 @@ class MessageTranslationMapperPhpTest extends CTestCase {
 		}
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
-		Yii::app()->setModules( self::$_modulesBackup );
+		Yii::app()->setModules(self::$_modulesBackup);
 
 		$dbSetUp = new QsTestDbMigration();
 		$dbSetUp->dropTable(self::getTestLanguageTableName());
 	}
 
 	public function setUp() {
-		Yii::app()->setModules( $this->createTestModulesConfig() );
+		Yii::app()->setModules($this->createTestModulesConfig());
 
 		$path = $this->getTestBasePath();
 		if (!file_exists($path)) {
-			mkdir($path,0777,true);
+			mkdir($path, 0777, true);
 		}
 	}
 
@@ -93,9 +93,9 @@ class MessageTranslationMapperPhpTest extends CTestCase {
 	protected function createTestModulesConfig() {
 		$modulesConfig = array(
 			'messagetranslation' => array(
-				'class'=>'MessagetranslationModule',
-				'components'=>array(
-					'languageManager'=>array(
+				'class' => 'MessagetranslationModule',
+				'components' => array(
+					'languageManager' => array(
 						'languageModelClassName' => self::getTestLanguageActiveRecordClassName()
 					)
 				),
@@ -134,12 +134,12 @@ class MessageTranslationMapperPhpTest extends CTestCase {
 		$messageTranslationMapper = $this->createMessageTranslationMapper();
 
 		$testBasePath = '/test/base/path';
-		$this->assertTrue( $messageTranslationMapper->setBasePath($testBasePath), 'Unable to set base path!' );
-		$this->assertEquals( $messageTranslationMapper->getBasePath(), $testBasePath, 'Unable to set base path correctly!' );
+		$this->assertTrue($messageTranslationMapper->setBasePath($testBasePath), 'Unable to set base path!');
+		$this->assertEquals($messageTranslationMapper->getBasePath(), $testBasePath, 'Unable to set base path correctly!');
 
 		$testFilePermission = 0777;
-		$this->assertTrue( $messageTranslationMapper->setFilePermission($testFilePermission), 'Unable to set file permission!' );
-		$this->assertEquals( $messageTranslationMapper->getFilePermission(), $testFilePermission, 'Unable to set file permission correctly!' );
+		$this->assertTrue($messageTranslationMapper->setFilePermission($testFilePermission), 'Unable to set file permission!');
+		$this->assertEquals($messageTranslationMapper->getFilePermission(), $testFilePermission, 'Unable to set file permission correctly!');
 	}
 
 	/**
@@ -149,7 +149,7 @@ class MessageTranslationMapperPhpTest extends CTestCase {
 		$messageTranslationMapper = $this->createMessageTranslationMapper();
 
 		$defaultBasePath = $messageTranslationMapper->getBasePath();
-		$this->assertFalse( empty($defaultBasePath), 'Unable to get default base path!' );
+		$this->assertFalse(empty($defaultBasePath), 'Unable to get default base path!');
 	}
 
 	/**
@@ -163,7 +163,7 @@ class MessageTranslationMapperPhpTest extends CTestCase {
 		$messageTranslationMapper->setBasePath($testBasePath);
 
 		$messageTranslations = $messageTranslationMapper->findAll();
-		$this->assertFalse( empty($messageTranslations), 'Unable to find all message translations!' );
+		$this->assertFalse(empty($messageTranslations), 'Unable to find all message translations!');
 	}
 
 	/**
@@ -183,6 +183,6 @@ class MessageTranslationMapperPhpTest extends CTestCase {
 		$testContent = 'Test content';
 		$model->content = $testContent;
 
-		$this->assertTrue( $messageTranslationMapper->save($model), 'Unable to save model!' );
+		$this->assertTrue($messageTranslationMapper->save($model), 'Unable to save model!');
 	}
 }

@@ -34,8 +34,8 @@ class QsFileConvertorImageMagickTest extends CTestCase {
 		$fileConvertor = new QsFileConvertorImageMagick();
 
 		$testBinPath = '/test/bin/path';
-		$this->assertTrue( $fileConvertor->setBinPath($testBinPath), 'Unable to set bin path!' );
-		$this->assertEquals( $fileConvertor->getBinPath(), $testBinPath, 'Unable to set bin path correctly!' );
+		$this->assertTrue($fileConvertor->setBinPath($testBinPath), 'Unable to set bin path!');
+		$this->assertEquals($fileConvertor->getBinPath(), $testBinPath, 'Unable to set bin path correctly!');
 	}
 
 	/**
@@ -49,8 +49,8 @@ class QsFileConvertorImageMagickTest extends CTestCase {
 
 		$fileInfo = $fileConvertor->getFileInfo($testFileName);
 
-		$this->assertTrue( is_array($fileInfo), 'Unable to get file info!' );
-		$this->assertTrue( array_key_exists('imageSize', $fileInfo), 'File info does not contain image size!' );
+		$this->assertTrue(is_array($fileInfo), 'Unable to get file info!');
+		$this->assertTrue(array_key_exists('imageSize', $fileInfo), 'File info does not contain image size!');
 	}
 
 	/**
@@ -75,11 +75,11 @@ class QsFileConvertorImageMagickTest extends CTestCase {
 		$testSrcFileName = Yii::getPathOfAlias('system.gii.assets.images').DIRECTORY_SEPARATOR.'logo.png';
 		$testOutputFileName = $this->getTestFilePath().DIRECTORY_SEPARATOR.'test.jpg';
 
-		$this->assertTrue( $fileConvertor->convert($testSrcFileName, $testOutputFileName), 'Unable to convert file!' );
-		$this->assertTrue( file_exists($testOutputFileName), 'Output file does not exist!' );
+		$this->assertTrue($fileConvertor->convert($testSrcFileName, $testOutputFileName), 'Unable to convert file!');
+		$this->assertTrue(file_exists($testOutputFileName), 'Output file does not exist!');
 
 		$outputFileInfo = $fileConvertor->getFileInfo($testOutputFileName);
-		$this->assertTrue( is_array($outputFileInfo), 'Unable to get info from the output file!' );
+		$this->assertTrue(is_array($outputFileInfo), 'Unable to get info from the output file!');
 	}
 
 	/**

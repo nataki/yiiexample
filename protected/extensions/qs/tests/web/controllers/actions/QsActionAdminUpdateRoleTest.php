@@ -35,8 +35,8 @@ class QsActionAdminUpdateRoleTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testSlaveTableName,
-				'rules'=>array(
+				'tableName' => $testSlaveTableName,
+				'rules' => array(
 					array('slave_name', 'required'),
 				),
 			)
@@ -52,15 +52,15 @@ class QsActionAdminUpdateRoleTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testMasterTableName,
-				'rules'=>array(
+				'tableName' => $testMasterTableName,
+				'rules' => array(
 					array('master_name', 'required'),
 				),
-				'behaviors'=>array(
+				'behaviors' => array(
 					'roleBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorRole',
-						'relationName'=>'slave',
-						'relationConfig'=>array(
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorRole',
+						'relationName' => 'slave',
+						'relationConfig' => array(
 							$testSlaveTableName, 'master_id'
 						),
 					),
@@ -148,7 +148,7 @@ class QsActionAdminUpdateRoleTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminUpdateRole($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminUpdateRole" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminUpdateRole" instance!');
 	}
 
 	/**
@@ -168,7 +168,7 @@ class QsActionAdminUpdateRoleTest extends CTestCase {
 			$viewRendered = true;
 		}
 
-		$this->assertTrue( $viewRendered, 'View is not rendered!' );
+		$this->assertTrue($viewRendered, 'View is not rendered!');
 	}
 
 	/**
@@ -188,7 +188,7 @@ class QsActionAdminUpdateRoleTest extends CTestCase {
 			$errorMissingPageRisen = true;
 		}
 
-		$this->assertTrue( $errorMissingPageRisen, 'No 404 error, while updating unexisting model!' );
+		$this->assertTrue($errorMissingPageRisen, 'No 404 error, while updating unexisting model!');
 	}
 
 	/**
@@ -201,8 +201,8 @@ class QsActionAdminUpdateRoleTest extends CTestCase {
 		$testId = rand(1, self::TEST_RECORDS_COUNT);
 		$_GET['id'] = $testId;
 
-		$testMasterRecordName = 'test_master_record_name_'.rand(1,100);
-		$testSlaveRecordName = 'test_slave_record_name_'.rand(1,100);
+		$testMasterRecordName = 'test_master_record_name_'.rand(1, 100);
+		$testSlaveRecordName = 'test_slave_record_name_'.rand(1, 100);
 
 		$modelClassName = self::getTestMasterActiveRecordClassName();
 		$model = CActiveRecord::model($modelClassName);
@@ -222,11 +222,11 @@ class QsActionAdminUpdateRoleTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$pageRedirected = true;
 		}
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected!');
 
 		$updatedModel = CActiveRecord::model($modelClassName)->findByPk($testId);
-		$this->assertEquals( $updatedModel->master_name, $testMasterRecordName, 'Can not update master record!' );
-		$this->assertEquals( $updatedModel->slave->slave_name, $testSlaveRecordName, 'Can not update slave record!' );
+		$this->assertEquals($updatedModel->master_name, $testMasterRecordName, 'Can not update master record!');
+		$this->assertEquals($updatedModel->slave->slave_name, $testSlaveRecordName, 'Can not update slave record!');
 	}
 
 	/**
@@ -249,6 +249,6 @@ class QsActionAdminUpdateRoleTest extends CTestCase {
 		} catch (QsTestExceptionRender $exception) {
 			$pageRendered = true;
 		}
-		$this->assertTrue( $pageRendered, 'Page has not been rendered after request with empty post!' );
+		$this->assertTrue($pageRendered, 'Page has not been rendered after request with empty post!');
 	}
 }

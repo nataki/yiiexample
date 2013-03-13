@@ -58,9 +58,9 @@ class QsWebUserBehaviorAuthLogDbTest extends CTestCase {
 		$testWebUserConfig = array(
 			'class' => 'QsWebUser',
 			'behaviors' => array(
-				'authLogBehavior'=>array(
-					'class'=>'QsWebUserBehaviorAuthLogDb',
-					'authLogTableName'=>self::getTestAuthLogTableName(),
+				'authLogBehavior' => array(
+					'class' => 'QsWebUserBehaviorAuthLogDb',
+					'authLogTableName' => self::getTestAuthLogTableName(),
 				),
 			),
 		);
@@ -76,7 +76,7 @@ class QsWebUserBehaviorAuthLogDbTest extends CTestCase {
 	 */
 	protected function queryAuthLogRecord($dbConnectionId='db') {
 		$criteria = new CDbCriteria();
-		$findCommand = Yii::app()->getComponent($dbConnectionId)->commandBuilder->createFindCommand(self::getTestAuthLogTableName(),$criteria);
+		$findCommand = Yii::app()->getComponent($dbConnectionId)->commandBuilder->createFindCommand(self::getTestAuthLogTableName(), $criteria);
 		$record = $findCommand->queryRow(true);
 		return $record;
 	}
@@ -144,8 +144,8 @@ class QsWebUserBehaviorAuthLogDbTest extends CTestCase {
 		$behavior = new QsWebUserBehaviorAuthLogDb();
 
 		$testLogTableName = 'TestModel';
-		$this->assertTrue( $behavior->setAuthLogTableName($testLogTableName), 'Unable to set log table name!' );
-		$this->assertEquals( $testLogTableName, $behavior->getAuthLogTableName(), 'Unable to set log table name correctly!' );
+		$this->assertTrue($behavior->setAuthLogTableName($testLogTableName), 'Unable to set log table name!');
+		$this->assertEquals($testLogTableName, $behavior->getAuthLogTableName(), 'Unable to set log table name correctly!');
 	}
 
 	/**
@@ -154,10 +154,10 @@ class QsWebUserBehaviorAuthLogDbTest extends CTestCase {
 	public function testWriteLog() {
 		$testWebUser = $this->createTestWebUser();
 
-		$this->assertTrue( $testWebUser->writeAuthLog(), 'Unable to write log!' );
+		$this->assertTrue($testWebUser->writeAuthLog(), 'Unable to write log!');
 
 		$dbLogRecord = $this->queryAuthLogRecord();
-		$this->assertFalse( empty($dbLogRecord), 'Unable to insert record into the database!' );
+		$this->assertFalse(empty($dbLogRecord), 'Unable to insert record into the database!');
 	}
 
 	/**
@@ -179,10 +179,10 @@ class QsWebUserBehaviorAuthLogDbTest extends CTestCase {
 
 		$dbLogRecord = $this->queryAuthLogRecord();
 
-		$this->assertEquals( $testIp, $dbLogRecord['ip'], 'Unable to log ip!' );
-		$this->assertEquals( gethostbyaddr($testIp), $dbLogRecord['host'], 'Unable to log host!' );
-		$this->assertEquals( $testScriptName, $dbLogRecord['script_name'], 'Unable to log script name!' );
-		$this->assertEquals( $testHttpHost.$testRequestUri, $dbLogRecord['url'], 'Unable to log URL!' );
+		$this->assertEquals($testIp, $dbLogRecord['ip'], 'Unable to log ip!');
+		$this->assertEquals(gethostbyaddr($testIp), $dbLogRecord['host'], 'Unable to log host!');
+		$this->assertEquals($testScriptName, $dbLogRecord['script_name'], 'Unable to log script name!');
+		$this->assertEquals($testHttpHost.$testRequestUri, $dbLogRecord['url'], 'Unable to log URL!');
 	}
 
 	/**
@@ -197,8 +197,8 @@ class QsWebUserBehaviorAuthLogDbTest extends CTestCase {
 
 		$dbLogRecord = $this->queryAuthLogRecord();
 
-		$this->assertEquals( $testErrorMessage, $dbLogRecord['error_message'], 'Unable to log error message!' );
-		$this->assertEquals( $testErrorCode, $dbLogRecord['error_code'], 'Unable to log error code!' );
+		$this->assertEquals($testErrorMessage, $dbLogRecord['error_message'], 'Unable to log error message!');
+		$this->assertEquals($testErrorCode, $dbLogRecord['error_code'], 'Unable to log error code!');
 	}
 
 	/**
@@ -213,12 +213,12 @@ class QsWebUserBehaviorAuthLogDbTest extends CTestCase {
 		$testErrorCode = rand(1,100);
 		$testUserIdentity->errorCode = $testErrorCode;
 
-		$this->assertTrue( $testWebUser->writeAuthLogFromUserIdentity($testUserIdentity), 'Unable to write log from user identity' );
+		$this->assertTrue($testWebUser->writeAuthLogFromUserIdentity($testUserIdentity), 'Unable to write log from user identity');
 
 		$dbLogRecord = $this->queryAuthLogRecord();
 
-		$this->assertEquals( $testErrorMessage, $dbLogRecord['error_message'], 'Unable to log error message!' );
-		$this->assertEquals( $testErrorCode, $dbLogRecord['error_code'], 'Unable to log error code!' );
+		$this->assertEquals($testErrorMessage, $dbLogRecord['error_message'], 'Unable to log error message!');
+		$this->assertEquals($testErrorCode, $dbLogRecord['error_code'], 'Unable to log error code!');
 	}
 
 	/**
@@ -231,7 +231,7 @@ class QsWebUserBehaviorAuthLogDbTest extends CTestCase {
 		@$testWebUser->login($testUserIdentity);
 
 		$dbLogRecord = $this->queryAuthLogRecord();
-		$this->assertFalse( empty($dbLogRecord), 'Unable to log user login!' );
+		$this->assertFalse(empty($dbLogRecord), 'Unable to log user login!');
 	}
 
 	public function testGetDbConnection() {
@@ -257,9 +257,9 @@ class QsWebUserBehaviorAuthLogDbTest extends CTestCase {
 
 		$testWebUser->dbConnectionId = $testDbConnectionId;
 
-		$this->assertTrue( $testWebUser->writeAuthLog(), 'Unable to write log with custom db connection!' );
+		$this->assertTrue($testWebUser->writeAuthLog(), 'Unable to write log with custom db connection!');
 
 		$dbLogRecord = $this->queryAuthLogRecord($testDbConnectionId);
-		$this->assertFalse( empty($dbLogRecord), 'Unable to insert record into the database!' );
+		$this->assertFalse(empty($dbLogRecord), 'Unable to insert record into the database!');
 	}
 }

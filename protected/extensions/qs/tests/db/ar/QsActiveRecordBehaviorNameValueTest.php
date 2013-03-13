@@ -96,20 +96,20 @@ class QsActiveRecordBehaviorNameValueTest extends CTestCase {
 		$behavior = new QsActiveRecordBehaviorNameValue();
 
 		$testNameProperty = 'test_name_property';
-		$this->assertTrue( $behavior->setNamePropertyName($testNameProperty), 'Unable to set name attribute name!' );
-		$this->assertEquals( $behavior->getNamePropertyName(), $testNameProperty, 'Unable to set name attribute name correctly!' );
+		$this->assertTrue($behavior->setNamePropertyName($testNameProperty), 'Unable to set name attribute name!');
+		$this->assertEquals($behavior->getNamePropertyName(), $testNameProperty, 'Unable to set name attribute name correctly!');
 
 		$testValueProperty = 'test_value_property';
-		$this->assertTrue( $behavior->setValuePropertyName($testValueProperty), 'Unable to set value attribute name!' );
-		$this->assertEquals( $behavior->getValuePropertyName(), $testValueProperty, 'Unable to set value attribute name correctly!' );
+		$this->assertTrue($behavior->setValuePropertyName($testValueProperty), 'Unable to set value attribute name!');
+		$this->assertEquals($behavior->getValuePropertyName(), $testValueProperty, 'Unable to set value attribute name correctly!');
 
 		$testAutoNamePrefix = 'test_auto_name_prefix';
-		$this->assertTrue( $behavior->setAutoNamePrefix($testAutoNamePrefix), 'Unable to set auto name prefix!' );
-		$this->assertEquals( $behavior->getAutoNamePrefix(), $testAutoNamePrefix, 'Unable to set auto name prefix correctly!' );
+		$this->assertTrue($behavior->setAutoNamePrefix($testAutoNamePrefix), 'Unable to set auto name prefix!');
+		$this->assertEquals($behavior->getAutoNamePrefix(), $testAutoNamePrefix, 'Unable to set auto name prefix correctly!');
 
 		$testValuesCacheDuration = rand();
-		$this->assertTrue( $behavior->setValuesCacheDuration($testValuesCacheDuration), 'Unable to set values cache duration!' );
-		$this->assertEquals( $behavior->getValuesCacheDuration(), $testValuesCacheDuration, 'Unable to set values cache duration correctly!' );
+		$this->assertTrue($behavior->setValuesCacheDuration($testValuesCacheDuration), 'Unable to set values cache duration!');
+		$this->assertEquals($behavior->getValuesCacheDuration(), $testValuesCacheDuration, 'Unable to set values cache duration correctly!');
 	}
 
 	/**
@@ -119,12 +119,11 @@ class QsActiveRecordBehaviorNameValueTest extends CTestCase {
 		$activeRecord = $this->getTestActiveRecordFinder();
 
 		$returnedValues = $activeRecord->getValues();
-		$this->assertTrue( is_array($returnedValues) && !empty($returnedValues), 'Unable to get values!' );
+		$this->assertTrue(is_array($returnedValues) && !empty($returnedValues), 'Unable to get values!');
 
 		$allRecords = $activeRecord->findAll();
 		$nameAttribute = $activeRecord->getNamePropertyName();
 		$valueAttribute = $activeRecord->getValuePropertyName();
-
 
 		$autoNamePrefix = $activeRecord->getAutoNamePrefix();
 
@@ -148,7 +147,7 @@ class QsActiveRecordBehaviorNameValueTest extends CTestCase {
 			$newValues[$name] = "value of {$name} ".rand();
 		}
 
-		$this->assertTrue( $activeRecord->updateValues($newValues), 'Unable to update values!' );
+		$this->assertTrue($activeRecord->updateValues($newValues), 'Unable to update values!');
 
 		$returnedValues = $activeRecord->getValues();
 		$this->assertEquals($returnedValues, $newValues, 'Unable to update values correctly!');

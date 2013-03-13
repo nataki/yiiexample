@@ -43,8 +43,8 @@ class QsActionAdminInsertDynamicColumnTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testColumnTableName,
-				'rules'=>array(
+				'tableName' => $testColumnTableName,
+				'rules' => array(
 					array('name', 'required'),
 					array('default_value', 'safe'),
 				),
@@ -63,10 +63,10 @@ class QsActionAdminInsertDynamicColumnTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testColumnValueTableName,
-				'rules'=>array(
+				'tableName' => $testColumnValueTableName,
+				'rules' => array(
 					array('main_id,column_id,value', 'safe'),
-					array('main_id,column_id', 'numerical', 'integerOnly'=>true)
+					array('main_id,column_id', 'numerical', 'integerOnly' => true)
 				),
 			)
 		);
@@ -81,15 +81,15 @@ class QsActionAdminInsertDynamicColumnTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testMainTableName,
-				'rules'=>array(
+				'tableName' => $testMainTableName,
+				'rules' => array(
 					array('name', 'required'),
 				),
-				'behaviors'=>array(
+				'behaviors' => array(
 					'dynamicColumnBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorDynamicColumn',
-						'columnModelClassName'=>$testColumnTableName,
-						'relationConfig'=>array(
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorDynamicColumn',
+						'columnModelClassName' => $testColumnTableName,
+						'relationConfig' => array(
 							$testColumnValueTableName, 'main_id'
 						),
 					)
@@ -191,7 +191,7 @@ class QsActionAdminInsertDynamicColumnTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminInsertDynamicColumn($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminInsertDynamicColumn" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminInsertDynamicColumn" instance!');
 	}
 
 	/**
@@ -208,7 +208,7 @@ class QsActionAdminInsertDynamicColumnTest extends CTestCase {
 			$viewRendered = true;
 		}
 
-		$this->assertTrue( $viewRendered, 'View is not rendered!' );
+		$this->assertTrue($viewRendered, 'View is not rendered!');
 	}
 
 	/**
@@ -222,12 +222,12 @@ class QsActionAdminInsertDynamicColumnTest extends CTestCase {
 		$model = CActiveRecord::model($modelClassName);
 		$columnValueClassName = $model->getRelationConfigParam('class');
 
-		$testMainRecordName = 'test_main_record_name_'.rand(1,100);
+		$testMainRecordName = 'test_main_record_name_'.rand(1, 100);
 		$columnValuePostData = array();
 		$columnModels = CActiveRecord::model(self::getTestColumnActiveRecordClassName())->findAll();
 		foreach ($columnModels as $columnModel) {
 			$columnValuePostData[$columnModel->name] = array(
-				'value'=>'test_column_value_'.rand(1,100)
+				'value' => 'test_column_value_'.rand(1, 100)
 			);
 		}
 
@@ -242,14 +242,14 @@ class QsActionAdminInsertDynamicColumnTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$pageRedirected = true;
 		}
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected!');
 
 		$insertedModel = CActiveRecord::model($modelClassName)->findByAttributes(array('name'=>$testMainRecordName));
-		$this->assertTrue( is_object($insertedModel), 'Can not find inserted record!' );
-		$this->assertEquals( count($insertedModel->columnValues), count($columnModels), 'Count of inserted column value records missmatch the count of variators!' );
+		$this->assertTrue(is_object($insertedModel), 'Can not find inserted record!');
+		$this->assertEquals(count($insertedModel->columnValues), count($columnModels), 'Count of inserted column value records missmatch the count of variators!');
 
 		foreach ($insertedModel->getColumnValueModels() as $columnValueModelKey => $columnValueModel) {
-			$this->assertEquals( $columnValueModel->value, $columnValuePostData[$columnValueModelKey]['value'], 'Column value record has wrong data!' );
+			$this->assertEquals($columnValueModel->value, $columnValuePostData[$columnValueModelKey]['value'], 'Column value record has wrong data!');
 		}
 	}
 
@@ -270,6 +270,6 @@ class QsActionAdminInsertDynamicColumnTest extends CTestCase {
 		} catch (QsTestExceptionRender $exception) {
 			$pageRendered = true;
 		}
-		$this->assertTrue( $pageRendered, 'Page has not been rendered after request with empty post!' );
+		$this->assertTrue($pageRendered, 'Page has not been rendered after request with empty post!');
 	}
 }

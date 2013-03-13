@@ -28,7 +28,7 @@ class QsFileConvertorTest extends CTestCase {
 			'testName1' => 'testValue1',
 			'testName2' => 'testValue2',
 		);
-		$this->assertTrue( $fileConvertor->setDefaultOptions($testDefaultOptions), 'Unable to set default options!' );
-		$this->assertEquals( $fileConvertor->getDefaultOptions(), $testDefaultOptions, 'Unable to set default options correctly!' );
+		$this->assertTrue($fileConvertor->setDefaultOptions($testDefaultOptions), 'Unable to set default options!');
+		$this->assertEquals($fileConvertor->getDefaultOptions(), $testDefaultOptions, 'Unable to set default options correctly!');
 	}
 }

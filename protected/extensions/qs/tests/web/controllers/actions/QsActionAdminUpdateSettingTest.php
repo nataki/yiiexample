@@ -34,14 +34,14 @@ class QsActionAdminUpdateSettingTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'rules'=>array(
+				'tableName' => $testTableName,
+				'rules' => array(
 					array('value', 'safe')
 				),
-				'behaviors'=>array(
+				'behaviors' => array(
 					'settingBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorNameValue',
-						'autoNamePrefix'=>'test_'
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorNameValue',
+						'autoNamePrefix' => 'test_'
 					),
 				),
 			)
@@ -102,7 +102,7 @@ class QsActionAdminUpdateSettingTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminUpdateSetting($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminUpdateSetting" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminUpdateSetting" instance!');
 	}
 
 	/**
@@ -118,7 +118,7 @@ class QsActionAdminUpdateSettingTest extends CTestCase {
 		} catch (QsTestExceptionRender $exception) {
 			$pageRendered = true;
 		}
-		$this->assertTrue( $pageRendered, 'Page has not been rendered!' );
+		$this->assertTrue($pageRendered, 'Page has not been rendered!');
 	}
 
 	/**
@@ -141,7 +141,7 @@ class QsActionAdminUpdateSettingTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$pageRedirected = true;
 		}
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected after form submit!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected after form submit!');
 
 		$afterSaveModels = CActiveRecord::model(self::getTestActiveRecordClassName())->findAll();
 		$newModelValues = array();

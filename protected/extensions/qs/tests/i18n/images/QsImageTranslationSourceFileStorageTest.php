@@ -42,7 +42,7 @@ class QsImageTranslationSourceFileStorageTest extends CTestCase {
 	 */
 	protected function createImageTranslationSource() {
 		$imageTranslationSourceConfig = array(
-			'class'=>'QsImageTranslationSourceFileStorage'
+			'class' => 'QsImageTranslationSourceFileStorage'
 		);
 		$imageTranslationSource = Yii::createComponent($imageTranslationSourceConfig);
 		return $imageTranslationSource;
@@ -62,10 +62,10 @@ class QsImageTranslationSourceFileStorageTest extends CTestCase {
 	 */
 	protected function createFileStorage() {
 		$fileStorageConfig = array(
-			'class'=>'QsFileStorageFileSystem',
-			'basePath'=>$this->getTestFileStorageBasePath(),
-			'baseUrl'=>'http://www.mydomain.com/files',
-			'filePermission'=>0777
+			'class' => 'QsFileStorageFileSystem',
+			'basePath' => $this->getTestFileStorageBasePath(),
+			'baseUrl' => 'http://www.mydomain.com/files',
+			'filePermission' => 0777
 		);
 		$fileStorage = Yii::createComponent($fileStorageConfig);
 		return $fileStorage;
@@ -77,12 +77,12 @@ class QsImageTranslationSourceFileStorageTest extends CTestCase {
 		$imageTranslationSource = $this->createImageTranslationSource();
 
 		$testFileStorageComponentName = 'testFileStorageComponentName';
-		$this->assertTrue( $imageTranslationSource->setFileStorageComponentName($testFileStorageComponentName), 'Unable to set file storage component name!' );
-		$this->assertEquals( $imageTranslationSource->getFileStorageComponentName(), $testFileStorageComponentName, 'Unable to set file storage component name correctly!' );
+		$this->assertTrue($imageTranslationSource->setFileStorageComponentName($testFileStorageComponentName), 'Unable to set file storage component name!');
+		$this->assertEquals($imageTranslationSource->getFileStorageComponentName(), $testFileStorageComponentName, 'Unable to set file storage component name correctly!');
 
 		$testFileStorageBucketName = 'testFileStorageBucketName';
-		$this->assertTrue( $imageTranslationSource->setFileStorageBucketName($testFileStorageBucketName), 'Unable to set file storage bucket name!' );
-		$this->assertEquals( $imageTranslationSource->getFileStorageBucketName(), $testFileStorageBucketName, 'Unable to set file storage bucket name correctly!' );
+		$this->assertTrue($imageTranslationSource->setFileStorageBucketName($testFileStorageBucketName), 'Unable to set file storage bucket name!');
+		$this->assertEquals($imageTranslationSource->getFileStorageBucketName(), $testFileStorageBucketName, 'Unable to set file storage bucket name correctly!');
 	}
 
 	/**
@@ -108,7 +108,7 @@ class QsImageTranslationSourceFileStorageTest extends CTestCase {
 	public function testGetFileStorageBucketIfNotExists() {
 		$imageTranslationSource = $this->createImageTranslationSource();
 
-		Yii::app()->fileStorage->setBuckets( array() );
+		Yii::app()->fileStorage->setBuckets(array());
 
 		$testBucketName = 'testBucketNameWhichNotPresentInStorage';
 
@@ -164,12 +164,12 @@ class QsImageTranslationSourceFileStorageTest extends CTestCase {
 		$testLanguage = 'test_lang';
 		$testImageFileName = 'test_image.jpg';
 
-		$this->assertFalse( $imageTranslationSource->translationExists($testImageFileName,$testLanguage), 'Missing translation considered as existing one!' );
+		$this->assertFalse($imageTranslationSource->translationExists($testImageFileName, $testLanguage), 'Missing translation considered as existing one!');
 
 		$fileStorageBucket = $imageTranslationSource->getFileStorageBucket();
 		$fileStorageBucket->copyFileIn(__FILE__, $testLanguage.'/'.$testImageFileName);
 
-		$this->assertTrue( $imageTranslationSource->translationExists($testImageFileName,$testLanguage), 'Existing translation considered as missing one!' );
+		$this->assertTrue($imageTranslationSource->translationExists($testImageFileName, $testLanguage), 'Existing translation considered as missing one!');
 	}
 
 	/**
@@ -181,7 +181,7 @@ class QsImageTranslationSourceFileStorageTest extends CTestCase {
 		$testLanguage = 'test_lang';
 		$testImageFileName = 'test_image.jpg';
 
-		$this->assertTrue( $imageTranslationSource->saveTranslation(__FILE__, $testImageFileName, $testLanguage), 'Unable to save translation!' );
-		$this->assertTrue( $imageTranslationSource->translationExists($testImageFileName, $testLanguage), 'Saved translation does not exist!' );
+		$this->assertTrue($imageTranslationSource->saveTranslation(__FILE__, $testImageFileName, $testLanguage), 'Unable to save translation!');
+		$this->assertTrue($imageTranslationSource->translationExists($testImageFileName, $testLanguage), 'Saved translation does not exist!');
 	}
 }

@@ -31,7 +31,7 @@ class QsActionAdminCallModelMethodTest extends CTestCase {
 		$dbSetUp->createTable($testTableName, $columns);
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
@@ -79,7 +79,7 @@ class QsActionAdminCallModelMethodTest extends CTestCase {
 		$mockController = new QsTestController();
 
 		$dataModelBehavior = new QsControllerBehaviorAdminDataModel();
-		$dataModelBehavior->setModelClassName( self::getTestActiveRecordClassName() );
+		$dataModelBehavior->setModelClassName(self::getTestActiveRecordClassName());
 		$mockController->attachBehavior('dataModelBehavior', $dataModelBehavior);
 
 		return $mockController;
@@ -90,7 +90,7 @@ class QsActionAdminCallModelMethodTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminCallModelMethod($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminCallModelMethod" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminCallModelMethod" instance!');
 	}
 
 	/**
@@ -101,27 +101,27 @@ class QsActionAdminCallModelMethodTest extends CTestCase {
 		$action = new QsActionAdminCallModelMethod($controller, 'test');
 
 		$testViewName = 'test_view_name';
-		$this->assertTrue( $action->setView($testViewName), 'Unable to set view!' );
-		$this->assertEquals( $action->getView(), $testViewName, 'Unable to set view correctly!' );
+		$this->assertTrue($action->setView($testViewName), 'Unable to set view!');
+		$this->assertEquals($action->getView(), $testViewName, 'Unable to set view correctly!');
 
 		$testModelMethodName = 'testModelMethod';
-		$this->assertTrue( $action->setModelMethodName($testModelMethodName), 'Unable to set model method name!' );
-		$this->assertEquals( $action->getModelMethodName(), $testModelMethodName, 'Unable to set model method name correctly!' );
+		$this->assertTrue($action->setModelMethodName($testModelMethodName), 'Unable to set model method name!');
+		$this->assertEquals($action->getModelMethodName(), $testModelMethodName, 'Unable to set model method name correctly!');
 
 		$testModelMethodParams = array(
 			'testParam1',
 			'testParam2',
 		);
-		$this->assertTrue( $action->setModelMethodParams($testModelMethodParams), 'Unable to set model method params!' );
-		$this->assertEquals( $action->getModelMethodParams(), $testModelMethodParams, 'Unable to set model method params correctly!' );
+		$this->assertTrue($action->setModelMethodParams($testModelMethodParams), 'Unable to set model method params!');
+		$this->assertEquals($action->getModelMethodParams(), $testModelMethodParams, 'Unable to set model method params correctly!');
 
 		$testFlashMessageKey = 'testFlashMessage';
-		$this->assertTrue( $action->setFlashMessageKey($testFlashMessageKey), 'Unable to set flash message key!' );
-		$this->assertEquals( $action->getFlashMessageKey(), $testFlashMessageKey, 'Unable to set flash message key correctly!' );
+		$this->assertTrue($action->setFlashMessageKey($testFlashMessageKey), 'Unable to set flash message key!');
+		$this->assertEquals($action->getFlashMessageKey(), $testFlashMessageKey, 'Unable to set flash message key correctly!');
 
 		$testFlashMessage = 'Test flash message';
-		$this->assertTrue( $action->setFlashMessage($testFlashMessage), 'Unable to set flash message!' );
-		$this->assertEquals( $action->getFlashMessage(), $testFlashMessage, 'Unable to set flash message correctly!' );
+		$this->assertTrue($action->setFlashMessage($testFlashMessage), 'Unable to set flash message!');
+		$this->assertEquals($action->getFlashMessage(), $testFlashMessage, 'Unable to set flash message correctly!');
 	}
 
 	/**
@@ -140,7 +140,7 @@ class QsActionAdminCallModelMethodTest extends CTestCase {
 			$pageRedirected = true;
 		}
 
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected!');
 	}
 
 	/**
@@ -159,7 +159,7 @@ class QsActionAdminCallModelMethodTest extends CTestCase {
 			$viewRendered = true;
 		}
 
-		$this->assertTrue( $viewRendered, 'View is not rendered!' );
+		$this->assertTrue($viewRendered, 'View is not rendered!');
 	}
 
 	/**
@@ -183,7 +183,7 @@ class QsActionAdminCallModelMethodTest extends CTestCase {
 
 		$actualFlashMessageContent = Yii::app()->user->getFlash($testFlashMessageKey);
 
-		$this->assertFalse( empty($actualFlashMessageContent), 'No flash message has been setup!' );
-		$this->assertEquals( $testFlashMessageContent, $actualFlashMessageContent, 'Flash message is incorrect!' );
+		$this->assertFalse(empty($actualFlashMessageContent), 'No flash message has been setup!');
+		$this->assertEquals($testFlashMessageContent, $actualFlashMessageContent, 'Flash message is incorrect!');
 	}
 }

@@ -5,7 +5,6 @@
  * @see QsFileArchiverHub
  */
 class QsFileArchiverHubTest extends CTestCase {
-
 	public static function setUpBeforeClass() {
 		Yii::import('ext.qs.lib.files.archivers.*');
 	}
@@ -45,7 +44,7 @@ class QsFileArchiverHubTest extends CTestCase {
 			'pack',
 			'unpack',
 		);
-		$fileStorage = $this->getMock('QsFileArchiver',$methodsList);
+		$fileStorage = $this->getMock('QsFileArchiver', $methodsList);
 		return $fileStorage;
 	}
 
@@ -64,7 +63,7 @@ class QsFileArchiverHubTest extends CTestCase {
 		$testArchiverName = 'testArchiverName';
 		$testArchiver = $this->createFileArchiver();
 
-		$this->assertTrue( $fileArchiverHub->addArchiver($testArchiverName, $testArchiver), 'Unable to add archiver object!' );
+		$this->assertTrue($fileArchiverHub->addArchiver($testArchiverName, $testArchiver), 'Unable to add archiver object!');
 
 		$returnedArchiver = $fileArchiverHub->getArchiver($testArchiverName);
 		$this->assertTrue(is_object($returnedArchiver), 'Unable to get added archiver!');
@@ -83,10 +82,10 @@ class QsFileArchiverHubTest extends CTestCase {
 		$testArchiverConfig = array(
 			'class' => $testArchiverClassName
 		);
-		$this->assertTrue( $fileArchiverHub->addArchiver($testArchiverName, $testArchiverConfig), 'Unable to add archiver as config!' );
+		$this->assertTrue($fileArchiverHub->addArchiver($testArchiverName, $testArchiverConfig), 'Unable to add archiver as config!');
 
 		$returnedArchiver = $fileArchiverHub->getArchiver($testArchiverName);
-		$this->assertTrue( is_object($returnedArchiver), 'Unable to get archiver added by config!' );
+		$this->assertTrue(is_object($returnedArchiver), 'Unable to get archiver added by config!');
 		$this->assertEquals($testArchiverClassName, get_class($returnedArchiver), 'Added by config archiver has wrong class name!' );
 	}
 
@@ -104,9 +103,9 @@ class QsFileArchiverHubTest extends CTestCase {
 			$testArchivers[$testArchiverName] = $testArchiver;
 		}
 
-		$this->assertTrue( $fileArchiverHub->setArchivers($testArchivers), 'Unable to set archivers list!' );
+		$this->assertTrue($fileArchiverHub->setArchivers($testArchivers), 'Unable to set archivers list!');
 		$returnedArchivers = $fileArchiverHub->getArchivers();
-		$this->assertEquals( count($returnedArchivers), count($testArchivers), 'Wrong count of the set archivers!' );
+		$this->assertEquals(count($returnedArchivers), count($testArchivers), 'Wrong count of the set archivers!');
 	}
 
 	/**
@@ -116,11 +115,11 @@ class QsFileArchiverHubTest extends CTestCase {
 		$fileArchiverHub = $this->createTestFileArchiverHub();
 
 		$testArchiverName = 'test_archiver_name';
-		$this->assertFalse( $fileArchiverHub->hasArchiver($testArchiverName), 'Not added archiver present in the archiver!' );
+		$this->assertFalse($fileArchiverHub->hasArchiver($testArchiverName), 'Not added archiver present in the archiver!');
 
 		$testArchiver = $this->createFileArchiver();
 		$fileArchiverHub->addArchiver($testArchiverName, $testArchiver);
-		$this->assertTrue( $fileArchiverHub->hasArchiver($testArchiverName), 'Added archiver does not present in the archiver!' );
+		$this->assertTrue($fileArchiverHub->hasArchiver($testArchiverName), 'Added archiver does not present in the archiver!');
 	}
 
 	/**
@@ -133,8 +132,8 @@ class QsFileArchiverHubTest extends CTestCase {
 		$testOutputPath = $this->getTestOutputPath();
 		$testArchiveFileName = $testOutputPath.DIRECTORY_SEPARATOR.'test_archive.zip';
 
-		$this->assertTrue( $fileArchiver->pack($testSourceFileName, $testArchiveFileName), 'Unable to run pack process!' );
-		$this->assertTrue( file_exists($testArchiveFileName), 'No archive file has been created!' );
+		$this->assertTrue($fileArchiver->pack($testSourceFileName, $testArchiveFileName), 'Unable to run pack process!');
+		$this->assertTrue(file_exists($testArchiveFileName), 'No archive file has been created!');
 	}
 
 	/**
@@ -148,10 +147,10 @@ class QsFileArchiverHubTest extends CTestCase {
 		$testArchiveFileName = $testOutputPath.DIRECTORY_SEPARATOR.'test_archive.zip';
 		$fileArchiver->pack($testSourceFileName, $testArchiveFileName);
 
-		$this->assertTrue( $fileArchiver->unpack($testArchiveFileName, $testOutputPath), 'Unable to run unpack process!' );
+		$this->assertTrue($fileArchiver->unpack($testArchiveFileName, $testOutputPath), 'Unable to run unpack process!');
 
 		$sourceFileBaseName = basename($testSourceFileName);
 		$expectedUnpackedFileName = $testOutputPath.DIRECTORY_SEPARATOR.$sourceFileBaseName;
-		$this->assertTrue( file_exists($expectedUnpackedFileName), 'No output file has been created!' );
+		$this->assertTrue(file_exists($expectedUnpackedFileName), 'No output file has been created!');
 	}
 }

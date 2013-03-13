@@ -5,7 +5,6 @@
  * @see QsFileArchiverRar
  */
 class QsFileArchiverRarTest extends CTestCase {
-
 	public static function setUpBeforeClass() {
 		Yii::import('ext.qs.lib.files.archivers.*');
 	}
@@ -52,8 +51,8 @@ class QsFileArchiverRarTest extends CTestCase {
 		$testOutputPath = $this->getTestOutputPath();
 		$testArchiveFileName = $testOutputPath.DIRECTORY_SEPARATOR.'test_archive.rar';
 
-		$this->assertTrue( $fileArchiver->pack($testSourceFileName, $testArchiveFileName), 'Unable to run pack process!' );
-		$this->assertTrue( file_exists($testArchiveFileName), 'No archive file has been created!' );
+		$this->assertTrue($fileArchiver->pack($testSourceFileName, $testArchiveFileName), 'Unable to run pack process!');
+		$this->assertTrue(file_exists($testArchiveFileName), 'No archive file has been created!');
 	}
 
 	/**
@@ -67,10 +66,10 @@ class QsFileArchiverRarTest extends CTestCase {
 		$testArchiveFileName = $testOutputPath.DIRECTORY_SEPARATOR.'test_archive.rar';
 		$fileArchiver->pack($testSourceFileName, $testArchiveFileName);
 
-		$this->assertTrue( $fileArchiver->unpack($testArchiveFileName, $testOutputPath), 'Unable to run unpack process!' );
+		$this->assertTrue($fileArchiver->unpack($testArchiveFileName, $testOutputPath), 'Unable to run unpack process!');
 
 		$sourceFileBaseName = basename($testSourceFileName);
 		$expectedUnpackedFileName = $testOutputPath.DIRECTORY_SEPARATOR.$sourceFileBaseName;
-		$this->assertTrue( file_exists($expectedUnpackedFileName), 'No output file has been created!' );
+		$this->assertTrue(file_exists($expectedUnpackedFileName), 'No output file has been created!');
 	}
 }

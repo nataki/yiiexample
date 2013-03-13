@@ -34,9 +34,9 @@ class QsActionAdminUpdateTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'rules'=>array(
-					array('name,group_id','required')
+				'tableName' => $testTableName,
+				'rules' => array(
+					array('name,group_id', 'required')
 				),
 			)
 		);
@@ -96,7 +96,7 @@ class QsActionAdminUpdateTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminUpdate($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminUpdate" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminUpdate" instance!');
 	}
 
 	/**
@@ -107,12 +107,12 @@ class QsActionAdminUpdateTest extends CTestCase {
 		$action = new QsActionAdminUpdate($controller, 'test');
 
 		$testViewName = 'test_view_name';
-		$this->assertTrue( $action->setView($testViewName), 'Unable to set view!' );
-		$this->assertEquals( $action->getView(), $testViewName, 'Unable to set view correctly!' );
+		$this->assertTrue($action->setView($testViewName), 'Unable to set view!');
+		$this->assertEquals($action->getView(), $testViewName, 'Unable to set view correctly!');
 
 		$testAjaxValidationEnabled = 'testAjaxValidationEnabled';
-		$this->assertTrue( $action->setAjaxValidationEnabled($testAjaxValidationEnabled), 'Unable to set ajaxValidationEnabled!' );
-		$this->assertEquals( $action->getAjaxValidationEnabled(), $testAjaxValidationEnabled, 'Unable to set ajaxValidationEnabled correctly!' );
+		$this->assertTrue($action->setAjaxValidationEnabled($testAjaxValidationEnabled), 'Unable to set ajaxValidationEnabled!');
+		$this->assertEquals($action->getAjaxValidationEnabled(), $testAjaxValidationEnabled, 'Unable to set ajaxValidationEnabled correctly!');
 	}
 
 	/**
@@ -132,7 +132,7 @@ class QsActionAdminUpdateTest extends CTestCase {
 			$viewRendered = true;
 		}
 
-		$this->assertTrue( $viewRendered, 'View is not rendered!' );
+		$this->assertTrue($viewRendered, 'View is not rendered!');
 	}
 
 	/**
@@ -152,7 +152,7 @@ class QsActionAdminUpdateTest extends CTestCase {
 			$errorMissingPageRisen = true;
 		}
 
-		$this->assertTrue( $errorMissingPageRisen, 'No 404 error, while updating unexisting model!' );
+		$this->assertTrue($errorMissingPageRisen, 'No 404 error, while updating unexisting model!');
 	}
 
 	/**
@@ -179,11 +179,11 @@ class QsActionAdminUpdateTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$pageRedirected = true;
 		}
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected!');
 
 		$updatedModel = CActiveRecord::model(self::getTestActiveRecordClassName())->findByPk($testId);
-		$this->assertEquals( $updatedModel->name, $testRecordName, 'Can not update record field "name"!' );
-		$this->assertEquals( $updatedModel->group_id, $testRecordGroupId, 'Can not update record field "group_id"!' );
+		$this->assertEquals($updatedModel->name, $testRecordName, 'Can not update record field "name"!');
+		$this->assertEquals($updatedModel->group_id, $testRecordGroupId, 'Can not update record field "group_id"!');
 	}
 
 	/**
@@ -207,6 +207,6 @@ class QsActionAdminUpdateTest extends CTestCase {
 		} catch (QsTestExceptionRender $exception) {
 			$pageRendered = true;
 		}
-		$this->assertTrue( $pageRendered, 'Page has not been rendered after request with empty post!' );
+		$this->assertTrue($pageRendered, 'Page has not been rendered after request with empty post!');
 	}
 }

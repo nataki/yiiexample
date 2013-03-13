@@ -13,7 +13,7 @@ class QsEmailPatternComposerEvalTest extends CTestCase {
 
 	public function testCreate() {
 		$emailComposer = new QsEmailPatternComposerEval();
-		$this->assertTrue( is_object($emailComposer) );
+		$this->assertTrue(is_object($emailComposer));
 	}
 
 	public function testComposePlainHtml() {
@@ -30,7 +30,7 @@ class QsEmailPatternComposerEvalTest extends CTestCase {
 		$composedEmailPattern = $emailComposer->compose($testEmailPattern);
 
 		$composedBodyHtml = $composedEmailPattern->getBodyHtml();
-		$this->assertTrue( !empty($composedBodyHtml), 'Empty composed HTML!' );
+		$this->assertFalse(empty($composedBodyHtml), 'Empty composed HTML!');
 		
 		$this->assertContains($testEmailPattern->bodyHtml, $composedEmailPattern->bodyHtml, 'Simple text has been lost while compose!');
 	}

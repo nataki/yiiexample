@@ -32,7 +32,7 @@ class MessageTranslationMapperTest extends CTestCase {
 		$dbSetUp->createTable($testTableName, $columns);
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 
 		for ($i=1; $i<=3; $i++) {
 			$columns = array(
@@ -47,14 +47,14 @@ class MessageTranslationMapperTest extends CTestCase {
 	}
 
 	public static function tearDownAfterClass() {
-		Yii::app()->setModules( self::$_modulesBackup );
+		Yii::app()->setModules(self::$_modulesBackup);
 
 		$dbSetUp = new QsTestDbMigration();
 		$dbSetUp->dropTable(self::getTestLanguageTableName());
 	}
 
 	public function setUp() {
-		Yii::app()->setModules( $this->createTestModulesConfig() );
+		Yii::app()->setModules($this->createTestModulesConfig());
 	}
 
 	/**
@@ -80,9 +80,9 @@ class MessageTranslationMapperTest extends CTestCase {
 	protected function createTestModulesConfig() {
 		$modulesConfig = array(
 			'messagetranslation' => array(
-				'class'=>'MessagetranslationModule',
-				'components'=>array(
-					'languageManager'=>array(
+				'class' => 'MessagetranslationModule',
+				'components' => array(
+					'languageManager' => array(
 						'languageModelClassName' => self::getTestLanguageActiveRecordClassName()
 					)
 				),
@@ -110,15 +110,15 @@ class MessageTranslationMapperTest extends CTestCase {
 		$messageTranslationMapper = $this->createMessageTranslationMapper();
 
 		$testDefaultMessagePath = '/test/default/message/path';
-		$this->assertTrue( $messageTranslationMapper->setDefaultMessagePath($testDefaultMessagePath), 'Unable to set default message path!' );
-		$this->assertEquals( $messageTranslationMapper->getDefaultMessagePath(), $testDefaultMessagePath, 'Unable to set default message path correctly!' );
+		$this->assertTrue($messageTranslationMapper->setDefaultMessagePath($testDefaultMessagePath), 'Unable to set default message path!');
+		$this->assertEquals($messageTranslationMapper->getDefaultMessagePath(), $testDefaultMessagePath, 'Unable to set default message path correctly!');
 
 		$testMessageCategoryNames = array(
 			'test_category_1',
 			'test_category_2',
 		);
-		$this->assertTrue( $messageTranslationMapper->setMessageCategoryNames($testMessageCategoryNames), 'Unable to set message category names!' );
-		$this->assertEquals( $messageTranslationMapper->getMessageCategoryNames(), $testMessageCategoryNames, 'Unable to set message category names correctly!' );
+		$this->assertTrue($messageTranslationMapper->setMessageCategoryNames($testMessageCategoryNames), 'Unable to set message category names!');
+		$this->assertEquals($messageTranslationMapper->getMessageCategoryNames(), $testMessageCategoryNames, 'Unable to set message category names correctly!');
 	}
 
 	/**
@@ -128,7 +128,7 @@ class MessageTranslationMapperTest extends CTestCase {
 		$messageTranslationMapper = $this->createMessageTranslationMapper();
 
 		$defaultMessagePathDefaultValue = $messageTranslationMapper->getDefaultMessagePath();
-		$this->assertFalse( empty($defaultMessagePathDefaultValue), 'Unable to get default value of default message path!' );
+		$this->assertFalse(empty($defaultMessagePathDefaultValue), 'Unable to get default value of default message path!');
 	}
 
 	/**
@@ -142,7 +142,7 @@ class MessageTranslationMapperTest extends CTestCase {
 
 		$messageCategoryNames = $messageTranslationMapper->getMessageCategoryNames();
 
-		$this->assertFalse( empty($messageCategoryNames), 'Unable to get default message category names!' );
+		$this->assertFalse(empty($messageCategoryNames), 'Unable to get default message category names!');
 	}
 
 	/**
@@ -154,6 +154,6 @@ class MessageTranslationMapperTest extends CTestCase {
 		$messageTranslationMapper->setDefaultMessagePath($testDefaultMessageBasePath);
 
 		$messageTranslations = $messageTranslationMapper->findAll();
-		$this->assertFalse( empty($messageTranslations), 'Unable to find all message translations!' );
+		$this->assertFalse(empty($messageTranslations), 'Unable to find all message translations!');
 	}
 }

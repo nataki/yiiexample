@@ -21,16 +21,16 @@ class QsActiveRecordBehaviorCryptTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'rules'=>array(
+				'tableName' => $testTableName,
+				'rules' => array(
 					array('secure_attribute', 'required'),
 				),
-				'behaviors'=>array(
+				'behaviors' => array(
 					'cryptBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorCrypt',
-						'cryptAttributes'=>array(
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorCrypt',
+						'cryptAttributes' => array(
 							'secure_attribute',
-							'secure_attribute_custom_key'=> self::getTestEncryptionKey()
+							'secure_attribute_custom_key' => self::getTestEncryptionKey()
 						),
 					)
 				),
@@ -107,8 +107,8 @@ class QsActiveRecordBehaviorCryptTest extends CTestCase {
 			'test_attribute_1',
 			'test_attribute_2',
 		);
-		$this->assertTrue( $behavior->setCryptAttributes($testCryptAttributes), 'Unable to set crypt attributes!' );
-		$this->assertEquals( $testCryptAttributes, $behavior->getCryptAttributes(), 'Unable to set crypt attributes correctly!' );
+		$this->assertTrue($behavior->setCryptAttributes($testCryptAttributes), 'Unable to set crypt attributes!');
+		$this->assertEquals($testCryptAttributes, $behavior->getCryptAttributes(), 'Unable to set crypt attributes correctly!');
 	}
 
 	/**
@@ -125,10 +125,10 @@ class QsActiveRecordBehaviorCryptTest extends CTestCase {
 
 		$encryptedAttributeValue = $model->$testAttributeName;
 
-		$this->assertNotEquals( $testAttributeValue, $encryptedAttributeValue, 'Unable to crypt the attribute!' );
+		$this->assertNotEquals($testAttributeValue, $encryptedAttributeValue, 'Unable to crypt the attribute!');
 
 		$decryptedAttributeValue = $this->getSecurityManager()->decrypt($encryptedAttributeValue);
-		$this->assertEquals( $testAttributeValue, $decryptedAttributeValue, 'Unable to decrypt the encrypted attribute value!' );
+		$this->assertEquals($testAttributeValue, $decryptedAttributeValue, 'Unable to decrypt the encrypted attribute value!');
 	}
 
 	/**
@@ -144,7 +144,7 @@ class QsActiveRecordBehaviorCryptTest extends CTestCase {
 		$model->encryptAttributes();
 		$model->decryptAttributes();
 
-		$this->assertEquals( $testAttributeValue, $model->$testAttributeName, 'Unable to decrypt the attribute!' );
+		$this->assertEquals($testAttributeValue, $model->$testAttributeName, 'Unable to decrypt the attribute!');
 	}
 
 	/**
@@ -161,10 +161,10 @@ class QsActiveRecordBehaviorCryptTest extends CTestCase {
 
 		$encryptedAttributeValue = $model->$testAttributeName;
 
-		$this->assertNotEquals( $testAttributeValue, $encryptedAttributeValue, 'Unable to crypt the attribute using custom key!' );
+		$this->assertNotEquals($testAttributeValue, $encryptedAttributeValue, 'Unable to crypt the attribute using custom key!');
 
 		$decryptedAttributeValue = $this->getSecurityManager()->decrypt($encryptedAttributeValue,self::getTestEncryptionKey());
-		$this->assertEquals( $testAttributeValue, $decryptedAttributeValue, 'Unable to decrypt the custom key encrypted attribute value!' );
+		$this->assertEquals($testAttributeValue, $decryptedAttributeValue, 'Unable to decrypt the custom key encrypted attribute value!');
 	}
 
 	/**
@@ -180,7 +180,7 @@ class QsActiveRecordBehaviorCryptTest extends CTestCase {
 		$model->encryptAttributes();
 		$model->decryptAttributes();
 
-		$this->assertEquals( $testAttributeValue, $model->$testAttributeName, 'Unable to decrypt the attribute with custom key!' );
+		$this->assertEquals($testAttributeValue, $model->$testAttributeName, 'Unable to decrypt the attribute with custom key!');
 	}
 
 	/**
@@ -195,12 +195,12 @@ class QsActiveRecordBehaviorCryptTest extends CTestCase {
 
 		$model->save(false);
 
-		$dbRow = $this->findActiveRecordRawData( $model->getPrimaryKey() );
+		$dbRow = $this->findActiveRecordRawData($model->getPrimaryKey());
 
-		$this->assertNotEquals( $testAttributeValue, $dbRow[$testAttributeName], 'Attribute value has not been encrypted before saving!' );
+		$this->assertNotEquals($testAttributeValue, $dbRow[$testAttributeName], 'Attribute value has not been encrypted before saving!');
 
 		$decryptedAttributeValue = $this->getSecurityManager()->decrypt($dbRow[$testAttributeName]);
-		$this->assertEquals( $testAttributeValue, $decryptedAttributeValue, 'Unable to decrypt the encrypted attribute value!' );
+		$this->assertEquals($testAttributeValue, $decryptedAttributeValue, 'Unable to decrypt the encrypted attribute value!');
 	}
 
 	/**
@@ -216,6 +216,6 @@ class QsActiveRecordBehaviorCryptTest extends CTestCase {
 		$model->save(false);
 
 		$foundModel = $model->findByPk($model->getPrimaryKey());
-		$this->assertEquals( $testAttributeValue, $foundModel->$testAttributeName, 'Unable to decrypt the attribute value after model is found!' );
+		$this->assertEquals($testAttributeValue, $foundModel->$testAttributeName, 'Unable to decrypt the attribute value after model is found!');
 	}
 }

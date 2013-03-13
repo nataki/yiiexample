@@ -35,7 +35,7 @@ class QsActionAdminGroupProcessTest extends CTestCase {
 		$dbSetUp->createTable($testTableName, $columns);
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
@@ -96,7 +96,7 @@ EOD;
 		}
 
 		$dataModelBehavior = new QsControllerBehaviorAdminDataModel();
-		$dataModelBehavior->setModelClassName( self::getTestActiveRecordClassName() );
+		$dataModelBehavior->setModelClassName(self::getTestActiveRecordClassName());
 		$mockController->attachBehavior('dataModelBehavior', $dataModelBehavior);
 		return $mockController;
 	}
@@ -106,7 +106,7 @@ EOD;
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminGroupProcess($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminGroupProcess" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminGroupProcess" instance!');
 	}
 
 	/**
@@ -153,7 +153,7 @@ EOD;
 		} catch (Exception $exception) {
 			$processMethodName = $exception->getMessage();
 		}
-		$this->assertFalse( empty($processMethodName), 'Controller group process method has not been invoked!' );
+		$this->assertFalse(empty($processMethodName), 'Controller group process method has not been invoked!');
 	}
 
 	/**
@@ -178,10 +178,10 @@ EOD;
 		} catch (QsTestExceptionRedirect $exception) {
 			$pageRedirected = true;
 		}
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected!');
 
 		$returnedModel = CActiveRecord::model(self::getTestActiveRecordClassName())->findByPk($testId);
-		$this->assertFalse( is_object($returnedModel), 'Unable to perform model method by group process!' );
+		$this->assertFalse(is_object($returnedModel), 'Unable to perform model method by group process!');
 	}
 
 	/**

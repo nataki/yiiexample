@@ -32,7 +32,7 @@ class QsActionAdminViewTest extends CTestCase {
 		$dbSetUp->createTable($testTableName, $columns);
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
@@ -89,7 +89,7 @@ class QsActionAdminViewTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminView($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminView" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminView" instance!');
 	}
 
 	/**
@@ -108,7 +108,7 @@ class QsActionAdminViewTest extends CTestCase {
 		} catch (QsTestExceptionRender $exception) {
 			$pageRendered = true;
 		}
-		$this->assertTrue( $pageRendered, 'Page has not been rendered!' );
+		$this->assertTrue($pageRendered, 'Page has not been rendered!');
 	}
 
 	/**
@@ -127,6 +127,6 @@ class QsActionAdminViewTest extends CTestCase {
 		} catch (CHttpException $exception) {
 			$errorMissingPageRisen = true;
 		}
-		$this->assertTrue( $errorMissingPageRisen, 'No 404 error, while viewing unexisting record!' );
+		$this->assertTrue($errorMissingPageRisen, 'No 404 error, while viewing unexisting record!');
 	}
 }

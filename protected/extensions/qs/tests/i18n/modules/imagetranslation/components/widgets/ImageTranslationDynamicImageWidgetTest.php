@@ -16,19 +16,19 @@ class ImageTranslationDynamicImageWidgetTest extends CTestCase {
 		$widget = new ImageTranslationDynamicImageWidget();
 
 		$testModel = new ImageTranslation();
-		$this->assertTrue( $widget->setModel($testModel), 'Unable to set model!' );
-		$this->assertEquals( $widget->getModel(), $testModel, 'Unable to set model correctly!' );
+		$this->assertTrue($widget->setModel($testModel), 'Unable to set model!');
+		$this->assertEquals($widget->getModel(), $testModel, 'Unable to set model correctly!');
 
 		$testLanguageInputId = 'test_language_input_id';
-		$this->assertTrue( $widget->setLanguageInputId($testLanguageInputId), 'Unable to set language input id!' );
-		$this->assertEquals( $widget->getLanguageInputId(), $testLanguageInputId, 'Unable to set language input id correctly!' );
+		$this->assertTrue($widget->setLanguageInputId($testLanguageInputId), 'Unable to set language input id!');
+		$this->assertEquals($widget->getLanguageInputId(), $testLanguageInputId, 'Unable to set language input id correctly!');
 
 		$testLanguages = array(
 			'test_lang_1',
 			'test_lang_2'
 		);
-		$this->assertTrue( $widget->setLanguages($testLanguages), 'Unable to set languages!' );
-		$this->assertEquals( $widget->getLanguages(), $testLanguages, 'Unable to set languages correctly!' );
+		$this->assertTrue($widget->setLanguages($testLanguages), 'Unable to set languages!');
+		$this->assertEquals($widget->getLanguages(), $testLanguages, 'Unable to set languages correctly!');
 	}
 
 	/**
@@ -41,9 +41,10 @@ class ImageTranslationDynamicImageWidgetTest extends CTestCase {
 		$widget->setModel($testModel);
 
 		$defaultLanguageInputId = $widget->getLanguageInputId();
-		$this->assertFalse( empty($defaultLanguageInputId), 'Unable to get default language input id!' );
+		$this->assertFalse(empty($defaultLanguageInputId), 'Unable to get default language input id!');
 
-		$expectedLanguageInputId = CHtml::getIdByName( CHtml::resolveName($testModel, $modelAttribute='language') );
-		$this->assertEquals( $expectedLanguageInputId, $defaultLanguageInputId, 'Default language input id has wrong value!' );
+		$modelAttribute = 'language';
+		$expectedLanguageInputId = CHtml::getIdByName(CHtml::resolveName($testModel, $modelAttribute));
+		$this->assertEquals($expectedLanguageInputId, $defaultLanguageInputId, 'Default language input id has wrong value!');
 	}
 }

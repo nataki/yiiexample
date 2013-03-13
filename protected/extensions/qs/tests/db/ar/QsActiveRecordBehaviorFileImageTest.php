@@ -180,7 +180,7 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 			'getFileInfo',
 			'convert',
 		);
-		$imageFileConvertor = $this->getMock('QsFileConvertor',$methods);
+		$imageFileConvertor = $this->getMock('QsFileConvertor', $methods);
 		$imageFileConvertor->expects($this->any())->method('convert')->will($this->throwException(new CException('convert')));
 		return $imageFileConvertor;
 	}
@@ -235,7 +235,7 @@ class QsActiveRecordBehaviorFileImageTest extends CTestCase {
 	public function testTransformFileViaApplicationComponent() {
 		$testImageFileConvertorComponentName = 'testImageFileConvertor_'.get_class($this);
 		$testImageFileConvertor = $this->createTestImageFileConvertor();
-		Yii::app()->setComponent($testImageFileConvertorComponentName,$testImageFileConvertor);
+		Yii::app()->setComponent($testImageFileConvertorComponentName, $testImageFileConvertor);
 
 		$activeRecordFinder = $this->getActiveRecordFinder();
 

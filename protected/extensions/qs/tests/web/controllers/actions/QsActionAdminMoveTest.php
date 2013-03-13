@@ -37,10 +37,10 @@ class QsActionAdminMoveTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'behaviors'=>array(
+				'tableName' => $testTableName,
+				'behaviors' => array(
 					'positionBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition'
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorPosition'
 					)
 				),
 			)
@@ -102,7 +102,7 @@ class QsActionAdminMoveTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminMove($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminMove" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminMove" instance!');
 	}
 
 	/**
@@ -127,7 +127,7 @@ class QsActionAdminMoveTest extends CTestCase {
 		$this->assertTrue( $pageRedirected, 'Page has not been redirected after moving!' );
 
 		$recordAfterMove = CActiveRecord::model(self::getTestActiveRecordClassName())->findByPk($testId);
-		$this->assertEquals( $recordBeforeMove->position-1, $recordAfterMove->position, 'Record position after moving is incorrect!' );
+		$this->assertEquals($recordBeforeMove->position-1, $recordAfterMove->position, 'Record position after moving is incorrect!');
 	}
 
 	/**
@@ -149,10 +149,10 @@ class QsActionAdminMoveTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$pageRedirected = true;
 		}
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected after moving!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected after moving!');
 
 		$recordAfterMove = CActiveRecord::model(self::getTestActiveRecordClassName())->findByPk($testId);
-		$this->assertEquals( 1, $recordAfterMove->position, 'Record position after moving is incorrect!' );
+		$this->assertEquals(1, $recordAfterMove->position, 'Record position after moving is incorrect!');
 	}
 
 	/**
@@ -177,7 +177,7 @@ class QsActionAdminMoveTest extends CTestCase {
 		$this->assertTrue( $pageRedirected, 'Page has not been redirected after moving!' );
 
 		$recordAfterMove = CActiveRecord::model(self::getTestActiveRecordClassName())->findByPk($testId);
-		$this->assertEquals( $recordBeforeMove->position+1, $recordAfterMove->position, 'Record position after moving is incorrect!' );
+		$this->assertEquals($recordBeforeMove->position+1, $recordAfterMove->position, 'Record position after moving is incorrect!');
 	}
 
 	/**
@@ -199,10 +199,10 @@ class QsActionAdminMoveTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$pageRedirected = true;
 		}
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected after moving!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected after moving!');
 
 		$recordAfterMove = CActiveRecord::model(self::getTestActiveRecordClassName())->findByPk($testId);
-		$this->assertEquals( self::TEST_RECORDS_COUNT, $recordAfterMove->position, 'Record position after moving is incorrect!' );
+		$this->assertEquals(self::TEST_RECORDS_COUNT, $recordAfterMove->position, 'Record position after moving is incorrect!');
 	}
 
 	/**
@@ -224,12 +224,12 @@ class QsActionAdminMoveTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$pageRedirected = true;
 		}
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected after moving!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected after moving!');
 
 		$redirectParams = $exception->getParams();
 		$redirectUrl = $redirectParams['url'];
 
-		$this->assertContains( 'sort/'.$model->getPositionAttributeName(), $redirectUrl, 'Sort by position attribute has not been applied!' );
+		$this->assertContains('sort/'.$model->getPositionAttributeName(), $redirectUrl, 'Sort by position attribute has not been applied!');
 	}
 
 	/**
@@ -257,6 +257,6 @@ class QsActionAdminMoveTest extends CTestCase {
 		$redirectParams = $exception->getParams();
 		$redirectUrl = $redirectParams['url'];
 
-		$this->assertContains( 'sort/'.$testSortAttributeName, $redirectUrl, 'Sort by custom sort attribute has not been applied!' );
+		$this->assertContains('sort/'.$testSortAttributeName, $redirectUrl, 'Sort by custom sort attribute has not been applied!');
 	}
 }

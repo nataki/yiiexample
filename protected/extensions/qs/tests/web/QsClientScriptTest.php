@@ -30,7 +30,7 @@ class QsClientScriptTest extends CTestCase {
 		$testMetaTagContent = 'test meta tag content';
 		$testMetaTagName = 'test_meta_tag_name';
 
-		$clientScript->registerMetaTag($testMetaTagContent,$testMetaTagName);
+		$clientScript->registerMetaTag($testMetaTagContent, $testMetaTagName);
 
 		$testOutput = '<head></head>';
 		$clientScript->render($testOutput);
@@ -46,7 +46,7 @@ class QsClientScriptTest extends CTestCase {
 		$testMetaTagContent = 'test meta tag content';
 		$testMetaTagName = 'test_meta_tag_name';
 
-		$clientScript->registerMetaTagUnique($testMetaTagContent,$testMetaTagName);
+		$clientScript->registerMetaTagUnique($testMetaTagContent, $testMetaTagName);
 
 		$testOutput = '<head></head>';
 		$clientScript->render($testOutput);
@@ -64,10 +64,10 @@ class QsClientScriptTest extends CTestCase {
 
 		$testMetaTagContent = 'test meta tag content';
 		$testMetaTagName = 'test_meta_tag_name';
-		$clientScript->registerMetaTag($testMetaTagContent,$testMetaTagName);
+		$clientScript->registerMetaTag($testMetaTagContent, $testMetaTagName);
 
 		$testMetaTagContentAppended = $testMetaTagContent.' appended';
-		$clientScript->registerMetaTag($testMetaTagContentAppended,$testMetaTagName);
+		$clientScript->registerMetaTag($testMetaTagContentAppended, $testMetaTagName);
 
 		$testOutput = '<head></head>';
 		$clientScript->render($testOutput);
@@ -87,10 +87,10 @@ class QsClientScriptTest extends CTestCase {
 
 		$testMetaTagContent = 'test meta tag content';
 		$testMetaTagName = 'test_meta_tag_name';
-		$clientScript->registerMetaTagUnique($testMetaTagContent,$testMetaTagName);
+		$clientScript->registerMetaTagUnique($testMetaTagContent, $testMetaTagName);
 
 		$testMetaTagContentOverridden = $testMetaTagContent.' overridden';
-		$clientScript->registerMetaTagUnique($testMetaTagContentOverridden,$testMetaTagName);
+		$clientScript->registerMetaTagUnique($testMetaTagContentOverridden, $testMetaTagName);
 
 		$testOutput = '<head></head>';
 		$clientScript->render($testOutput);

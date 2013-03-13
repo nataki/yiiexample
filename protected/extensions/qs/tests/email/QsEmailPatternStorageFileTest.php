@@ -12,13 +12,13 @@ class QsEmailPatternStorageFileTest extends CTestCase {
 	}
 
 	public function setUp() {
-		$testFileSourcePath = Yii::getPathOfAlias('application').'/runtime';
-		mkdir("{$testFileSourcePath}/test_emails", 0777);
+		$testFileSourcePath = Yii::getPathOfAlias('application.runtime').DIRECTORY_SEPARATOR.'test_emails';
+		mkdir($testFileSourcePath, 0777);
 	}
 
 	public function tearDown() {
-		$testFileSourcePath = Yii::getPathOfAlias('application').'/runtime';
-		$command = "rm -R {$testFileSourcePath}/test_emails";
+		$testFileSourcePath = Yii::getPathOfAlias('application.runtime').DIRECTORY_SEPARATOR.'test_emails';
+		$command = "rm -R {$testFileSourcePath}";
 		exec($command);
 	}
 
@@ -26,7 +26,7 @@ class QsEmailPatternStorageFileTest extends CTestCase {
 
 	public function testCreate() {
 		$emailPatternStorage = new QsEmailPatternStorageFile();
-		$this->assertTrue( is_object($emailPatternStorage) );
+		$this->assertTrue(is_object($emailPatternStorage));
 	}
 
 	/**
@@ -36,16 +36,16 @@ class QsEmailPatternStorageFileTest extends CTestCase {
 		$emailPatternStorage = new QsEmailPatternStorageFile();
 
 		$testSourcePath = 'test/pattern/path';
-		$this->assertTrue( $emailPatternStorage->setSourcePath($testSourcePath), 'Unable to set source path!' );
-		$this->assertEquals( $emailPatternStorage->getSourcePath(), $testSourcePath, 'Unable to set source path correctly!' );
+		$this->assertTrue($emailPatternStorage->setSourcePath($testSourcePath), 'Unable to set source path!');
+		$this->assertEquals($emailPatternStorage->getSourcePath(), $testSourcePath, 'Unable to set source path correctly!');
 
 		$testFillType = 'test_fill_type';
-		$this->assertTrue( $emailPatternStorage->setFillType($testFillType), 'Unable to set fill type!' );
-		$this->assertEquals( $emailPatternStorage->getFillType(), $testFillType, 'Unable to set fill type correctly!' );
+		$this->assertTrue($emailPatternStorage->setFillType($testFillType), 'Unable to set fill type!');
+		$this->assertEquals($emailPatternStorage->getFillType(), $testFillType, 'Unable to set fill type correctly!');
 
 		$testFileExtension = 'test_file_extension';
-		$this->assertTrue( $emailPatternStorage->setFileExtension($testFileExtension), 'Unable to set file extension!' );
-		$this->assertEquals( $emailPatternStorage->getFileExtension(), $testFileExtension, 'Unable to set file extension correctly!' );
+		$this->assertTrue($emailPatternStorage->setFileExtension($testFileExtension), 'Unable to set file extension!');
+		$this->assertEquals($emailPatternStorage->getFileExtension(), $testFileExtension, 'Unable to set file extension correctly!');
 	}
 
 	/**

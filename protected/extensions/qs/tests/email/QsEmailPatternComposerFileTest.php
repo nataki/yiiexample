@@ -5,7 +5,6 @@
  * @see QsEmailPatternComposerFile
  */
 class QsEmailPatternComposerFileTest extends CTestCase {
-
 	public static function setUpBeforeClass() {
 		Yii::import('ext.qs.lib.email.includes.*');
 		Yii::import('ext.qs.lib.email.includes.composers.*');
@@ -63,9 +62,9 @@ class QsEmailPatternComposerFileTest extends CTestCase {
 
 		$composedEmailPattern = $emailComposer->compose($testEmailPattern);
 
-		$this->assertEquals( $composedEmailPattern->getFromName(), $testFromNameContent, 'Unable to compose fromName!' );
-		$this->assertEquals( $composedEmailPattern->getFromEmail(), $testFromEmailContent, 'Unable to compose fromEmail!' );
-		$this->assertEquals( $composedEmailPattern->getSubject(), $testSubjectContent, 'Unable to compose subject!' );
+		$this->assertEquals($composedEmailPattern->getFromName(), $testFromNameContent, 'Unable to compose fromName!');
+		$this->assertEquals($composedEmailPattern->getFromEmail(), $testFromEmailContent, 'Unable to compose fromEmail!');
+		$this->assertEquals($composedEmailPattern->getSubject(), $testSubjectContent, 'Unable to compose subject!');
 
 		$this->assertContains($testBodyHtmlContent, $composedEmailPattern->getBodyHtml(), 'Composed bodyHtml does not content original bodyHtml!');
 	}

@@ -42,18 +42,18 @@ class ImageTranslationFilterTest extends CTestCase {
 		}
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
-		Yii::app()->setModules( self::$_modulesBackup );
+		Yii::app()->setModules(self::$_modulesBackup);
 
 		$dbSetUp = new QsTestDbMigration();
 		$dbSetUp->dropTable(self::getTestLanguageTableName());
 	}
 
 	public function setUp() {
-		Yii::app()->setModules( $this->createTestModulesConfig() );
+		Yii::app()->setModules($this->createTestModulesConfig());
 	}
 
 	/**
@@ -79,9 +79,9 @@ class ImageTranslationFilterTest extends CTestCase {
 	protected function createTestModulesConfig() {
 		$modulesConfig = array(
 			'imagetranslation' => array(
-				'class'=>'ImagetranslationModule',
-				'components'=>array(
-					'languageManager'=>array(
+				'class' => 'ImagetranslationModule',
+				'components' => array(
+					'languageManager' => array(
 						'languageModelClassName' => self::getTestLanguageActiveRecordClassName()
 					)
 				),
@@ -94,7 +94,7 @@ class ImageTranslationFilterTest extends CTestCase {
 
 	public function testCreate() {
 		$filter = new ImageTranslationFilter();
-		$this->assertTrue( is_object($filter), 'Unable to create model instance!' );
+		$this->assertTrue(is_object($filter), 'Unable to create model instance!');
 	}
 
 	/**
@@ -107,15 +107,15 @@ class ImageTranslationFilterTest extends CTestCase {
 			'lang_1',
 			'lang_2',
 		);
-		$this->assertTrue( $filter->setLanguages($testLanguages), 'Unable to set languages!' );
-		$this->assertEquals( $filter->getLanguages(), $testLanguages, 'Unable to set languages correctly!' );
+		$this->assertTrue($filter->setLanguages($testLanguages), 'Unable to set languages!');
+		$this->assertEquals($filter->getLanguages(), $testLanguages, 'Unable to set languages correctly!');
 
 		$testExistences = array(
 			'lang_1' => 'value_1',
 			'lang_2' => 'value_2',
 		);
-		$this->assertTrue( $filter->setExistences($testExistences), 'Unable to set existences!' );
-		$this->assertEquals( $filter->getExistences(), $testExistences, 'Unable to set existences correctly!' );
+		$this->assertTrue($filter->setExistences($testExistences), 'Unable to set existences!');
+		$this->assertEquals($filter->getExistences(), $testExistences, 'Unable to set existences correctly!');
 	}
 
 	/**
@@ -125,12 +125,12 @@ class ImageTranslationFilterTest extends CTestCase {
 		$filter = new ImageTranslationFilter();
 
 		$defaultLanguages = $filter->getLanguages();
-		$this->assertFalse( empty($defaultLanguages), 'Unable to get default languages!' );
+		$this->assertFalse(empty($defaultLanguages), 'Unable to get default languages!');
 
 		$languageManager = Yii::app()->getModule('imagetranslation')->getComponent('languageManager');
 		$lanuageModels = $languageManager->getLanguages();
 
-		$this->assertEquals( count($lanuageModels), count($defaultLanguages), 'Wrong default languages count!' );
+		$this->assertEquals(count($lanuageModels), count($defaultLanguages), 'Wrong default languages count!');
 	}
 
 	/**
@@ -146,11 +146,11 @@ class ImageTranslationFilterTest extends CTestCase {
 			$attributeName = 'exist_'.$language->locale_code;
 			$attributeValue = $filter->$attributeName;
 
-			$this->assertTrue( empty($attributeValue), 'Not set attribute not empty!' );
+			$this->assertTrue(empty($attributeValue), 'Not set attribute not empty!');
 
 			$testAttributeValue = 'test_exist_'.$language->locale_code.'_'.rand();
 			$filter->$attributeName = $testAttributeValue;
-			$this->assertEquals( $testAttributeValue, $filter->$attributeName, 'Unable to set attribute value!' );
+			$this->assertEquals($testAttributeValue, $filter->$attributeName, 'Unable to set attribute value!');
 		}
 	}
 }

@@ -42,8 +42,8 @@ class QsActionAdminUpdateVariationTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testVariatorTableName,
-				'rules'=>array(
+				'tableName' => $testVariatorTableName,
+				'rules' => array(
 					array('name', 'required'),
 				),
 			)
@@ -61,8 +61,8 @@ class QsActionAdminUpdateVariationTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testVariationTableName,
-				'rules'=>array(
+				'tableName' => $testVariationTableName,
+				'rules' => array(
 					array('variation_name', 'required'),
 				),
 			)
@@ -78,24 +78,24 @@ class QsActionAdminUpdateVariationTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testMainTableName,
-				'rules'=>array(
+				'tableName' => $testMainTableName,
+				'rules' => array(
 					array('name', 'required'),
 				),
-				'behaviors'=>array(
+				'behaviors' => array(
 					'variationBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorVariation',
-						'variatorModelClassName'=>$testVariatorTableName,
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorVariation',
+						'variatorModelClassName' => $testVariatorTableName,
 						'variationsRelationName' => 'variations',
 						'defaultVariationRelationName' => 'variation',
-						'relationConfig'=>array(
+						'relationConfig' => array(
 							$testVariationTableName, 'variation_main_id'
 						),
 						'variationOptionForeignKeyName' => 'option_id',
 						'defaultVariationOptionForeignKeyCallback' => array($testMainTableName, 'findDefaultOptionId'),
 					)
 				),
-				'additionalCode'=>'
+				'additionalCode' => '
 					public static function findDefaultOptionId() {
 						// Place logic to determine default option here:
 						return "1";
@@ -213,7 +213,7 @@ class QsActionAdminUpdateVariationTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminUpdateVariation($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminUpdateVariation" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminUpdateVariation" instance!');
 	}
 
 	/**
@@ -233,7 +233,7 @@ class QsActionAdminUpdateVariationTest extends CTestCase {
 			$viewRendered = true;
 		}
 
-		$this->assertTrue( $viewRendered, 'View is not rendered!' );
+		$this->assertTrue($viewRendered, 'View is not rendered!');
 	}
 
 	/**
@@ -253,7 +253,7 @@ class QsActionAdminUpdateVariationTest extends CTestCase {
 			$errorMissingPageRisen = true;
 		}
 
-		$this->assertTrue( $errorMissingPageRisen, 'No 404 error, while updating unexisting model!' );
+		$this->assertTrue($errorMissingPageRisen, 'No 404 error, while updating unexisting model!');
 	}
 
 	/**
@@ -275,7 +275,7 @@ class QsActionAdminUpdateVariationTest extends CTestCase {
 		$variatorModels = CActiveRecord::model(self::getTestVariatorActiveRecordClassName())->findAll();
 		foreach ($variatorModels as $variatorModel) {
 			$variationPostData[] = array(
-				'variation_name'=>'test_variation_record_name'.rand(1,100)
+				'variation_name' => 'test_variation_record_name'.rand(1,100)
 			);
 		}
 
@@ -290,14 +290,14 @@ class QsActionAdminUpdateVariationTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$pageRedirected = true;
 		}
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected!');
 
 		$updatedModel = CActiveRecord::model($modelClassName)->findByPk($testId);
-		$this->assertEquals( $updatedModel->name, $testMainRecordName, 'Can not update main record!' );
-		$this->assertEquals( count($updatedModel->variations), count($variatorModels), 'Count of updated variations missmatch the count of variators!' );
+		$this->assertEquals($updatedModel->name, $testMainRecordName, 'Can not update main record!');
+		$this->assertEquals(count($updatedModel->variations), count($variatorModels), 'Count of updated variations missmatch the count of variators!');
 
 		foreach ($updatedModel->variations as $variationKey => $variationModel) {
-			$this->assertEquals( $variationModel->variation_name, $variationPostData[$variationKey]['variation_name'], 'Variation record has wrong data!' );
+			$this->assertEquals($variationModel->variation_name, $variationPostData[$variationKey]['variation_name'], 'Variation record has wrong data!');
 		}
 	}
 
@@ -321,6 +321,6 @@ class QsActionAdminUpdateVariationTest extends CTestCase {
 		} catch (QsTestExceptionRender $exception) {
 			$pageRendered = true;
 		}
-		$this->assertTrue( $pageRendered, 'Page has not been rendered after request with empty post!' );
+		$this->assertTrue($pageRendered, 'Page has not been rendered after request with empty post!');
 	}
 }

@@ -45,12 +45,12 @@ class QsMenuTest extends CTestCase {
 		$widget = new QsMenu();
 
 		$testAutoRender = 'test_auto_render';
-		$this->assertTrue( $widget->setAutoRender($testAutoRender), 'Unable to set auto render!' );
-		$this->assertEquals( $widget->getAutoRender(), $testAutoRender, 'Unable to set view correctly!' );
+		$this->assertTrue($widget->setAutoRender($testAutoRender), 'Unable to set auto render!');
+		$this->assertEquals($widget->getAutoRender(), $testAutoRender, 'Unable to set view correctly!');
 
 		$testItemActivityDirectMatching = 'testItemActivityDirectMatching';
-		$this->assertTrue( $widget->setItemActivityDirectMatching($testItemActivityDirectMatching), 'Unable to set item activity direct mathcing!' );
-		$this->assertEquals( $widget->getItemActivityDirectMatching(), $testItemActivityDirectMatching, 'Unable to set item activity direct mathcing correctly!' );
+		$this->assertTrue($widget->setItemActivityDirectMatching($testItemActivityDirectMatching), 'Unable to set item activity direct matching!');
+		$this->assertEquals($widget->getItemActivityDirectMatching(), $testItemActivityDirectMatching, 'Unable to set item activity direct matching correctly!');
 	}
 
 	/**
@@ -60,14 +60,14 @@ class QsMenuTest extends CTestCase {
 		$testAutoRender = false;
 
 		$controller = new CController('test');
-		$this->assertTrue( is_object($controller), 'Unable to create controller as component!' );
+		$this->assertTrue(is_object($controller), 'Unable to create controller as component!');
 
 		$properties = array(
 			'autoRender' => $testAutoRender
 		);
 		$widget = $controller->beginWidget('QsMenu', $properties);
 
-		$this->assertTrue( is_object($widget), 'Unable to create tested widget with controller!' );
+		$this->assertTrue(is_object($widget), 'Unable to create tested widget with controller!');
 	}
 
 	/**
@@ -82,7 +82,7 @@ class QsMenuTest extends CTestCase {
 		$resultItems = $menuWidget->items;
 		$activeItems = $this->findActiveItems($resultItems);
 		$controller->endWidget();
-		$this->assertTrue( empty($activeItems), 'There are active items while request URL is empty!');
+		$this->assertTrue(empty($activeItems), 'There are active items while request URL is empty!');
 	}
 
 	/**
@@ -93,18 +93,18 @@ class QsMenuTest extends CTestCase {
 		$testItemsCount = 2;
 		$testItems = $this->createTestItems($testItemsCount);
 
-		$testActiveItem = $testItems[rand(0,$testItemsCount-1)];
+		$testActiveItem = $testItems[rand(0, $testItemsCount-1)];
 		$testRequestUri = Yii::app()->createUrl('/').'/'.rtrim($testActiveItem['url'][0],'/');
 		$_SERVER['REQUEST_URI'] = $testRequestUri;
 
-		$menuWidget = $controller->beginWidget('QsMenu', array('items'=>$testItems));
+		$menuWidget = $controller->beginWidget('QsMenu', array('items' => $testItems));
 		$resultItems = $menuWidget->items;
 		$activeItems = $this->findActiveItems($resultItems);
 		$controller->endWidget();
 
-		$this->assertTrue( count($activeItems)==1, 'Wrong number of activate items!');
+		$this->assertTrue(count($activeItems)==1, 'Wrong number of activate items!');
 		list($activeItem) = $activeItems;
-		$this->assertTrue( strpos($activeItem['url'].'/', $testActiveItem['url'][0]) !== false, 'Wrong item has been activated!' );
+		$this->assertTrue(strpos($activeItem['url'].'/', $testActiveItem['url'][0]) !== false, 'Wrong item has been activated!');
 	}
 
 	/**
@@ -114,7 +114,7 @@ class QsMenuTest extends CTestCase {
 		$controller = new QsTestController();
 		$sharedUrlPart = 'test_shared_url_part';
 		$testItemsCount = 2;
-		$testItems = $this->createTestItems($testItemsCount, $sharedUrlPart.'/'.'menu_item' );
+		$testItems = $this->createTestItems($testItemsCount, $sharedUrlPart.'/'.'menu_item');
 
 		$testHighLevelItem = array('label'=>'HighLevelItem', 'url'=>array("{$sharedUrlPart}/"));
 		$testItems[] = $testHighLevelItem;
@@ -124,7 +124,7 @@ class QsMenuTest extends CTestCase {
 		$_SERVER['REQUEST_URI'] = $testRequestUri;
 
 		$menuWidgetOptions = array(
-			'items'=>$testItems,
+			'items' => $testItems,
 		);
 		$menuWidget = $controller->beginWidget('QsMenu', $menuWidgetOptions);
 		$resultItems = $menuWidget->items;
@@ -132,6 +132,6 @@ class QsMenuTest extends CTestCase {
 		$activeItems = $this->findActiveItems($resultItems);
 		$controller->endWidget();
 
-		$this->assertTrue( count($activeItems)==1, 'Wrong number of activate items!');
+		$this->assertTrue(count($activeItems)==1, 'Wrong number of activate items!');
 	}
 }

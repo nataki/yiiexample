@@ -42,18 +42,18 @@ class MessageTranslationTest extends CTestCase {
 		}
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
-		Yii::app()->setModules( self::$_modulesBackup );
+		Yii::app()->setModules(self::$_modulesBackup);
 
 		$dbSetUp = new QsTestDbMigration();
 		$dbSetUp->dropTable(self::getTestLanguageTableName());
 	}
 
 	public function setUp() {
-		Yii::app()->setModules( $this->createTestModulesConfig() );
+		Yii::app()->setModules($this->createTestModulesConfig());
 	}
 
 	/**
@@ -79,9 +79,9 @@ class MessageTranslationTest extends CTestCase {
 	protected function createTestModulesConfig() {
 		$modulesConfig = array(
 			'messagetranslation' => array(
-				'class'=>'MessagetranslationModule',
+				'class' => 'MessagetranslationModule',
 				'components' => array(
-					'languageManager'=>array(
+					'languageManager' => array(
 						'languageModelClassName' => self::getTestLanguageTableName()
 					),
 				)
@@ -94,7 +94,7 @@ class MessageTranslationTest extends CTestCase {
 
 	public function testCreate() {
 		$model = new MessageTranslation();
-		$this->assertTrue( is_object($model), 'Unable to create model instance!' );
+		$this->assertTrue(is_object($model), 'Unable to create model instance!');
 	}
 
 	/**
@@ -110,10 +110,10 @@ class MessageTranslationTest extends CTestCase {
 		$model->category_name = $testCategoryName;
 
 		$id = $model->getId();
-		$this->assertFalse( empty($id), 'Unable to get id!' );
+		$this->assertFalse(empty($id), 'Unable to get id!');
 
-		$expectedId = base64_encode( $testCategoryName.DIRECTORY_SEPARATOR.$testName );
-		$this->assertEquals( $expectedId, $id, 'Unable to get id correctly!' );
+		$expectedId = base64_encode($testCategoryName.DIRECTORY_SEPARATOR.$testName);
+		$this->assertEquals($expectedId, $id, 'Unable to get id correctly!');
 	}
 
 	/**
@@ -124,9 +124,9 @@ class MessageTranslationTest extends CTestCase {
 
 		$testName = 'test_name';
 		$testCategoryName = 'test_category_name';
-		$testId = base64_encode( $testCategoryName.DIRECTORY_SEPARATOR.$testName );
+		$testId = base64_encode($testCategoryName.DIRECTORY_SEPARATOR.$testName);
 
-		$this->assertTrue( $model->setId($testId), 'Unable to set id!' );
+		$this->assertTrue($model->setId($testId), 'Unable to set id!');
 
 		$this->assertEquals($testName, $model->name, 'Model name has not been set!');
 		$this->assertEquals($testCategoryName, $model->category_name, 'Model category name has not been set!');
@@ -142,12 +142,12 @@ class MessageTranslationTest extends CTestCase {
 			'lang_1' => 'content_1',
 			'lang_2' => 'content_2',
 		);
-		$this->assertTrue( $model->setTranslations($testTranslations), 'Unable to set translations!' );
-		$this->assertEquals( $model->getTranslations(), $testTranslations, 'Unable to set translations correctly!' );
+		$this->assertTrue($model->setTranslations($testTranslations), 'Unable to set translations!');
+		$this->assertEquals($model->getTranslations(), $testTranslations, 'Unable to set translations correctly!');
 
 		$testTranslationLanguage = 'test_translation_language';
 		$testTranslationContent = 'Test translation content';
-		$this->assertTrue( $model->addTranslation($testTranslationLanguage,$testTranslationContent), 'Unable to add translation!' );
-		$this->assertEquals( $testTranslationContent, $model->getTranslation($testTranslationLanguage), 'Unable to add translation correctly!' );
+		$this->assertTrue($model->addTranslation($testTranslationLanguage,$testTranslationContent), 'Unable to add translation!');
+		$this->assertEquals($testTranslationContent, $model->getTranslation($testTranslationLanguage), 'Unable to add translation correctly!');
 	}
 }

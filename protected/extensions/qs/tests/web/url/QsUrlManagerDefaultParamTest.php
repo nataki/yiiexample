@@ -27,7 +27,7 @@ class QsUrlManagerDefaultParamTest extends CTestCase {
 	
 	public function testCreate() {
 		$urlManager = new QsUrlManagerDefaultParam();
-		$this->assertTrue( is_object($urlManager), 'Unable to create "QsUrlManagerDefaultParam" instance!' );
+		$this->assertTrue(is_object($urlManager), 'Unable to create "QsUrlManagerDefaultParam" instance!');
 	}
 
 	/**
@@ -37,16 +37,16 @@ class QsUrlManagerDefaultParamTest extends CTestCase {
 		$urlManager = new QsUrlManagerDefaultParam();
 
 		$testDefaultParamName = 'test_default_param_name';
-		$this->assertTrue( $urlManager->setDefaultParamName($testDefaultParamName), 'Unable to set default param name!' );
-		$this->assertEquals( $urlManager->getDefaultParamName(), $testDefaultParamName, 'Unable to set default param name correctly!' );
+		$this->assertTrue($urlManager->setDefaultParamName($testDefaultParamName), 'Unable to set default param name!');
+		$this->assertEquals($urlManager->getDefaultParamName(), $testDefaultParamName, 'Unable to set default param name correctly!');
 
 		$testIsDefaultParamPrependRoute = 'testIsDefaultParamPrependRoute';
-		$this->assertTrue( $urlManager->setIsDefaultParamPrependRoute($testIsDefaultParamPrependRoute), 'Unable to set "isDefaultParamPrependRoute"!' );
-		$this->assertEquals( $urlManager->getIsDefaultParamPrependRoute(), $testIsDefaultParamPrependRoute, 'Unable to set "isDefaultParamPrependRoute" correctly!' );
+		$this->assertTrue($urlManager->setIsDefaultParamPrependRoute($testIsDefaultParamPrependRoute), 'Unable to set "isDefaultParamPrependRoute"!');
+		$this->assertEquals($urlManager->getIsDefaultParamPrependRoute(), $testIsDefaultParamPrependRoute, 'Unable to set "isDefaultParamPrependRoute" correctly!');
 
 		$testIsDefaultParamNameDisplay = 'testIsDefaultParamNameDisplay';
-		$this->assertTrue( $urlManager->setIsDefaultParamNameDisplay($testIsDefaultParamNameDisplay), 'Unable to set "isDefaultParamNameDisplay"!' );
-		$this->assertEquals( $urlManager->getIsDefaultParamNameDisplay(), $testIsDefaultParamNameDisplay, 'Unable to set "isDefaultParamNameDisplay" correctly!' );
+		$this->assertTrue($urlManager->setIsDefaultParamNameDisplay($testIsDefaultParamNameDisplay), 'Unable to set "isDefaultParamNameDisplay"!');
+		$this->assertEquals($urlManager->getIsDefaultParamNameDisplay(), $testIsDefaultParamNameDisplay, 'Unable to set "isDefaultParamNameDisplay" correctly!');
 	}
 
 	/**
@@ -56,13 +56,13 @@ class QsUrlManagerDefaultParamTest extends CTestCase {
 		$testDefaultParamName = 'test_default_param_name';
 
 		$urlManagerConfig = array(
-			'class'=>'ext.qs.lib.web.url.QsUrlManagerDefaultParam',
-			'defaultParamName'=>$testDefaultParamName,
-			'isDefaultParamPrependRoute'=>true,
-			'isDefaultParamNameDisplay'=>false,
-			'urlFormat'=>'path',
-			'showScriptName'=>false,
-			'rules'=>array(),
+			'class' => 'ext.qs.lib.web.url.QsUrlManagerDefaultParam',
+			'defaultParamName' => $testDefaultParamName,
+			'isDefaultParamPrependRoute' => true,
+			'isDefaultParamNameDisplay' => false,
+			'urlFormat' => 'path',
+			'showScriptName' => false,
+			'rules' => array(),
 		);
 		$urlManager = Yii::createComponent($urlManagerConfig);
 
@@ -110,13 +110,13 @@ class QsUrlManagerDefaultParamTest extends CTestCase {
 		$testDefaultParamName = 'test_default_param_name';
 
 		$urlManagerConfig = array(
-			'class'=>'ext.qs.lib.web.url.QsUrlManagerDefaultParam',
-			'defaultParamName'=>$testDefaultParamName,
-			'isDefaultParamPrependRoute'=>true,
-			'isDefaultParamNameDisplay'=>false,
-			'urlFormat'=>'path',
-			'showScriptName'=>false,
-			'rules'=>array(),
+			'class' => 'ext.qs.lib.web.url.QsUrlManagerDefaultParam',
+			'defaultParamName' => $testDefaultParamName,
+			'isDefaultParamPrependRoute' => true,
+			'isDefaultParamNameDisplay' => false,
+			'urlFormat' => 'path',
+			'showScriptName' => false,
+			'rules' => array(),
 		);
 		$urlManager = Yii::createComponent($urlManagerConfig);
 

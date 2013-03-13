@@ -45,7 +45,7 @@ class MessageTranslationMapperDbTest extends CTestCase {
 		}
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testLanguageTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testLanguageTableName));
 
 		// Translation Tables:
 		$columns = array(
@@ -64,7 +64,7 @@ class MessageTranslationMapperDbTest extends CTestCase {
 	}
 
 	public static function tearDownAfterClass() {
-		Yii::app()->setModules( self::$_modulesBackup );
+		Yii::app()->setModules(self::$_modulesBackup);
 
 		$dbSetUp = new QsTestDbMigration();
 		$dbSetUp->dropTable(self::getTestLanguageTableName());
@@ -73,7 +73,7 @@ class MessageTranslationMapperDbTest extends CTestCase {
 	}
 
 	public function setUp() {
-		Yii::app()->setModules( $this->createTestModulesConfig() );
+		Yii::app()->setModules($this->createTestModulesConfig());
 	}
 
 	/**
@@ -99,9 +99,9 @@ class MessageTranslationMapperDbTest extends CTestCase {
 	protected function createTestModulesConfig() {
 		$modulesConfig = array(
 			'messagetranslation' => array(
-				'class'=>'MessagetranslationModule',
-				'components'=>array(
-					'languageManager'=>array(
+				'class' => 'MessagetranslationModule',
+				'components' => array(
+					'languageManager' => array(
 						'languageModelClassName' => self::getTestLanguageActiveRecordClassName()
 					)
 				),
@@ -146,16 +146,16 @@ class MessageTranslationMapperDbTest extends CTestCase {
 		$messageTranslationMapper = $this->createMessageTranslationMapper();
 
 		$testConnectionId = 'testConnectionId';
-		$this->assertTrue( $messageTranslationMapper->setConnectionId($testConnectionId), 'Unable to set connection id!' );
-		$this->assertEquals( $messageTranslationMapper->getConnectionId(), $testConnectionId, 'Unable to set connection id correctly!' );
+		$this->assertTrue($messageTranslationMapper->setConnectionId($testConnectionId), 'Unable to set connection id!');
+		$this->assertEquals($messageTranslationMapper->getConnectionId(), $testConnectionId, 'Unable to set connection id correctly!');
 
 		$testSourceMessageTable = 'testSourceMessageTable';
-		$this->assertTrue( $messageTranslationMapper->setSourceMessageTable($testSourceMessageTable), 'Unable to set source message table!' );
-		$this->assertEquals( $messageTranslationMapper->getSourceMessageTable(), $testSourceMessageTable, 'Unable to set source message table correctly!' );
+		$this->assertTrue($messageTranslationMapper->setSourceMessageTable($testSourceMessageTable), 'Unable to set source message table!');
+		$this->assertEquals($messageTranslationMapper->getSourceMessageTable(), $testSourceMessageTable, 'Unable to set source message table correctly!');
 
 		$testTranslatedMessageTable = 'testTranslatedMessageTable';
-		$this->assertTrue( $messageTranslationMapper->setTranslatedMessageTable($testTranslatedMessageTable), 'Unable to set translated message table!' );
-		$this->assertEquals( $messageTranslationMapper->getTranslatedMessageTable(), $testTranslatedMessageTable, 'Unable to set translated message table correctly!' );
+		$this->assertTrue($messageTranslationMapper->setTranslatedMessageTable($testTranslatedMessageTable), 'Unable to set translated message table!');
+		$this->assertEquals($messageTranslationMapper->getTranslatedMessageTable(), $testTranslatedMessageTable, 'Unable to set translated message table correctly!');
 	}
 
 	/**
@@ -165,7 +165,7 @@ class MessageTranslationMapperDbTest extends CTestCase {
 		$messageTranslationMapper = $this->createMessageTranslationMapper();
 
 		$defaultConnectionId = $messageTranslationMapper->getConnectionId();
-		$this->assertFalse( empty($defaultConnectionId), 'Unable to get default connection id!' );
+		$this->assertFalse(empty($defaultConnectionId), 'Unable to get default connection id!');
 	}
 
 	/**
@@ -175,7 +175,7 @@ class MessageTranslationMapperDbTest extends CTestCase {
 		$messageTranslationMapper = $this->createMessageTranslationMapper();
 
 		$defaultSourceMessageTable = $messageTranslationMapper->getSourceMessageTable();
-		$this->assertFalse( empty($defaultSourceMessageTable), 'Unable to get default source message table!' );
+		$this->assertFalse(empty($defaultSourceMessageTable), 'Unable to get default source message table!');
 	}
 
 	/**
@@ -185,7 +185,7 @@ class MessageTranslationMapperDbTest extends CTestCase {
 		$messageTranslationMapper = $this->createMessageTranslationMapper();
 
 		$defaultTranslatedMessageTable = $messageTranslationMapper->getTranslatedMessageTable();
-		$this->assertFalse( empty($defaultTranslatedMessageTable), 'Unable to get default translated message table!' );
+		$this->assertFalse(empty($defaultTranslatedMessageTable), 'Unable to get default translated message table!');
 	}
 
 	/**
@@ -194,11 +194,11 @@ class MessageTranslationMapperDbTest extends CTestCase {
 	public function testFindAll() {
 		$messageTranslationMapper = $this->createMessageTranslationMapper();
 
-		$messageTranslationMapper->setSourceMessageTable( self::getTestSourceMessageTableName() );
-		$messageTranslationMapper->setTranslatedMessageTable( self::getTestTranslatedMessageTableName() );
+		$messageTranslationMapper->setSourceMessageTable(self::getTestSourceMessageTableName());
+		$messageTranslationMapper->setTranslatedMessageTable(self::getTestTranslatedMessageTableName());
 
 		$messageTranslations = $messageTranslationMapper->findAll();
-		$this->assertFalse( empty($messageTranslations), 'Unable to find all message translations!' );
+		$this->assertFalse(empty($messageTranslations), 'Unable to find all message translations!');
 	}
 
 	/**
@@ -206,8 +206,8 @@ class MessageTranslationMapperDbTest extends CTestCase {
 	 */
 	public function testSave() {
 		$messageTranslationMapper = $this->createMessageTranslationMapper();
-		$messageTranslationMapper->setSourceMessageTable( self::getTestSourceMessageTableName() );
-		$messageTranslationMapper->setTranslatedMessageTable( self::getTestTranslatedMessageTableName() );
+		$messageTranslationMapper->setSourceMessageTable(self::getTestSourceMessageTableName());
+		$messageTranslationMapper->setTranslatedMessageTable(self::getTestTranslatedMessageTableName());
 
 		$models = $messageTranslationMapper->findAll();
 
@@ -220,13 +220,13 @@ class MessageTranslationMapperDbTest extends CTestCase {
 		$testContent = 'Test content';
 		$model->content = $testContent;
 
-		$this->assertTrue( $messageTranslationMapper->save($model), 'Unable to save model!' );
+		$this->assertTrue($messageTranslationMapper->save($model), 'Unable to save model!');
 
 		$filter = array(
 			'name' => $model->name,
 			'category_name' => $model->category_name,
 		);
 		list($model) = $messageTranslationMapper->findAll($filter);
-		$this->assertEquals( $testContent, $model->getTranslation($testLanguage), 'Unable to save content!' );
+		$this->assertEquals($testContent, $model->getTranslation($testLanguage), 'Unable to save content!');
 	}
 }

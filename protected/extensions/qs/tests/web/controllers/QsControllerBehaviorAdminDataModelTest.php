@@ -19,7 +19,7 @@ class QsControllerBehaviorAdminDataModelTest extends CTestCase {
 		$dbSetUp->createTable($testTableName, $columns);
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
@@ -62,16 +62,16 @@ class QsControllerBehaviorAdminDataModelTest extends CTestCase {
 		$behavior = new QsControllerBehaviorAdminDataModel();
 
 		$testModelClassName = 'testModelClassName';
-		$this->assertTrue( $behavior->setModelClassName($testModelClassName), 'Unable to set model class name!' );
-		$this->assertEquals( $behavior->getModelClassName(), $testModelClassName, 'Unable to set model class name correctly!' );
+		$this->assertTrue($behavior->setModelClassName($testModelClassName), 'Unable to set model class name!');
+		$this->assertEquals($behavior->getModelClassName(), $testModelClassName, 'Unable to set model class name correctly!');
 
 		$testSearchModelName = 'testSearchModelClassName';
-		$this->assertTrue( $behavior->setSearchModelClassName($testSearchModelName), 'Unable to set search model class name!' );
-		$this->assertEquals( $testSearchModelName, $behavior->getSearchModelClassName(), 'Unable to set search model class name correctly!' );
+		$this->assertTrue($behavior->setSearchModelClassName($testSearchModelName), 'Unable to set search model class name!');
+		$this->assertEquals($testSearchModelName, $behavior->getSearchModelClassName(), 'Unable to set search model class name correctly!');
 
 		$testModelSearchScenarioName = 'test_model_scenario_name';
-		$this->assertTrue( $behavior->setModelSearchScenarioName($testModelSearchScenarioName), 'Unable to set model scenario name!' );
-		$this->assertEquals( $behavior->getModelSearchScenarioName(), $testModelSearchScenarioName, 'Unable to set model scenario name correctly!' );
+		$this->assertTrue($behavior->setModelSearchScenarioName($testModelSearchScenarioName), 'Unable to set model scenario name!');
+		$this->assertEquals($behavior->getModelSearchScenarioName(), $testModelSearchScenarioName, 'Unable to set model scenario name correctly!');
 	}
 
 	/**
@@ -84,7 +84,7 @@ class QsControllerBehaviorAdminDataModelTest extends CTestCase {
 		$behavior->setModelClassName($testModelClassName);
 
 		$searchModelClassName = $behavior->getSearchModelClassName();
-		$this->assertEquals( $testModelClassName, $searchModelClassName, 'Unable to get search model class name correctly!' );
+		$this->assertEquals($testModelClassName, $searchModelClassName, 'Unable to get search model class name correctly!');
 	}
 
 	/**
@@ -96,8 +96,8 @@ class QsControllerBehaviorAdminDataModelTest extends CTestCase {
 
 		$testId = 7;
 		$model = $behavior->loadModel($testId);
-		$this->assertTrue( is_object($model), 'Unable to load model!' );
-		$this->assertEquals( $model->id, $testId, 'Loaded model is invalid!' );
+		$this->assertTrue(is_object($model), 'Unable to load model!');
+		$this->assertEquals($model->id, $testId, 'Loaded model is invalid!');
 
 		$testUnexistingId = 9999;
 		$exceptionCaught = false;
@@ -106,7 +106,7 @@ class QsControllerBehaviorAdminDataModelTest extends CTestCase {
 		} catch (CException $exception) {
 			$exceptionCaught = true;
 		}
-		$this->assertTrue( $exceptionCaught, 'Unexisting model has been loaded!' );
+		$this->assertTrue($exceptionCaught, 'Unexisting model has been loaded!');
 	}
 
 	/**
@@ -119,8 +119,8 @@ class QsControllerBehaviorAdminDataModelTest extends CTestCase {
 		$behavior->setModelClassName($testActiveRecordName);
 
 		$newModel = $behavior->newModel();
-		$this->assertTrue( is_object($newModel), 'Unable to get new model!' );
-		$this->assertEquals( get_class($newModel), $testActiveRecordName, 'New model has wrong type!' );
+		$this->assertTrue(is_object($newModel), 'Unable to get new model!');
+		$this->assertEquals(get_class($newModel), $testActiveRecordName, 'New model has wrong type!');
 	}
 
 	/**
@@ -136,8 +136,8 @@ class QsControllerBehaviorAdminDataModelTest extends CTestCase {
 		$behavior->setModelSearchScenarioName($testModelSearchScenarioName);
 
 		$newModel = $behavior->newSearchModel();
-		$this->assertTrue( is_object($newModel), 'Unable to get new model!' );
-		$this->assertEquals( get_class($newModel), $testActiveRecordName, 'New model has wrong type!' );
-		$this->assertEquals( $newModel->getScenario(), $testModelSearchScenarioName, 'New model has wrong scenario!' );
+		$this->assertTrue(is_object($newModel), 'Unable to get new model!');
+		$this->assertEquals(get_class($newModel), $testActiveRecordName, 'New model has wrong type!');
+		$this->assertEquals($newModel->getScenario(), $testModelSearchScenarioName, 'New model has wrong scenario!');
 	}
 }

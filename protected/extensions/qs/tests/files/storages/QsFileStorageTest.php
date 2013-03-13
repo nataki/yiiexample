@@ -5,7 +5,6 @@
  * @see QsFileStorage
  */
 class QsFileStorageTest extends CTestCase {
-
 	public static function setUpBeforeClass() {
 		Yii::import('ext.qs.lib.files.storages.*');
 	}
@@ -14,7 +13,7 @@ class QsFileStorageTest extends CTestCase {
 		$methodsList = array(
 			'init',
 		);
-		$fileStorage = $this->getMock('QsFileStorage',$methodsList);
+		$fileStorage = $this->getMock('QsFileStorage', $methodsList);
 		return $fileStorage;
 	}
 
@@ -35,7 +34,7 @@ class QsFileStorageTest extends CTestCase {
 			'moveFileInternal',
 			'getFileUrl',
 		);
-		$bucket = $this->getMock('QsFileStorageBucket',$methodsList);
+		$bucket = $this->getMock('QsFileStorageBucket', $methodsList);
 		return $bucket;
 	}
 
@@ -43,8 +42,8 @@ class QsFileStorageTest extends CTestCase {
 		$fileStorage = $this->createFileStorage();
 
 		$testBucketClassName = 'TestBucketClassName';
-		$this->assertTrue( $fileStorage->setBucketClassName($testBucketClassName), 'Unable to set bucket class name!' );
-		$this->assertEquals( $fileStorage->getBucketClassName(), $testBucketClassName, 'Unable to set bucket class name correctly!' );
+		$this->assertTrue($fileStorage->setBucketClassName($testBucketClassName), 'Unable to set bucket class name!');
+		$this->assertEquals($fileStorage->getBucketClassName(), $testBucketClassName, 'Unable to set bucket class name correctly!');
 	}
 
 	/**
@@ -56,7 +55,7 @@ class QsFileStorageTest extends CTestCase {
 		$testBucketName = 'testBucketName';
 		$testBucket = $this->createFileStorageBucket();
 
-		$this->assertTrue( $fileStorage->addBucket($testBucketName, $testBucket), 'Unable to add bucket object!' );
+		$this->assertTrue($fileStorage->addBucket($testBucketName, $testBucket), 'Unable to add bucket object!');
 
 		$returnedBucket = $fileStorage->getBucket($testBucketName);
 		$this->assertEquals($testBucketName, $returnedBucket->getName(), 'Added bucket has wrong name!');
@@ -75,11 +74,11 @@ class QsFileStorageTest extends CTestCase {
 		$testBucketConfig = array(
 			'class' => $testBucketClassName
 		);
-		$this->assertTrue( $fileStorage->addBucket($testBucketName, $testBucketConfig), 'Unable to add bucket as config!' );
+		$this->assertTrue($fileStorage->addBucket($testBucketName, $testBucketConfig), 'Unable to add bucket as config!');
 
 		$returnedBucket = $fileStorage->getBucket($testBucketName);
-		$this->assertTrue( is_object($returnedBucket), 'Unable to get bucket added by config!' );
-		$this->assertEquals($testBucketClassName, get_class($returnedBucket), 'Added by config bucket has wrong class name!' );
+		$this->assertTrue(is_object($returnedBucket), 'Unable to get bucket added by config!');
+		$this->assertEquals($testBucketClassName, get_class($returnedBucket), 'Added by config bucket has wrong class name!');
 	}
 
 	/**
@@ -93,11 +92,11 @@ class QsFileStorageTest extends CTestCase {
 		$fileStorage->setBucketClassName($testBucketClassName);
 
 		$testBucketName = 'test_bucket_name';
-		$this->assertTrue( $fileStorage->addBucket($testBucketName), 'Unable to add bucket only by name!' );
+		$this->assertTrue($fileStorage->addBucket($testBucketName), 'Unable to add bucket only by name!');
 
 		$returnedBucket = $fileStorage->getBucket($testBucketName);
-		$this->assertTrue( is_object($returnedBucket), 'Unable to get bucket added only by name!' );
-		$this->assertEquals($testBucketClassName, get_class($returnedBucket), 'Added only by name bucket has wrong class name!' );
+		$this->assertTrue(is_object($returnedBucket), 'Unable to get bucket added only by name!');
+		$this->assertEquals($testBucketClassName, get_class($returnedBucket), 'Added only by name bucket has wrong class name!');
 	}
 
 	/**
@@ -114,9 +113,9 @@ class QsFileStorageTest extends CTestCase {
 			$testBuckets[$testBucketName] = $testBucket;
 		}
 
-		$this->assertTrue( $fileStorage->setBuckets($testBuckets), 'Unable to set buckets list!' );
+		$this->assertTrue($fileStorage->setBuckets($testBuckets), 'Unable to set buckets list!');
 		$returnedBuckets = $fileStorage->getBuckets();
-		$this->assertEquals( count($returnedBuckets), count($testBuckets), 'Wrong count of the set buckets!' );
+		$this->assertEquals(count($returnedBuckets), count($testBuckets), 'Wrong count of the set buckets!');
 	}
 
 	/**
@@ -137,13 +136,13 @@ class QsFileStorageTest extends CTestCase {
 			$testBuckets[] = $testBucketName;
 		}
 
-		$this->assertTrue( $fileStorage->setBuckets($testBuckets), 'Unable to set bucket names list!' );
+		$this->assertTrue($fileStorage->setBuckets($testBuckets), 'Unable to set bucket names list!');
 		$returnedBuckets = $fileStorage->getBuckets();
-		$this->assertEquals( count($returnedBuckets), count($testBuckets), 'Wrong count of the set buckets!' );
+		$this->assertEquals(count($returnedBuckets), count($testBuckets), 'Wrong count of the set buckets!');
 
 		for ($i=1; $i<=$bucketsCount; $i++) {
 			$testBucketName = 'testBucketName'.$i;
-			$this->assertTrue( is_object($returnedBuckets[$testBucketName]), 'Returned bucket is not an object!' );
+			$this->assertTrue(is_object($returnedBuckets[$testBucketName]), 'Returned bucket is not an object!');
 		}
 	}
 
@@ -154,9 +153,9 @@ class QsFileStorageTest extends CTestCase {
 		$fileStorage = $this->createFileStorage();
 
 		$testBucketName = 'test_bucket_name';
-		$this->assertFalse( $fileStorage->hasBucket($testBucketName), 'Not added bucket present in the storage!' );
+		$this->assertFalse($fileStorage->hasBucket($testBucketName), 'Not added bucket present in the storage!');
 
 		$fileStorage->addBucket($testBucketName, array());
-		$this->assertTrue( $fileStorage->hasBucket($testBucketName), 'Added bucket does not present in the storage!' );
+		$this->assertTrue($fileStorage->hasBucket($testBucketName), 'Added bucket does not present in the storage!');
 	}
 }

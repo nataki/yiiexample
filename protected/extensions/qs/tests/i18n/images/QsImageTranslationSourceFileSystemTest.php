@@ -45,16 +45,16 @@ class QsImageTranslationSourceFileSystemTest extends CTestCase {
 		$imageTranslationSource = $this->createImageTranslationSource();
 
 		$testBasePath = '/test/base/path';
-		$this->assertTrue( $imageTranslationSource->setBasePath($testBasePath), 'Unable to set base path!' );
-		$this->assertEquals( $testBasePath, $imageTranslationSource->getBasePath(), 'Unable to set base path correctly!' );
+		$this->assertTrue($imageTranslationSource->setBasePath($testBasePath), 'Unable to set base path!');
+		$this->assertEquals($testBasePath, $imageTranslationSource->getBasePath(), 'Unable to set base path correctly!');
 
 		$testBaseUrl = 'http://test/base/url';
-		$this->assertTrue( $imageTranslationSource->setBaseUrl($testBaseUrl), 'Unable to set base URL!' );
-		$this->assertEquals( $imageTranslationSource->getBaseUrl(), $testBaseUrl, 'Unable to set base URL correctly!' );
+		$this->assertTrue($imageTranslationSource->setBaseUrl($testBaseUrl), 'Unable to set base URL!');
+		$this->assertEquals($imageTranslationSource->getBaseUrl(), $testBaseUrl, 'Unable to set base URL correctly!');
 
 		$testFilePermission = 0777;
-		$this->assertTrue( $imageTranslationSource->setFilePermission($testFilePermission), 'Unable to set file permission!' );
-		$this->assertEquals( $imageTranslationSource->getFilePermission(), $testFilePermission, 'Unable to set file permission correctly!' );
+		$this->assertTrue($imageTranslationSource->setFilePermission($testFilePermission), 'Unable to set file permission!');
+		$this->assertEquals($imageTranslationSource->getFilePermission(), $testFilePermission, 'Unable to set file permission correctly!');
 	}
 
 	/**
@@ -70,10 +70,10 @@ class QsImageTranslationSourceFileSystemTest extends CTestCase {
 		$testLanguage = 'test_lang';
 		$fullFileName = $imageTranslationSource->getFullFileName($testFileName, $testLanguage);
 
-		$this->assertFalse( empty($fullFileName), 'Unable to get full file name!' );
+		$this->assertFalse(empty($fullFileName), 'Unable to get full file name!');
 
 		$expectedFullFileName = $testBasePath.DIRECTORY_SEPARATOR.$testLanguage.DIRECTORY_SEPARATOR.$testFileName;
-		$this->assertEquals( $expectedFullFileName, $fullFileName, 'Unable to get full file name correctly!' );
+		$this->assertEquals($expectedFullFileName, $fullFileName, 'Unable to get full file name correctly!');
 	}
 
 	/**
@@ -89,10 +89,10 @@ class QsImageTranslationSourceFileSystemTest extends CTestCase {
 		$testLanguage = 'test_lang';
 		$fullFileUrl = $imageTranslationSource->getFullFileUrl($testFileName, $testLanguage);
 
-		$this->assertFalse( empty($fullFileUrl), 'Unable to get full file URL!' );
+		$this->assertFalse(empty($fullFileUrl), 'Unable to get full file URL!');
 
 		$expectedFullFileUrl = $testBaseUrl.'/'.$testLanguage.'/'.$testFileName;
-		$this->assertEquals( $expectedFullFileUrl, $fullFileUrl, 'Unable ti get full file URL!' );
+		$this->assertEquals($expectedFullFileUrl, $fullFileUrl, 'Unable ti get full file URL!');
 	}
 
 	/**
@@ -113,7 +113,7 @@ class QsImageTranslationSourceFileSystemTest extends CTestCase {
 		$fileName = $path.DIRECTORY_SEPARATOR.$testImageFileName;
 		file_put_contents($fileName, $testImageFileContent);
 
-		$translatedImageUrl = $imageTranslationSource->translate($testImageFileName,$testLanguage);
+		$translatedImageUrl = $imageTranslationSource->translate($testImageFileName, $testLanguage);
 		$expectedTranslatedImageUrl = $imageTranslationSource->getFullFileUrl($testImageFileName, $testLanguage);
 
 		$this->assertEquals($expectedTranslatedImageUrl, $translatedImageUrl, 'Wrong translated image URL!');
@@ -128,7 +128,7 @@ class QsImageTranslationSourceFileSystemTest extends CTestCase {
 		$testLanguage = 'test_lang';
 		$testImageFileName = 'unexisting_test_image.jpg';
 
-		$translatedImageUrl = $imageTranslationSource->translate($testImageFileName,$testLanguage);
+		$translatedImageUrl = $imageTranslationSource->translate($testImageFileName, $testLanguage);
 		$expectedTranslatedImageUrl = $imageTranslationSource->getDefaultImageUrl($testImageFileName);
 
 		$this->assertEquals($expectedTranslatedImageUrl, $translatedImageUrl, 'Wrong translated image URL for missing translation!');
@@ -144,17 +144,17 @@ class QsImageTranslationSourceFileSystemTest extends CTestCase {
 		$testLanguage = 'test_lang';
 		$testImageFileName = 'test_image.jpg';
 
-		$this->assertFalse( $imageTranslationSource->translationExists($testImageFileName,$testLanguage), 'Missing translation considered as existing one!' );
+		$this->assertFalse($imageTranslationSource->translationExists($testImageFileName, $testLanguage), 'Missing translation considered as existing one!');
 
 		$testImageFileContent = '';
 		$path = $this->getTestImageTranslationSourceBasePath().DIRECTORY_SEPARATOR.$testLanguage;
 		if (!file_exists($path)) {
-			mkdir($path,0777,true);
+			mkdir($path, 0777, true);
 		}
 		$fileName = $path.DIRECTORY_SEPARATOR.$testImageFileName;
 		file_put_contents($fileName, $testImageFileContent);
 
-		$this->assertTrue( $imageTranslationSource->translationExists($testImageFileName,$testLanguage), 'Existing translation considered as missing one!' );
+		$this->assertTrue($imageTranslationSource->translationExists($testImageFileName, $testLanguage), 'Existing translation considered as missing one!');
 	}
 
 	/**
@@ -166,7 +166,7 @@ class QsImageTranslationSourceFileSystemTest extends CTestCase {
 		$testLanguage = 'test_lang';
 		$testImageFileName = 'test_image.jpg';
 
-		$this->assertTrue( $imageTranslationSource->saveTranslation(__FILE__, $testImageFileName, $testLanguage), 'Unable to save translation!' );
-		$this->assertTrue( $imageTranslationSource->translationExists($testImageFileName, $testLanguage), 'Saved translation does not exist!' );
+		$this->assertTrue($imageTranslationSource->saveTranslation(__FILE__, $testImageFileName, $testLanguage), 'Unable to save translation!');
+		$this->assertTrue($imageTranslationSource->translationExists($testImageFileName, $testLanguage), 'Saved translation does not exist!');
 	}
 }

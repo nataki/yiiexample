@@ -19,7 +19,7 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 			'name' => 'string',
 		);
 		$dbSetUp->createTable($testGroupTableName, $columns);
-		$activeRecordGenerator->generate(array('tableName'=>$testGroupTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testGroupTableName));
 
 		$columns = array(
 			'id' => 'pk',
@@ -27,7 +27,7 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 			'group_id' => 'integer',
 		);
 		$dbSetUp->createTable($testMainTableName, $columns);
-		$activeRecordGenerator->generate(array('tableName'=>$testMainTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testMainTableName));
 	}
 
 	public static function tearDownAfterClass() {
@@ -99,8 +99,8 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 		$behavior = new QsControllerBehaviorAdminDataModelContext();
 
 		$testInitialized = 'test_initialized';
-		$this->assertTrue( $behavior->setInitialized($testInitialized), 'Unable to set initialized!' );
-		$this->assertEquals( $behavior->getInitialized(), $testInitialized, 'Unable to set initialized correctly!' );
+		$this->assertTrue($behavior->setInitialized($testInitialized), 'Unable to set initialized!');
+		$this->assertEquals($behavior->getInitialized(), $testInitialized, 'Unable to set initialized correctly!');
 	}
 
 	/**
@@ -121,8 +121,8 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 				'controllerId' => 'test_controller_id_2',
 			),
 		);
-		$this->assertTrue( $behavior->setContexts($testContexts), 'Unable to set contexts!' );
-		$this->assertEquals( $behavior->getContexts(), $testContexts, 'Unable to set contexts correctly!' );
+		$this->assertTrue($behavior->setContexts($testContexts), 'Unable to set contexts!');
+		$this->assertEquals($behavior->getContexts(), $testContexts, 'Unable to set contexts correctly!');
 
 		$testContextNameAdd = 'test_context_name_add';
 		$testContextConfigAdd = array(
@@ -130,11 +130,11 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 			'foreignKeyName' => 'test_foreign_key_name_add',
 			'controllerId' => 'test_controller_id',
 		);
-		$this->assertTrue( $behavior->addContext($testContextNameAdd, $testContextConfigAdd), 'Unable to add context!' );
-		$this->assertEquals( $behavior->getContext($testContextNameAdd), $testContextConfigAdd, 'Unable to add context correctly!' );
+		$this->assertTrue($behavior->addContext($testContextNameAdd, $testContextConfigAdd), 'Unable to add context!');
+		$this->assertEquals($behavior->getContext($testContextNameAdd), $testContextConfigAdd, 'Unable to add context correctly!');
 
 		$defaultContext = $behavior->getContext();
-		$this->assertTrue( is_array($defaultContext) && !empty($defaultContext), 'Unable to get default context!' );
+		$this->assertTrue(is_array($defaultContext) && !empty($defaultContext), 'Unable to get default context!');
 	}
 
 	/**
@@ -155,8 +155,8 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 				'controllerId' => 'test_controller_id_2',
 			),
 		);
-		$this->assertTrue( $behavior->setActiveContexts($testActiveContexts), 'Unable to set active contexts!' );
-		$this->assertEquals( $behavior->getActiveContexts(), $testActiveContexts, 'Unable to set active contexts correctly!' );
+		$this->assertTrue($behavior->setActiveContexts($testActiveContexts), 'Unable to set active contexts!');
+		$this->assertEquals($behavior->getActiveContexts(), $testActiveContexts, 'Unable to set active contexts correctly!');
 
 		$testActiveContextNameAdd = 'test_context_name_add';
 		$testActiveContextConfigAdd = array(
@@ -164,11 +164,11 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 			'foreignKeyName' => 'test_foreign_key_name_add',
 			'controllerId' => 'test_controller_id',
 		);
-		$this->assertTrue( $behavior->addActiveContext($testActiveContextNameAdd, $testActiveContextConfigAdd), 'Unable to add active context!' );
-		$this->assertEquals( $behavior->getActiveContext($testActiveContextNameAdd), $testActiveContextConfigAdd, 'Unable to add active context correctly!' );
+		$this->assertTrue($behavior->addActiveContext($testActiveContextNameAdd, $testActiveContextConfigAdd), 'Unable to add active context!');
+		$this->assertEquals($behavior->getActiveContext($testActiveContextNameAdd), $testActiveContextConfigAdd, 'Unable to add active context correctly!');
 
 		$defaultActiveContext = $behavior->getActiveContext();
-		$this->assertTrue( is_array($defaultActiveContext) && !empty($defaultActiveContext), 'Unable to get default active context!' );
+		$this->assertTrue(is_array($defaultActiveContext) && !empty($defaultActiveContext), 'Unable to get default active context!');
 	}
 
 	/**
@@ -195,12 +195,12 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 
 		$returnedActiveContexts = $behavior->getActiveContexts();
 
-		$this->assertTrue( !empty($returnedActiveContexts), 'Unable to init contexts!' );
+		$this->assertTrue(!empty($returnedActiveContexts), 'Unable to init contexts!');
 		reset($returnedActiveContexts);
 		$returnedActiveContext = current($returnedActiveContexts);
-		$this->assertTrue( is_object($returnedActiveContext['model']), 'Unable to init context model!' );
+		$this->assertTrue(is_object($returnedActiveContext['model']), 'Unable to init context model!');
 
-		$this->assertEquals( $returnedActiveContext['model']->id, $testContextId, 'Wrong context model has been found!' );
+		$this->assertEquals($returnedActiveContext['model']->id, $testContextId, 'Wrong context model has been found!');
 
 		// Unexisting context id:
 		$behavior->setInitialized(false);
@@ -211,11 +211,10 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 		$exceptionCaught = false;
 		try {
 			$returnedActiveContexts = $behavior->getActiveContexts();
-			throw new Exception( CVarDumper::dumpAsString($returnedActiveContexts) );
 		} catch (Exception $exception) {
 			$exceptionCaught = true;
 		}
-		$this->assertTrue( $exceptionCaught, 'No exception has been raisen for unexisting context!' );
+		$this->assertTrue($exceptionCaught, 'No exception has been raisen for unexisting context!');
 	}
 
 	/**
@@ -243,7 +242,7 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 
 		$returnedActiveContexts = $behavior->getActiveContexts();
 
-		$this->assertTrue( !empty($returnedActiveContexts), 'Unable to init contexts!' );
+		$this->assertFalse(empty($returnedActiveContexts), 'Unable to init contexts!');
 
 		$expectedAttributes = array();
 		foreach ($returnedActiveContexts as $returnedActiveContext) {
@@ -251,7 +250,7 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 		}
 
 		$returnedAttributes = $behavior->getActiveContextModelAttributes();
-		$this->assertTrue( is_array($returnedAttributes) && !empty($returnedAttributes), 'Unable to get active context attributes!' );
+		$this->assertTrue(is_array($returnedAttributes) && !empty($returnedAttributes), 'Unable to get active context attributes!');
 		$this->assertEquals($returnedAttributes, $expectedAttributes, 'Unable to get active context attributes correctly!');
 	}
 
@@ -274,14 +273,14 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 
 		$testContextId = 2;
 
-		$modelFinder = call_user_func( array($testModelClassName, 'model') );
-		$testModel = $modelFinder->findByAttributes( array($testForeignKeyName=>$testContextId) );
-		$this->assertTrue( is_object($testModel), 'Unable to find model for the test!' );
+		$modelFinder = call_user_func(array($testModelClassName, 'model'));
+		$testModel = $modelFinder->findByAttributes(array($testForeignKeyName=>$testContextId));
+		$this->assertTrue(is_object($testModel), 'Unable to find model for the test!');
 
 		$_GET[$testForeignKeyName] = $testContextId;
 
 		$loadedModel = $behavior->loadModel($testModel->id);
-		$this->assertTrue( is_object($loadedModel), 'Unable to load model!' );
+		$this->assertTrue(is_object($loadedModel), 'Unable to load model!');
 	}
 
 	/**
@@ -305,10 +304,10 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 		$_GET[$testForeignKeyName] = $testContextId;
 
 		$newModel = $behavior->newModel();
-		$this->assertTrue( is_object($newModel), 'Unable to get new model!' );
+		$this->assertTrue(is_object($newModel), 'Unable to get new model!');
 
 		$activeContext = $behavior->getActiveContext();
-		$this->assertEquals( $newModel->$testForeignKeyName, $activeContext['model']->id, 'New model has wrong context foreign key!' );
+		$this->assertEquals($newModel->$testForeignKeyName, $activeContext['model']->id, 'New model has wrong context foreign key!');
 	}
 
 	/**
@@ -332,9 +331,9 @@ class QsControllerBehaviorAdminDataModelContextTest extends CTestCase {
 		$_GET[$testForeignKeyName] = $testContextId;
 
 		$newModel = $behavior->newSearchModel();
-		$this->assertTrue( is_object($newModel), 'Unable to get new model!' );
+		$this->assertTrue(is_object($newModel), 'Unable to get new model!');
 
 		$activeContext = $behavior->getActiveContext();
-		$this->assertEquals( $newModel->$testForeignKeyName, $activeContext['model']->id, 'New model has wrong context foreign key!' );
+		$this->assertEquals($newModel->$testForeignKeyName, $activeContext['model']->id, 'New model has wrong context foreign key!');
 	}
 }

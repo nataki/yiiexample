@@ -19,11 +19,11 @@ class QsControllerTranslationBaseTest extends CTestCase {
 
 	public function setUp() {
 		$this->_modulesBackup = Yii::app()->getModules();
-		Yii::app()->setModules( $this->createTestModulesConfig() );
+		Yii::app()->setModules($this->createTestModulesConfig());
 	}
 
 	public function tearDown() {
-		Yii::app()->setModules( $this->_modulesBackup );
+		Yii::app()->setModules($this->_modulesBackup);
 	}
 
 	/**
@@ -33,9 +33,9 @@ class QsControllerTranslationBaseTest extends CTestCase {
 	protected function createTestModulesConfig() {
 		$modulesConfig = array(
 			'testmodule' => array(
-				'class'=>'QsWebModuleTranslationBase',
+				'class' => 'QsWebModuleTranslationBase',
 				/*'components' => array(
-					'languageManager'=>array(
+					'languageManager' => array(
 						'languageModelClassName' => 'TestLanguage'
 					),
 				)*/
@@ -55,8 +55,8 @@ class QsControllerTranslationBaseTest extends CTestCase {
 	// Tests:
 
 	public function testCreate() {
-		$controller = new QsControllerTranslationBase('base',Yii::app());
-		$this->assertTrue( is_object($controller), 'Unable to create controller!' );
+		$controller = new QsControllerTranslationBase('base', Yii::app());
+		$this->assertTrue(is_object($controller), 'Unable to create controller!');
 	}
 
 	/**
@@ -67,18 +67,19 @@ class QsControllerTranslationBaseTest extends CTestCase {
 		$testAccessRules = array(
 			array(
 				'allow',
-				'roles'=>array('admin')
+				'roles' => array('admin')
 			),
-			array('deny',
-				'users'=>array('*'),
+			array(
+				'deny',
+				'users' => array('*'),
 			)
 		);
 		$testModule->setAccessRules($testAccessRules);
 
-		$controller = new QsControllerTranslationBase('base',$testModule);
+		$controller = new QsControllerTranslationBase('base', $testModule);
 
 		$controllerAccessRules = $controller->accessRules();
-		$this->assertFalse( empty($controllerAccessRules), 'Unable to get access rules!' );
-		$this->assertEquals( $testAccessRules, $controllerAccessRules, 'Controller access rules differ from the module ones!' );
+		$this->assertFalse(empty($controllerAccessRules), 'Unable to get access rules!');
+		$this->assertEquals($testAccessRules, $controllerAccessRules, 'Controller access rules differ from the module ones!');
 	}
 }

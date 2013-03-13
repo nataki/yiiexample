@@ -30,7 +30,7 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 
 		$this->_modulesBackup = Yii::app()->getModules();
 
-		Yii::app()->setModules( $this->getTestModulesConfig() );
+		Yii::app()->setModules($this->getTestModulesConfig());
 
 		$mockRequestConfig = array(
 			'class' => 'QsTestHttpRequest'
@@ -68,15 +68,15 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 	protected function createTestUrlManager(array $urlRuleConfig=array()) {
 		$urlRuleConfig = $this->adjustUrlRuleConfig($urlRuleConfig);
 		$urlManagerConfig = array(
-			'class'=>'CUrlManager',
-			'urlFormat'=>'path',
-			'showScriptName'=>false,
-			'rules'=>array(
+			'class' => 'CUrlManager',
+			'urlFormat' => 'path',
+			'showScriptName' => false,
+			'rules' => array(
 				$urlRuleConfig,
-				'/'=>'site/index',
-				'<controller:\w+>/<id:\d+>*'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>*'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>*'=>'<controller>/<action>',
+				'/' => 'site/index',
+				'<controller:\w+>/<id:\d+>*' => '<controller>/view',
+				'<controller:\w+>/<action:\w+>/<id:\d+>*' => '<controller>/<action>',
+				'<controller:\w+>/<action:\w+>*' => '<controller>/<action>',
 			)
 		);
 		$urlManager = Yii::createComponent($urlManagerConfig);
@@ -98,11 +98,11 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 	 */
 	protected function getTestModuleConfig() {
 		$testModuleConfig = array(
-			'class'=>'system.gii.GiiModule',
-			'ipFilters'=>array(
+			'class' => 'system.gii.GiiModule',
+			'ipFilters' => array(
 				'127.0.0.1',
 			),
-			'password'=>'test_module_password',
+			'password' => 'test_module_password',
 		);
 		return $testModuleConfig;
 	}
@@ -128,7 +128,7 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 	protected function createHttpRequestForUri($requestUri) {
 		$originalServerRequestUri = Yii::app()->getRequest()->getRequestUri();
 		$_SERVER['REQUEST_URI'] = $originalServerRequestUri.$requestUri;
-		$httpRequest = Yii::createComponent( array('class'=>'QsTestHttpRequest') );
+		$httpRequest = Yii::createComponent(array('class'=>'QsTestHttpRequest'));
 		$httpRequest->init();
 		$httpRequest->getRequestUri();
 		$_SERVER['REQUEST_URI'] = $originalServerRequestUri;
@@ -138,7 +138,7 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 	// Tests:
 	public function testCreate() {
 		$urlRule = new QsUrlRuleModuleDefault();
-		$this->assertTrue( is_object($urlRule), 'Unable to create "QsUrlRuleModuleDefault" instance!' );
+		$this->assertTrue(is_object($urlRule), 'Unable to create "QsUrlRuleModuleDefault" instance!');
 	}
 
 	/**
@@ -153,11 +153,11 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 		$requestUriAddon = $testModuleName;
 		$_SERVER['REQUEST_URI'] = $originalServerRequestUri.$requestUriAddon;
 
-		$httpRequest = Yii::createComponent( array('class'=>'QsTestHttpRequest') );
+		$httpRequest = Yii::createComponent(array('class'=>'QsTestHttpRequest'));
 		$parsedUrl = $urlManager->parseUrl($httpRequest);
 
 		$expectedParsedUrl = $testModuleName;
-		$this->assertEquals($expectedParsedUrl, $parsedUrl, "Unable to parse URL with the single module name.");
+		$this->assertEquals($expectedParsedUrl, $parsedUrl, 'Unable to parse URL with the single module name.');
 	}
 
 	/**
@@ -174,7 +174,7 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 		$parsedUrl = $urlManager->parseUrl($httpRequest);
 
 		$expectedParsedUrl = $testModuleName.'/'.$testControllerName;
-		$this->assertEquals($expectedParsedUrl, $parsedUrl, "Unable to parse URL with module and controller are mentioned.");
+		$this->assertEquals($expectedParsedUrl, $parsedUrl, 'Unable to parse URL with module and controller are mentioned.');
 	}
 
 	/**
@@ -191,7 +191,7 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 		$parsedUrl = $urlManager->parseUrl($httpRequest);
 
 		$expectedParsedUrl = $testModuleName.'/'.$testControllerName.'/'.$testActionName;
-		$this->assertEquals($expectedParsedUrl, $parsedUrl, "Unable to parse URL with module, controller and action are mentioned.");
+		$this->assertEquals($expectedParsedUrl, $parsedUrl, 'Unable to parse URL with module, controller and action are mentioned.');
 	}
 
 	/**
@@ -210,9 +210,9 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 		$parsedUrl = $urlManager->parseUrl($httpRequest);
 
 		$expectedParsedUrl = $testModuleName.'/'.$testControllerName.'/'.$testActionName;
-		$this->assertEquals($expectedParsedUrl, $parsedUrl, "Unable to parse URL with additional parameters.");
-		$this->assertTrue( array_key_exists($testParamName, $_GET), 'Unable to parse additional parameter!' );
-		$this->assertEquals( $testParamValue, $_GET[$testParamName], 'Unable to parse additional parameter correctly!' );
+		$this->assertEquals($expectedParsedUrl, $parsedUrl, 'Unable to parse URL with additional parameters.');
+		$this->assertTrue(array_key_exists($testParamName, $_GET), 'Unable to parse additional parameter!');
+		$this->assertEquals($testParamValue, $_GET[$testParamName], 'Unable to parse additional parameter correctly!');
 	}
 
 	/**
@@ -331,7 +331,7 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 		$url = $urlManager->createUrl("{$testModuleName}/{$testControllerName}/{$testActionName}", $testParams);
 
 		$_SERVER['REQUEST_URI'] = $url;
-		$httpRequest = Yii::createComponent( array('class'=>'QsTestHttpRequest') );
+		$httpRequest = Yii::createComponent(array('class'=>'QsTestHttpRequest'));
 
 		$urlManager->parseUrl($httpRequest);
 
@@ -359,7 +359,7 @@ class QsUrlRuleModuleDefaultTest extends CTestCase {
 
 		$expectedParsedUrl = $testModuleName.'/'.$testControllerName.'/'.$testActionName;
 		$this->assertEquals($expectedParsedUrl, $parsedUrl, "Unable to parse URL, using pattern with additional params.");
-		$this->assertEquals( $testAdditionalParamValue, $_GET[$testAdditionalParamName], 'Additional param has not been append to the GET!');
+		$this->assertEquals($testAdditionalParamValue, $_GET[$testAdditionalParamName], 'Additional param has not been append to the GET!');
 	}
 
 	/**

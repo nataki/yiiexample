@@ -23,8 +23,8 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testSlaveTableName,
-				'rules'=>array(
+				'tableName' => $testSlaveTableName,
+				'rules' => array(
 					array('slave_name', 'required'),
 				),
 			)
@@ -40,15 +40,15 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testMasterTableName,
-				'rules'=>array(
+				'tableName' => $testMasterTableName,
+				'rules' => array(
 					array('master_name', 'required'),
 				),
-				'behaviors'=>array(
+				'behaviors' => array(
 					'roleBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorRole',
-						'relationName'=>'slave',
-						'relationConfig'=>array(
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorRole',
+						'relationName' => 'slave',
+						'relationConfig' => array(
 							$testSlaveTableName, 'master_id'
 						),
 					),
@@ -131,7 +131,7 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 	// Tests:
 	public function testCreate() {
 		$behavior = new QsActiveRecordBehaviorRole();
-		$this->assertTrue( is_object($behavior) );
+		$this->assertTrue(is_object($behavior));
 	}
 
 	/**
@@ -141,15 +141,15 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 		$behavior = new QsActiveRecordBehaviorRole();
 
 		$testRelationName = 'Test relation name';
-		$this->assertTrue( $behavior->setRelationName($testRelationName), 'Unable to set relation name!' );
-		$this->assertEquals( $behavior->getRelationName(), $testRelationName, 'Unable to set relation name correctly!' );
+		$this->assertTrue($behavior->setRelationName($testRelationName), 'Unable to set relation name!');
+		$this->assertEquals($behavior->getRelationName(), $testRelationName, 'Unable to set relation name correctly!');
 
 		$testRelationConfig = array(
 			'testArg1',
 			'testArg2'
 		);
-		$this->assertTrue( $behavior->setRelationConfig($testRelationConfig), 'Unable to set relation config!' );
-		$this->assertEquals( $behavior->getRelationConfig(), $testRelationConfig, 'Unable to set relation config correctly!' );
+		$this->assertTrue($behavior->setRelationConfig($testRelationConfig), 'Unable to set relation config!');
+		$this->assertEquals($behavior->getRelationConfig(), $testRelationConfig, 'Unable to set relation config correctly!');
 	}
 
 	/**
@@ -180,8 +180,8 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 		$activeRecordName = self::getTestMasterActiveRecordClassName();
 		$activeRecord = new $activeRecordName;
 
-		$this->assertTrue( is_object($activeRecord) );
-		$this->assertTrue( is_object($activeRecord->slave) );
+		$this->assertTrue(is_object($activeRecord));
+		$this->assertTrue(is_object($activeRecord->slave));
 	}
 
 	/**
@@ -197,8 +197,8 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 
 		$activeRecord->save();
 
-		$refreshedActiveRecord = $startActiveRecord->findByPk( $activeRecord->getPrimaryKey() );
-		$this->assertEquals( $refreshedActiveRecord->slave->slave_name, $testSlaveName, 'Unable to save related active record while saving the main one!' );
+		$refreshedActiveRecord = $startActiveRecord->findByPk($activeRecord->getPrimaryKey());
+		$this->assertEquals($refreshedActiveRecord->slave->slave_name, $testSlaveName, 'Unable to save related active record while saving the main one!');
 	}
 
 	/**
@@ -209,13 +209,13 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 
 		$activeRecord = $startActiveRecord->find();
 
-		$this->assertTrue( $activeRecord->validate(), 'Just found model fails on validate!' );
+		$this->assertTrue($activeRecord->validate(), 'Just found model fails on validate!');
 
 
 		$activeRecord->master_name = 'test master name';
 
 		$activeRecord->slave->slave_name=null;
-		$this->assertFalse( $activeRecord->validate(), 'Model considered as vallid, while related part is invalid!' );
+		$this->assertFalse($activeRecord->validate(), 'Model considered as vallid, while related part is invalid!');
 	}
 
 	/**
@@ -227,8 +227,8 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 		$activeRecord = new $activeRecordName();
 		$testSlaveName = 'test_slave_name';
 		$activeRecord->slave_name = $testSlaveName;
-		$this->assertEquals( $testSlaveName, $activeRecord->slave->slave_name, 'Unable to set property for the related active record!' );
-		$this->assertEquals( $testSlaveName, $activeRecord->slave_name, 'Unable to get property from the related active record directly!' );
+		$this->assertEquals($testSlaveName, $activeRecord->slave->slave_name, 'Unable to set property for the related active record!');
+		$this->assertEquals($testSlaveName, $activeRecord->slave_name, 'Unable to get property from the related active record directly!');
 	}
 
 	/**
@@ -240,6 +240,6 @@ class QsActiveRecordBehaviorRoleTest extends CTestCase {
 		$activeRecordFinder = CActiveRecord::model($activeRecordName);
 		$testSlaveName = 'test_slave_name';
 		$activeRecordFinder->slave_name = $testSlaveName;
-		$this->assertEquals( $activeRecordFinder->slave->slave_name, $testSlaveName, 'Unable to set property for the related active record!' );
+		$this->assertEquals($activeRecordFinder->slave->slave_name, $testSlaveName, 'Unable to set property for the related active record!');
 	}
 }

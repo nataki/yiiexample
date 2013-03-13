@@ -21,7 +21,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 		);
 		$dbSetUp->createTable($testRelatedTableName, $columns);
 
-		$activeRecordGenerator->generate(array('tableName'=>$testRelatedTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testRelatedTableName));
 
 		// Connector:
 		$testConnectorTableName = self::getTestConnectorTableName();
@@ -32,7 +32,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 		);
 		$dbSetUp->createTable($testConnectorTableName, $columns);
 
-		$activeRecordGenerator->generate(array('tableName'=>$testConnectorTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testConnectorTableName));
 
 		// Main:
 		$testMainTableName = self::getTestMainTableName();
@@ -44,21 +44,21 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testMainTableName,
-				'relations'=>array(
+				'tableName' => $testMainTableName,
+				'relations' => array(
 					self::getTestRelationName() => array(
 						CActiveRecord::MANY_MANY,
 						$testRelatedTableName,
 						"{$testConnectorTableName}(main_id, related_id)"
 					),
 				),
-				'behaviors'=>array(
-					self::getTestBehaviorName()=>array(
-						'class'=>'QsActiveRecordSaveManyToMany',
-						'relationName'=>self::getTestRelationName(),
+				'behaviors' => array(
+					self::getTestBehaviorName() => array(
+						'class' => 'QsActiveRecordSaveManyToMany',
+						'relationName' => self::getTestRelationName(),
 					)
 				),
-				'rules'=>array(
+				'rules' => array(
 					array('name', 'required'),
 					array(self::getTestRelationName().'_ids', 'safe'),
 				),
@@ -186,7 +186,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 			'related_id' => $relatedId,
 		);
 		$criteria->addColumnCondition($columns);
-		$findCommand = $dbCommandBuilder->createFindCommand($connectorTableName,$criteria);
+		$findCommand = $dbCommandBuilder->createFindCommand($connectorTableName, $criteria);
 		return $findCommand->queryRow();
 	}
 
@@ -198,7 +198,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 	 */
 	protected function assertConnectorRecordExist($mainId, $relatedId, $message='') {
 		$connectorRow = $this->findConnectorRecord($mainId, $relatedId);
-		$this->assertFalse( empty($connectorRow), $message );
+		$this->assertFalse(empty($connectorRow), $message);
 	}
 
 	/**
@@ -209,7 +209,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 	 */
 	protected function assertConnectorRecordNotExist($mainId, $relatedId, $message='') {
 		$connectorRow = $this->findConnectorRecord($mainId, $relatedId);
-		$this->assertTrue( empty($connectorRow), $message );
+		$this->assertTrue(empty($connectorRow), $message);
 	}
 
 	// Tests:
@@ -218,19 +218,19 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 		$behavior = new QsActiveRecordSaveManyToMany();
 
 		$testRelationName = 'test_relation_name';
-		$this->assertTrue( $behavior->setRelationName($testRelationName), 'Unable to set relation name!' );
-		$this->assertEquals( $testRelationName, $behavior->getRelationName(), 'Unable to set relation name correctly!' );
+		$this->assertTrue($behavior->setRelationName($testRelationName), 'Unable to set relation name!');
+		$this->assertEquals($testRelationName, $behavior->getRelationName(), 'Unable to set relation name correctly!');
 
 		$testRelationAttributeName = 'test_relation_attribute_name';
-		$this->assertTrue( $behavior->setRelationAttributeName($testRelationAttributeName), 'Unable to set relation attribute name!' );
-		$this->assertEquals( $testRelationAttributeName, $behavior->getRelationAttributeName(), 'Unable to set relation attribute name correctly!' );
+		$this->assertTrue($behavior->setRelationAttributeName($testRelationAttributeName), 'Unable to set relation attribute name!');
+		$this->assertEquals($testRelationAttributeName, $behavior->getRelationAttributeName(), 'Unable to set relation attribute name correctly!');
 
 		$testRelationAttributeValue = array(
 			rand(1,10),
 			rand(11,20),
 		);
-		$this->assertTrue( $behavior->setRelationAttributeValue($testRelationAttributeValue), 'Unable to set relation attribute value!' );
-		$this->assertEquals( $testRelationAttributeValue, $behavior->getRelationAttributeValue(), 'Unable to set relation attribute value correctly!' );
+		$this->assertTrue($behavior->setRelationAttributeValue($testRelationAttributeValue), 'Unable to set relation attribute value!');
+		$this->assertEquals($testRelationAttributeValue, $behavior->getRelationAttributeValue(), 'Unable to set relation attribute value correctly!');
 	}
 
 	/**
@@ -244,7 +244,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 
 		$defaultRelationAttributeName = $behavior->getRelationAttributeName();
 		$this->assertContains($testRelationName, $defaultRelationAttributeName, 'Default attribute name does not contains relation name!');
-		$this->assertTrue( strlen($defaultRelationAttributeName) > strlen($testRelationName), 'Attribute name length is not greater then relation name!' );
+		$this->assertTrue(strlen($defaultRelationAttributeName) > strlen($testRelationName), 'Attribute name length is not greater then relation name!');
 	}
 
 	/**
@@ -265,8 +265,8 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 		$dbSetUp->insert($connectorTableName,$columns);
 
 		$defaultRelationAttributeValue = $testModel->getRelationAttributeValue();
-		$this->assertTrue( is_array($defaultRelationAttributeValue) && !empty($defaultRelationAttributeValue), 'Unable to get default relation attribute value!' );
-		$this->assertTrue( in_array($testRelatedModelId, $defaultRelationAttributeValue), 'Default relation attribute name has wrong data!');
+		$this->assertTrue(is_array($defaultRelationAttributeValue) && !empty($defaultRelationAttributeValue), 'Unable to get default relation attribute value!');
+		$this->assertTrue(in_array($testRelatedModelId, $defaultRelationAttributeValue), 'Default relation attribute name has wrong data!');
 	}
 
 	/**
@@ -279,7 +279,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 		$behavior = $modelFinder->$behaviorName;
 
 		$relation = $behavior->getRelation();
-		$this->assertTrue( is_object($relation), 'Unable to get relation!' );
+		$this->assertTrue(is_object($relation), 'Unable to get relation!');
 		$this->assertInstanceOf('CManyManyRelation', $relation, 'Wrong class name for the relation!');
 	}
 
@@ -293,7 +293,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 		$behavior = $modelFinder->$behaviorName;
 
 		$relatedTableSchema = $behavior->getRelatedTableSchema();
-		$this->assertTrue( is_object($relatedTableSchema), 'Unable to get related table schema!' );
+		$this->assertTrue(is_object($relatedTableSchema), 'Unable to get related table schema!');
 		$this->assertInstanceOf('CDbTableSchema', $relatedTableSchema, 'Wrong class name for the related table schema!');
 	}
 
@@ -310,7 +310,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 			rand(11,20),
 		);
 		$model->$relationAttributeName = $testRelationAttributeValue;
-		$this->assertEquals($testRelationAttributeValue,$model->$relationAttributeName, 'Unable to access relation attribute value directly!');
+		$this->assertEquals($testRelationAttributeValue, $model->$relationAttributeName, 'Unable to access relation attribute value directly!');
 	}
 
 	/**
@@ -328,7 +328,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 		);
 		$model->$relationAttributeName = $testRelationAttributeValue;
 
-		$this->assertTrue( $model->save(false), 'Unable to save model!' );
+		$this->assertTrue($model->save(false), 'Unable to save model!');
 
 		$this->assertConnectorRecordExist($model->id, $testRelatedId, 'Unable to create connector record!');
 	}
@@ -355,7 +355,7 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 		);
 		$model->$relationAttributeName = $testRelationAttributeValue;
 
-		$this->assertTrue( $model->save(false), 'Unable to save existing model!' );
+		$this->assertTrue($model->save(false), 'Unable to save existing model!');
 
 		$this->assertConnectorRecordExist($model->id, $testNewRelatedId, 'Unable to create new connector record!');
 		$this->assertConnectorRecordNotExist($model->id, $testStartRelatedId, 'Unable to remove old connector record!');
@@ -381,6 +381,6 @@ class QsActiveRecordSaveManyToManyTest extends CTestCase {
 
 		$model->attributes = $testModelAttributes;
 
-		$this->assertEquals( $testRelationAttributeValue, $model->$relationAttributeName, 'Unable to set relation attribute with batch attributes setup!' );
+		$this->assertEquals($testRelationAttributeValue, $model->$relationAttributeName, 'Unable to set relation attribute with batch attributes setup!');
 	}
 }

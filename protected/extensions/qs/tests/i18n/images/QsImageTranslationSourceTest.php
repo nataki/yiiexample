@@ -28,8 +28,8 @@ class QsImageTranslationSourceTest extends CTestCase {
 		$imageTranslationSource = $this->createImageTranslationSource();
 
 		$testLanguage = 'test';
-		$this->assertTrue( $imageTranslationSource->setLanguage($testLanguage), 'Unable to set language!' );
-		$this->assertEquals( $testLanguage, $imageTranslationSource->getLanguage(), 'Unable to set language correctly!' );
+		$this->assertTrue($imageTranslationSource->setLanguage($testLanguage), 'Unable to set language!');
+		$this->assertEquals($testLanguage, $imageTranslationSource->getLanguage(), 'Unable to set language correctly!');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class QsImageTranslationSourceTest extends CTestCase {
 		$imageTranslationSource = $this->createImageTranslationSource();
 
 		$defaultLanguage = $imageTranslationSource->getLanguage();
-		$this->assertFalse( empty($defaultLanguage), 'Unable to get default language!');
+		$this->assertFalse(empty($defaultLanguage), 'Unable to get default language!');
 
 		$expectedDefaultLanguage = Yii::app()->sourceLanguage;
 		$this->assertEquals($expectedDefaultLanguage, $defaultLanguage, 'Unable to get default language correctly!');

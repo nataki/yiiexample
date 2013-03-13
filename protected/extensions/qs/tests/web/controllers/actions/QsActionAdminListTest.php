@@ -32,7 +32,7 @@ class QsActionAdminListTest extends CTestCase {
 		$dbSetUp->createTable($testTableName, $columns);
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
@@ -89,7 +89,7 @@ class QsActionAdminListTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminList($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminList" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminList" instance!');
 	}
 
 	/**
@@ -105,6 +105,6 @@ class QsActionAdminListTest extends CTestCase {
 		} catch (QsTestExceptionRender $exception) {
 			$pageRendered = true;
 		}
-		$this->assertTrue( $pageRendered, 'Page has not been rendered!' );
+		$this->assertTrue($pageRendered, 'Page has not been rendered!');
 	}
 }

@@ -32,7 +32,7 @@ class QsActionAdminDeleteTest extends CTestCase {
 		$dbSetUp->createTable($testTableName, $columns);
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
@@ -88,7 +88,7 @@ class QsActionAdminDeleteTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminDelete($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminDelete" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminDelete" instance!');
 	}
 
 	/**
@@ -108,10 +108,10 @@ class QsActionAdminDeleteTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$pageRedirected = true;
 		}
-		$this->assertTrue( $pageRedirected, 'Page has not been redirected!' );
+		$this->assertTrue($pageRedirected, 'Page has not been redirected!');
 
 		$deletedRecord = CActiveRecord::model(self::getTestActiveRecordClassName())->findByPk($testId);
-		$this->assertTrue( empty($deletedRecord), 'Requested record has not been deleted!' );
+		$this->assertTrue(empty($deletedRecord), 'Requested record has not been deleted!');
 	}
 
 	/**
@@ -131,6 +131,6 @@ class QsActionAdminDeleteTest extends CTestCase {
 		} catch (CHttpException $exception) {
 			$errorMissingPageRisen = true;
 		}
-		$this->assertTrue( $errorMissingPageRisen, 'No 404 error, while deleting unexisting record!' );
+		$this->assertTrue($errorMissingPageRisen, 'No 404 error, while deleting unexisting record!');
 	}
 }

@@ -21,7 +21,7 @@ class QsListViewTest extends CTestCase {
 
 		self::$_httpRequestBackup = Yii::app()->getComponent('request');
 		$testHttpRequest = Yii::createComponent(array('class'=>'QsTestHttpRequest'));
-		Yii::app()->setComponent('request',$testHttpRequest);
+		Yii::app()->setComponent('request', $testHttpRequest);
 	}
 
 	public static function tearDownAfterClass() {
@@ -34,7 +34,7 @@ class QsListViewTest extends CTestCase {
 	public function setUp() {
 		$assetsFilePath = self::getTestAssetFilePath();
 		if (!file_exists($assetsFilePath)) {
-			mkdir($assetsFilePath,0777,true);
+			mkdir($assetsFilePath, 0777, true);
 		}
 		Yii::app()->getComponent('assetManager')->setBasePath($assetsFilePath);
 	}
@@ -88,7 +88,7 @@ class QsListViewTest extends CTestCase {
 	protected function createTestController() {
 		$controller = new CController('test');
 
-		$action = $this->getMock('CAction', array('run'), array($controller,'test'));
+		$action = $this->getMock('CAction', array('run'), array($controller, 'test'));
 		$controller->action = $action;
 
 		Yii::app()->controller = $controller;
@@ -104,12 +104,12 @@ class QsListViewTest extends CTestCase {
 		$rawData = array();
 		for ($i=1; $i<=$itemsCount; $i++) {
 			$item = array(
-				'name'=>'test_item_name_'.$i,
-				'index'=>$i,
+				'name' => 'test_item_name_'.$i,
+				'index' => $i,
 			);
 			$rawData[] = $item;
 		}
-		$dataProvider = new CArrayDataProvider($rawData,array('keyField'=>'index'));
+		$dataProvider = new CArrayDataProvider($rawData, array('keyField' => 'index'));
 		return $dataProvider;
 	}
 
@@ -122,7 +122,7 @@ class QsListViewTest extends CTestCase {
 	protected function createViewFile($viewName,$fileContent) {
 		$filePath = self::getTestViewFilePath();
 		if (!file_exists($filePath)) {
-			mkdir($filePath,0777,true);
+			mkdir($filePath, 0777, true);
 		}
 		$fileName = $filePath.DIRECTORY_SEPARATOR.$viewName.'.php';
 		file_put_contents($fileName, $fileContent);
@@ -139,8 +139,8 @@ class QsListViewTest extends CTestCase {
 		$testContentViewName = 'test_content';
 		$testWidgetContent = 'Test widget content';
 
-		$contentViewName = $this->createViewFile($testContentViewName,$testWidgetContent);
-		$itemViewName = $this->createViewFile('test_item','test item');
+		$contentViewName = $this->createViewFile($testContentViewName, $testWidgetContent);
+		$itemViewName = $this->createViewFile('test_item', 'test item');
 
 		$widgetOptions = array(
 			'dataProvider' => $this->createTestDataProvider(),
@@ -149,7 +149,7 @@ class QsListViewTest extends CTestCase {
 		);
 
 		$this->expectOutputRegex("/{$testWidgetContent}/i");
-		$controller->widget('QsListView',$widgetOptions);
+		$controller->widget('QsListView', $widgetOptions);
 	}
 
 	public function testRenderSummaryView() {
@@ -158,8 +158,8 @@ class QsListViewTest extends CTestCase {
 		$testSummaryViewName = 'test_sorter';
 		$testWidgetSummaryContent = 'Test Widget Summary';
 
-		$sorterViewName = $this->createViewFile($testSummaryViewName,$testWidgetSummaryContent);
-		$itemViewName = $this->createViewFile('test_item','test item');
+		$sorterViewName = $this->createViewFile($testSummaryViewName, $testWidgetSummaryContent);
+		$itemViewName = $this->createViewFile('test_item', 'test item');
 
 		$widgetOptions = array(
 			'dataProvider' => $this->createTestDataProvider(),
@@ -168,7 +168,7 @@ class QsListViewTest extends CTestCase {
 		);
 
 		$this->expectOutputRegex("/{$testWidgetSummaryContent}/i");
-		$controller->widget('QsListView',$widgetOptions);
+		$controller->widget('QsListView', $widgetOptions);
 	}
 
 	public function testRenderSorterView() {
@@ -177,19 +177,19 @@ class QsListViewTest extends CTestCase {
 		$testSorterViewName = 'test_sorter';
 		$testWidgetSorterContent = 'Test Widget Sorter';
 
-		$sorterViewName = $this->createViewFile($testSorterViewName,$testWidgetSorterContent);
-		$itemViewName = $this->createViewFile('test_item','test item');
+		$sorterViewName = $this->createViewFile($testSorterViewName, $testWidgetSorterContent);
+		$itemViewName = $this->createViewFile('test_item', 'test item');
 
 		$widgetOptions = array(
 			'dataProvider' => $this->createTestDataProvider(),
-			'enableSorting'=>true,
-			'sortableAttributes'=>array('name'),
+			'enableSorting' => true,
+			'sortableAttributes' => array('name'),
 			'sorterView' => $sorterViewName,
 			'itemView' => $itemViewName,
 		);
 
 		$this->expectOutputRegex("/{$testWidgetSorterContent}/i");
-		$controller->widget('QsListView',$widgetOptions);
+		$controller->widget('QsListView', $widgetOptions);
 	}
 
 	public function testRenderEmptyText() {
@@ -198,8 +198,8 @@ class QsListViewTest extends CTestCase {
 		$testEmptyTextViewName = 'test_empty_text';
 		$testEmptyTextViewContent = 'Test Empty Text';
 
-		$emptyTextViewName = $this->createViewFile($testEmptyTextViewName,$testEmptyTextViewContent);
-		$itemViewName = $this->createViewFile('test_item','test item');
+		$emptyTextViewName = $this->createViewFile($testEmptyTextViewName, $testEmptyTextViewContent);
+		$itemViewName = $this->createViewFile('test_item', 'test item');
 
 		$widgetOptions = array(
 			'dataProvider' => $this->createTestDataProvider(0),
@@ -208,6 +208,6 @@ class QsListViewTest extends CTestCase {
 		);
 
 		$this->expectOutputRegex("/{$testEmptyTextViewContent}/i");
-		$controller->widget('QsListView',$widgetOptions);
+		$controller->widget('QsListView', $widgetOptions);
 	}
 }

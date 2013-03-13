@@ -18,15 +18,15 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 			'right_index' => 'integer',
 			'level' => 'integer',
 		);
-		$dbSetUp->createTable( $testTableName , $columns);
+		$dbSetUp->createTable($testTableName, $columns);
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
-				'behaviors'=>array(
+				'tableName' => $testTableName,
+				'behaviors' => array(
 					'treeBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorNestedSet'
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorNestedSet'
 					)
 				),
 			)
@@ -145,18 +145,18 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 	 */
 	protected function assertCorrectTreeRoot($message='Tree root incorrect!') {
 		$dbConnection = Yii::app()->getDb();
-		$countDbCommand = $dbConnection->commandBuilder->createCountCommand( self::getTestTableName(), new CDbCriteria() );
+		$countDbCommand = $dbConnection->commandBuilder->createCountCommand(self::getTestTableName(), new CDbCriteria());
 		$recordsCount = $countDbCommand->queryScalar();
 
 		$dbCommand = $dbConnection->createCommand();
 		$dbCommand
 			->select('*')
-			->from( self::getTestTableName() )
+			->from(self::getTestTableName())
 			->where('level = 0')
 		;
 		$root = $dbCommand->queryRow();
 
-		$result = ( $root['left_index']==1 && $root['right_index']==$recordsCount*2 );
+		$result = ($root['left_index']==1 && $root['right_index']==$recordsCount*2);
 		$this->assertTrue($result,$message);
 	}
 
@@ -171,15 +171,14 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 
 		// Select Root:
 		$criteria = array(
-			'condition'=>'level=0'
+			'condition' => 'level=0'
 		);
 		$criteria = new CDbCriteria($criteria);
 		$rows = $dbCommandBuilder->createFindCommand($tableName, $criteria)->queryAll();
-		$this->assertEquals( 1, count($rows), $messagePrefix.'Incorrect amount of root records!' );
-
+		$this->assertEquals(1, count($rows), $messagePrefix.'Incorrect amount of root records!');
 
 		list($currentRow) = $rows;
-		$this->assertEquals( 1, $currentRow['left_index'], $messagePrefix.'Incorrect left index of root record!' );
+		$this->assertEquals(1, $currentRow['left_index'], $messagePrefix.'Incorrect left index of root record!');
 		$treeRows = array();
 		$openedTreeRows = array();
 		$loopTimeOut = 10;
@@ -201,7 +200,7 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 					// Not opened node yet:
 					$openedTreeRows[$currentRow['id']] = $currentRow;
 					$criteria = array(
-						'condition'=>"left_index={$currentRow['left_index']}+1 AND level={$currentRow['level']}+1"
+						'condition' => "left_index={$currentRow['left_index']}+1 AND level={$currentRow['level']}+1"
 					);
 					$criteria = new CDbCriteria($criteria);
 					$rows = $dbCommandBuilder->createFindCommand($tableName, $criteria)->queryAll();
@@ -211,7 +210,7 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 				} else {
 					// Already opened node:
 					$criteria = array(
-						'condition'=>"
+						'condition' => "
 							( left_index={$currentRow['right_index']}+1 AND level={$currentRow['level']} )
 							OR
 							( right_index={$currentRow['right_index']}+1 AND level={$currentRow['level']}-1 )
@@ -237,13 +236,12 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 				list($currentRow) = $rows;
 			}
 
-
 			if ($currentRow['level']==0) {
 				break;
 			}
 		}
 
-		$countDbCommand = $dbCommandBuilder->createCountCommand( $tableName, new CDbCriteria() );
+		$countDbCommand = $dbCommandBuilder->createCountCommand($tableName, new CDbCriteria());
 		$recordsCount = $countDbCommand->queryScalar();
 
 		$this->assertEquals($recordsCount, count($treeRows), $messagePrefix.'Incorrect tree records count!');
@@ -253,7 +251,7 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 
 	public function testCreate() {
 		$behavior = new QsActiveRecordBehaviorNestedSet();
-		$this->assertTrue( is_object($behavior) );
+		$this->assertTrue(is_object($behavior));
 		$this->assertTreeIsCorrect();
 	}
 
@@ -264,24 +262,24 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 		$behavior = new QsActiveRecordBehaviorNestedSet();
 
 		$testLeftIndexAttributeName = 'test_left_index_attribute_name';
-		$this->assertTrue( $behavior->setLeftIndexAttributeName($testLeftIndexAttributeName), 'Unable to set left index attribute name!' );
-		$this->assertEquals( $behavior->getLeftIndexAttributeName(), $testLeftIndexAttributeName, 'Unable to set left index attribute name correctly!' );
+		$this->assertTrue($behavior->setLeftIndexAttributeName($testLeftIndexAttributeName), 'Unable to set left index attribute name!');
+		$this->assertEquals($behavior->getLeftIndexAttributeName(), $testLeftIndexAttributeName, 'Unable to set left index attribute name correctly!');
 
 		$testRightIndexAttributeName = 'test_right_index_attribute_name';
-		$this->assertTrue( $behavior->setRightIndexAttributeName($testRightIndexAttributeName), 'Unable to set right index attribute name!' );
-		$this->assertEquals( $behavior->getRightIndexAttributeName(), $testRightIndexAttributeName, 'Unable to set right index attribute name correctly!' );
+		$this->assertTrue($behavior->setRightIndexAttributeName($testRightIndexAttributeName), 'Unable to set right index attribute name!');
+		$this->assertEquals($behavior->getRightIndexAttributeName(), $testRightIndexAttributeName, 'Unable to set right index attribute name correctly!');
 
 		$testLevelAttributeName = 'test_level_attribute_name';
-		$this->assertTrue( $behavior->setLevelAttributeName($testLevelAttributeName), 'Unable to set level attribute name!' );
-		$this->assertEquals( $behavior->getLevelAttributeName(), $testLevelAttributeName, 'Unable to set level attribute name correctly!' );
+		$this->assertTrue($behavior->setLevelAttributeName($testLevelAttributeName), 'Unable to set level attribute name!');
+		$this->assertEquals($behavior->getLevelAttributeName(), $testLevelAttributeName, 'Unable to set level attribute name correctly!');
 
 		$testRefParentPropertyName = 'test_ref_parent_property_name';
-		$this->assertTrue( $behavior->setRefParentPropertyName($testRefParentPropertyName), 'Unable to set ref parent property name!' );
-		$this->assertEquals( $behavior->getRefParentPropertyName(), $testRefParentPropertyName, 'Unable to set ref parent property name correctly!' );
+		$this->assertTrue($behavior->setRefParentPropertyName($testRefParentPropertyName), 'Unable to set ref parent property name!');
+		$this->assertEquals($behavior->getRefParentPropertyName(), $testRefParentPropertyName, 'Unable to set ref parent property name correctly!');
 
 		$testRefParent = 58;
-		$this->assertTrue( $behavior->setRefParent($testRefParent), 'Unable to set ref parent!' );
-		$this->assertEquals( $behavior->getRefParent(), $testRefParent, 'Unable to set ref parent correctly!' );
+		$this->assertTrue($behavior->setRefParent($testRefParent), 'Unable to set ref parent!');
+		$this->assertEquals($behavior->getRefParent(), $testRefParent, 'Unable to set ref parent correctly!');
 	}
 
 	// Root:
@@ -293,8 +291,8 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 		$activeRecordModel = $this->getTestActiveRecordFinder();
 
 		$rootRecord = $activeRecordModel->root()->find();
-		$this->assertTrue( is_object($rootRecord), 'Unable to find root record!' );
-		$this->assertEquals( $rootRecord->level, 0, 'Unable to find root record correctly!' );
+		$this->assertTrue(is_object($rootRecord), 'Unable to find root record!');
+		$this->assertEquals($rootRecord->level, 0, 'Unable to find root record correctly!');
 	}
 
 	/**
@@ -304,10 +302,10 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 		$activeRecordModel = $this->getTestActiveRecordFinder();
 
 		$activeRecords = $activeRecordModel->notRoot()->findAll();
-		$this->assertTrue( is_array($activeRecords) && !empty($activeRecords), 'Unable to find not root records!' );
+		$this->assertTrue(is_array($activeRecords) && !empty($activeRecords), 'Unable to find not root records!');
 
 		foreach ($activeRecords as $activeRecord) {
-			$this->assertTrue( $activeRecord->level>0, 'Unable to find not root records correctly!' );
+			$this->assertTrue($activeRecord->level>0, 'Unable to find not root records correctly!');
 		}
 	}
 
@@ -323,10 +321,10 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 			'level' => $testLevel
 		);
 		$activeRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($activeRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($activeRecord), 'Unable to find active record for the test!');
 
 		$parentActiveRecord = $activeRecord->parent()->find();
-		$this->assertTrue( is_object($parentActiveRecord), 'Unable to find parent record!' );
+		$this->assertTrue(is_object($parentActiveRecord), 'Unable to find parent record!');
 
 		$assertCondition = ( ($parentActiveRecord->level == $activeRecord->level-1) && ($parentActiveRecord->left_index < $activeRecord->left_index) && ($parentActiveRecord->right_index > $activeRecord->right_index) );
 		$this->assertTrue($assertCondition, 'Unable to find parent record correctly!');
@@ -342,10 +340,10 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 			'level' => $testLevel
 		);
 		$activeRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($activeRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($activeRecord), 'Unable to find active record for the test!');
 
 		$childActiveRecord = $activeRecord->child()->find();
-		$this->assertTrue( is_object($childActiveRecord), 'Unable to find child record!' );
+		$this->assertTrue(is_object($childActiveRecord), 'Unable to find child record!');
 
 		$assertCondition = ( ($childActiveRecord->level == $activeRecord->level+1) && ($childActiveRecord->left_index > $activeRecord->left_index) && ($childActiveRecord->right_index < $activeRecord->right_index) );
 		$this->assertTrue($assertCondition, 'Unable to find child record correctly!');
@@ -361,10 +359,10 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 			'level' => $testLevel
 		);
 		$activeRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($activeRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($activeRecord), 'Unable to find active record for the test!');
 
 		$ancestorActiveRecords = $activeRecord->ancestor()->findAll();
-		$this->assertTrue( is_array($ancestorActiveRecords) && !empty($ancestorActiveRecords), 'Unable to find ancestor records!' );
+		$this->assertTrue(is_array($ancestorActiveRecords) && !empty($ancestorActiveRecords), 'Unable to find ancestor records!');
 
 		foreach ($ancestorActiveRecords as $ancestorActiveRecord) {
 			$assertCondition = ( ($ancestorActiveRecord->level < $activeRecord->level) && ($ancestorActiveRecord->left_index < $activeRecord->left_index) && ($ancestorActiveRecord->right_index > $activeRecord->right_index) );
@@ -382,10 +380,10 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 			'level' => $testLevel
 		);
 		$activeRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($activeRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($activeRecord), 'Unable to find active record for the test!');
 
 		$descendantActiveRecords = $activeRecord->descendant()->findAll();
-		$this->assertTrue( is_array($descendantActiveRecords) && !empty($descendantActiveRecords), 'Unable to find descendant records!' );
+		$this->assertTrue(is_array($descendantActiveRecords) && !empty($descendantActiveRecords), 'Unable to find descendant records!');
 
 		foreach ($descendantActiveRecords as $descendantActiveRecord) {
 			$assertCondition = ( ($descendantActiveRecord->level > $activeRecord->level) && ($descendantActiveRecord->left_index > $activeRecord->left_index) && ($descendantActiveRecord->right_index < $activeRecord->right_index) );
@@ -403,10 +401,10 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 			'level' => $testLevel
 		);
 		$activeRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($activeRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($activeRecord), 'Unable to find active record for the test!');
 
 		$ancestorOrSelfActiveRecords = $activeRecord->ancestorOrSelf()->findAll();
-		$this->assertTrue( is_array($ancestorOrSelfActiveRecords) && !empty($ancestorOrSelfActiveRecords), 'Unable to find ancestor or self records!' );
+		$this->assertTrue(is_array($ancestorOrSelfActiveRecords) && !empty($ancestorOrSelfActiveRecords), 'Unable to find ancestor or self records!');
 
 		foreach ($ancestorOrSelfActiveRecords as $ancestorOrSelfActiveRecord) {
 			$assertCondition = ( ($ancestorOrSelfActiveRecord->level <= $activeRecord->level) && ($ancestorOrSelfActiveRecord->left_index <= $activeRecord->left_index) && ($ancestorOrSelfActiveRecord->right_index >= $activeRecord->right_index) );
@@ -424,10 +422,10 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 			'level' => $testLevel
 		);
 		$activeRecord = $activeRecordModel->findByAttributes($attributes);
-		$this->assertTrue( is_object($activeRecord), 'Unable to find active record for the test!' );
+		$this->assertTrue(is_object($activeRecord), 'Unable to find active record for the test!');
 
 		$descendantOrSelfActiveRecords = $activeRecord->descendantOrSelf()->findAll();
-		$this->assertTrue( is_array($descendantOrSelfActiveRecords) && !empty($descendantOrSelfActiveRecords), 'Unable to find descendant or self records!' );
+		$this->assertTrue(is_array($descendantOrSelfActiveRecords) && !empty($descendantOrSelfActiveRecords), 'Unable to find descendant or self records!');
 
 		foreach ($descendantOrSelfActiveRecords as $descendantOrSelfActiveRecord) {
 			$assertCondition = ( ($descendantOrSelfActiveRecord->level >= $activeRecord->level) && ($descendantOrSelfActiveRecord->left_index >= $activeRecord->left_index) && ($descendantOrSelfActiveRecord->right_index <= $activeRecord->right_index) );
@@ -454,12 +452,12 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 		);
 		$records = $activeRecordModel->findAllByAttributes($attributes, $criteria);
 		list($prevRecord, $currentRecord) = $records;
-		$this->assertTrue( is_object($currentRecord), 'Unable to find current record for the test!' );
-		$this->assertTrue( is_object($prevRecord), 'Unable to find previous record for the test!' );
+		$this->assertTrue(is_object($currentRecord), 'Unable to find current record for the test!');
+		$this->assertTrue(is_object($prevRecord), 'Unable to find previous record for the test!');
 
 		$oldCurrentRecord = clone $currentRecord;
 
-		$this->assertTrue( $currentRecord->movePrev(), 'Unable to move record to the prev!' );
+		$this->assertTrue($currentRecord->movePrev(), 'Unable to move record to the prev!');
 
 		$newCurrentRecord = $currentRecord->findByPk($currentRecord->getPrimaryKey());
 		$assertCondition = ( ($newCurrentRecord->left_index != $oldCurrentRecord->left_index) && ($newCurrentRecord->right_index != $oldCurrentRecord->right_index) );
@@ -507,12 +505,12 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 		);
 		$records = $activeRecordModel->findAllByAttributes($attributes, $criteria);
 		list($currentRecord, $nextRecord) = $records;
-		$this->assertTrue( is_object($currentRecord), 'Unable to find current record for the test!' );
-		$this->assertTrue( is_object($nextRecord), 'Unable to find next record for the test!' );
+		$this->assertTrue(is_object($currentRecord), 'Unable to find current record for the test!');
+		$this->assertTrue(is_object($nextRecord), 'Unable to find next record for the test!');
 
 		$oldCurrentRecord = clone $currentRecord;
 
-		$this->assertTrue( $currentRecord->moveNext(), 'Unable to move record to the next!' );
+		$this->assertTrue($currentRecord->moveNext(), 'Unable to move record to the next!');
 
 		$newCurrentRecord = $currentRecord->findByPk($currentRecord->getPrimaryKey());
 		$assertCondition = ( ($newCurrentRecord->left_index != $oldCurrentRecord->left_index) && ($newCurrentRecord->right_index != $oldCurrentRecord->right_index) );
@@ -559,9 +557,9 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 			//'limit' => 2
 		);
 		$currentRecord = $activeRecordModel->findByAttributes($attributes, $criteria);
-		$this->assertTrue( is_object($currentRecord), 'Unable to find current record for the test!' );
+		$this->assertTrue(is_object($currentRecord), 'Unable to find current record for the test!');
 
-		$this->assertTrue( $currentRecord->moveFirst(), 'Unable to move current record to the first!' );
+		$this->assertTrue($currentRecord->moveFirst(), 'Unable to move current record to the first!');
 
 		$this->assertTreeIsCorrect();
 	}
@@ -582,9 +580,9 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 			//'limit' => 2
 		);
 		$currentRecord = $activeRecordModel->findByAttributes($attributes, $criteria);
-		$this->assertTrue( is_object($currentRecord), 'Unable to find current record for the test!' );
+		$this->assertTrue(is_object($currentRecord), 'Unable to find current record for the test!');
 
-		$this->assertTrue( $currentRecord->moveLast(), 'Unable to move current record to the last!' );
+		$this->assertTrue($currentRecord->moveLast(), 'Unable to move current record to the last!');
 
 		$this->assertTreeIsCorrect();
 	}
@@ -614,10 +612,10 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 
 		$rootRecord = $activeRecordModel->root()->find();
 
-		$this->assertTrue( $newRecord->save(), 'Unable to save new record!' );
+		$this->assertTrue($newRecord->save(), 'Unable to save new record!');
 
-		$refreshedNewRecord = $newRecord->findByPk( $newRecord->getPrimaryKey() );
-		$newParentRecord = $parentRecord->findByPk( $parentRecord->getPrimaryKey() );
+		$refreshedNewRecord = $newRecord->findByPk($newRecord->getPrimaryKey());
+		$newParentRecord = $parentRecord->findByPk($parentRecord->getPrimaryKey());
 
 		$assertCondition = ( ($refreshedNewRecord->left_index>0) && ($refreshedNewRecord->right_index>0) && ($newRecord->level>0) );
 		$this->assertTrue($assertCondition, 'Indexes and level of new record have not been saved in database!');
@@ -653,10 +651,10 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 		$testRecordName = 'test_record_name';
 		$newRecord->name = $testRecordName;
 
-		$this->assertTrue( $newRecord->save(), 'Unable to save new record!' );
+		$this->assertTrue($newRecord->save(), 'Unable to save new record!');
 
 		$returnedParentRecord = $newRecord->parent()->find();
-		$this->assertEquals( $returnedParentRecord->getPrimaryKey(), $rootRecord->getPrimaryKey(), 'Auto assigned parent record does not match the root record!' );
+		$this->assertEquals($returnedParentRecord->getPrimaryKey(), $rootRecord->getPrimaryKey(), 'Auto assigned parent record does not match the root record!');
 
 		$this->assertTreeIsCorrect();
 	}
@@ -677,18 +675,18 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 		$parentRecords = $activeRecordModel->findAllByAttributes($attributes);
 		list($oldParentRecord, $newParentRecord) = $parentRecords;
 
-		$this->assertTrue( is_object($oldParentRecord), 'Unable to find old parent record for the test!' );
-		$this->assertTrue( is_object($newParentRecord), 'Unable to find new parent record for the test!' );
+		$this->assertTrue(is_object($oldParentRecord), 'Unable to find old parent record for the test!');
+		$this->assertTrue(is_object($newParentRecord), 'Unable to find new parent record for the test!');
 
 		$childRecord = $oldParentRecord->child()->find();
-		$this->assertTrue( is_object($childRecord), 'Unable to find child record for the test!' );
+		$this->assertTrue(is_object($childRecord), 'Unable to find child record for the test!');
 
 		$childRecord->$refParentPropertyName = $newParentRecord->getPrimaryKey();
-		$this->assertTrue( $childRecord->save(), 'Unable to save record with the new parent!' );
+		$this->assertTrue($childRecord->save(), 'Unable to save record with the new parent!');
 
-		$refreshedChildRecord = $childRecord->findByPk( $childRecord->getPrimaryKey() );
-		$refreshedOldParentRecord = $oldParentRecord->findByPk( $oldParentRecord->getPrimaryKey() );
-		$refreshedNewParentRecord = $newParentRecord->findByPk( $newParentRecord->getPrimaryKey() );
+		$refreshedChildRecord = $childRecord->findByPk($childRecord->getPrimaryKey());
+		$refreshedOldParentRecord = $oldParentRecord->findByPk($oldParentRecord->getPrimaryKey());
+		$refreshedNewParentRecord = $newParentRecord->findByPk($newParentRecord->getPrimaryKey());
 
 		$childRecordIndexDelta = $childRecord->right_index - $childRecord->left_index;
 		$refreshedChildRecordIndexDelta = $refreshedChildRecord->right_index - $refreshedChildRecord->left_index;
@@ -721,13 +719,13 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 		$oldChildren = $targetRecord->child()->findAll();
 
 		$targetRecord->$refParentPropertyName = $newParentRecord->getPrimaryKey();
-		$this->assertTrue( $targetRecord->save(), 'Unable to save record with the new parent!' );
+		$this->assertTrue($targetRecord->save(), 'Unable to save record with the new parent!');
 
 		$newChildren = $targetRecord->child()->findAll();
 
 		foreach ($oldChildren as $recordIndex => $oldChild) {
 			$newChild = $newChildren[$recordIndex];
-			$this->assertEquals( $oldChild->getPrimaryKey(), $newChild->getPrimaryKey(), 'Child record missmatch!' );
+			$this->assertEquals($oldChild->getPrimaryKey(), $newChild->getPrimaryKey(), 'Child record missmatch!');
 		}
 
 		$this->assertCorrectTreeRoot();
@@ -751,9 +749,9 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 
 		$currentRecordIndexDelta = $currentRecord->right_index - $currentRecord->left_index;
 
-		$this->assertTrue( $currentRecord->delete(), 'Unable to delete record!');
+		$this->assertTrue($currentRecord->delete(), 'Unable to delete record!');
 
-		$refreshedParentRecord = $parentRecord->findByPk( $parentRecord->getPrimaryKey() );
+		$refreshedParentRecord = $parentRecord->findByPk($parentRecord->getPrimaryKey());
 
 		$assertCondition = ( ($refreshedParentRecord->left_index == $parentRecord->left_index) && ($refreshedParentRecord->right_index == $parentRecord->right_index-($currentRecordIndexDelta+1)) );
 		$this->assertTrue($assertCondition, 'Parent record indexes have wrong data!');
@@ -769,10 +767,10 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 
 		$rootRecord = $activeRecordModel->root()->find();
 
-		$this->assertTrue( $rootRecord->delete(), 'Unable to delete root record!');
+		$this->assertTrue($rootRecord->delete(), 'Unable to delete root record!');
 
 		$recordCount = $activeRecordModel->count();
-		$this->assertTrue( $recordCount<=0, 'There are still some records after the root has been deleted!' );
+		$this->assertTrue($recordCount<=0, 'There are still some records after the root has been deleted!');
 	}
 
 	/**
@@ -788,13 +786,13 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 		$testRecordName = 'test_record_name';
 		$newRecord->name = $testRecordName;
 
-		$this->assertTrue( $newRecord->save(), 'Unable to save new record!' );
+		$this->assertTrue($newRecord->save(), 'Unable to save new record!');
 
 		$rootRecord = $newRecord->root()->find();
-		$this->assertTrue( is_object($rootRecord), 'Unable to auto create root record!' );
+		$this->assertTrue(is_object($rootRecord), 'Unable to auto create root record!');
 
 		$returnedParentRecord = $newRecord->parent()->find();
-		$this->assertEquals( $returnedParentRecord->getPrimaryKey(), $rootRecord->getPrimaryKey(), 'Auto assigned parent record does not match the root record!' );
+		$this->assertEquals($returnedParentRecord->getPrimaryKey(), $rootRecord->getPrimaryKey(), 'Auto assigned parent record does not match the root record!');
 
 		$this->assertTreeIsCorrect();
 	}
@@ -806,7 +804,7 @@ class QsActiveRecordBehaviorNestedSetTest extends CTestCase {
 	public function testResetTree() {
 		$activeRecordFinder = $this->getTestActiveRecordFinder();
 
-		$this->assertTrue( $activeRecordFinder->resetTree(), 'Unable to reset tree!' );
+		$this->assertTrue($activeRecordFinder->resetTree(), 'Unable to reset tree!');
 
 		$totalRecordsCount = $activeRecordFinder->count();
 

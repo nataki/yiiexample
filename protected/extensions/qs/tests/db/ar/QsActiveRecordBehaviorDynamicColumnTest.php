@@ -32,8 +32,8 @@ class QsActiveRecordBehaviorDynamicColumnTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testColumnTableName,
-				'rules'=>array(
+				'tableName' => $testColumnTableName,
+				'rules' => array(
 					array('name', 'required'),
 					array('default_value', 'safe'),
 				),
@@ -52,8 +52,8 @@ class QsActiveRecordBehaviorDynamicColumnTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testColumnValueTableName,
-				'rules'=>array(
+				'tableName' => $testColumnValueTableName,
+				'rules' => array(
 					array('main_id,column_id,value', 'safe'),
 					array('main_id,column_id', 'numerical', 'integerOnly'=>true)
 				),
@@ -70,15 +70,15 @@ class QsActiveRecordBehaviorDynamicColumnTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testMainTableName,
-				'rules'=>array(
+				'tableName' => $testMainTableName,
+				'rules' => array(
 					array('name', 'required'),
 				),
-				'behaviors'=>array(
+				'behaviors' => array(
 					'dynamicColumnBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorDynamicColumn',
-						'columnModelClassName'=>$testColumnTableName,
-						'relationConfig'=>array(
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorDynamicColumn',
+						'columnModelClassName' => $testColumnTableName,
+						'relationConfig' => array(
 							$testColumnValueTableName, 'main_id'
 						),
 					)
@@ -172,7 +172,7 @@ class QsActiveRecordBehaviorDynamicColumnTest extends CTestCase {
 
 	public function testCreate() {
 		$behavior = new QsActiveRecordBehaviorDynamicColumn();
-		$this->assertTrue( is_object($behavior) );
+		$this->assertTrue(is_object($behavior));
 	}
 
 	/**
@@ -182,71 +182,71 @@ class QsActiveRecordBehaviorDynamicColumnTest extends CTestCase {
 		$behavior = new QsActiveRecordBehaviorDynamicColumn();
 
 		$testIsInitialized = 'test_is_initialized';
-		$this->assertTrue( $behavior->setIsInitialized($testIsInitialized), 'Unable to set is initialized!' );
-		$this->assertEquals( $testIsInitialized, $behavior->getIsInitialized(), 'Unable to set is initialized correctly!' );
+		$this->assertTrue($behavior->setIsInitialized($testIsInitialized), 'Unable to set is initialized!');
+		$this->assertEquals($testIsInitialized, $behavior->getIsInitialized(), 'Unable to set is initialized correctly!');
 
 		$testColumnModels = array(
 			'test_column_1' => new CFormModel(),
 			'test_column_2' => new CFormModel(),
 		);
-		$this->assertTrue( $behavior->setColumnModels($testColumnModels), 'Unable to set column models!' );
-		$this->assertEquals( $testColumnModels, $behavior->getColumnModels(), 'Unable to set column models correctly!' );
+		$this->assertTrue($behavior->setColumnModels($testColumnModels), 'Unable to set column models!');
+		$this->assertEquals($testColumnModels, $behavior->getColumnModels(), 'Unable to set column models correctly!');
 
 		$testColumnModelClassName = 'TestColumnModelClassName';
-		$this->assertTrue( $behavior->setColumnModelClassName($testColumnModelClassName), 'Unable to set column model class name!' );
-		$this->assertEquals( $testColumnModelClassName, $behavior->getColumnModelClassName(), 'Unable to set column model class name correctly!' );
+		$this->assertTrue($behavior->setColumnModelClassName($testColumnModelClassName), 'Unable to set column model class name!');
+		$this->assertEquals($testColumnModelClassName, $behavior->getColumnModelClassName(), 'Unable to set column model class name correctly!');
 
 		$testColumnModelSearchCriteria = array(
 			'condition' => 'id = 5'
 		);
-		$this->assertTrue( $behavior->setColumnModelSearchCriteria($testColumnModelSearchCriteria), 'Unable to set column model search criteria!' );
-		$this->assertEquals( $testColumnModelSearchCriteria, $behavior->getColumnModelSearchCriteria(), 'Unable to set column model search criteria correctly!' );
+		$this->assertTrue($behavior->setColumnModelSearchCriteria($testColumnModelSearchCriteria), 'Unable to set column model search criteria!');
+		$this->assertEquals($testColumnModelSearchCriteria, $behavior->getColumnModelSearchCriteria(), 'Unable to set column model search criteria correctly!');
 
 		$testColumnModelSearchCriteriaCallback = 'testColumnModelSearchCriteriaCallback';
-		$this->assertTrue( $behavior->setColumnModelSearchCriteriaCallback($testColumnModelSearchCriteriaCallback), 'Unable to set column model search criteria callback!' );
-		$this->assertEquals( $testColumnModelSearchCriteriaCallback, $behavior->getColumnModelSearchCriteriaCallback(), 'Unable to set column model search criteria callback correctly!' );
+		$this->assertTrue($behavior->setColumnModelSearchCriteriaCallback($testColumnModelSearchCriteriaCallback), 'Unable to set column model search criteria callback!');
+		$this->assertEquals($testColumnModelSearchCriteriaCallback, $behavior->getColumnModelSearchCriteriaCallback(), 'Unable to set column model search criteria callback correctly!');
 
 		$testColumnValueRelationName = 'testColumnValueRelationName';
-		$this->assertTrue( $behavior->setColumnValueRelationName($testColumnValueRelationName), 'Unable to set column value relation name!' );
-		$this->assertEquals( $testColumnValueRelationName, $behavior->getColumnValueRelationName(), 'Unable to set column value relation name correctly!' );
+		$this->assertTrue($behavior->setColumnValueRelationName($testColumnValueRelationName), 'Unable to set column value relation name!');
+		$this->assertEquals($testColumnValueRelationName, $behavior->getColumnValueRelationName(), 'Unable to set column value relation name correctly!');
 
 		$testRelationConfig = array(
 			'testArg1',
 			'testArg2'
 		);
-		$this->assertTrue( $behavior->setRelationConfig($testRelationConfig), 'Unable to set relation config!' );
-		$this->assertEquals( $testRelationConfig, $behavior->getRelationConfig(), 'Unable to set relation config correctly!' );
+		$this->assertTrue($behavior->setRelationConfig($testRelationConfig), 'Unable to set relation config!');
+		$this->assertEquals($testRelationConfig, $behavior->getRelationConfig(), 'Unable to set relation config correctly!');
 
 		$testColumnValueModels = array(
 			'column_1' => new CFormModel(),
 			'column_2' => new CFormModel(),
 		);
-		$this->assertTrue( $behavior->setColumnValueModels($testColumnValueModels), 'Unable to set column value models!' );
-		$this->assertEquals( $testColumnValueModels, $behavior->getColumnValueModels(), 'Unable to set column value models correctly!' );
+		$this->assertTrue($behavior->setColumnValueModels($testColumnValueModels), 'Unable to set column value models!');
+		$this->assertEquals($testColumnValueModels, $behavior->getColumnValueModels(), 'Unable to set column value models correctly!');
 
 		$testAutoAdjustColumnValueScenarios = array(
 			'test_scenario_1',
 			'test_scenario_2',
 		);
-		$this->assertTrue( $behavior->setAutoAdjustColumnValueScenarios($testAutoAdjustColumnValueScenarios), 'Unable to set auto adjust column value scenarios!' );
-		$this->assertEquals( $testAutoAdjustColumnValueScenarios, $behavior->getAutoAdjustColumnValueScenarios(), 'Unable to set auto adjust column value scenarios correctly!' );
+		$this->assertTrue($behavior->setAutoAdjustColumnValueScenarios($testAutoAdjustColumnValueScenarios), 'Unable to set auto adjust column value scenarios!');
+		$this->assertEquals($testAutoAdjustColumnValueScenarios, $behavior->getAutoAdjustColumnValueScenarios(), 'Unable to set auto adjust column value scenarios correctly!');
 
 		// Attribute Names:
 		$testColumnValueColumnForeignKeyName = 'test_column_foreign_key';
-		$this->assertTrue( $behavior->setColumnValueColumnForeignKeyName($testColumnValueColumnForeignKeyName), 'Unable to set column value column foreign key name!' );
-		$this->assertEquals( $testColumnValueColumnForeignKeyName, $behavior->getColumnValueColumnForeignKeyName(), 'Unable to set column value column foreign key name correctly!' );
+		$this->assertTrue($behavior->setColumnValueColumnForeignKeyName($testColumnValueColumnForeignKeyName), 'Unable to set column value column foreign key name!');
+		$this->assertEquals($testColumnValueColumnForeignKeyName, $behavior->getColumnValueColumnForeignKeyName(), 'Unable to set column value column foreign key name correctly!');
 
 		$testColumnNameAttributeName = 'test_column_name_attribute';
-		$this->assertTrue( $behavior->setColumnNameAttributeName($testColumnNameAttributeName), 'Unable to set column name attribute name!' );
-		$this->assertEquals( $testColumnNameAttributeName, $behavior->getColumnNameAttributeName(), 'Unable to set column name attribute name correctly!' );
+		$this->assertTrue($behavior->setColumnNameAttributeName($testColumnNameAttributeName), 'Unable to set column name attribute name!');
+		$this->assertEquals($testColumnNameAttributeName, $behavior->getColumnNameAttributeName(), 'Unable to set column name attribute name correctly!');
 
 		$testColumnValueAttributeName = 'test_column_value_attribute';
-		$this->assertTrue( $behavior->setColumnValueAttributeName($testColumnValueAttributeName), 'Unable to set column value attribute name!' );
-		$this->assertEquals( $testColumnValueAttributeName, $behavior->getColumnValueAttributeName(), 'Unable to set column value attribute name correctly!' );
+		$this->assertTrue($behavior->setColumnValueAttributeName($testColumnValueAttributeName), 'Unable to set column value attribute name!');
+		$this->assertEquals($testColumnValueAttributeName, $behavior->getColumnValueAttributeName(), 'Unable to set column value attribute name correctly!');
 
 		$testColumnDefaultValueAttributeName = 'test_column_default_value_attribute';
-		$this->assertTrue( $behavior->setColumnDefaultValueAttributeName($testColumnDefaultValueAttributeName), 'Unable to set column default value attribute name!' );
-		$this->assertEquals( $testColumnDefaultValueAttributeName, $behavior->getColumnDefaultValueAttributeName(), 'Unable to set column default value attribute name correctly!' );
+		$this->assertTrue($behavior->setColumnDefaultValueAttributeName($testColumnDefaultValueAttributeName), 'Unable to set column default value attribute name!');
+		$this->assertEquals($testColumnDefaultValueAttributeName, $behavior->getColumnDefaultValueAttributeName(), 'Unable to set column default value attribute name correctly!');
 	}
 
 	/**
@@ -254,17 +254,17 @@ class QsActiveRecordBehaviorDynamicColumnTest extends CTestCase {
 	 */
 	public function testGetDefaultColumnModels() {
 		$behavior = new QsActiveRecordBehaviorDynamicColumn();
-		$behavior->setColumnModelClassName( self::getTestColumnActiveRecordClassName() );
+		$behavior->setColumnModelClassName(self::getTestColumnActiveRecordClassName());
 
 		$defaultColumnModels = $behavior->getColumnModels();
-		$this->assertFalse( empty($defaultColumnModels), 'Unable to get default column models!' );
+		$this->assertFalse(empty($defaultColumnModels), 'Unable to get default column models!');
 
 		$expectedColumnModels = array();
 		$rawExpectedColumnModels = CActiveRecord::model(self::getTestColumnActiveRecordClassName())->findAll();
 		foreach ($rawExpectedColumnModels as $rawExpectedColumnModel) {
 			$expectedColumnModels[$rawExpectedColumnModel->name] = $rawExpectedColumnModel;
 		}
-		$this->assertEquals( $expectedColumnModels, $defaultColumnModels, 'Unable to get default column models correctly!' );
+		$this->assertEquals($expectedColumnModels, $defaultColumnModels, 'Unable to get default column models correctly!');
 	}
 
 	/**
@@ -272,14 +272,14 @@ class QsActiveRecordBehaviorDynamicColumnTest extends CTestCase {
 	 */
 	public function testGetColumnModelByName() {
 		$behavior = new QsActiveRecordBehaviorDynamicColumn();
-		$behavior->setColumnModelClassName( self::getTestColumnActiveRecordClassName() );
+		$behavior->setColumnModelClassName(self::getTestColumnActiveRecordClassName());
 
 		$testColumnModelId = rand(1, self::TEST_COLUMN_RECORDS_COUNT);
 		$testColumnModel = CActiveRecord::model(self::getTestColumnActiveRecordClassName())->findByPk($testColumnModelId);
 
 		$returnedColumnModel = $behavior->getColumnModel($testColumnModel->name);
-		$this->assertTrue( is_object($returnedColumnModel), 'Unable to get column model by name!' );
-		$this->assertEquals( $testColumnModel, $returnedColumnModel, 'Unable to get correct column model by name!' );
+		$this->assertTrue(is_object($returnedColumnModel), 'Unable to get column model by name!');
+		$this->assertEquals($testColumnModel, $returnedColumnModel, 'Unable to get correct column model by name!');
 	}
 
 	/**
@@ -287,7 +287,7 @@ class QsActiveRecordBehaviorDynamicColumnTest extends CTestCase {
 	 */
 	public function testGetDefaultColumnModelsByCriteria() {
 		$behavior = new QsActiveRecordBehaviorDynamicColumn();
-		$behavior->setColumnModelClassName( self::getTestColumnActiveRecordClassName() );
+		$behavior->setColumnModelClassName(self::getTestColumnActiveRecordClassName());
 
 		$testColumnModelId = rand(1, self::TEST_COLUMN_RECORDS_COUNT);
 		$testColumnModelSearchCriteria = array(
@@ -299,10 +299,10 @@ class QsActiveRecordBehaviorDynamicColumnTest extends CTestCase {
 		$behavior->setColumnModelSearchCriteria($testColumnModelSearchCriteria);
 
 		$defaultColumnModels = $behavior->getColumnModels();
-		$this->assertTrue( count($defaultColumnModels)==1, 'Unable to get default column models with criteria!' );
+		$this->assertTrue(count($defaultColumnModels)==1, 'Unable to get default column models with criteria!');
 
 		$defaultColumnModel = array_shift($defaultColumnModels);
-		$this->assertEquals( $testColumnModelId, $defaultColumnModel->id, 'Unable to get default column models with criteria correctly!' );
+		$this->assertEquals($testColumnModelId, $defaultColumnModel->id, 'Unable to get default column models with criteria correctly!');
 	}
 
 	/**
@@ -310,7 +310,7 @@ class QsActiveRecordBehaviorDynamicColumnTest extends CTestCase {
 	 */
 	public function testGetDefaultColumnModelsByCriteriaCallback() {
 		$behavior = new QsActiveRecordBehaviorDynamicColumn();
-		$behavior->setColumnModelClassName( self::getTestColumnActiveRecordClassName() );
+		$behavior->setColumnModelClassName(self::getTestColumnActiveRecordClassName());
 
 		$testColumnModelId = rand(1, self::TEST_COLUMN_RECORDS_COUNT);
 
@@ -334,10 +334,10 @@ EOD;
 		$behavior->setColumnModelSearchCriteriaCallback($testCallback);
 
 		$defaultColumnModels = $behavior->getColumnModels();
-		$this->assertTrue( count($defaultColumnModels)==1, 'Unable to get default column models with criteria!' );
+		$this->assertTrue(count($defaultColumnModels)==1, 'Unable to get default column models with criteria!');
 
 		$defaultColumnModel = array_shift($defaultColumnModels);
-		$this->assertEquals( $testColumnModelId, $defaultColumnModel->id, 'Unable to get default column models with criteria correctly!' );
+		$this->assertEquals($testColumnModelId, $defaultColumnModel->id, 'Unable to get default column models with criteria correctly!');
 	}
 
 	/**
@@ -369,17 +369,17 @@ EOD;
 		$model = new $activeRecordClassName();
 
 		$columnValueModels =  $model->getColumnValueModels();
-		$this->assertTrue( is_array($columnValueModels), 'Unable to get column value models from new record!' );
+		$this->assertTrue(is_array($columnValueModels), 'Unable to get column value models from new record!');
 
-		$columnsCount = CActiveRecord::model( self::getTestColumnTableName() )->count();
-		$this->assertEquals( $columnsCount, count($columnValueModels), 'Wrong count of column value models for the new record!' );
+		$columnsCount = CActiveRecord::model(self::getTestColumnTableName())->count();
+		$this->assertEquals($columnsCount, count($columnValueModels), 'Wrong count of column value models for the new record!');
 	}
 
 	/**
 	 * @depends testGetColumnValueModelsNewRecord
 	 */
 	public function testAdjustColumnValueModelsMissing() {
-		$activeRecordFinder = CActiveRecord::model( self::getTestMainActiveRecordClassName() );
+		$activeRecordFinder = CActiveRecord::model(self::getTestMainActiveRecordClassName());
 		$columnModelClassName = $activeRecordFinder->getColumnModelClassName();
 		$columnModelFinder = CActiveRecord::model($columnModelClassName);
 
@@ -402,14 +402,14 @@ EOD;
 
 		$foundActiveRecord = $activeRecordFinder->findByPk($mainId);
 		$columnValueModels = $foundActiveRecord->getColumnValueModels();
-		$this->assertTrue( count($columnValueModels) == count($columnModels), 'Count of column value models missmatch the count of columns!' );
+		$this->assertTrue(count($columnValueModels) == count($columnModels), 'Count of column value models missmatch the count of columns!');
 	}
 
 	/**
 	 * @depends testGetColumnValueModelsNewRecord
 	 */
 	public function testAdjustColumnValueModelsExtra() {
-		$activeRecordFinder = CActiveRecord::model( self::getTestMainActiveRecordClassName() );
+		$activeRecordFinder = CActiveRecord::model(self::getTestMainActiveRecordClassName());
 		$columnModelClassName = $activeRecordFinder->getColumnModelClassName();
 		$columnModelFinder = CActiveRecord::model($columnModelClassName);
 
@@ -440,7 +440,7 @@ EOD;
 
 		$foundActiveRecord = $activeRecordFinder->findByPk($mainId);
 		$columnValueModels = $foundActiveRecord->getColumnValueModels();
-		$this->assertTrue( count($columnValueModels) == count($columnModels), 'Count of column value models missmatch the count of columns!' );
+		$this->assertTrue(count($columnValueModels) == count($columnModels), 'Count of column value models missmatch the count of columns!');
 	}
 
 	/**
@@ -454,32 +454,32 @@ EOD;
 		$testColumnModel = CActiveRecord::model(self::getTestColumnActiveRecordClassName())->findByPk($testColumnModelId);
 
 		$returnedColumnValueModel = $model->getColumnValueModel($testColumnModel->name);
-		$this->assertTrue( is_object($returnedColumnValueModel), 'Unable to get column value model by name!' );
-		$this->assertEquals( $testColumnModel->id, $returnedColumnValueModel->column_id, 'Unable to get correct column value model by name!' );
+		$this->assertTrue(is_object($returnedColumnValueModel), 'Unable to get column value model by name!');
+		$this->assertEquals($testColumnModel->id, $returnedColumnValueModel->column_id, 'Unable to get correct column value model by name!');
 	}
 
 	/**
 	 * @depends testGetColumnValueModelsNewRecord
 	 */
 	public function testActiveRecordColumnValueValidate() {
-		$activeRecordFinder = CActiveRecord::model( self::getTestMainActiveRecordClassName() );
+		$activeRecordFinder = CActiveRecord::model(self::getTestMainActiveRecordClassName());
 		$activeRecord = $activeRecordFinder->find();
 
-		$this->assertTrue( $activeRecord->validate(), 'Just found model fails on validate!' );
+		$this->assertTrue($activeRecord->validate(), 'Just found model fails on validate!');
 
 		$columnValueModel = $activeRecord->columnValues[0];
 		$columnValueModel->column_id = 'fake_value';
-		$this->assertFalse( $activeRecord->validate(), 'Model considered as valid, while one of column value models is invalid!' );
+		$this->assertFalse($activeRecord->validate(), 'Model considered as valid, while one of column value models is invalid!');
 
 		$activeRecord->setAutoAdjustColumnValueScenarios(array());
-		$this->assertTrue( $activeRecord->validate(), 'Model considered as invalid, while auto adjust scenarios are unset!' );
+		$this->assertTrue($activeRecord->validate(), 'Model considered as invalid, while auto adjust scenarios are unset!');
 	}
 
 	/**
 	 * @depends testActiveRecordColumnValueValidate
 	 */
 	public function testActiveRecordColumnValueSave() {
-		$activeRecordFinder = CActiveRecord::model( self::getTestMainActiveRecordClassName() );
+		$activeRecordFinder = CActiveRecord::model(self::getTestMainActiveRecordClassName());
 
 		$activeRecord = $activeRecordFinder->find();
 
@@ -491,11 +491,11 @@ EOD;
 
 		$activeRecord->save(false);
 
-		$refreshedActiveRecord = $activeRecordFinder->findByPk( $activeRecord->getPrimaryKey() );
+		$refreshedActiveRecord = $activeRecordFinder->findByPk($activeRecord->getPrimaryKey());
 
 		foreach ($refreshedActiveRecord->columnValues as $key => $columnValueActiveRecord) {
 			$testColumnValue = $testColumnValueBase.'#'.$key;
-			$this->assertEquals( $columnValueActiveRecord->value, $testColumnValue, 'Unable to save column value active records while saving the main one!' );
+			$this->assertEquals($columnValueActiveRecord->value, $testColumnValue, 'Unable to save column value active records while saving the main one!');
 		}
 
 		// Auto adjust scenarios:
@@ -507,9 +507,9 @@ EOD;
 		$columnValueModel->value = $testColumnValue;
 
 		$activeRecord->save();
-		$refreshedActiveRecord = $activeRecordFinder->findByPk( $activeRecord->getPrimaryKey() );
+		$refreshedActiveRecord = $activeRecordFinder->findByPk($activeRecord->getPrimaryKey());
 
-		$this->assertNotEquals( $refreshedActiveRecord->columnValues[0]->value, $testColumnValue, 'Column value active records are saved, while auto adjust scenarios are unset!' );
+		$this->assertNotEquals($refreshedActiveRecord->columnValues[0]->value, $testColumnValue, 'Column value active records are saved, while auto adjust scenarios are unset!');
 	}
 
 	/**
@@ -520,7 +520,7 @@ EOD;
 
 		$activeRecord = new $activeRecordClassName();
 
-		$columnActiveRecordFinder = CActiveRecord::model( self::getTestColumnActiveRecordClassName() );
+		$columnActiveRecordFinder = CActiveRecord::model(self::getTestColumnActiveRecordClassName());
 		$columnModel = $columnActiveRecordFinder->find(array('order'=>'RAND()'));
 
 		$testPropertyName = $columnModel->name;
@@ -529,7 +529,7 @@ EOD;
 		$activeRecord->$testPropertyName = $testPropertyValue;
 
 		$columnValueModels = $activeRecord->getColumnValueModels();
-		$this->assertEquals( $testPropertyValue, $columnValueModels[$testPropertyName]->value, 'Unable to set column value through the property access!' );
-		$this->assertEquals( $testPropertyValue, $activeRecord->$testPropertyName, 'Unable to get column value through the property access!' );
+		$this->assertEquals($testPropertyValue, $columnValueModels[$testPropertyName]->value, 'Unable to set column value through the property access!');
+		$this->assertEquals($testPropertyValue, $activeRecord->$testPropertyName, 'Unable to get column value through the property access!');
 	}
 }

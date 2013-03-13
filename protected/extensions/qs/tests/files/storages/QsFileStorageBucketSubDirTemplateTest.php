@@ -30,7 +30,7 @@ class QsFileStorageBucketSubDirTemplateTest extends CTestCase {
 			'moveFileInternal',
 			'getFileUrl',
 		);
-		$bucket = $this->getMock('QsFileStorageBucketSubDirTemplate',$methodsList);
+		$bucket = $this->getMock('QsFileStorageBucketSubDirTemplate', $methodsList);
 		return $bucket;
 	}
 
@@ -38,7 +38,7 @@ class QsFileStorageBucketSubDirTemplateTest extends CTestCase {
 		$bucket = $this->createFileStorageBucket();
 
 		$testFileSubDirTemplate = 'test/file/subdir/template';
-		$this->assertTrue( $bucket->setFileSubDirTemplate($testFileSubDirTemplate), 'Unable to set file sub dir template!' );
-		$this->assertEquals( $bucket->getFileSubDirTemplate(), $testFileSubDirTemplate, 'Unable to set file sub dir template correctly!' );
+		$this->assertTrue($bucket->setFileSubDirTemplate($testFileSubDirTemplate), 'Unable to set file sub dir template!');
+		$this->assertEquals($bucket->getFileSubDirTemplate(), $testFileSubDirTemplate, 'Unable to set file sub dir template correctly!');
 	}
 }

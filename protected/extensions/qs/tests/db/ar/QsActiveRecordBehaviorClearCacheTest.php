@@ -71,7 +71,7 @@ class QsActiveRecordBehaviorClearCacheTest extends CTestCase {
 	
 	public function testCreate() {
 		$behavior = new QsActiveRecordBehaviorClearCache();
-		$this->assertTrue( is_object($behavior) );
+		$this->assertTrue(is_object($behavior));
 	}
 
 	/**
@@ -84,21 +84,21 @@ class QsActiveRecordBehaviorClearCacheTest extends CTestCase {
 			'test_cache_id_1',
 			'test_cache_id_2',
 		);
-		$this->assertTrue( $behavior->setDependingCacheIds($testDependingCacheIds), 'Unable to set depending cache ids!' );
-		$this->assertEquals( $behavior->getDependingCacheIds(), $testDependingCacheIds, 'Unable to set depending cache ids correctly!' );
+		$this->assertTrue($behavior->setDependingCacheIds($testDependingCacheIds), 'Unable to set depending cache ids!');
+		$this->assertEquals($behavior->getDependingCacheIds(), $testDependingCacheIds, 'Unable to set depending cache ids correctly!');
 
 		$testAdditionalDependingCacheIds = array(
 			'additional_cache_id_1',
 			'additional_cache_id_2',
 		);
-		$this->assertTrue( $behavior->mergeDependingCacheIds($testAdditionalDependingCacheIds), 'Unable to merge depending cache ids!' );
+		$this->assertTrue($behavior->mergeDependingCacheIds($testAdditionalDependingCacheIds), 'Unable to merge depending cache ids!');
 
 		$testDependingCacheIdCallback = array(
 			'someClass',
 			'someMethod'
 		);
-		$this->assertTrue( $behavior->setDependingCacheIdCallback($testDependingCacheIdCallback), 'Unable to set depending cache id callback!' );
-		$this->assertEquals( $behavior->getDependingCacheIdCallback(), $testDependingCacheIdCallback, 'Unable to set depending cache id callback correctly!' );
+		$this->assertTrue($behavior->setDependingCacheIdCallback($testDependingCacheIdCallback), 'Unable to set depending cache id callback!');
+		$this->assertEquals($behavior->getDependingCacheIdCallback(), $testDependingCacheIdCallback, 'Unable to set depending cache id callback correctly!');
 	}
 
 	/**
@@ -122,7 +122,7 @@ class QsActiveRecordBehaviorClearCacheTest extends CTestCase {
 		$this->assertTrue($behavior->clearDependingCache(), 'Unable to clear depending cache!');
 
 		$returnedCacheValue = Yii::app()->cache->get($testCacheId);
-		$this->assertTrue( empty($returnedCacheValue), 'Unable to actually clear depending cache!');
+		$this->assertTrue(empty($returnedCacheValue), 'Unable to actually clear depending cache!');
 	}
 
 	/**
@@ -131,7 +131,7 @@ class QsActiveRecordBehaviorClearCacheTest extends CTestCase {
 	public function testClearDependingCacheWithModel() {
 		$behavior = new QsActiveRecordBehaviorClearCache();
 
-		$model = CActiveRecord::model( self::getTestActiveRecordClassName() )->find();
+		$model = CActiveRecord::model(self::getTestActiveRecordClassName())->find();
 		$model->attachBehavior('testClearCacheBehavior', $behavior);
 
 		$testCacheId = 'test_model_cache_id';
@@ -149,12 +149,12 @@ class QsActiveRecordBehaviorClearCacheTest extends CTestCase {
 		$model->save(false);
 
 		$returnedCacheValue = Yii::app()->cache->get($testCacheId);
-		$this->assertTrue( empty($returnedCacheValue), 'Depending cache has not been cleared on model save!');
+		$this->assertTrue(empty($returnedCacheValue), 'Depending cache has not been cleared on model save!');
 
 		Yii::app()->cache->set($testCacheId, $testCacheValue, 20);
 		$model->delete();
 		$returnedCacheValue = Yii::app()->cache->get($testCacheId);
-		$this->assertTrue( empty($returnedCacheValue), 'Depending cache has not been cleared on model delete!');
+		$this->assertTrue(empty($returnedCacheValue), 'Depending cache has not been cleared on model delete!');
 	}
 
 	/**
@@ -176,7 +176,7 @@ class QsActiveRecordBehaviorClearCacheTest extends CTestCase {
 
 		foreach ($testCacheIds as $testCacheId) {
 			$returnedCacheValue = Yii::app()->cache->get($testCacheId);
-			$this->assertTrue( empty($returnedCacheValue), 'Unable to actually clear depending cache!');
+			$this->assertTrue(empty($returnedCacheValue), 'Unable to actually clear depending cache!');
 		}
 	}
 }

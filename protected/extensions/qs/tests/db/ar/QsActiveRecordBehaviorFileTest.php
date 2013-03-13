@@ -137,7 +137,7 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 	 * @return CActiveRecord active record finder instance.
 	 */
 	protected function getActiveRecordFinder() {
-		return CActiveRecord::model( self::getTestActiveRecordClassName() );
+		return CActiveRecord::model(self::getTestActiveRecordClassName());
 	}
 
 	/**
@@ -201,7 +201,7 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 
 	public function testCreate() {
 		$behavior = new QsActiveRecordBehaviorFile();
-		$this->assertTrue( is_object($behavior) );
+		$this->assertTrue(is_object($behavior));
 	}
 
 	/**
@@ -304,7 +304,6 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 		$actualSubDir = $activeRecord->getActualSubDir();
 		$expectedActualSubDir = str_replace('{pk}', $activeRecord->getPrimaryKey(), $testSubDirTemplate);
 		$this->assertEquals($actualSubDir, $expectedActualSubDir, 'Actual sub dir can not parse primary key!');
-
 
 		$activeRecord->setPrimaryKey(54321);
 		$testSubDirTemplate = 'test/{^pk}/subdir/template';

@@ -44,8 +44,8 @@ class QsActionAdminUpdateDynamicColumnTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testColumnTableName,
-				'rules'=>array(
+				'tableName' => $testColumnTableName,
+				'rules' => array(
 					array('name', 'required'),
 					array('default_value', 'safe'),
 				),
@@ -64,8 +64,8 @@ class QsActionAdminUpdateDynamicColumnTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testColumnValueTableName,
-				'rules'=>array(
+				'tableName' => $testColumnValueTableName,
+				'rules' => array(
 					array('main_id,column_id,value', 'safe'),
 					array('main_id,column_id', 'numerical', 'integerOnly'=>true)
 				),
@@ -82,15 +82,15 @@ class QsActionAdminUpdateDynamicColumnTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testMainTableName,
-				'rules'=>array(
+				'tableName' => $testMainTableName,
+				'rules' => array(
 					array('name', 'required'),
 				),
-				'behaviors'=>array(
+				'behaviors' => array(
 					'dynamicColumnBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorDynamicColumn',
-						'columnModelClassName'=>$testColumnTableName,
-						'relationConfig'=>array(
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorDynamicColumn',
+						'columnModelClassName' => $testColumnTableName,
+						'relationConfig' => array(
 							$testColumnValueTableName, 'main_id'
 						),
 					)
@@ -207,7 +207,7 @@ class QsActionAdminUpdateDynamicColumnTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminUpdateDynamicColumn($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminUpdateDynamicColumn" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminUpdateDynamicColumn" instance!');
 	}
 
 	/**
@@ -227,7 +227,7 @@ class QsActionAdminUpdateDynamicColumnTest extends CTestCase {
 			$viewRendered = true;
 		}
 
-		$this->assertTrue( $viewRendered, 'View is not rendered!' );
+		$this->assertTrue($viewRendered, 'View is not rendered!');
 	}
 
 	/**
@@ -247,7 +247,7 @@ class QsActionAdminUpdateDynamicColumnTest extends CTestCase {
 			$errorMissingPageRisen = true;
 		}
 
-		$this->assertTrue( $errorMissingPageRisen, 'No 404 error, while updating unexisting model!' );
+		$this->assertTrue($errorMissingPageRisen, 'No 404 error, while updating unexisting model!');
 	}
 
 	/**
@@ -269,7 +269,7 @@ class QsActionAdminUpdateDynamicColumnTest extends CTestCase {
 		$columnModels = CActiveRecord::model(self::getTestColumnActiveRecordClassName())->findAll();
 		foreach ($columnModels as $columnModel) {
 			$columnValuePostData[$columnModel->name] = array(
-				'value'=>'test_column_value_'.rand(1,100)
+				'value' => 'test_column_value_'.rand(1,100)
 			);
 		}
 
@@ -287,11 +287,11 @@ class QsActionAdminUpdateDynamicColumnTest extends CTestCase {
 		$this->assertTrue( $pageRedirected, 'Page has not been redirected!' );
 
 		$updatedModel = CActiveRecord::model($modelClassName)->findByPk($testId);
-		$this->assertEquals( $updatedModel->name, $testMainRecordName, 'Can not update main record!' );
-		$this->assertEquals( count($updatedModel->columnValues), count($columnModels), 'Count of updated column value models missmatch the count of columns!' );
+		$this->assertEquals($updatedModel->name, $testMainRecordName, 'Can not update main record!');
+		$this->assertEquals(count($updatedModel->columnValues), count($columnModels), 'Count of updated column value models missmatch the count of columns!');
 
 		foreach ($updatedModel->getColumnValueModels() as $columnValueKey => $columnValueModel) {
-			$this->assertEquals( $columnValueModel->value, $columnValuePostData[$columnValueKey]['value'], 'Column value record has wrong data!' );
+			$this->assertEquals($columnValueModel->value, $columnValuePostData[$columnValueKey]['value'], 'Column value record has wrong data!');
 		}
 	}
 
@@ -315,6 +315,6 @@ class QsActionAdminUpdateDynamicColumnTest extends CTestCase {
 		} catch (QsTestExceptionRender $exception) {
 			$pageRendered = true;
 		}
-		$this->assertTrue( $pageRendered, 'Page has not been rendered after request with empty post!' );
+		$this->assertTrue($pageRendered, 'Page has not been rendered after request with empty post!');
 	}
 }

@@ -12,7 +12,7 @@ class QsCsvFileTest extends CTestCase {
 	public function setUp() {
 		$testFilePath = $this->getTestFilePath();
 		if (!file_exists($testFilePath)) {
-			mkdir($testFilePath,0777,true);
+			mkdir($testFilePath, 0777, true);
 		}
 	}
 
@@ -68,26 +68,26 @@ EOD;
 		$csvFile = new QsCsvFile();
 
 		$testFileName = 'test_file_name';
-		$this->assertTrue( $csvFile->setFileName($testFileName), 'Unable to set file name!' );
-		$this->assertEquals( $testFileName, $csvFile->getFileName(), 'Unable to set file name correctly!' );
+		$this->assertTrue($csvFile->setFileName($testFileName), 'Unable to set file name!');
+		$this->assertEquals($testFileName, $csvFile->getFileName(), 'Unable to set file name correctly!');
 
 		$testBaseFilePath = '/test/file/path';
-		$this->assertTrue( $csvFile->setBaseFilePath($testBaseFilePath), 'Unable to set base file path!' );
-		$this->assertEquals( $testBaseFilePath, $csvFile->getBaseFilePath(), 'Unable to set base file path correctly!' );
+		$this->assertTrue($csvFile->setBaseFilePath($testBaseFilePath), 'Unable to set base file path!');
+		$this->assertEquals($testBaseFilePath, $csvFile->getBaseFilePath(), 'Unable to set base file path correctly!');
 
 		$testColumnNames = array(
 			'test_column_1',
 			'test_column_2',
 		);
-		$this->assertTrue( $csvFile->setColumnNames($testColumnNames), 'Unable to set column names!' );
-		$this->assertEquals( $testColumnNames, $csvFile->getColumnNames(), 'Unable to set column names correctly!' );
+		$this->assertTrue($csvFile->setColumnNames($testColumnNames), 'Unable to set column names!');
+		$this->assertEquals($testColumnNames, $csvFile->getColumnNames(), 'Unable to set column names correctly!');
 
 		$testColumnHeaders = array(
 			'test_column_1' => 'Test Column 1',
 			'test_column_2' => 'Test Column 2',
 		);
-		$this->assertTrue( $csvFile->setColumnHeaders($testColumnHeaders), 'Unable to set columns headers!' );
-		$this->assertEquals( $testColumnHeaders, $csvFile->getColumnHeaders(), 'Unable to set columns headers correctly!' );
+		$this->assertTrue($csvFile->setColumnHeaders($testColumnHeaders), 'Unable to set columns headers!');
+		$this->assertEquals($testColumnHeaders, $csvFile->getColumnHeaders(), 'Unable to set columns headers correctly!');
 	}
 
 	/**
@@ -140,7 +140,7 @@ EOD;
 		$csvFile->close();
 
 		$fullFileName = $csvFile->getFullFileName();
-		$this->assertTrue( file_exists($fullFileName), 'Unable to create a file!' );
+		$this->assertTrue(file_exists($fullFileName), 'Unable to create a file!');
 
 		$fileActualContent = file_get_contents($fullFileName);
 		foreach ($testRowData as $cellData) {
@@ -164,7 +164,7 @@ EOD;
 		$csvFile->delete();
 
 		$fullFileName = $csvFile->getFullFileName();
-		$this->assertFalse( file_exists($fullFileName), 'Unable to delete a file!' );
+		$this->assertFalse(file_exists($fullFileName), 'Unable to delete a file!');
 	}
 
 	/**
@@ -203,13 +203,13 @@ EOD;
 		);
 		$csvFile->writeRow($testRowData);
 
-		$this->assertFalse( $csvFile->isMaxEntriesLimitReached(), 'Max entries limit reached!' );
+		$this->assertFalse($csvFile->isMaxEntriesLimitReached(), 'Max entries limit reached!');
 
 		for ($i=2; $i<=$testMaxEntriesCount; $i++) {
 			$csvFile->writeRow($testRowData);
 		}
 
-		$this->assertTrue( $csvFile->isMaxEntriesLimitReached(), 'Max entries limit not reached!' );
+		$this->assertTrue($csvFile->isMaxEntriesLimitReached(), 'Max entries limit not reached!');
 
 		$csvFile->close();
 	}

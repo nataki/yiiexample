@@ -60,15 +60,15 @@ class ImagetranslationModuleTest extends CTestCase {
 		$testAccessRules = array(
 			array(
 				'allow',
-				'roles'=>array('admin')
+				'roles' => array('admin')
 			),
 		);
-		$this->assertTrue( $module->setAccessRules($testAccessRules), 'Unable to set access rules!' );
-		$this->assertEquals( $module->getAccessRules(), $testAccessRules, 'Unable to set access rules correctly!' );
+		$this->assertTrue($module->setAccessRules($testAccessRules), 'Unable to set access rules!');
+		$this->assertEquals($module->getAccessRules(), $testAccessRules, 'Unable to set access rules correctly!');
 
 		$testImageTranslationComponentName = 'testImageTranslationComponentName';
-		$this->assertTrue( $module->setImageTranslationSourceComponentName($testImageTranslationComponentName), 'Unable to set image translation source component name!' );
-		$this->assertEquals( $module->getImageTranslationSourceComponentName(), $testImageTranslationComponentName, 'Unable to set image translation source component name correctly!' );
+		$this->assertTrue($module->setImageTranslationSourceComponentName($testImageTranslationComponentName), 'Unable to set image translation source component name!');
+		$this->assertEquals($module->getImageTranslationSourceComponentName(), $testImageTranslationComponentName, 'Unable to set image translation source component name correctly!');
 	}
 
 	/**
@@ -78,6 +78,6 @@ class ImagetranslationModuleTest extends CTestCase {
 		$module = $this->createImageTranslationModule();
 
 		$imageTranslationSource = $module->getImageTranslationSource();
-		$this->assertTrue( is_object($imageTranslationSource), 'Unable to get translation source!' );
+		$this->assertTrue(is_object($imageTranslationSource), 'Unable to get translation source!');
 	}
 }

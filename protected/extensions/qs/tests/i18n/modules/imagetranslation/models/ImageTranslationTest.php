@@ -61,11 +61,11 @@ class ImageTranslationTest extends CTestCase {
 		}
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
-		Yii::app()->setModules( self::$_modulesBackup );
+		Yii::app()->setModules(self::$_modulesBackup);
 
 		if (is_object(self::$_imageTranslationSourceBackup)) {
 			Yii::app()->setComponent('imageTranslationSource', self::$_imageTranslationSourceBackup);
@@ -79,10 +79,8 @@ class ImageTranslationTest extends CTestCase {
 	}
 
 	public function setUp() {
-		Yii::app()->setModules( $this->createTestModulesConfig() );
-
+		Yii::app()->setModules($this->createTestModulesConfig());
 		Yii::app()->setComponent('imageTranslationSource', $this->createImageTranslationSource());
-
 		Yii::app()->setComponent('assetManager', $this->createTestAssetManager());
 	}
 
@@ -109,9 +107,9 @@ class ImageTranslationTest extends CTestCase {
 	protected function createTestModulesConfig() {
 		$modulesConfig = array(
 			'imagetranslation' => array(
-				'class'=>'ImagetranslationModule',
+				'class' => 'ImagetranslationModule',
 				'components' => array(
-					'languageManager'=>array(
+					'languageManager' => array(
 						'languageModelClassName' => self::getTestLanguageActiveRecordClassName()
 					),
 				)
@@ -159,7 +157,7 @@ class ImageTranslationTest extends CTestCase {
 
 	public function testCreate() {
 		$model = new ImageTranslation();
-		$this->assertTrue( is_object($model), 'Unable to create model instance!' );
+		$this->assertTrue(is_object($model), 'Unable to create model instance!');
 	}
 
 	/**
@@ -169,8 +167,8 @@ class ImageTranslationTest extends CTestCase {
 		$model = new ImageTranslation();
 
 		$testMissingImageUrl = 'http://test/missing/image.jpg';
-		$this->assertTrue( $model->setMissingImageUrl($testMissingImageUrl), 'Unable to set missing image URL!' );
-		$this->assertEquals( $model->getMissingImageUrl(), $testMissingImageUrl, 'Unable to set missing image URL correctly!' );
+		$this->assertTrue($model->setMissingImageUrl($testMissingImageUrl), 'Unable to set missing image URL!');
+		$this->assertEquals($model->getMissingImageUrl(), $testMissingImageUrl, 'Unable to set missing image URL correctly!');
 	}
 
 	/**
@@ -180,7 +178,7 @@ class ImageTranslationTest extends CTestCase {
 		$model = new ImageTranslation();
 
 		$defaultMissingImageUrl = $model->getMissingImageUrl();
-		$this->assertFalse( empty($defaultMissingImageUrl), 'Unable to get default missing image URL!' );
+		$this->assertFalse(empty($defaultMissingImageUrl), 'Unable to get default missing image URL!');
 	}
 
 	/**
@@ -188,7 +186,7 @@ class ImageTranslationTest extends CTestCase {
 	 */
 	public function testGetFinder() {
 		$modelFinder = ImageTranslation::model();
-		$this->assertTrue( is_object($modelFinder), 'Unable to get model finder instance!' );
+		$this->assertTrue(is_object($modelFinder), 'Unable to get model finder instance!');
 	}
 
 	/**
@@ -202,7 +200,7 @@ class ImageTranslationTest extends CTestCase {
 
 		$models = $modelFinder->findAll();
 
-		$this->assertFalse( empty($models), 'Unable to find all models!' );
+		$this->assertFalse(empty($models), 'Unable to find all models!');
 	}
 
 	/**
@@ -214,13 +212,13 @@ class ImageTranslationTest extends CTestCase {
 		$testDefaultBasePath = $this->getTestDefaultBasePath();
 		$modelFinder->setDefaultBasePath($testDefaultBasePath);
 
-		list( $expectedModel ) = $modelFinder->findAll();
+		list($expectedModel) = $modelFinder->findAll();
 
 		$testName = $expectedModel->name;
 
 		$model = $modelFinder->findByName($testName);
 
-		$this->assertTrue( is_object($model), 'Unable to find model by name!' );
+		$this->assertTrue(is_object($model), 'Unable to find model by name!');
 		$this->assertEquals($expectedModel, $model, 'Wrong model has been found by name!');
 	}
 
@@ -233,21 +231,21 @@ class ImageTranslationTest extends CTestCase {
 		$testDefaultBasePath = $this->getTestDefaultBasePath();
 		$modelFinder->setDefaultBasePath($testDefaultBasePath);
 
-		list( $testModel ) = $modelFinder->findAll();
+		list($testModel) = $modelFinder->findAll();
 
 		$filter = array(
 			'name' => $testModel->name
 		);
 		$models = $modelFinder->findAll($filter);
 
-		$this->assertTrue( count($models)==1, 'Filter returns wrong count of models!' );
+		$this->assertTrue(count($models)==1, 'Filter returns wrong count of models!');
 		list($model) = $models;
-		$this->assertEquals( $model->name, $testModel->name, 'Filter returns wrong model!' );
+		$this->assertEquals($model->name, $testModel->name, 'Filter returns wrong model!');
 
 		$filter = array(
 			'name' => $testModel->name.'_test_file_tail'
 		);
 		$models = $modelFinder->findAll($filter);
-		$this->assertTrue( empty($models), 'Filter does not exclude files!' );
+		$this->assertTrue(empty($models), 'Filter does not exclude files!');
 	}
 }

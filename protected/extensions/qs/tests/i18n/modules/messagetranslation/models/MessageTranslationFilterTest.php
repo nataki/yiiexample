@@ -44,18 +44,18 @@ class MessageTranslationFilterTest extends CTestCase {
 		}
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
-		Yii::app()->setModules( self::$_modulesBackup );
+		Yii::app()->setModules(self::$_modulesBackup);
 
 		$dbSetUp = new QsTestDbMigration();
 		$dbSetUp->dropTable(self::getTestLanguageTableName());
 	}
 
 	public function setUp() {
-		Yii::app()->setModules( $this->createTestModulesConfig() );
+		Yii::app()->setModules($this->createTestModulesConfig());
 	}
 
 	/**
@@ -81,9 +81,9 @@ class MessageTranslationFilterTest extends CTestCase {
 	protected function createTestModulesConfig() {
 		$modulesConfig = array(
 			'messagetranslation' => array(
-				'class'=>'MessagetranslationModule',
-				'components'=>array(
-					'languageManager'=>array(
+				'class' => 'MessagetranslationModule',
+				'components' => array(
+					'languageManager' => array(
 						'languageModelClassName' => self::getTestLanguageActiveRecordClassName()
 					)
 				),
@@ -101,15 +101,15 @@ class MessageTranslationFilterTest extends CTestCase {
 			'lang_1',
 			'lang_2',
 		);
-		$this->assertTrue( $filter->setLanguages($testLanguages), 'Unable to set languages!' );
-		$this->assertEquals( $filter->getLanguages(), $testLanguages, 'Unable to set languages correctly!' );
+		$this->assertTrue($filter->setLanguages($testLanguages), 'Unable to set languages!');
+		$this->assertEquals($filter->getLanguages(), $testLanguages, 'Unable to set languages correctly!');
 
 		$testContents = array(
 			'lang_1' => 'value_1',
 			'lang_2' => 'value_2',
 		);
-		$this->assertTrue( $filter->setContents($testContents), 'Unable to set contents!' );
-		$this->assertEquals( $filter->getContents(), $testContents, 'Unable to set contents correctly!' );
+		$this->assertTrue($filter->setContents($testContents), 'Unable to set contents!');
+		$this->assertEquals($filter->getContents(), $testContents, 'Unable to set contents correctly!');
 	}
 
 	/**
@@ -119,12 +119,12 @@ class MessageTranslationFilterTest extends CTestCase {
 		$filter = new MessageTranslationFilter();
 
 		$defaultLanguages = $filter->getLanguages();
-		$this->assertFalse( empty($defaultLanguages), 'Unable to get default languages!' );
+		$this->assertFalse(empty($defaultLanguages), 'Unable to get default languages!');
 
 		$languageManager = Yii::app()->getModule('messagetranslation')->getComponent('languageManager');
 		$lanuageModels = $languageManager->getLanguages();
 
-		$this->assertEquals( count($lanuageModels), count($defaultLanguages), 'Wrong default languages count!' );
+		$this->assertEquals(count($lanuageModels), count($defaultLanguages), 'Wrong default languages count!');
 	}
 
 	/**
@@ -140,11 +140,11 @@ class MessageTranslationFilterTest extends CTestCase {
 			$attributeName = 'content_'.$language->locale_code;
 			$attributeValue = $filter->$attributeName;
 
-			$this->assertTrue( empty($attributeValue), 'Not set attribute not empty!' );
+			$this->assertTrue(empty($attributeValue), 'Not set attribute not empty!');
 
 			$testAttributeValue = 'test_content_'.$language->locale_code.'_'.rand();
 			$filter->$attributeName = $testAttributeValue;
-			$this->assertEquals( $testAttributeValue, $filter->$attributeName, 'Unable to set attribute value!' );
+			$this->assertEquals($testAttributeValue, $filter->$attributeName, 'Unable to set attribute value!');
 		}
 	}
 
@@ -154,10 +154,10 @@ class MessageTranslationFilterTest extends CTestCase {
 	public function testIsEmpty() {
 		$filter = new MessageTranslationFilter();
 
-		$this->assertTrue( $filter->isEmpty(), 'Just created filter is not empty!' );
+		$this->assertTrue($filter->isEmpty(), 'Just created filter is not empty!');
 
 		$filter->name = 'test_name';
-		$this->assertFalse( $filter->isEmpty(), 'Filled up filter is empty!' );
+		$this->assertFalse($filter->isEmpty(), 'Filled up filter is empty!');
 	}
 
 	/**

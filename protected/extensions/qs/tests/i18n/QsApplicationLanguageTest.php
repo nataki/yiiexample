@@ -48,7 +48,7 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testTableName,
+				'tableName' => $testTableName,
 			)
 		);
 	}
@@ -131,41 +131,41 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		$applicationLanguage = new QsApplicationLanguage();
 
 		$testLanguageModelClassName = 'TestLanguageModelClassName';
-		$this->assertTrue( $applicationLanguage->setLanguageModelClassName($testLanguageModelClassName), 'Unable to set language model class name!' );
-		$this->assertEquals( $applicationLanguage->getLanguageModelClassName(), $testLanguageModelClassName, 'Unable to set language model class name correctly!' );
+		$this->assertTrue($applicationLanguage->setLanguageModelClassName($testLanguageModelClassName), 'Unable to set language model class name!');
+		$this->assertEquals($applicationLanguage->getLanguageModelClassName(), $testLanguageModelClassName, 'Unable to set language model class name correctly!');
 
 		$testLanguageModelSearchCriteria = array(
 			'condition' => 'test condition'
 		);
-		$this->assertTrue( $applicationLanguage->setLanguageModelSearchCriteria($testLanguageModelSearchCriteria), 'Unable to set language model search criteria!' );
-		$this->assertEquals( $applicationLanguage->getLanguageModelSearchCriteria(), $testLanguageModelSearchCriteria, 'Unable to set language model search criteria correctly!' );
+		$this->assertTrue($applicationLanguage->setLanguageModelSearchCriteria($testLanguageModelSearchCriteria), 'Unable to set language model search criteria!');
+		$this->assertEquals($applicationLanguage->getLanguageModelSearchCriteria(), $testLanguageModelSearchCriteria, 'Unable to set language model search criteria correctly!');
 
 		$testLanguages = $this->getTestActiveRecordFinder()->findAll();
-		$this->assertTrue( $applicationLanguage->setLanguages($testLanguages), 'Unable to set languages!' );
-		$this->assertEquals( $applicationLanguage->getLanguages(), $testLanguages, 'Unable to set languages correctly!' );
+		$this->assertTrue($applicationLanguage->setLanguages($testLanguages), 'Unable to set languages!');
+		$this->assertEquals($applicationLanguage->getLanguages(), $testLanguages, 'Unable to set languages correctly!');
 
 		$testCurrent = $this->getTestActiveRecordFinder()->find();
-		$this->assertTrue( $applicationLanguage->setCurrent($testCurrent), 'Unable to set current language!' );
-		$this->assertEquals( $applicationLanguage->getCurrent(), $testCurrent, 'Unable to set current language correctly!' );
+		$this->assertTrue($applicationLanguage->setCurrent($testCurrent), 'Unable to set current language!');
+		$this->assertEquals($applicationLanguage->getCurrent(), $testCurrent, 'Unable to set current language correctly!');
 
 		$testGetParamName = 'test_language_get_param_name';
-		$this->assertTrue( $applicationLanguage->setGetParamName($testGetParamName), 'Unable to set GET param name!' );
-		$this->assertEquals( $applicationLanguage->getGetParamName(), $testGetParamName, 'Unable to set GET param name correctly!' );
+		$this->assertTrue($applicationLanguage->setGetParamName($testGetParamName), 'Unable to set GET param name!');
+		$this->assertEquals($applicationLanguage->getGetParamName(), $testGetParamName, 'Unable to set GET param name correctly!');
 
 		$testCookieLifetime = rand(1, 1000);
-		$this->assertTrue( $applicationLanguage->setCookieLifetime($testCookieLifetime), 'Unable to set cookie lifetime!' );
-		$this->assertEquals( $applicationLanguage->getCookieLifetime(), $testCookieLifetime, 'Unable to set cookie lifetime correctly!' );
+		$this->assertTrue($applicationLanguage->setCookieLifetime($testCookieLifetime), 'Unable to set cookie lifetime!');
+		$this->assertEquals($applicationLanguage->getCookieLifetime(), $testCookieLifetime, 'Unable to set cookie lifetime correctly!');
 
 		$testCacheDuration = rand(1, 1000);
-		$this->assertTrue( $applicationLanguage->setCacheDuration($testCacheDuration), 'Unable to set cache duration!' );
-		$this->assertEquals( $applicationLanguage->getCacheDuration(), $testCacheDuration, 'Unable to set cache duration correctly!' );
+		$this->assertTrue($applicationLanguage->setCacheDuration($testCacheDuration), 'Unable to set cache duration!');
+		$this->assertEquals($applicationLanguage->getCacheDuration(), $testCacheDuration, 'Unable to set cache duration correctly!');
 
 		$testCountryLanguageCodes = array(
 			'test_country_1' => 'test_language_1',
 			'test_country_2' => 'test_language_2',
 		);
-		$this->assertTrue( $applicationLanguage->setCountryLanguageCodes($testCountryLanguageCodes), 'Unable to set country language codes!' );
-		$this->assertEquals( $applicationLanguage->getCountryLanguageCodes(), $testCountryLanguageCodes, 'Unable to set country language codes correctly!' );
+		$this->assertTrue($applicationLanguage->setCountryLanguageCodes($testCountryLanguageCodes), 'Unable to set country language codes!');
+		$this->assertEquals($applicationLanguage->getCountryLanguageCodes(), $testCountryLanguageCodes, 'Unable to set country language codes correctly!');
 	}
 
 	/**
@@ -175,14 +175,14 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		$applicationLanguage = $this->createApplicationLanguage();
 
 		$testCriteria = array(
-			'condition'=>"name LIKE '%1%'",
+			'condition' => "name LIKE '%1%'",
 		);
 		$dbLanguages = $this->getTestActiveRecordFinder()->findAll($testCriteria);
 
 		$applicationLanguage->setLanguageModelSearchCriteria($testCriteria);
 		$languages = $applicationLanguage->getLanguages();
 
-		$this->assertEquals( count($languages), count($dbLanguages), 'Count of returned languages missmatch the number of records in the database!' );
+		$this->assertEquals(count($languages), count($dbLanguages), 'Count of returned languages missmatch the number of records in the database!');
 	}
 
 	/**
@@ -197,8 +197,8 @@ class QsQsApplicationLanguageTest extends CTestCase {
 
 		$applicationLanguage->setCurrent($testCurrent);
 
-		$this->assertEquals( Yii::app()->language, $testCurrent->locale_code, 'Application language does not applied!' );
-		//$this->assertEquals( Yii::app()->sourceLanguage, $testCurrent->locale_code, 'Application source language does not applied!' );
+		$this->assertEquals(Yii::app()->language, $testCurrent->locale_code, 'Application language does not applied!');
+		//$this->assertEquals(Yii::app()->sourceLanguage, $testCurrent->locale_code, 'Application source language does not applied!');
 	}
 
 	/**
@@ -210,7 +210,7 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		$testGetParamName = 'test_get_param_name';
 		$applicationLanguage->setGetParamName($testGetParamName);
 
-		$testLanguage = $this->getTestActiveRecordFinder()->find( array('order'=>'RAND()') );
+		$testLanguage = $this->getTestActiveRecordFinder()->find(array('order'=>'RAND()'));
 
 		$_GET[$testGetParamName] = $testLanguage->code;
 
@@ -218,8 +218,8 @@ class QsQsApplicationLanguageTest extends CTestCase {
 
 		$determinedCurrentLanguage = $applicationLanguage->getCurrent();
 
-		$this->assertTrue( is_object($determinedCurrentLanguage), 'Unable to determine current language from GET!' );
-		$this->assertEquals( $determinedCurrentLanguage->id, $testLanguage->id, 'Unable to determine current language from GET correctly!' );
+		$this->assertTrue(is_object($determinedCurrentLanguage), 'Unable to determine current language from GET!');
+		$this->assertEquals($determinedCurrentLanguage->id, $testLanguage->id, 'Unable to determine current language from GET correctly!');
 	}
 
 	/**
@@ -228,7 +228,7 @@ class QsQsApplicationLanguageTest extends CTestCase {
 	public function testDetermineCurrentLanguageFromCookie() {
 		$applicationLanguage = $this->createApplicationLanguage();
 
-		$testLanguage = $this->getTestActiveRecordFinder()->find( array('order'=>'RAND()') );
+		$testLanguage = $this->getTestActiveRecordFinder()->find(array('order'=>'RAND()'));
 
 		$_COOKIE[$applicationLanguage->getCookieName()] = $testLanguage->code;
 
@@ -238,12 +238,12 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$exceptionCaught = true;
 		}
-		$this->assertTrue( $exceptionCaught, 'No redirect, while URL do not contain language!' );
+		$this->assertTrue($exceptionCaught, 'No redirect, while URL do not contain language!');
 
 		$determinedCurrentLanguage = $applicationLanguage->getCurrent();
 
-		$this->assertTrue( is_object($determinedCurrentLanguage), 'Unable to determine current language from COOKIE!' );
-		$this->assertEquals( $determinedCurrentLanguage->id, $testLanguage->id, 'Unable to determine current language from COOKIE correctly!' );
+		$this->assertTrue(is_object($determinedCurrentLanguage), 'Unable to determine current language from COOKIE!');
+		$this->assertEquals($determinedCurrentLanguage->id, $testLanguage->id, 'Unable to determine current language from COOKIE correctly!');
 	}
 
 	/**
@@ -252,13 +252,13 @@ class QsQsApplicationLanguageTest extends CTestCase {
 	public function testDetermineCurrentLanguageByIp() {
 		$applicationLanguage = $this->createApplicationLanguage();
 
-		$testLanguage = $this->getTestActiveRecordFinder()->find( array('order'=>'RAND()') );
+		$testLanguage = $this->getTestActiveRecordFinder()->find(array('order'=>'RAND()'));
 
 		$testClientIp = '209.85.173.147';
 		$_SERVER['REMOTE_ADDR'] = $testClientIp;
 
 		$testCountryLanguageCodes = array(
-			'US'=>$testLanguage->code
+			'US' => $testLanguage->code
 		);
 		$applicationLanguage->setCountryLanguageCodes($testCountryLanguageCodes);
 
@@ -269,12 +269,12 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$exceptionCaught = true;
 		}
-		$this->assertTrue( $exceptionCaught, 'No redirect, while URL do not contain language!' );
+		$this->assertTrue($exceptionCaught, 'No redirect, while URL do not contain language!');
 
 		$determinedCurrentLanguage = $applicationLanguage->getCurrent();
 
-		$this->assertTrue( is_object($determinedCurrentLanguage), 'Unable to determine current language by IP!' );
-		$this->assertEquals( $determinedCurrentLanguage->id, $testLanguage->id, 'Unable to determine current language by IP correctly!' );
+		$this->assertTrue(is_object($determinedCurrentLanguage), 'Unable to determine current language by IP!');
+		$this->assertEquals($determinedCurrentLanguage->id, $testLanguage->id, 'Unable to determine current language by IP correctly!');
 	}
 
 	/**
@@ -286,7 +286,7 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		$_COOKIE = array();
 		$_GET = array();
 
-		$testLanguage = $this->getTestActiveRecordFinder()->find( array('order'=>'RAND()') );
+		$testLanguage = $this->getTestActiveRecordFinder()->find(array('order'=>'RAND()'));
 
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = "{$testLanguage->code}-{$testLanguage->code},{$testLanguage->code};q=0.8,en-us;q=0.5,en;q=0.3";
 
@@ -296,12 +296,12 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$exceptionCaught = true;
 		}
-		$this->assertTrue( $exceptionCaught, 'No redirect, while URL do not contain language!' );
+		$this->assertTrue($exceptionCaught, 'No redirect, while URL do not contain language!');
 
 		$determinedCurrentLanguage = $applicationLanguage->getCurrent();
 
-		$this->assertTrue( is_object($determinedCurrentLanguage), 'Unable to determine current language from predefined language!' );
-		$this->assertEquals( $determinedCurrentLanguage->id, $testLanguage->id, 'Unable to determine current language from predefined language correctly!' );
+		$this->assertTrue(is_object($determinedCurrentLanguage), 'Unable to determine current language from predefined language!');
+		$this->assertEquals($determinedCurrentLanguage->id, $testLanguage->id, 'Unable to determine current language from predefined language correctly!');
 	}
 
 	/**
@@ -313,7 +313,7 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		$_COOKIE = array();
 		$_GET = array();
 
-		$testLanguage = $this->getTestActiveRecordFinder()->find( array('order'=>'RAND()') );
+		$testLanguage = $this->getTestActiveRecordFinder()->find(array('order'=>'RAND()'));
 		Yii::app()->params['site_default_language_id'] = $testLanguage->id;
 
 		$exceptionCaught = false;
@@ -322,12 +322,12 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		} catch (QsTestExceptionRedirect $exception) {
 			$exceptionCaught = true;
 		}
-		$this->assertTrue( $exceptionCaught, 'No redirect, while URL do not contain language!' );
+		$this->assertTrue($exceptionCaught, 'No redirect, while URL do not contain language!');
 
 		$determinedCurrentLanguage = $applicationLanguage->getCurrent();
 
-		$this->assertTrue( is_object($determinedCurrentLanguage), 'Unable to determine current language as default language!' );
-		$this->assertEquals( $testLanguage->id, $determinedCurrentLanguage->id, 'Unable to determine current language as default language correctly!' );
+		$this->assertTrue(is_object($determinedCurrentLanguage), 'Unable to determine current language as default language!');
+		$this->assertEquals($testLanguage->id, $determinedCurrentLanguage->id, 'Unable to determine current language as default language correctly!');
 	}
 
 	/**
@@ -336,7 +336,7 @@ class QsQsApplicationLanguageTest extends CTestCase {
 	public function testCreateSwitchUrl() {
 		$applicationLanguage = $this->createApplicationLanguage();
 
-		$languages = $this->getTestActiveRecordFinder()->findAll( array('order'=>'RAND()') );
+		$languages = $this->getTestActiveRecordFinder()->findAll(array('order'=>'RAND()'));
 		list($currentlanguage, $newLanguage) = $languages;
 		if (empty($newLanguage)) {
 			$newLanguage = $currentlanguage;
@@ -369,13 +369,13 @@ class QsQsApplicationLanguageTest extends CTestCase {
 		$defaultLanguage = $applicationLanguage->getDefault();
 
 		$criteria = array(
-			'condition'=>'id <> :defaultLanguageId',
-			'params'=>array(
-				'defaultLanguageId'=>$defaultLanguage->getPrimaryKey()
+			'condition' => 'id <> :defaultLanguageId',
+			'params' => array(
+				'defaultLanguageId' => $defaultLanguage->getPrimaryKey()
 			),
-			'order'=>'RAND()'
+			'order' => 'RAND()'
 		);
-		$testLanguage = $this->getTestActiveRecordFinder()->find( $criteria );
+		$testLanguage = $this->getTestActiveRecordFinder()->find($criteria);
 
 		$_GET[$testGetParamName] = $testLanguage->code;
 
@@ -383,7 +383,7 @@ class QsQsApplicationLanguageTest extends CTestCase {
 
 		$determinedCurrentLanguage = $applicationLanguage->getCurrent();
 
-		$this->assertTrue( is_object($determinedCurrentLanguage), 'Unable to determine current language in passive mode!' );
-		$this->assertEquals( $determinedCurrentLanguage->id, $defaultLanguage->id, 'Determined current language does not equals to default one!' );
+		$this->assertTrue(is_object($determinedCurrentLanguage), 'Unable to determine current language in passive mode!');
+		$this->assertEquals($determinedCurrentLanguage->id, $defaultLanguage->id, 'Determined current language does not equals to default one!');
 	}
 }

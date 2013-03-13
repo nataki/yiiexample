@@ -19,7 +19,7 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 		$dbSetUp->createTable($testTableName, $columns);
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
@@ -53,7 +53,7 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 	 * @return CActiveRecord test model finder.
 	 */
 	protected function getTestModelFinder() {
-		return CActiveRecord::model( self::getTestActiveRecordClassName() );
+		return CActiveRecord::model(self::getTestActiveRecordClassName());
 	}
 
 	/**
@@ -64,9 +64,9 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 		$testWebUserConfig = array(
 			'class' => 'QsWebUser',
 			'behaviors' => array(
-				'modelBehavior'=>array(
-					'class'=>'QsWebUserBehaviorModelActiveRecord',
-					'modelClassName'=>self::getTestActiveRecordClassName(),
+				'modelBehavior' => array(
+					'class' => 'QsWebUserBehaviorModelActiveRecord',
+					'modelClassName' => self::getTestActiveRecordClassName(),
 				),
 			),
 		);
@@ -81,19 +81,19 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 		$behavior = new QsWebUserBehaviorModelActiveRecord();
 
 		$testModelClassName = 'TestModelClassName';
-		$this->assertTrue( $behavior->setModelClassName($testModelClassName), 'Unable to set model class name!' );
-		$this->assertEquals( $testModelClassName, $behavior->getModelClassName(), 'Unable to set model class name correctly!' );
+		$this->assertTrue($behavior->setModelClassName($testModelClassName), 'Unable to set model class name!');
+		$this->assertEquals($testModelClassName, $behavior->getModelClassName(), 'Unable to set model class name correctly!');
 
 		$testModelFindCondition = array(
-			'condition'=>'test_field = test_value',
+			'condition' => 'test_field = test_value',
 		);
-		$this->assertTrue( $behavior->setModelFindCondition($testModelFindCondition), 'Unable to set model find condition!' );
-		$this->assertEquals( $testModelFindCondition, $behavior->getModelFindCondition(), 'Unable to set model find condition correctly!' );
+		$this->assertTrue($behavior->setModelFindCondition($testModelFindCondition), 'Unable to set model find condition!');
+		$this->assertEquals($testModelFindCondition, $behavior->getModelFindCondition(), 'Unable to set model find condition correctly!');
 
 		$testModelClassName = self::getTestActiveRecordClassName();
 		$testModel = new $testModelClassName();
-		$this->assertTrue( $behavior->setModel($testModel), 'Unable to set model!' );
-		$this->assertEquals( $testModel, $behavior->getModel(), 'Unable to set model correctly!' );
+		$this->assertTrue($behavior->setModel($testModel), 'Unable to set model!');
+		$this->assertEquals($testModel, $behavior->getModel(), 'Unable to set model correctly!');
 	}
 
 	/**
@@ -111,9 +111,9 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 		$testWebUser->setId($testRecord->getPrimaryKey());
 
 		$defaultModel = $testWebUser->getModel();
-		$this->assertTrue( is_object($defaultModel), 'Unable to get default model!' );
-		$this->assertEquals( $testRecord->id, $defaultModel->id, 'Default model id is incorrect!' );
-		$this->assertEquals( $testRecord->name, $defaultModel->name, 'Default model name is incorrect!' );
+		$this->assertTrue(is_object($defaultModel), 'Unable to get default model!');
+		$this->assertEquals($testRecord->id, $defaultModel->id, 'Default model id is incorrect!');
+		$this->assertEquals($testRecord->name, $defaultModel->name, 'Default model name is incorrect!');
 	}
 
 	/**
@@ -122,7 +122,7 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 	public function testGetDefaultModelGuest() {
 		$testWebUser = $this->createTestWebUser();
 		$model = $testWebUser->getModel();
-		$this->assertFalse( is_object($model), 'Model for guest exists!' );
+		$this->assertFalse(is_object($model), 'Model for guest exists!');
 	}
 
 	/**
@@ -141,13 +141,13 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 		$testWebUser->setId($testRecord->getPrimaryKey());
 		$testModelFindCondition = array(
 			'condition' => 'group_id = :group_id',
-			'params'=>array(
-				'group_id'=>$testUserGroupId
+			'params' => array(
+				'group_id' => $testUserGroupId
 			),
 		);
 		$testWebUser->setModelFindCondition($testModelFindCondition);
 		$webUserModel = $testWebUser->getModel();
-		$this->assertTrue( is_object($webUserModel), 'Unable to find model with find condition!' );
+		$this->assertTrue(is_object($webUserModel), 'Unable to find model with find condition!');
 	}
 
 	/**
@@ -166,13 +166,13 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 		$testWebUser->setId($testRecord->getPrimaryKey());
 		$testModelFindCondition = array(
 			'condition' => 'group_id = :group_id',
-			'params'=>array(
-				'group_id'=>$testUserGroupId+rand(1,100)
+			'params' => array(
+				'group_id' => $testUserGroupId+rand(1,100)
 			),
 		);
 		$testWebUser->setModelFindCondition($testModelFindCondition);
 		$webUserModel = $testWebUser->getModel();
-		$this->assertFalse( is_object($webUserModel), 'Model has been found ignoring find condition!' );
+		$this->assertFalse(is_object($webUserModel), 'Model has been found ignoring find condition!');
 	}
 
 	/**
@@ -189,8 +189,8 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 
 		$testWebUser->setId($testRecord->getPrimaryKey());
 
-		$this->assertTrue( $testWebUser->refreshStatesFromModel(), 'Unable to refresh states from model!' );
-		$this->assertEquals( $testRecord->name, $testWebUser->getState('name'), 'Unable to refresh state value!' );
+		$this->assertTrue($testWebUser->refreshStatesFromModel(), 'Unable to refresh states from model!');
+		$this->assertEquals($testRecord->name, $testWebUser->getState('name'), 'Unable to refresh state value!');
 	}
 
 	/**
@@ -207,8 +207,8 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 
 		$testWebUser->setId($testRecord->getPrimaryKey());
 
-		$this->assertTrue( $testWebUser->ensureModel(), 'Unable to ensure existed model!' );
-		$this->assertEquals( $testRecord->name, $testWebUser->getState('name'), 'Unable to refresh states, while ensure model!' );
+		$this->assertTrue($testWebUser->ensureModel(), 'Unable to ensure existed model!');
+		$this->assertEquals($testRecord->name, $testWebUser->getState('name'), 'Unable to refresh states, while ensure model!');
 	}
 
 	/**
@@ -219,10 +219,10 @@ class QsWebUserBehaviorModelActiveRecordTest extends CTestCase {
 
 		$testUserId = 'test_user_id';
 		$testWebUser->setId($testUserId);
-		$this->assertFalse( $testWebUser->getIsGuest(), 'User not considered as logged in!' );
+		$this->assertFalse($testWebUser->getIsGuest(), 'User not considered as logged in!');
 
-		@$this->assertFalse( $testWebUser->ensureModel(), 'Not existed model has been ensured!' );
+		@$this->assertFalse($testWebUser->ensureModel(), 'Not existed model has been ensured!');
 
-		$this->assertTrue( $testWebUser->getIsGuest(), 'User has not been logged out!' );
+		$this->assertTrue($testWebUser->getIsGuest(), 'User has not been logged out!');
 	}
 }

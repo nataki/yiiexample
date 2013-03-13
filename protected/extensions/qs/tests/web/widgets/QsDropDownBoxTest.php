@@ -26,7 +26,7 @@ class QsDropDownBoxTest extends CTestCase {
 	public function setUp() {
 		$assetsFilePath = self::getTestAssetFilePath();
 		if (!file_exists($assetsFilePath)) {
-			mkdir($assetsFilePath,0777,true);
+			mkdir($assetsFilePath, 0777, true);
 		}
 		Yii::app()->getComponent('assetManager')->setBasePath($assetsFilePath);
 	}
@@ -71,7 +71,7 @@ class QsDropDownBoxTest extends CTestCase {
 	protected function createTestController() {
 		$controller = new CController('test');
 
-		$action = $this->getMock('CAction', array('run'), array($controller,'test'));
+		$action = $this->getMock('CAction', array('run'), array($controller, 'test'));
 		$controller->action = $action;
 
 		Yii::app()->controller = $controller;
@@ -84,8 +84,8 @@ class QsDropDownBoxTest extends CTestCase {
 		$widget = new QsDropDownBox();
 
 		$testContainerId = 'test_container_id';
-		$this->assertTrue( $widget->setContainerId($testContainerId), 'Unable to set container id!' );
-		$this->assertEquals( $testContainerId, $widget->getContainerId(), 'Unable to set container id correctly!' );
+		$this->assertTrue($widget->setContainerId($testContainerId), 'Unable to set container id!');
+		$this->assertEquals($testContainerId, $widget->getContainerId(), 'Unable to set container id correctly!');
 	}
 
 	/**
@@ -117,7 +117,7 @@ class QsDropDownBoxTest extends CTestCase {
 		);
 
 		$this->expectOutputRegex("/{$testLabel}(.*){$testContent}/i");
-		$controller->widget('QsDropDownBox',$widgetOptions);
+		$controller->widget('QsDropDownBox', $widgetOptions);
 	}
 
 	/**
@@ -131,8 +131,8 @@ class QsDropDownBoxTest extends CTestCase {
 		$expectOutputRegexParts = array();
 		for ($i=1; $i<=3; $i++) {
 			$testItem = array(
-				'label'=>'item_label_'.$i,
-				'url'=>'http://item.url/'.$i,
+				'label' => 'item_label_'.$i,
+				'url' => 'http://item.url/'.$i,
 			);
 			$testItems[] = $testItem;
 
@@ -144,7 +144,7 @@ class QsDropDownBoxTest extends CTestCase {
 			'items' => $testItems,
 		);
 
-		$this->expectOutputRegex('%'.implode('(.*)',$expectOutputRegexParts).'%is');
-		$controller->widget('QsDropDownBox',$widgetOptions);
+		$this->expectOutputRegex('%'.implode('(.*)', $expectOutputRegexParts).'%is');
+		$controller->widget('QsDropDownBox', $widgetOptions);
 	}
 }

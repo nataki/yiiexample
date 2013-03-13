@@ -12,7 +12,7 @@ class QsCsvExporterTest extends CTestCase {
 	public function setUp() {
 		$testFilePath = $this->getTestFilePath();
 		if (!file_exists($testFilePath)) {
-			mkdir($testFilePath,0777,true);
+			mkdir($testFilePath, 0777, true);
 		}
 	}
 
@@ -69,8 +69,8 @@ class QsCsvExporterTest extends CTestCase {
 			'testParam1' => 'testValue1',
 			'testParam2' => 'testValue2',
 		);
-		$this->assertTrue( $csvExporter->setCsvFileConfig($testCsvFileConfig), 'Unable to set CSV file config!' );
-		$this->assertEquals( $testCsvFileConfig, $csvExporter->getCsvFileConfig(), 'Unable to set CSV file config correctly!' );
+		$this->assertTrue($csvExporter->setCsvFileConfig($testCsvFileConfig), 'Unable to set CSV file config!');
+		$this->assertEquals($testCsvFileConfig, $csvExporter->getCsvFileConfig(), 'Unable to set CSV file config correctly!');
 	}
 
 	/**
@@ -91,10 +91,10 @@ class QsCsvExporterTest extends CTestCase {
 		);
 		$dataProvider = new CArrayDataProvider($testRawData);
 
-		$this->assertTrue( $csvExporter->exportDataProvider($dataProvider), 'Unable to export data provider!' );
+		$this->assertTrue($csvExporter->exportDataProvider($dataProvider), 'Unable to export data provider!');
 
 		$exportFiles = $csvExporter->getExportFiles();
-		$this->assertTrue( count($exportFiles)>0, 'No export file has been created!' );
+		$this->assertTrue(count($exportFiles)>0, 'No export file has been created!');
 	}
 
 	/**
@@ -117,10 +117,10 @@ class QsCsvExporterTest extends CTestCase {
 		}
 		$dataProvider = new CArrayDataProvider($testRawData);
 
-		$this->assertTrue( $csvExporter->exportDataProvider($dataProvider), 'Unable to export data provider!' );
+		$this->assertTrue($csvExporter->exportDataProvider($dataProvider), 'Unable to export data provider!');
 
 		$exportFiles = $csvExporter->getExportFiles();
-		$this->assertTrue( count($exportFiles)>1, 'Unable to split export files!' );
+		$this->assertTrue(count($exportFiles)>1, 'Unable to split export files!');
 	}
 
 	/**
@@ -149,9 +149,9 @@ class QsCsvExporterTest extends CTestCase {
 		$csvExporter->exportDataProvider($dataProvider);
 		
 		$testArchiveFileName = self::getTestFilePath().DIRECTORY_SEPARATOR.'manual_archive_'.getmypid().'.tbz';
-		$this->assertTrue( $csvExporter->archiveExportFiles($testArchiveFileName), 'Unable to archive export files!' );
+		$this->assertTrue($csvExporter->archiveExportFiles($testArchiveFileName), 'Unable to archive export files!');
 
-		$this->assertTrue( file_exists($testArchiveFileName), 'No archive file has been created!' );
+		$this->assertTrue(file_exists($testArchiveFileName), 'No archive file has been created!');
 	}
 
 	/**
@@ -177,9 +177,9 @@ class QsCsvExporterTest extends CTestCase {
 		$csvExporter->exportDataProvider($dataProvider);
 
 		$testArchiveFileName = self::getTestFilePath().DIRECTORY_SEPARATOR.'archive_'.getmypid().'.tar';
-		$this->assertTrue( $csvExporter->archiveExportFiles($testArchiveFileName), 'Unable to archive export files!' );
+		$this->assertTrue($csvExporter->archiveExportFiles($testArchiveFileName), 'Unable to archive export files!');
 
-		$this->assertTrue( file_exists($testArchiveFileName), 'No archive file has been created!' );
+		$this->assertTrue(file_exists($testArchiveFileName), 'No archive file has been created!');
 	}
 
 	/**
@@ -203,10 +203,10 @@ class QsCsvExporterTest extends CTestCase {
 
 		$exportFiles = $csvExporter->getExportFiles();
 
-		$this->assertTrue( $csvExporter->deleteExportFiles(), 'Unable to delete export files!' );
+		$this->assertTrue($csvExporter->deleteExportFiles(), 'Unable to delete export files!');
 		foreach ($exportFiles as $exportFile) {
-			$this->assertFalse( file_exists($exportFile), 'Unable to actually delete export file!' );
+			$this->assertFalse(file_exists($exportFile), 'Unable to actually delete export file!');
 		}
-		$this->assertEmpty( $csvExporter->getExportFiles(), 'Export files list is not empty!' );
+		$this->assertEmpty($csvExporter->getExportFiles(), 'Export files list is not empty!');
 	}
 }

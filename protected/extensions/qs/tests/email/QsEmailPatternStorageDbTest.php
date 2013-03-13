@@ -53,7 +53,7 @@ class QsEmailPatternStorageDbTest extends CTestCase {
 
 	public function testCreate() {
 		$emailPatternStorage = new QsEmailPatternStorageDb();
-		$this->assertTrue( is_object($emailPatternStorage) );
+		$this->assertTrue(is_object($emailPatternStorage));
 	}
 
 	/**
@@ -65,18 +65,18 @@ class QsEmailPatternStorageDbTest extends CTestCase {
 		$testCachedPatterns = array(
 			'test_name' => new QsEmailPattern()
 		);
-		$this->assertTrue( $emailPatternStorage->setCachedPatterns($testCachedPatterns), 'Unable to set CachedPatterns!' );
-		$this->assertEquals( $emailPatternStorage->getCachedPatterns(), $testCachedPatterns, 'Unable to set CachedPatterns correctly!' );
+		$this->assertTrue($emailPatternStorage->setCachedPatterns($testCachedPatterns), 'Unable to set CachedPatterns!');
+		$this->assertEquals($emailPatternStorage->getCachedPatterns(), $testCachedPatterns, 'Unable to set CachedPatterns correctly!');
 
-		$this->assertTrue( $emailPatternStorage->clearCachedPatterns(), 'Unable to clear CachedPatterns!' );
+		$this->assertTrue($emailPatternStorage->clearCachedPatterns(), 'Unable to clear CachedPatterns!');
 		$returnedCachedPatterns = $emailPatternStorage->getCachedPatterns();
-		$this->assertTrue( empty($returnedCachedPatterns), 'Unable to clear CachedPatterns correctly!' );
+		$this->assertTrue(empty($returnedCachedPatterns), 'Unable to clear CachedPatterns correctly!');
 
 		$testPatternId = 'test_pattern_id';
 		$testPatternInstance = new QsEmailPattern();
 		$testPatternInstance->setId($testPatternId);
-		$this->assertTrue( $emailPatternStorage->addCachedPattern($testPatternInstance), 'Unable to add CachedPattern!' );
-		$this->assertEquals( $emailPatternStorage->getCachedPattern($testPatternId), $testPatternInstance, 'Unable to add CachedPattern correctly!' );
+		$this->assertTrue($emailPatternStorage->addCachedPattern($testPatternInstance), 'Unable to add CachedPattern!');
+		$this->assertEquals($emailPatternStorage->getCachedPattern($testPatternId), $testPatternInstance, 'Unable to add CachedPattern correctly!');
 	}
 
 	/**
@@ -122,8 +122,8 @@ class QsEmailPatternStorageDbTest extends CTestCase {
 		$emailPatternStorage = new QsEmailPatternStorageDb();
 
 		$testModelClassName = 'testModelClassName';
-		$this->assertTrue( $emailPatternStorage->setModelClassName($testModelClassName), 'Ubable to set ModelClassName!' );
-		$this->assertEquals( $emailPatternStorage->getModelClassName(), $testModelClassName, 'Ubable to set ModelClassName correctly!' );
+		$this->assertTrue($emailPatternStorage->setModelClassName($testModelClassName), 'Unable to set ModelClassName!');
+		$this->assertEquals($emailPatternStorage->getModelClassName(), $testModelClassName, 'Unable to set ModelClassName correctly!');
 	}
 
 }

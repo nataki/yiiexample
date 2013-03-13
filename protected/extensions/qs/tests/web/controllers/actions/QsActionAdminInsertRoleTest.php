@@ -34,8 +34,8 @@ class QsActionAdminInsertRoleTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testSlaveTableName,
-				'rules'=>array(
+				'tableName' => $testSlaveTableName,
+				'rules' => array(
 					array('slave_name', 'required'),
 				),
 			)
@@ -51,15 +51,15 @@ class QsActionAdminInsertRoleTest extends CTestCase {
 
 		$activeRecordGenerator->generate(
 			array(
-				'tableName'=>$testMasterTableName,
-				'rules'=>array(
+				'tableName' => $testMasterTableName,
+				'rules' => array(
 					array('master_name', 'required'),
 				),
-				'behaviors'=>array(
+				'behaviors' => array(
 					'roleBehavior' => array(
-						'class'=>'ext.qs.lib.db.ar.QsActiveRecordBehaviorRole',
-						'relationName'=>'slave',
-						'relationConfig'=>array(
+						'class' => 'ext.qs.lib.db.ar.QsActiveRecordBehaviorRole',
+						'relationName' => 'slave',
+						'relationConfig' => array(
 							$testSlaveTableName, 'master_id'
 						),
 					),
@@ -132,7 +132,7 @@ class QsActionAdminInsertRoleTest extends CTestCase {
 	public function testCreate() {
 		$controller = new CController('test');
 		$action = new QsActionAdminInsertRole($controller, 'test');
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminInsertRole" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminInsertRole" instance!');
 	}
 
 	/**
@@ -149,7 +149,7 @@ class QsActionAdminInsertRoleTest extends CTestCase {
 			$viewRendered = true;
 		}
 
-		$this->assertTrue( $viewRendered, 'View is not rendered!' );
+		$this->assertTrue($viewRendered, 'View is not rendered!');
 	}
 
 	/**
@@ -183,9 +183,9 @@ class QsActionAdminInsertRoleTest extends CTestCase {
 		$this->assertTrue( $pageRedirected, 'Page has not been redirected!' );
 
 		$insertedModel = CActiveRecord::model(self::getTestMasterActiveRecordClassName())->findByAttributes(array('master_name'=>$testMasterRecordName));
-		$this->assertTrue( is_object($insertedModel), 'Can not find inserted record!' );
+		$this->assertTrue(is_object($insertedModel), 'Can not find inserted record!');
 
-		$this->assertEquals( $insertedModel->slave->slave_name, $testSlaveRecordName, 'Slave record has wrong data!' );
+		$this->assertEquals($insertedModel->slave->slave_name, $testSlaveRecordName, 'Slave record has wrong data!');
 	}
 
 	/**
@@ -205,6 +205,6 @@ class QsActionAdminInsertRoleTest extends CTestCase {
 		} catch (QsTestExceptionRender $exception) {
 			$pageRendered = true;
 		}
-		$this->assertTrue( $pageRendered, 'Page has not been rendered after request with empty post!' );
+		$this->assertTrue($pageRendered, 'Page has not been rendered after request with empty post!');
 	}
 }

@@ -53,7 +53,7 @@ class QsActionAdminInternalDbTransactionTest extends CTestCase {
 		$methodsList = array(
 			'run'
 		);
-		return $this->getMock('QsActionAdminInternalDbTransaction',$methodsList, array($controller, 'test'));
+		return $this->getMock('QsActionAdminInternalDbTransaction', $methodsList, array($controller, 'test'));
 	}
 
 	/**
@@ -66,7 +66,7 @@ class QsActionAdminInternalDbTransactionTest extends CTestCase {
 		$dbCommandBuilder = $dbConnection->commandBuilder;
 		$criteria = new CDbCriteria();
 		$criteria->addColumnCondition($columns);
-		$dbCommand = $dbCommandBuilder->createFindCommand(self::getTestTableName(),$criteria);
+		$dbCommand = $dbCommandBuilder->createFindCommand(self::getTestTableName(), $criteria);
 		$record = $dbCommand->queryRow();
 		return $record;
 	}
@@ -78,7 +78,7 @@ class QsActionAdminInternalDbTransactionTest extends CTestCase {
 	 */
 	protected function assertTestTableRecordExists(array $columns, $message='') {
 		$record = $this->findTestTableRecord($columns);
-		$this->assertFalse( empty($record), $message );
+		$this->assertFalse(empty($record), $message);
 	}
 
 	/**
@@ -88,14 +88,14 @@ class QsActionAdminInternalDbTransactionTest extends CTestCase {
 	 */
 	protected function assertTestTableRecordNotExists(array $columns, $message='') {
 		$record = $this->findTestTableRecord($columns);
-		$this->assertTrue( empty($record), $message );
+		$this->assertTrue(empty($record), $message);
 	}
 
 	// Tests:
 
 	public function testCreate() {
 		$action = $this->createTestAction();
-		$this->assertTrue( is_object($action), 'Unable to create "QsActionAdminInternalDbTransaction" instance!' );
+		$this->assertTrue(is_object($action), 'Unable to create "QsActionAdminInternalDbTransaction" instance!');
 	}
 
 	/**
@@ -131,9 +131,9 @@ class QsActionAdminInternalDbTransactionTest extends CTestCase {
 		$action->commitInternalDbTransaction();
 
 		$currentDbTransaction = Yii::app()->db->getCurrentTransaction();
-		$this->assertTrue( empty($currentDbTransaction), 'Active db transaction is present after the internal transaction commit!' );
+		$this->assertTrue(empty($currentDbTransaction), 'Active db transaction is present after the internal transaction commit!');
 
-		$this->assertTestTableRecordExists( array('name'=>$testRecordName), 'Data has not been inserted!' );
+		$this->assertTestTableRecordExists(array('name' => $testRecordName), 'Data has not been inserted!');
 	}
 
 	/**
@@ -155,9 +155,9 @@ class QsActionAdminInternalDbTransactionTest extends CTestCase {
 		$action->rollbackInternalDbTransaction();
 
 		$currentDbTransaction = Yii::app()->db->getCurrentTransaction();
-		$this->assertTrue( empty($currentDbTransaction), 'Active db transaction is present after the internal transaction commit!' );
+		$this->assertTrue(empty($currentDbTransaction), 'Active db transaction is present after the internal transaction commit!');
 
-		$this->assertTestTableRecordNotExists( array('name'=>$testRecordName), 'Data has been inserted!' );
+		$this->assertTestTableRecordNotExists(array('name'=>$testRecordName), 'Data has been inserted!');
 	}
 
 	/**

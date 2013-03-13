@@ -38,7 +38,7 @@ class QsUrlRuleModelPageTest extends CTestCase {
 		$dbSetUp->createTable($testTableName, $columns);
 
 		$activeRecordGenerator = new QsTestActiveRecordGenerator();
-		$activeRecordGenerator->generate(array('tableName'=>$testTableName));
+		$activeRecordGenerator->generate(array('tableName' => $testTableName));
 	}
 
 	public static function tearDownAfterClass() {
@@ -92,15 +92,15 @@ class QsUrlRuleModelPageTest extends CTestCase {
 	 */
 	protected function createTestUrlManager(array $urlRuleConfig=array()) {
 		$urlManagerConfig = array(
-			'class'=>'CUrlManager',
-			'urlFormat'=>'path',
-			'showScriptName'=>false,
-			'rules'=>array(
+			'class' => 'CUrlManager',
+			'urlFormat' => 'path',
+			'showScriptName' => false,
+			'rules' => array(
 				$this->adjustTestUrlRuleConfig($urlRuleConfig),
-				'/'=>'site/index',
-				'<controller:\w+>/<id:\d+>*'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>*'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>*'=>'<controller>/<action>',
+				'/' => 'site/index',
+				'<controller:\w+>/<id:\d+>*' => '<controller>/view',
+				'<controller:\w+>/<action:\w+>/<id:\d+>*' => '<controller>/<action>',
+				'<controller:\w+>/<action:\w+>*' => '<controller>/<action>',
 			)
 		);
 		$urlManager = Yii::createComponent($urlManagerConfig);
@@ -131,7 +131,7 @@ class QsUrlRuleModelPageTest extends CTestCase {
 	protected function createHttpRequestForUri($requestUri) {
 		$originalServerRequestUri = Yii::app()->getRequest()->getRequestUri();
 		$_SERVER['REQUEST_URI'] = $originalServerRequestUri.$requestUri;
-		$httpRequest = Yii::createComponent( array('class'=>'QsTestHttpRequest') );
+		$httpRequest = Yii::createComponent(array('class'=>'QsTestHttpRequest'));
 		$httpRequest->init();
 		$httpRequest->getRequestUri();
 		$_SERVER['REQUEST_URI'] = $originalServerRequestUri;
@@ -142,7 +142,7 @@ class QsUrlRuleModelPageTest extends CTestCase {
 
 	public function testCreate() {
 		$urlRule = new QsUrlRuleModelPage();
-		$this->assertTrue( is_object($urlRule), 'Unable to create "QsUrlRuleModelPage" instance!' );
+		$this->assertTrue(is_object($urlRule), 'Unable to create "QsUrlRuleModelPage" instance!');
 	}
 
 	/**
@@ -152,27 +152,27 @@ class QsUrlRuleModelPageTest extends CTestCase {
 		$urlRule = new QsUrlRuleModelPage();
 
 		$testModelClassName = 'TestModelClassName';
-		$this->assertTrue( $urlRule->setModelClassName($testModelClassName), 'Unable to set model class name!' );
-		$this->assertEquals( $urlRule->getModelClassName(), $testModelClassName, 'Unable to set model class name correctly!' );
+		$this->assertTrue($urlRule->setModelClassName($testModelClassName), 'Unable to set model class name!');
+		$this->assertEquals($urlRule->getModelClassName(), $testModelClassName, 'Unable to set model class name correctly!');
 
 		$testModels = array(
 			'model_1' => new CFormModel(),
 			'model_2' => new CFormModel(),
 		);
-		$this->assertTrue( $urlRule->setModels($testModels), 'Unable to set models!' );
-		$this->assertEquals( $urlRule->getModels(), $testModels, 'Unable to set models correctly!' );
+		$this->assertTrue($urlRule->setModels($testModels), 'Unable to set models!');
+		$this->assertEquals($urlRule->getModels(), $testModels, 'Unable to set models correctly!');
 
 		$testCacheDuration = rand(20, 100);
-		$this->assertTrue( $urlRule->setModelCacheDuration($testCacheDuration), 'Unable to set model cache duration!' );
-		$this->assertEquals( $urlRule->getModelCacheDuration(), $testCacheDuration, 'Unable to set model cache duration correctly!' );
+		$this->assertTrue($urlRule->setModelCacheDuration($testCacheDuration), 'Unable to set model cache duration!');
+		$this->assertEquals($urlRule->getModelCacheDuration(), $testCacheDuration, 'Unable to set model cache duration correctly!');
 
 		$testModelUrlKeywordAttributeName = 'testModelUrlKeywordAttributeName';
-		$this->assertTrue( $urlRule->setModelUrlKeywordAttributeName($testModelUrlKeywordAttributeName), 'Unable to set model url keyword attribute name!' );
-		$this->assertEquals( $urlRule->getModelUrlKeywordAttributeName(), $testModelUrlKeywordAttributeName, 'Unable to set model url keyword attribute name correctly!' );
+		$this->assertTrue($urlRule->setModelUrlKeywordAttributeName($testModelUrlKeywordAttributeName), 'Unable to set model url keyword attribute name!');
+		$this->assertEquals($urlRule->getModelUrlKeywordAttributeName(), $testModelUrlKeywordAttributeName, 'Unable to set model url keyword attribute name correctly!');
 
 		$testModelGetParamName = 'testGetParamName';
-		$this->assertTrue( $urlRule->setModelGetParamName($testModelGetParamName), 'Unable to set model GET param name!' );
-		$this->assertEquals( $urlRule->getModelGetParamName(), $testModelGetParamName, 'Unable to set model GET param name correctly!' );
+		$this->assertTrue($urlRule->setModelGetParamName($testModelGetParamName), 'Unable to set model GET param name!');
+		$this->assertEquals($urlRule->getModelGetParamName(), $testModelGetParamName, 'Unable to set model GET param name correctly!');
 	}
 
 	/**
@@ -186,11 +186,11 @@ class QsUrlRuleModelPageTest extends CTestCase {
 		$urlRulePattern = '<'.$modelGetParamName.':\w+>';
 
 		$urlRuleConfig = array(
-			'modelClassName'=>$modelClassName,
-			'modelUrlKeywordAttributeName'=>$modelUrlKeywordAttributeName,
-			'pattern'=>$urlRulePattern,
-			'route'=>$modelPageRoute,
-			'modelGetParamName'=>$modelGetParamName,
+			'modelClassName' => $modelClassName,
+			'modelUrlKeywordAttributeName' => $modelUrlKeywordAttributeName,
+			'pattern' => $urlRulePattern,
+			'route' => $modelPageRoute,
+			'modelGetParamName' => $modelGetParamName,
 		);
 		$urlManager = $this->createTestUrlManager($urlRuleConfig);
 
@@ -200,7 +200,7 @@ class QsUrlRuleModelPageTest extends CTestCase {
 			$parsedUrl = $urlManager->parseUrl($httpRequest);
 			$expectedParsedUrl = $modelPageRoute;
 			$this->assertEquals($expectedParsedUrl, $parsedUrl, "Unable to parse model page '{$pageModel->$modelUrlKeywordAttributeName}' URL.");
-			$this->assertEquals( $pageModel->attributes, $_GET[$modelGetParamName]->attributes, 'Page model has not been append to the GET!');
+			$this->assertEquals($pageModel->attributes, $_GET[$modelGetParamName]->attributes, 'Page model has not been append to the GET!');
 		}
 	}
 
@@ -215,11 +215,11 @@ class QsUrlRuleModelPageTest extends CTestCase {
 		$urlRulePattern = '<'.$modelGetParamName.':\w+>';
 
 		$urlRuleConfig = array(
-			'modelClassName'=>$modelClassName,
-			'modelUrlKeywordAttributeName'=>$modelUrlKeywordAttributeName,
-			'pattern'=>$urlRulePattern,
-			'route'=>$modelPageRoute,
-			'modelGetParamName'=>$modelGetParamName,
+			'modelClassName' => $modelClassName,
+			'modelUrlKeywordAttributeName' => $modelUrlKeywordAttributeName,
+			'pattern' => $urlRulePattern,
+			'route' => $modelPageRoute,
+			'modelGetParamName' => $modelGetParamName,
 		);
 		$urlManager = $this->createTestUrlManager($urlRuleConfig);
 
@@ -245,18 +245,18 @@ class QsUrlRuleModelPageTest extends CTestCase {
 		$urlRulePattern = '<'.$modelGetParamName.':\w+>';
 
 		$urlRuleConfig = array(
-			'modelClassName'=>$modelClassName,
-			'modelUrlKeywordAttributeName'=>$modelUrlKeywordAttributeName,
-			'pattern'=>$urlRulePattern,
-			'route'=>$modelPageRoute,
-			'modelGetParamName'=>$modelGetParamName,
+			'modelClassName' => $modelClassName,
+			'modelUrlKeywordAttributeName' => $modelUrlKeywordAttributeName,
+			'pattern' => $urlRulePattern,
+			'route' => $modelPageRoute,
+			'modelGetParamName' => $modelGetParamName,
 		);
 		$urlManager = $this->createTestUrlManager($urlRuleConfig);
 
 		$pageModels = CActiveRecord::model($modelClassName)->findAll();
 		foreach ($pageModels as $pageModel) {
 			$urlParams = array(
-				$modelGetParamName=>$pageModel->$modelUrlKeywordAttributeName
+				$modelGetParamName => $pageModel->$modelUrlKeywordAttributeName
 			);
 			$createdUrl = $urlManager->createUrl($modelPageRoute, $urlParams);
 			$expectedCreatedUrl = $urlManager->baseUrl.'/'.$pageModel->$modelUrlKeywordAttributeName;
@@ -278,11 +278,11 @@ class QsUrlRuleModelPageTest extends CTestCase {
 		$urlRulePattern = '<'.$testAdditionalParamName.':\w+>/<'.$modelGetParamName.':\w+>';
 
 		$urlRuleConfig = array(
-			'modelClassName'=>$modelClassName,
-			'modelUrlKeywordAttributeName'=>$modelUrlKeywordAttributeName,
-			'pattern'=>$urlRulePattern,
-			'route'=>$modelPageRoute,
-			'modelGetParamName'=>$modelGetParamName,
+			'modelClassName' => $modelClassName,
+			'modelUrlKeywordAttributeName' => $modelUrlKeywordAttributeName,
+			'pattern' => $urlRulePattern,
+			'route' => $modelPageRoute,
+			'modelGetParamName' => $modelGetParamName,
 		);
 		$urlManager = $this->createTestUrlManager($urlRuleConfig);
 
@@ -292,8 +292,8 @@ class QsUrlRuleModelPageTest extends CTestCase {
 			$parsedUrl = $urlManager->parseUrl($httpRequest);
 			$expectedParsedUrl = $modelPageRoute;
 			$this->assertEquals($expectedParsedUrl, $parsedUrl, "Unable to parse model page '{$pageModel->$modelUrlKeywordAttributeName}' URL.");
-			$this->assertEquals( $pageModel->attributes, $_GET[$modelGetParamName]->attributes, 'Page model has not been append to the GET!');
-			$this->assertEquals( $testAdditionalParamValue, $_GET[$testAdditionalParamName], 'Additional param has not been append to the GET!');
+			$this->assertEquals($pageModel->attributes, $_GET[$modelGetParamName]->attributes, 'Page model has not been append to the GET!');
+			$this->assertEquals($testAdditionalParamValue, $_GET[$testAdditionalParamName], 'Additional param has not been append to the GET!');
 		}
 	}
 
@@ -311,19 +311,19 @@ class QsUrlRuleModelPageTest extends CTestCase {
 		$urlRulePattern = '<'.$testAdditionalParamName.':\w+>/<'.$modelGetParamName.':\w+>';
 
 		$urlRuleConfig = array(
-			'modelClassName'=>$modelClassName,
-			'modelUrlKeywordAttributeName'=>$modelUrlKeywordAttributeName,
-			'pattern'=>$urlRulePattern,
-			'route'=>$modelPageRoute,
-			'modelGetParamName'=>$modelGetParamName,
+			'modelClassName' => $modelClassName,
+			'modelUrlKeywordAttributeName' => $modelUrlKeywordAttributeName,
+			'pattern' => $urlRulePattern,
+			'route' => $modelPageRoute,
+			'modelGetParamName' => $modelGetParamName,
 		);
 		$urlManager = $this->createTestUrlManager($urlRuleConfig);
 
 		$pageModels = CActiveRecord::model($modelClassName)->findAll();
 		foreach ($pageModels as $pageModel) {
 			$urlParams = array(
-				$modelGetParamName=>$pageModel,
-				$testAdditionalParamName=>$testAdditionalParamValue,
+				$modelGetParamName => $pageModel,
+				$testAdditionalParamName => $testAdditionalParamValue,
 			);
 			$createdUrl = $urlManager->createUrl($modelPageRoute, $urlParams);
 			$expectedCreatedUrl = $urlManager->baseUrl.'/'.$testAdditionalParamValue.'/'.$pageModel->$modelUrlKeywordAttributeName;

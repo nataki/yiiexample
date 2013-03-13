@@ -26,11 +26,11 @@ class QsWebModuleTranslationBaseTest extends CTestCase {
 		$testAccessRules = array(
 			array(
 				'allow',
-				'roles'=>array('admin')
+				'roles' => array('admin')
 			),
 		);
-		$this->assertTrue( $module->setAccessRules($testAccessRules), 'Unable to set access rules!' );
-		$this->assertEquals( $module->getAccessRules(), $testAccessRules, 'Unable to set access rules correctly!' );
+		$this->assertTrue($module->setAccessRules($testAccessRules), 'Unable to set access rules!');
+		$this->assertEquals($module->getAccessRules(), $testAccessRules, 'Unable to set access rules correctly!');
 	}
 
 	/**
@@ -40,6 +40,6 @@ class QsWebModuleTranslationBaseTest extends CTestCase {
 		$module = $this->createTranslationModule();
 
 		$languageManager = $module->getComponent('languageManager');
-		$this->assertTrue( is_object($languageManager), 'Unable to get language manager component!' );
+		$this->assertTrue(is_object($languageManager), 'Unable to get language manager component!');
 	}
 }

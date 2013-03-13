@@ -5,7 +5,6 @@
  * @see QsFileStorageBucket
  */
 class QsFileStorageBucketTest extends CTestCase {
-
 	public static function setUpBeforeClass() {
 		Yii::import('ext.qs.lib.files.storages.*');
 	}
@@ -27,7 +26,7 @@ class QsFileStorageBucketTest extends CTestCase {
 			'moveFileInternal',
 			'getFileUrl',
 		);
-		$bucket = $this->getMock('QsFileStorageBucket',$methodsList);
+		$bucket = $this->getMock('QsFileStorageBucket', $methodsList);
 		return $bucket;
 	}
 
@@ -35,11 +34,11 @@ class QsFileStorageBucketTest extends CTestCase {
 		$bucket = $this->createFileStorageBucket();
 
 		$testName = 'test_bucket_name';
-		$this->assertTrue( $bucket->setName($testName), 'Unable to set name!' );
-		$this->assertEquals( $bucket->getName(), $testName, 'Unable to set name! correctly' );
+		$this->assertTrue($bucket->setName($testName), 'Unable to set name!');
+		$this->assertEquals($bucket->getName(), $testName, 'Unable to set name! correctly');
 
 		$testStorage = $this->getMock('QsFileStorage');
-		$this->assertTrue( $bucket->setStorage($testStorage), 'Unable to set storage!' );
-		$this->assertEquals( $bucket->getStorage(), $testStorage, 'Unable to set storage correctly!' );
+		$this->assertTrue($bucket->setStorage($testStorage), 'Unable to set storage!');
+		$this->assertEquals($bucket->getStorage(), $testStorage, 'Unable to set storage correctly!');
 	}
 }
