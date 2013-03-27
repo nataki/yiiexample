@@ -28,4 +28,4 @@ Thumbs.db
 protected/config/local.php
 protected/tests/phpunit.xml
 /materials/
-
+checkrequirements.php
