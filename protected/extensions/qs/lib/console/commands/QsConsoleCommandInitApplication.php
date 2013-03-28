@@ -33,6 +33,11 @@
  * Note: the console application, which will run this command should be absolutely stripped from the local
  * configuration files and database.
  *
+ * Note: {@link QsRequirementsChecker} extension is integrated as a part of this command and required for it
+ * correct execution.
+ *
+ * @see QsRequirementsChecker
+ *
  * @property array localDirectories public alias of {@link _localDirectories}.
  * @property array temporaryDirectories public alias of {@link _temporaryDirectories}.
  * @property array localFiles public alias of {@link _localFiles}.
@@ -98,6 +103,11 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 		'application:/yiic',
 		'application:/install.php',
 	);
+	/**
+	 * @var string requirements list file name.
+	 * @see QsRequirementsChecker
+	 */
+	protected $_requirementsFileName = 'application:/requirements.php';
 	/**
 	 * @var boolean whether to output log messages via "stdout". Defaults to true.
 	 * Set this to false to false to cease console output.
@@ -195,6 +205,15 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 
 	public function getExecuteFiles() {
 		return $this->_executeFiles;
+	}
+
+	public function setRequirementsFileName($requirementsFileName) {
+		$this->_requirementsFileName = $requirementsFileName;
+		return true;
+	}
+
+	public function getRequirementsFileName() {
+		return $this->_requirementsFileName;
 	}
 
 	/**
@@ -400,6 +419,8 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 				"\n",
 				"\r",
 				"\t",
+				'@return boolean success.',
+				'@return boolean success',
 			);
 			$actionMethodDescription = str_replace($searches, '', $actionMethodReflection->getDocComment());
 			$actionMethodDescription = str_replace('$', '--', $actionMethodDescription);
@@ -484,12 +505,52 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 		$path = dirname(Yii::app()->basePath);
 		if ($this->confirm("Initialize application under '{$path}'?")) {
 			$this->log("Application initialization in progress...\n");
+			if (!$this->actionRequirements(false)) {
+				$this->log("Application initialization failed.", CLogger::LEVEL_ERROR);
+				return;
+			}
 			$this->actionLocalDir();
 			$this->actionClearTmpDir();
 			$this->actionExecuteFile();
 			$this->actionLocalFile(null, $overwrite);
 			$this->actionMigrate();
 			$this->log("\nApplication initialization is complete.\n");
+		}
+	}
+
+	/**
+	 * Check if current system matches application requirements.
+	 * @param boolean $forceshowresult indicates if verbose check result should be displayed even,
+	 * if there is no errors or warnings.
+	 * @return boolean success.
+	 */
+	public function actionRequirements($forceshowresult=true) {
+		$this->log("Checking requirements...\n");
+		$requirementsChecker = $this->createRequirementsChecker();
+
+		$requirementsFileName = $this->getRealFilePath($this->getRequirementsFileName());
+		if (file_exists($requirementsFileName)) {
+			$requirements = require($requirementsFileName);
+		} else {
+			$this->log("Requirements list file '{$requirementsFileName}' does not exist, only default requirements checking is available.", CLogger::LEVEL_WARNING);
+			$requirements = array();
+		}
+
+		$requirementsCheckResult = $requirementsChecker->check($requirements);
+		if ($requirementsCheckResult['summary']['errors']>0) {
+			$this->log("Requirements check fails with errors.", CLogger::LEVEL_ERROR);
+			$requirementsChecker->renderCheckResult($requirementsCheckResult);
+			return false;
+		} elseif ($requirementsCheckResult['summary']['warnings']>0) {
+			$this->log("Requirements check passed with warnings.", CLogger::LEVEL_WARNING);
+			$requirementsChecker->renderCheckResult($requirementsCheckResult);
+			return false;
+		} else {
+			$this->log("Requirements check successful.\n");
+			if ($forceshowresult) {
+				$requirementsChecker->renderCheckResult($requirementsCheckResult);
+			}
+			return true;
 		}
 	}
 
@@ -802,6 +863,7 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 	 * Populates console command instance from configuration file.
 	 * @param string $configFileName configuration file name.
 	 * @return boolean success.
+	 * @throws CException on wrong configuration file.
 	 */
 	public function populateFromConfigFile($configFileName) {
 		$configFileName = realpath( $this->getRealFilePath($configFileName) );
@@ -865,5 +927,14 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 				$this->log("Unable to delete directory '{$fileSystemObjectFullName}'!", CLogger::LEVEL_WARNING);
 			}
 		}
+	}
+
+	/**
+	 * Creates requirements checker instance.
+	 * @return QsRequirementsChecker requirements checker instance.
+	 */
+	protected function createRequirementsChecker() {
+		require_once(Yii::getPathOfAlias('ext.qs.lib.requirements').DIRECTORY_SEPARATOR.'QsRequirementsChecker.php');
+		return new QsRequirementsChecker();
 	}
 }

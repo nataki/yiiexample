@@ -99,6 +99,10 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		);
 		$this->assertTrue($consoleCommand->setExecuteFiles($testExecuteFiles), 'Unable to set execute files!');
 		$this->assertEquals($testExecuteFiles, $consoleCommand->getExecuteFiles(), 'Unable to set execute files correctly!');
+
+		$testRequirementsFileName = '/test/requirements/file/name.php';
+		$this->assertTrue($consoleCommand->setRequirementsFileName($testRequirementsFileName), 'Unable to set requirements file name!');
+		$this->assertEquals($testRequirementsFileName, $consoleCommand->getRequirementsFileName(), 'Unable to set requirements file name correctly!');
 	}
 
 	/**
@@ -335,5 +339,66 @@ class QsConsoleCommandInitApplicationTest extends CTestCase {
 		$consoleCommand->actionClearTmpDir();
 
 		$this->assertTrue(file_exists($testSpecialFileFullName), 'Unable to keep special file, while clearing temporary directory!');
+	}
+
+	/**
+	 * @depends testSetGet
+	 */
+	public function testActionRequirements() {
+		$consoleCommand = $this->createConsoleCommand();
+
+		// Success:
+		$requirementsErrorFileName = self::getTestFilePath().DIRECTORY_SEPARATOR.'test_requirements_success.php';
+		$errorRequirements = array(
+			array(
+				'condition' => true,
+				'mandatory' => true,
+			),
+		);
+		file_put_contents($requirementsErrorFileName, '<?php return '.var_export($errorRequirements, true).';');
+		$consoleCommand->setRequirementsFileName($requirementsErrorFileName);
+
+		// Suppress output
+		ob_start();
+		ob_implicit_flush(false);
+		$runResult = $consoleCommand->actionRequirements();
+		ob_get_clean();
+		$this->assertTrue($runResult, 'Requirements check failed for no error requirements!');
+
+		// Error:
+		$requirementsErrorFileName = self::getTestFilePath().DIRECTORY_SEPARATOR.'test_requirements_error.php';
+		$errorRequirements = array(
+			array(
+				'condition' => false,
+				'mandatory' => true,
+			),
+		);
+		file_put_contents($requirementsErrorFileName, '<?php return '.var_export($errorRequirements, true).';');
+		$consoleCommand->setRequirementsFileName($requirementsErrorFileName);
+
+		// Suppress output
+		ob_start();
+		ob_implicit_flush(false);
+		$runResult = $consoleCommand->actionRequirements();
+		ob_get_clean();
+		$this->assertFalse($runResult, 'Requirements check not failed for error requirements!');
+
+		// Warning:
+		$requirementsErrorFileName = self::getTestFilePath().DIRECTORY_SEPARATOR.'test_requirements_warning.php';
+		$errorRequirements = array(
+			array(
+				'condition' => false,
+				'mandatory' => false,
+			),
+		);
+		file_put_contents($requirementsErrorFileName, '<?php return '.var_export($errorRequirements, true).';');
+		$consoleCommand->setRequirementsFileName($requirementsErrorFileName);
+
+		// Suppress output
+		ob_start();
+		ob_implicit_flush(false);
+		$runResult = $consoleCommand->actionRequirements();
+		ob_get_clean();
+		$this->assertFalse($runResult, 'Requirements check not failed for warning requirements!');
 	}
 }
