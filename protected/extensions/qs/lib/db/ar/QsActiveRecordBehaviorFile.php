@@ -103,11 +103,6 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	 * from the HTTP request.
 	 */
 	public $autoFetchUploadedFile = true;
-	/**
-	 * @var boolean indicates if uploaded file has been fetched from HTTP request.
-	 * This field is for internal usage only.
-	 */
-	protected $_isUploadedFileFetched = false;
 
 	// Set / Get:
 
@@ -304,7 +299,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 		if (empty($subDirTemplate)) {
 			return $subDirTemplate;
 		}
-		$result = preg_replace_callback('/{(\^*(\w+))}/',array($this,'getSubDirPlaceholderValue'),$subDirTemplate);
+		$result = preg_replace_callback('/{(\^*(\w+))}/', array($this, 'getSubDirPlaceholderValue'), $subDirTemplate);
 		return $result;
 	}
 
@@ -366,7 +361,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 		$owner = $this->getOwner();
 		$primaryKey = $owner->getPrimaryKey();
 		if (is_array($primaryKey)) {
-			$result = implode('_',$primaryKey);
+			$result = implode('_', $primaryKey);
 		} else {
 			$result = $primaryKey;
 		}
@@ -389,7 +384,7 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	 */
 	public function getFileVersionCurrent() {
 		$owner = $this->getOwner();
-		return $owner->getAttribute( $this->getFileVersionAttributeName() );
+		return $owner->getAttribute($this->getFileVersionAttributeName());
 	}
 
 	/**
@@ -406,13 +401,13 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	 * @param string $fileExtension file extension.
 	 * @return string file self name.
 	 */
-	public function getFileSelfName($fileVersion=null,$fileExtension=null) {
+	public function getFileSelfName($fileVersion=null, $fileExtension=null) {
 		$owner = $this->getOwner();
 		if (is_null($fileVersion)) {
 			$fileVersion = $this->getFileVersionCurrent();
 		}
 		if (is_null($fileExtension)) {
-			$fileExtension = $owner->getAttribute( $this->getFileExtensionAttributeName() );
+			$fileExtension = $owner->getAttribute($this->getFileExtensionAttributeName());
 		}
 		return $this->getFileBaseName().'_'.$fileVersion.'.'.$fileExtension;
 	}
@@ -424,8 +419,8 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	 * @param string $fileExtension file extension.
 	 * @return string file full name.
 	 */
-	public function getFileFullName($fileVersion=null,$fileExtension=null) {
-		$fileName = $this->getFileSelfName($fileVersion,$fileExtension);
+	public function getFileFullName($fileVersion=null, $fileExtension=null) {
+		$fileName = $this->getFileSelfName($fileVersion, $fileExtension);
 		$subDir = $this->getActualSubDir();
 		if (!empty($subDir)) {
 			$fileName = $subDir.DIRECTORY_SEPARATOR.$fileName;
@@ -527,15 +522,24 @@ class QsActiveRecordBehaviorFile extends CBehavior {
 	protected function initUploadedFile($fullFileName=null) {
 		if (is_string($fullFileName) && !empty($fullFileName)) {
 			$this->_uploadedFile = new CUploadedFile(basename($fullFileName), $fullFileName, CFileHelper::getMimeType($fullFileName), filesize($fullFileName), UPLOAD_ERR_OK);
-		} elseif ($this->autoFetchUploadedFile && !$this->_isUploadedFileFetched) {
+		} elseif ($this->autoFetchUploadedFile) {
 			$owner = $this->getOwner();
 			$fileAttributeName = $this->getFilePropertyName();
 			$tabularInputIndex = $this->getFileTabularInputIndex();
 			if ($tabularInputIndex!==null) {
 				$fileAttributeName = "[{$tabularInputIndex}]".$fileAttributeName;
 			}
-			$this->_uploadedFile = CUploadedFile::getInstance($owner, $fileAttributeName);
-			$this->_isUploadedFileFetched = true;
+			$uploadedFile = CUploadedFile::getInstance($owner, $fileAttributeName);
+			if (is_object($uploadedFile)) {
+				if (!$uploadedFile->getHasError() && !file_exists($uploadedFile->getTempName())) {
+					// uploaded file has been already processed:
+					$this->_uploadedFile = null;
+				} else {
+					$this->_uploadedFile = $uploadedFile;
+				}
+			} else {
+				$this->_uploadedFile = null;
+			}
 		}
 		return true;
 	}

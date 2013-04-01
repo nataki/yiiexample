@@ -184,8 +184,8 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 	/**
 	 * Saves the file inside test directory.
 	 * Returns the file absolute name.
-	 * @param string $fileSelfName file self name
-	 * @param string $fileContent file content
+	 * @param string $fileSelfName file self name.
+	 * @param string $fileContent file content.
 	 * @return string file full name.
 	 */
 	protected function saveTestFile($fileSelfName, $fileContent) {
@@ -195,6 +195,19 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 		}
 		file_put_contents($fullFileName, $fileContent);
 		return $fullFileName;
+	}
+
+	/**
+	 * Deletes the file inside test directory.
+	 * @param string $fileSelfName file self name.
+	 * @return boolean success.
+	 */
+	protected function deleteTestFile($fileSelfName) {
+		$fullFileName = $this->getTestSourceBasePath().DIRECTORY_SEPARATOR.$fileSelfName;
+		if (file_exists($fullFileName)) {
+			unlink($fullFileName);
+		}
+		return true;
 	}
 
 	// Tests:
@@ -385,10 +398,13 @@ class QsActiveRecordBehaviorFileTest extends CTestCase {
 	public function testGetUploadedFileFromRequestTwice() {
 		$activeRecord = $this->newActiveRecord();
 
-		$this->mockUpUploadedFile('test_file_name.txt', 'Test File Content');
+		$testFileName = 'test_file_name.txt';
+		$this->mockUpUploadedFile($testFileName, 'Test File Content');
 
 		$firstUploadedFile = $activeRecord->getUploadedFile();
 		$activeRecord->clearUploadedFile();
+
+		$this->deleteTestFile($testFileName);
 
 		$secondUploadedFile = $activeRecord->getUploadedFile();
 		$this->assertFalse(is_object($secondUploadedFile), 'Same uploaded file is fetched from request twice!');
