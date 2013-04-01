@@ -21,4 +21,17 @@ return array(
 		'condition' => extension_loaded('pdo_pgsql'),
 		'memo' => 'Required for PostgreSQL database.',
 	),*/
+	/*'cache' => array(
+		'name' => 'APC extension',
+		'mandatory' => false,
+		'condition' => extension_loaded('apc'),
+		'by' => '<a href="http://www.yiiframework.com/doc/api/CApcCache">CApcCache</a>',
+		'memo' => ''
+	),*/
+	/*'phpMemoryLimit' => array(
+		'condition' => 'eval:ini_get("memory_limit")==-1 || $this->compareByteSize(ini_get("memory_limit"),"128M")',
+	),*/
+	/*'phpUploadMaxFileSize' => array(
+		'condition' => 'eval:$this->checkUploadMaxFileSize("5M")',
+	),*/
 );
