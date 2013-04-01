@@ -123,7 +123,7 @@ return array(
 	'phpMemoryLimit' => array(
 		'name' => 'PHP memory limit',
 		'mandatory' => true,
-		'condition' => 'eval:$this->compareByteSize(ini_get("memory_limit"),"128M")',
+		'condition' => 'eval:ini_get("memory_limit")==-1 || $this->compareByteSize(ini_get("memory_limit"),"128M")',
 		'by' => 'Processing requests',
 		'memo' => '"memory_limit" should be at least 5M',
 	),
