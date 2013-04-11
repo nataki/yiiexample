@@ -24,22 +24,6 @@ class QsClientScriptTest extends CTestCase {
 
 	// Tests:
 
-	public function testRegisterMetaTag() {
-		$clientScript = $this->createTestClientScript();
-
-		$testMetaTagContent = 'test meta tag content';
-		$testMetaTagName = 'test_meta_tag_name';
-
-		$clientScript->registerMetaTag($testMetaTagContent, $testMetaTagName);
-
-		$testOutput = '<head></head>';
-		$clientScript->render($testOutput);
-
-		$expectedMetaTagHtml = CHtml::metaTag($testMetaTagContent, $testMetaTagName);
-
-		$this->assertContains($expectedMetaTagHtml, $testOutput, 'Unable to register meta tag!');
-	}
-
 	public function testRegisterMetaTagUnique() {
 		$clientScript = $this->createTestClientScript();
 
@@ -54,29 +38,6 @@ class QsClientScriptTest extends CTestCase {
 		$expectedMetaTagHtml = CHtml::metaTag($testMetaTagContent, $testMetaTagName);
 
 		$this->assertContains($expectedMetaTagHtml, $testOutput, 'Unable to register meta tag unique!');
-	}
-
-	/**
-	 * @depends testRegisterMetaTag
-	 */
-	public function testAppendMetaTag() {
-		$clientScript = $this->createTestClientScript();
-
-		$testMetaTagContent = 'test meta tag content';
-		$testMetaTagName = 'test_meta_tag_name';
-		$clientScript->registerMetaTag($testMetaTagContent, $testMetaTagName);
-
-		$testMetaTagContentAppended = $testMetaTagContent.' appended';
-		$clientScript->registerMetaTag($testMetaTagContentAppended, $testMetaTagName);
-
-		$testOutput = '<head></head>';
-		$clientScript->render($testOutput);
-
-		$expectedMetaTagHtml = CHtml::metaTag($testMetaTagContent, $testMetaTagName);
-		$expectedMetaTagHtmlAppended = CHtml::metaTag($testMetaTagContentAppended, $testMetaTagName);
-
-		$this->assertContains($expectedMetaTagHtml, $testOutput, 'Unable to register original meta tag!');
-		$this->assertContains($expectedMetaTagHtmlAppended, $testOutput, 'Unable to register additional meta tag!');
 	}
 
 	/**
