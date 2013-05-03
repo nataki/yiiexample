@@ -775,7 +775,7 @@ class QsConsoleCommandInitApplication extends CConsoleCommand {
 	protected function getExampleFileName($localFileName) {
 		$localFileDir = dirname($localFileName);
 		$localFileSelfName = basename($localFileName);
-		$localFileExampleNamePattern = '__{filename}';
+		$localFileExampleNamePattern = $this->getLocalFileExampleNamePattern();
 		$localFileExampleSelfName = str_replace('{filename}',$localFileSelfName,$localFileExampleNamePattern);
 		return $localFileDir.DIRECTORY_SEPARATOR.$localFileExampleSelfName;
 	}

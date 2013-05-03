@@ -6,6 +6,9 @@
  */
 class QsActionAdminUpdateRoleTest extends CTestCase {
 	const TEST_RECORDS_COUNT = 5;
+	/**
+	 * @var CHttpRequest request component backup.
+	 */
 	protected static $_requestBackup = null;
 
 	public static function setUpBeforeClass() {
@@ -206,13 +209,12 @@ class QsActionAdminUpdateRoleTest extends CTestCase {
 
 		$modelClassName = self::getTestMasterActiveRecordClassName();
 		$model = CActiveRecord::model($modelClassName);
-		$roleRelationName = $model->getRelationName();
-		$subModelPostName = $modelClassName.ucfirst($roleRelationName);
+		$subModelClassName = $model->getRelationConfigParam('class');
 
 		$_POST[$modelClassName] = array(
 			'master_name' => $testMasterRecordName,
 		);
-		$_POST[$subModelPostName] = array(
+		$_POST[$subModelClassName] = array(
 			'slave_name' => $testSlaveRecordName,
 		);
 

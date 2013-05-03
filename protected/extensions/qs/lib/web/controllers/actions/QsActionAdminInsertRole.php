@@ -34,7 +34,7 @@ class QsActionAdminInsertRole extends QsActionAdminInsert {
 		$modelClassName = get_class($model);
 
 		$roleRelationName = $model->getRelationName();
-		$subModelPostName = $modelClassName.ucfirst($roleRelationName);
+		$subModelPostName = $model->getRelationConfigParam('class');
 
 		$this->performAjaxValidation($model);
 

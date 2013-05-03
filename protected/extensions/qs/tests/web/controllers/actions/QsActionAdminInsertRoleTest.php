@@ -164,13 +164,12 @@ class QsActionAdminInsertRoleTest extends CTestCase {
 
 		$modelClassName = self::getTestMasterActiveRecordClassName();
 		$model = CActiveRecord::model(self::getTestMasterActiveRecordClassName());
-		$roleRelationName = $model->getRelationName();
-		$subModelPostName = $modelClassName.ucfirst($roleRelationName);
+		$subModelClassName = $model->getRelationConfigParam('class');
 
 		$_POST[$modelClassName] = array(
 			'master_name' => $testMasterRecordName,
 		);
-		$_POST[$subModelPostName] = array(
+		$_POST[$subModelClassName] = array(
 			'slave_name' => $testSlaveRecordName,
 		);
 

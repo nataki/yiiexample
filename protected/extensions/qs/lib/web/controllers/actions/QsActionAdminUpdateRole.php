@@ -34,13 +34,13 @@ class QsActionAdminUpdateRole extends QsActionAdminUpdate {
 		$modelClassName = get_class($model);
 
 		$roleRelationName = $model->getRelationName();
-		$subModelPostName = $modelClassName.ucfirst($roleRelationName);
+		$subModelClassName = $model->getRelationConfigParam('class');
 
 		$this->performAjaxValidation($model);
 
-		if (isset($_POST[$modelClassName]) && isset($_POST[$subModelPostName])) {
+		if (isset($_POST[$modelClassName]) && isset($_POST[$subModelClassName])) {
 			$model->attributes = $_POST[$modelClassName];
-			$model->$roleRelationName->attributes = $_POST[$subModelPostName];
+			$model->$roleRelationName->attributes = $_POST[$subModelClassName];
 			if ($this->saveModel($model)) {
 				$getParameters = $_GET;
 				unset($getParameters['id']);
