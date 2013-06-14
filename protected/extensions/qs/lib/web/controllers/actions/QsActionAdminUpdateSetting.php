@@ -35,7 +35,7 @@ Yii::import('ext.qs.lib.web.controllers.actions.QsActionAdminUpdate');
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.controllers.actions
  */
-class QsActionAdminUpdateSetting extends QsActionAdminUpdate {
+class QsActionAdminUpdateSetting extends QsActionAdminInternalDbTransaction {
 	/**
 	 * @var string name of view which will be rendered during action.
 	 */

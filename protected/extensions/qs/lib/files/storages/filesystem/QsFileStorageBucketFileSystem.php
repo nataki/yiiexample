@@ -90,62 +90,75 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 	 * @return string full file name.
 	 */
 	public function getFullFileName($fileName) {
-		return $this->resolveFullFileName($fileName);
+		return $this->composeFullFileName($fileName);
 	}
 
 	/**
 	 * Make sure the bucket base path exists and writeable.
-	 * Throw an exception if fails.
+	 * @throws CException if fails.
 	 * @return string bucket full base path.
 	 */
 	protected function resolveFullBasePath() {
 		if (!empty($this->_internalCache['resolvedFullBasePath'])) {
 			return $this->_internalCache['resolvedFullBasePath'];
 		}
-
 		$fullBasePath = $this->getFullBasePath();
-		if (!file_exists($fullBasePath)) {
-			$dirPermission = $this->getStorage()->getFilePermission();
-			$this->log("creating base path '{$fullBasePath}'");
-			$oldUmask = umask(0);
-			@mkdir($fullBasePath, $dirPermission, true);
-			umask($oldUmask);
-		}
-		if (!file_exists($fullBasePath) || !is_dir($fullBasePath)) {
-			throw new CException("Unable to resolve full base path: '{$fullBasePath}'!");
-		} elseif (!is_writable($fullBasePath)) {
-			throw new CException("Path: '{$fullBasePath}' should be writeable!");
-		}
-
+		$this->resolvePath($fullBasePath);
 		$this->_internalCache['resolvedFullBasePath'] = $fullBasePath;
 		return $fullBasePath;
 	}
 
 	/**
-	 * Builds the full file system name of the file.
+	 * Composes the full file system name of the file.
 	 * @param string $fileName - self name of the file.
 	 * @return string full file name.
 	 */
-	protected function resolveFullFileName($fileName) {
+	protected function composeFullFileName($fileName) {
 		$fullBasePath = $this->resolveFullBasePath();
 		$fullFileName = $fullBasePath.DIRECTORY_SEPARATOR;
-
 		$fileSubDir = $this->getFileSubDir($fileName);
 		if (!empty($fileSubDir)) {
 			$fullFileName .= $fileSubDir.DIRECTORY_SEPARATOR;
 		}
 		$fullFileName .= $fileName;
-
-		$fullFilePath = dirname($fullFileName);
-		if (!file_exists($fullFileName)) {
-			$dirPermission = $this->getStorage()->getFilePermission();
-			$this->log("creating file sub path '{$fullFilePath}'");
-			$oldUmask = umask(0);
-			@mkdir($fullFilePath, $dirPermission, true);
-			umask($oldUmask);
-		}
-
 		return $fullFileName;
+	}
+
+	/**
+	 * Composes the full file system name of the file, making sure its container directory exists.
+	 * @param string $fileName - self name of the file.
+	 * @return string full file name.
+	 */
+	protected function resolveFullFileName($fileName) {
+		$fullFileName = $this->composeFullFileName($fileName);
+		$fullFilePath = dirname($fullFileName);
+		$this->resolvePath($fullFilePath);
+		return $fullFileName;
+	}
+
+	/**
+	 * Resolves file path, making sure it exists and writeable.
+	 * @param string $path file path to be resolved.
+	 * @return boolean success.
+	 * @throws CException on failure.
+	 */
+	protected function resolvePath($path) {
+		if (!file_exists($path)) {
+			$dirPermission = $this->getStorage()->getFilePermission();
+			$this->log("creating file path '{$path}'");
+			$oldUmask = umask(0);
+			@mkdir($path, $dirPermission, true);
+			umask($oldUmask);
+			if (!file_exists($path)) {
+				throw new CException("Unable to create path '{$path}'!");
+			}
+		}
+		if (!is_dir($path)) {
+			throw new CException("Path '{$path}' is not a directory!");
+		} elseif (!is_writable($path)) {
+			throw new CException("Path: '{$path}' should be writeable!");
+		}
+		return true;
 	}
 
 	/**
@@ -255,7 +268,7 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 	 * @return boolean file exists.
 	 */
 	public function fileExists($fileName) {
-		$fullFileName = $this->resolveFullFileName($fileName);
+		$fullFileName = $this->composeFullFileName($fileName);
 		return file_exists($fullFileName);
 	}
 
@@ -307,10 +320,11 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 	public function copyFileInternal($srcFile, $destFile) {
 		$srcFullFileName = $this->getFullFileNameByReference($srcFile);
 		$destFullFileName = $this->getFullFileNameByReference($destFile);
+		$this->resolvePath(dirname($destFullFileName));
 		$result = copy($srcFullFileName, $destFullFileName);
 		if ($result) {
 			$this->log("file '{$srcFullFileName}' has been copied to '{$destFullFileName}'");
-			chmod($destFullFileName, $this->getStorage()->getFilePermission() );
+			chmod($destFullFileName, $this->getStorage()->getFilePermission());
 		} else {
 			$this->log("unable to copy file from '{$srcFullFileName}' to '{$destFullFileName}'!", CLogger::LEVEL_ERROR);
 		}
@@ -325,7 +339,7 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 	 * @return boolean success.
 	 */
 	public function moveFileIn($srcFileName, $fileName) {
-		return ( $this->copyFileIn($srcFileName, $fileName) && unlink($srcFileName) );
+		return ($this->copyFileIn($srcFileName, $fileName) && unlink($srcFileName));
 	}
 
 	/**
@@ -336,7 +350,7 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 	 * @return boolean success.
 	 */
 	public function moveFileOut($fileName, $destFileName) {
-		return ( $this->copyFileOut($fileName, $destFileName) && unlink( $this->resolveFullFileName($fileName) ) );
+		return ($this->copyFileOut($fileName, $destFileName) && unlink($this->resolveFullFileName($fileName)));
 	}
 
 	/**
