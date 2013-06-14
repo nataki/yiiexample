@@ -23,14 +23,6 @@ class QsAuthExternalUserIdentity extends CBaseUserIdentity {
 	 * @var QsAuthExternalService external auth service instance.
 	 */
 	protected $_service;
-	/**
-	 * @var string unique identifier for the identity.
-	 */
-	protected $_id;
-	/**
-	 * @var string the display name for the identity.
-	 */
-	protected $_name;
 
 	/**
 	 * @param QsAuthExternalService $service external auth service.
@@ -53,7 +45,7 @@ class QsAuthExternalUserIdentity extends CBaseUserIdentity {
 	 * @return string the unique identifier for the identity.
 	 */
 	public function getId() {
-		return $this->_id;
+		return $this->getState('id');
 	}
 
 	/**
@@ -61,7 +53,7 @@ class QsAuthExternalUserIdentity extends CBaseUserIdentity {
 	 * @return string the display name for the identity.
 	 */
 	public function getName() {
-		return $this->_name;
+		return $this->getState('name');
 	}
 
 	/**
@@ -76,10 +68,8 @@ class QsAuthExternalUserIdentity extends CBaseUserIdentity {
 			foreach ($attributes as $name => $value) {
 				$this->setState($name, $value);
 			}
-			$this->_id = $this->fetchIdFromServiceAttributes($attributes);
-			$this->_name = $this->fetchNameFromServiceAttributes($attributes);
-			$this->setState('id', $this->_id);
-			$this->setState('name', $this->_name);
+			$this->setState('id', $this->fetchIdFromServiceAttributes($attributes));
+			$this->setState('name', $this->fetchNameFromServiceAttributes($attributes));
 			$this->setState('authService', $service->getName());
 			$this->errorCode = self::ERROR_NONE;
 		} else {

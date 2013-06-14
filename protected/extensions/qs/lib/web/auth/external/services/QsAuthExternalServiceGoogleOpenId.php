@@ -38,8 +38,8 @@ class QsAuthExternalServiceGoogleOpenId extends QsAuthExternalServiceOpenId {
 	 * @var array the OpenID required attributes.
 	 */
 	protected $_requiredAttributes = array(
-		'firstname' => 'namePerson/first',
-		'lastname' => 'namePerson/last',
+		'first_name' => 'namePerson/first',
+		'last_name' => 'namePerson/last',
 		'email' => 'contact/email',
 		'language' => 'pref/language',
 	);
