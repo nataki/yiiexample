@@ -26,6 +26,41 @@ return CMap::mergeArray(
 					),
 				),
 			),
+			'externalAuth' => array(
+				'class' => 'ext.qs.lib.web.auth.external.QsAuthExternalServiceCollection',
+				'services' => array(
+					'googleOpenId' => array(
+						'class' => 'QsAuthExternalServiceGoogleOpenId',
+						'requiredAttributes' => array(
+							'first_name' => 'namePerson/first',
+							'last_name' => 'namePerson/last',
+							'email' => 'contact/email',
+							'language' => 'pref/language',
+						),
+					),
+					'googleOAuth' => array(
+						'class' => 'QsAuthExternalServiceGoogleOAuth',
+						'oAuthClient' => array(
+							'clientId' => '214767141763.apps.googleusercontent.com',
+							'clientSecret' => 'f5JwoEMgPlzdqa6uOhWKYOH6',
+						),
+					),
+					'twitter' => array(
+						'class' => 'QsAuthExternalServiceTwitterOAuth',
+						'oAuthClient' => array(
+							'consumerKey' => 'B8Yx1BewS3a0klA1e6lWEw',
+							'consumerSecret' => 'ZKECSMGU6vmc4FYJ09Hk0VIOYtWYKSBKr4WrlOveLTc',
+						),
+					),
+					'facebook' => array(
+						'class' => 'QsAuthExternalServiceFacebookOAuth',
+						'oAuthClient' => array(
+							'clientId' => '344210389040383',
+							'clientSecret' => 'f81cd7421e7482e0300316554957f3aa',
+						),
+					),
+				),
+			),
 			'session' => array(
 				'sessionName' => 'yiiExampleSession',
 				'autoStart' => true

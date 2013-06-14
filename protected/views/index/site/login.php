@@ -69,3 +69,5 @@ $this->breadcrumbs = array(
 </div><!-- form -->
 
 <p><?php echo CHtml::link('Forgotten your password? Click here', array('site/forgotpassword')) ?></p>
+
+<?php $this->widget('ext.qs.lib.web.auth.external.widgets.QsAuthExternalServiceChoice'); ?>

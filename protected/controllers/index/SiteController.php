@@ -91,8 +91,22 @@ class SiteController extends IndexController {
 	 * Displays the login page
 	 */
 	public function actionLogin() {
-		$model = new LoginFormIndex();
+		if (!empty($_GET['service'])) {
+			/* @var $externalAuth QsAuthExternalServiceCollection */
+			$serviceId = $_GET['service'];
+			$externalAuth = Yii::app()->getComponent('externalAuth');
+			$service = $externalAuth->getService($serviceId);
+			$userIdentity = $service->createUserIdentity();
+			if ($userIdentity->authenticate()) {
+				$model = new LoginExternalService();
+				$model->login($userIdentity);
+				$service->redirectSuccess();
+			} else {
+				$service->redirectCancel();
+			}
+		}
 
+		$model = new LoginFormIndex();
 		// collect user input data
 		if (isset($_POST[get_class($model)])) {
 			$model->attributes = $_POST[get_class($model)];
