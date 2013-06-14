@@ -194,7 +194,7 @@ class QsOAuthClient1 extends QsOAuthClient {
 		}
 		$params['oauth_token'] = $accessToken->getToken();
 		$response = $this->sendSignedRequest($method, $url, $params);
-		return $this->processResponse($response);
+		return $response;
 	}
 
 	/**

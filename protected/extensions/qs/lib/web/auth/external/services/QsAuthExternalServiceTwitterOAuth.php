@@ -66,8 +66,8 @@ class QsAuthExternalServiceTwitterOAuth extends QsAuthExternalServiceOAuth1 {
 			'accessTokenUrl' => 'https://api.twitter.com/oauth/access_token',
 			'accessTokenMethod' => 'POST',
 			'authUrl' => 'https://api.twitter.com/oauth/authorize',
-			//'scope' => '???',
-			'apiBaseUrl' => 'https://api.twitter.com/1',
+			'scope' => '',
+			'apiBaseUrl' => 'https://api.twitter.com/1.1',
 		);
 	}
 
