@@ -37,12 +37,15 @@ class LoginExternalService extends CModel {
 	 * @return boolean success.
 	 */
 	public function login($userIdentity) {
+		$externalService = $userIdentity->getService();
 		$userAttributes = $userIdentity->getPersistentStates();
+		if (empty($userAttributes['email'])) {
+			$userAttributes['email'] = $userAttributes['id'] . '@' . $externalService->getName() . '.mock';
+		}
 		$this->setAttributes($userAttributes);
 		if (!$this->validate()) {
-			throw new CException('Invalid auth attributes.');
+			throw new CException("Invalid auth attributes:\n" . $this->composeModelErrorSummary($this));
 		}
-		$externalService = $userIdentity->getService();
 
 		$userExternalAccount = $this->findUserExternalAccount($externalService);
 		if (empty($userExternalAccount)) {
