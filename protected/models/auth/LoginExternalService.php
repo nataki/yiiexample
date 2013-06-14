@@ -121,11 +121,12 @@ class LoginExternalService extends CModel {
 				'email' => $this->email,
 				'new_password' => $password,
 				'new_password_repeat' => $password,
+				'status_id' => User::STATUS_ACTIVE,
 			)
 		);
 		$specialUserAttributes = array(
 			'id',
-			'status_id',
+			//'status_id',
 			'group_id',
 			'create_date',
 		);
@@ -150,7 +151,7 @@ class LoginExternalService extends CModel {
 	protected function composeModelErrorSummary(CModel $model) {
 		$errorSummaryParts = array();
 		$errors = $model->getErrors();
-		foreach ($errors as $attributeName => $attributeErrors) {
+		foreach ($errors as $attributeErrors) {
 			$errorSummaryParts = array_merge($errorSummaryParts, $attributeErrors);
 		}
 		$errorSummary = implode("\n", $errorSummaryParts);
