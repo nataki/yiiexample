@@ -10,7 +10,7 @@ class m130614_085831_create_user_external_account extends CDbMigration {
 			'PRIMARY KEY(external_user_id, external_service_name)',
 		);
 		$this->createTable('user_external_account', $columns, 'engine=INNODB');
-		$this->addForeignKey("fk_{$tableName}_user_id", $tableName, 'user_id', 'user', 'id');
+		$this->addForeignKey("fk_{$tableName}_user_id", $tableName, 'user_id', 'user', 'id', 'CASCADE', 'CASCADE');
 	}
 
 	public function down() {
