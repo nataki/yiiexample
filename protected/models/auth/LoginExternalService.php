@@ -50,7 +50,7 @@ class LoginExternalService extends CModel {
 		$userAttributes = $userIdentity->getPersistentStates();
 		$this->setAttributes($userAttributes);
 		if (!$this->validate()) {
-			throw new CException("Invalid auth attributes:\n" . $this->composeModelErrorSummary($this));
+			throw new CException("Invalid auth attributes:\n" . $this->composeErrorSummary());
 		}
 		return $this;
 	}
@@ -125,13 +125,15 @@ class LoginExternalService extends CModel {
 	 * @return boolean success.
 	 */
 	public function loginUserModel(CModel $userModel) {
+		/* @var $webUser CWebUser */
 		$userIdentity = $this->getUserIdentity();
 		$attributes = $userModel->getAttributes();
 		foreach ($attributes as $attributeName => $attributeValue) {
 			$userIdentity->setState($attributeName, $attributeValue);
 		}
+		$webUser = Yii::app()->getComponent('user');
 		$duration = 0;
-		return Yii::app()->getComponent('user')->login($userIdentity, $duration);
+		return $webUser->login($userIdentity, $duration);
 	}
 
 	/**
@@ -199,16 +201,6 @@ class LoginExternalService extends CModel {
 	}
 
 	/**
-	 * @param CActiveRecord $user
-	 * @param CActiveRecord $userExternalAccount
-	 * @return boolean success.
-	 */
-	protected function bindUserExternalAccount($user, $userExternalAccount) {
-		$userExternalAccount->user_id = $user->id;
-		return $userExternalAccount->save(false);
-	}
-
-	/**
 	 * Creates new user model filling it up with given attributes.
 	 * @param array $externalUserAttributes new user attributes
 	 * @return CModel new uer model.
@@ -232,9 +224,13 @@ class LoginExternalService extends CModel {
 		return $model;
 	}
 
-	protected function composeModelErrorSummary(CModel $model) {
+	/**
+	 * Composes internal errors summary.
+	 * @return string errors summary.
+	 */
+	protected function composeErrorSummary() {
 		$errorSummaryParts = array();
-		$errors = $model->getErrors();
+		$errors = $this->getErrors();
 		foreach ($errors as $attributeErrors) {
 			$errorSummaryParts = array_merge($errorSummaryParts, $attributeErrors);
 		}
