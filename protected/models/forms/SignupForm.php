@@ -7,6 +7,13 @@
  * @see Member
  */
 class SignupForm extends CFormModel {
+	/**
+	 * @var array user external account attributes.
+	 */
+	protected $_externalAttributes = array();
+
+	// Attributes:
+
 	public $name;
 	public $email;
 
@@ -19,24 +26,49 @@ class SignupForm extends CFormModel {
 	public $verifyCode;
 
 	/**
+	 * Constructor.
+	 * @param string $scenario name of the scenario that this model is used in.
+	 */
+	public function __construct($scenario = 'default') {
+		parent::__construct($scenario);
+	}
+
+	/**
+	 * @param array $externalAttributes user external account attributes.
+	 * @return SignupForm self instance.
+	 */
+	public function setExternalAttributes(array $externalAttributes) {
+		$this->_externalAttributes = $externalAttributes;
+		return $this;
+	}
+
+	/**
+	 * @return array user external account attributes.
+	 */
+	public function getExternalAttributes() {
+		return $this->_externalAttributes;
+	}
+
+	/**
 	 * Declares the validation rules.
 	 * @return array validation rules.
 	 */
 	public function rules() {
 		return array(
-			array('name, email, new_password, new_password_repeat', 'required'),
+			array('name, email', 'required'),
+			array('new_password, new_password_repeat', 'required', 'on'=>'default'),
 			array('first_name, last_name', 'required'),
 
 			array('name, email, new_password, new_password_repeat', 'length', 'max'=>255),
 			array('first_name, last_name', 'length', 'max'=>255),
 
 			array('email','email'),
-			array('new_password', 'compare', 'compareAttribute'=>'new_password_repeat'),
+			array('new_password', 'compare', 'compareAttribute'=>'new_password_repeat', 'on'=>'default'),
 			array('name,email', 'unique', 'className'=>'User', 'attributeName'=>'name', 'caseSensitive'=>false),
 			array('name,email', 'unique', 'className'=>'User', 'attributeName'=>'email', 'caseSensitive'=>false),
 
 			// verifyCode needs to be entered correctly
-			array('verifyCode', 'captcha', 'allowEmpty'=>(!Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements()) ),
+			array('verifyCode', 'captcha', 'allowEmpty'=>(!Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements()), 'on'=>'default'),
 		);
 	}
 
@@ -62,16 +94,54 @@ class SignupForm extends CFormModel {
 	 * @param boolean $runValidation whether to perform validation before saving new account.
 	 * @return CActiveRecord new user model, false - if fails.
 	 */
-	public function save($runValidation=true) {
+	public function save($runValidation = true) {
 		if (!$runValidation || $this->validate()) {
-			$user = $this->newUserModel();
-			$user = $this->applyUserModelAttributes($user);
-			$user->save(false);
+			switch ($this->getScenario()) {
+				case 'external': {
+					$user = $this->signUpExternal();
+					break;
+				}
+				default: {
+					$user = $this->signUpDefault();
+					break;
+				}
+			}
 			$this->sendConfirmationEmail($user);
 			return $user;
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * Performs user sign up by default scenario.
+	 * @return CActiveRecord new user model.
+	 */
+	protected function signUpDefault() {
+		$user = $this->newUserModel();
+		$user = $this->applyUserModelAttributes($user);
+		$user->save(false);
+		return $user;
+	}
+
+	/**
+	 * Performs user sign up by external auth service scenario.
+	 * @throws CException on error.
+	 * @return CActiveRecord new user model.
+	 */
+	protected function signUpExternal() {
+		$user = $this->newUserModel();
+		$externalAttributes = $this->getExternalAttributes();
+		if (empty($externalAttributes)) {
+			throw new CException('External auth service attributes are missing!');
+		}
+		$password = sha1(uniqid($externalAttributes['id'], true));
+		$this->new_password = $password;
+		$this->new_password_repeat = $password;
+		$user = $this->applyUserModelAttributes($user);
+		$user->save(false);
+		$this->createUserExternalAccount($externalAttributes['id'], $externalAttributes['authService'], $user->getPrimaryKey());
+		return $user;
 	}
 
 	/**
@@ -100,6 +170,25 @@ class SignupForm extends CFormModel {
 			$user->$attributeName = $attributeValue;
 		}
 		return $user;
+	}
+
+	/**
+	 * Creates new user external service account.
+	 * @param string $externalUserId external user id.
+	 * @param string $externalServiceName external auth service name.
+	 * @param integer $userId user id.
+	 * @return CActiveRecord user external service account model.
+	 */
+	protected function createUserExternalAccount($externalUserId, $externalServiceName, $userId) {
+		$model = new UserExternalAccount();
+		$attributes = array(
+			'external_user_id' => $externalUserId,
+			'external_service_name' => $externalServiceName,
+			'user_id' => $userId
+		);
+		$model->setAttributes($attributes, false);
+		$model->save(false);
+		return $model;
 	}
 
 	/**

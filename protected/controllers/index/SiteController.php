@@ -99,8 +99,22 @@ class SiteController extends IndexController {
 			$userIdentity = $service->createUserIdentity();
 			if ($userIdentity->authenticate()) {
 				$model = new LoginExternalService();
-				$model->login($userIdentity);
-				$service->redirectSuccess();
+				$model->setUserIdentity($userIdentity);
+				if ($model->login()) {
+					$service->redirectSuccess();
+				} else {
+					$newUserModel = $model->createNewUserModel();
+					if ($newUserModel->save()) {
+						$model->loginUserModel($newUserModel);
+						$service->redirectSuccess();
+					} else {
+						/* @var $session CHttpSession */
+						$session = Yii::app()->getComponent('session');
+						$externalAttributes = $userIdentity->getPersistentStates();
+						$session->add('signUpExternalAttributes', $externalAttributes);
+						$service->redirect($this->createUrl('signup/external'));
+					}
+				}
 			} else {
 				$service->redirectCancel();
 			}

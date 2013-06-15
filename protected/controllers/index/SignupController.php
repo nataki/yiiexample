@@ -28,28 +28,64 @@ class SignupController extends IndexController {
 	}
 
 	/**
-	 * Main action.
+	 * Logs in new signed up user.
+	 * @param SignupForm $model sign up model.
+	 * @throws CException on failure.
+	 */
+	protected function login($model) {
+		$loginForm = new LoginFormIndex();
+		$loginForm->username = $model->name;
+		$loginForm->password = $model->new_password;
+		if (!$loginForm->login()) {
+			throw new CException('Unable to log in new user!');
+		}
+		$this->redirect(array('account/'));
+	}
+
+	/**
+	 * Performs sign up via data retrieved from the web form.
 	 */
 	public function actionIndex() {
 		$model = new SignupForm();
 
-		if ( isset($_POST['SignupForm']) ) {
+		if (isset($_POST['SignupForm'])) {
 			$model->attributes = $_POST['SignupForm'];
 			if ($model->validate()) {
 				$model->save(false);
-
-				// Log in new user:
-				$loginForm = new LoginFormIndex();
-				$loginForm->username = $model->name;
-				$loginForm->password = $model->new_password;
-				if (!$loginForm->login()) {
-					throw new CException('Unable to log in new user!');
-				}
-
-				$this->redirect(array('account/'));
+				$this->login($model);
 			}
 		}
 
-		$this->render('signup_form', array('model'=>$model));
+		$this->render('signup_default', array('model' => $model));
+	}
+
+	/**
+	 * Performs sign up via external service.
+	 * This action will be invoked in case data retrieved from external service
+	 * during login is not enough to create new user account.
+	 */
+	public function actionExternal() {
+		/* @var $session CHttpSession */
+		$session = Yii::app()->getComponent('session');
+
+		$model = new SignupForm('external');
+
+		$externalAttributes = $session->get('signUpExternalAttributes');
+		if (empty($externalAttributes)) {
+			throw new CHttpException(400, 'Invalid request.');
+		}
+		$model->setExternalAttributes($externalAttributes);
+
+		if (isset($_POST['SignupForm'])) {
+			$model->attributes = $_POST['SignupForm'];
+			if ($model->validate()) {
+				$model->save(false);
+				$session->remove('signUpExternalAttributes');
+				$this->login($model);
+			}
+		} else {
+			$model->attributes = $externalAttributes;
+		}
+		$this->render('signup_external', array('model' => $model));
 	}
 }
