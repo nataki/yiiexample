@@ -216,8 +216,9 @@ abstract class QsAuthExternalService extends CComponent {
 	 * @param string $url URL to redirect.
 	 * @param boolean $enforceRedirect indicates if redirect should be performed even in case of popup window.
 	 * @param array $options {@link QsAuthExternalPopupWindowRedirect} widget options.
+	 * @param boolean $terminate whether to terminate the current application.
 	 */
-	public function redirect($url, $enforceRedirect = true, array $options = array()) {
+	public function redirect($url, $enforceRedirect = true, array $options = array(), $terminate = true) {
 		$widgetClassName = 'QsAuthExternalPopupWindowRedirect';
 		if (!class_exists($widgetClassName, false)) {
 			require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'widgets' . DIRECTORY_SEPARATOR . $widgetClassName . '.php');
@@ -232,6 +233,9 @@ abstract class QsAuthExternalService extends CComponent {
 		$widget = Yii::app()->getWidgetFactory()->createWidget($this, $widgetClassName, $widgetOptions);
 		$widget->init();
 		$widget->run();
+		if ($terminate) {
+			Yii::app()->end();
+		}
 	}
 
 	/**

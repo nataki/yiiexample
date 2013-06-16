@@ -387,6 +387,19 @@ abstract class QsOAuthClient extends CComponent {
 	}
 
 	/**
+	 * Removes persistent state value.
+	 * @param string $key state key.
+	 * @return boolean success.
+	 */
+	protected function removeState($key) {
+		/* @var $session CHttpSession */
+		$session = Yii::app()->getComponent('session');
+		$key = $this->getStateKeyPrefix() . $key;
+		$session->remove($key);
+		return true;
+	}
+
+	/**
 	 * Returns session key prefix, which is used to store internal states.
 	 * @return string session key prefix.
 	 */

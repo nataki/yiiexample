@@ -101,6 +101,7 @@ class QsOAuthClient1 extends QsOAuthClient {
 				throw new CException('Request token is required to fetch access token!');
 			}
 		}
+		$this->removeState('requestToken');
 		$params = array(
 			'oauth_consumer_key' => $this->consumerKey,
 			'oauth_token' => $requestToken->getToken()
@@ -204,6 +205,7 @@ class QsOAuthClient1 extends QsOAuthClient {
 	 */
 	public function refreshAccessToken(QsOAuthToken $token) {
 		// @todo
+		return null;
 	}
 
 	/**
