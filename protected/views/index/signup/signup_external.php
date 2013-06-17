@@ -2,6 +2,7 @@
 /* @var $this SignupController */
 /* @var $model SignupForm */
 /* @var $form CActiveForm */
+/* @var $externalAuthService QsAuthExternalService */
 
 $this->pageTitle = 'Signup For '.Yii::app()->name;
 Yii::app()->getComponent('clientScript')->registerMetaTagUnique('Sign up for '.Yii::app()->name, 'description');
@@ -12,7 +13,8 @@ $this->breadcrumbs = array(
 <h1>Signup</h1>
 
 <p>
-	Fill the following form for sign up.
+	Unfortunally "<?php echo $externalAuthService->getTitle() ?>" does not provide us enough data about you.<br />
+	Please fill the following form for sign up.
 </p>
 
 <div class="form">

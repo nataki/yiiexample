@@ -74,6 +74,11 @@ class SignupController extends IndexController {
 		if (empty($externalAttributes)) {
 			throw new CHttpException(400, 'Invalid request.');
 		}
+		$externalAuthService = Yii::app()->getComponent('externalAuth')->getService($externalAttributes['authServiceId']);
+		if (!is_object($externalAuthService)) {
+			throw new CException("Unknown external auth service '{$externalAttributes['authServiceId']}'.");
+		}
+
 		$model->setExternalAttributes($externalAttributes);
 
 		if (isset($_POST['SignupForm'])) {
@@ -86,6 +91,9 @@ class SignupController extends IndexController {
 		} else {
 			$model->attributes = $externalAttributes;
 		}
-		$this->render('signup_external', array('model' => $model));
+		$this->render('signup_external', array(
+			'model' => $model,
+			'externalAuthService' => $externalAuthService,
+		));
 	}
 }

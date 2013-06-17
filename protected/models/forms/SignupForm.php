@@ -140,7 +140,7 @@ class SignupForm extends CFormModel {
 		$this->new_password_repeat = $password;
 		$user = $this->applyUserModelAttributes($user);
 		$user->save(false);
-		$this->createUserExternalAccount($externalAttributes['id'], $externalAttributes['authService'], $user->getPrimaryKey());
+		$this->createUserExternalAccount($externalAttributes['id'], $externalAttributes['authServiceName'], $user->getPrimaryKey());
 		return $user;
 	}
 
