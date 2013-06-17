@@ -137,6 +137,7 @@ class LoginExternalService extends CModel {
 	}
 
 	/**
+	 * Creates new user model.
 	 * @return CModel new user model.
 	 */
 	public function createNewUserModel() {
@@ -210,18 +211,90 @@ class LoginExternalService extends CModel {
 		$className = $this->newUserModelClassName;
 		$model = new $className();
 		$model->setScenario($this->newUserModelScenario);
-		$password = sha1(uniqid($this->id, true));
+		$model->setAttributes($this->composeNewUserModelAttributes($externalUserAttributes), false);
+		return $model;
+	}
+
+	/**
+	 * Composes attributes for the new user model from external attributes.
+	 * @param array $externalUserAttributes external attributes.
+	 * @return array new user model attributes.
+	 */
+	protected function composeNewUserModelAttributes(array $externalUserAttributes) {
+		$password = $this->generatePassword();
 		$attributes = array_merge(
 			$externalUserAttributes,
 			array(
+				'externalId' => $this->id,
+				'externalAuthServiceId' => $externalUserAttributes['authServiceId'],
 				'name' => $this->email,
 				'email' => $this->email,
 				'new_password' => $password,
 				'new_password_repeat' => $password,
 			)
 		);
-		$model->setAttributes($attributes);
-		return $model;
+
+		$normalizedExternalUserAttributes = $this->normalizeAttributes($externalUserAttributes);
+
+		// first name, last name :
+		if (!isset($attributes['first_name'])) {
+			if (!empty($normalizedExternalUserAttributes['firstname'])) {
+				$attributes['first_name'] = $normalizedExternalUserAttributes['firstname'];
+			}
+		}
+		if (!isset($attributes['last_name'])) {
+			if (!empty($normalizedExternalUserAttributes['lastname'])) {
+				$attributes['last_name'] = $normalizedExternalUserAttributes['lastname'];
+			}
+		}
+		if (!isset($attributes['first_name'])) {
+			$fullNameKeyCandidates = array(
+				'fullname',
+				'displayname',
+				'publicname',
+				'name',
+			);
+			foreach ($fullNameKeyCandidates as $key) {
+				if (!empty($normalizedExternalUserAttributes[$key])) {
+					$fullName = $normalizedExternalUserAttributes[$key];
+					$fullNameParts = explode(' ', $fullName, 2);
+					if (count($fullNameParts)>1) {
+						list($attributes['first_name'], $attributes['last_name']) = $fullNameParts;
+					} else {
+						list($attributes['first_name']) = $fullNameParts;
+						$attributes['last_name'] = $attributes['first_name'];
+					}
+				}
+			}
+		}
+
+		// Add any other attribute composition here
+
+		return $attributes;
+	}
+
+	/**
+	 * Normalizes given attributes.
+	 * Attribute names will become lower case with any special character removed.
+	 * @param array $attributes attributes.
+	 * @return array normalized attributes.
+	 */
+	protected function normalizeAttributes(array $attributes) {
+		$normalizedAttributes = array();
+		foreach ($attributes as $name => $value) {
+			$specialChars = array(' ', '-', '_');
+			$name = strtolower(str_replace($specialChars, '', $name));
+			$normalizedAttributes[$name] = $value;
+		}
+		return $normalizedAttributes;
+	}
+
+	/**
+	 * Generates new user password.
+	 * @return string password.
+	 */
+	protected function generatePassword() {
+		return substr(sha1(uniqid($this->id, true)), 0, 15);
 	}
 
 	/**

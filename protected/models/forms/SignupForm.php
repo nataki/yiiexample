@@ -7,13 +7,6 @@
  * @see Member
  */
 class SignupForm extends CFormModel {
-	/**
-	 * @var array user external account attributes.
-	 */
-	protected $_externalAttributes = array();
-
-	// Attributes:
-
 	public $name;
 	public $email;
 
@@ -23,7 +16,21 @@ class SignupForm extends CFormModel {
 	public $new_password;
 	public $new_password_repeat;
 
+	/**
+	 * @var string CAPTCHA verification code.
+	 */
 	public $verifyCode;
+
+	/**
+	 * @var string external auth service account id.
+	 * This attribute is used only on "external" scenario.
+	 */
+	public $externalId;
+	/**
+	 * @var string external auth service id.
+	 * This attribute is used only on "external" scenario.
+	 */
+	public $externalAuthServiceId;
 
 	/**
 	 * Constructor.
@@ -34,19 +41,16 @@ class SignupForm extends CFormModel {
 	}
 
 	/**
-	 * @param array $externalAttributes user external account attributes.
-	 * @return SignupForm self instance.
+	 * Returns bound external auth service.
+	 * @throws CException if service not found.
+	 * @return QsAuthExternalService external auth service.
 	 */
-	public function setExternalAttributes(array $externalAttributes) {
-		$this->_externalAttributes = $externalAttributes;
-		return $this;
-	}
-
-	/**
-	 * @return array user external account attributes.
-	 */
-	public function getExternalAttributes() {
-		return $this->_externalAttributes;
+	public function getExternalAuthService() {
+		$externalAuthService = Yii::app()->getComponent('externalAuth')->getService($this->externalAuthServiceId);
+		if (!is_object($externalAuthService)) {
+			throw new CException("Unknown external auth service '{$this->externalAuthServiceId}'.");
+		}
+		return $externalAuthService;
 	}
 
 	/**
@@ -69,7 +73,24 @@ class SignupForm extends CFormModel {
 
 			// verifyCode needs to be entered correctly
 			array('verifyCode', 'captcha', 'allowEmpty'=>(!Yii::app()->user->getIsGuest() || !CCaptcha::checkRequirements()), 'on'=>'default'),
+
+			// external auth
+			array('externalId', 'required', 'on'=>'external'),
+			array('externalAuthServiceId', 'required', 'on'=>'external'),
+			array('externalAuthServiceId', 'validateExternalAuthServiceId', 'skipOnError'=>true, 'on'=>'external'),
 		);
+	}
+
+	/**
+	 * Validates external auth service.
+	 * @param string $attribute validated attribute name.
+	 * @param array $params validation parameters.
+	 */
+	public function validateExternalAuthServiceId($attribute, $params) {
+		$externalAuthServiceId = $this->$attribute;
+		if (!Yii::app()->getComponent('externalAuth')->hasService($externalAuthServiceId)) {
+			$this->addError($attribute, 'Invalid external auth service.');
+		}
 	}
 
 	/**
@@ -130,17 +151,11 @@ class SignupForm extends CFormModel {
 	 * @return CActiveRecord new user model.
 	 */
 	protected function signUpExternal() {
+		$externalAuthService = $this->getExternalAuthService();
 		$user = $this->newUserModel();
-		$externalAttributes = $this->getExternalAttributes();
-		if (empty($externalAttributes)) {
-			throw new CException('External auth service attributes are missing!');
-		}
-		$password = sha1(uniqid($externalAttributes['id'], true));
-		$this->new_password = $password;
-		$this->new_password_repeat = $password;
 		$user = $this->applyUserModelAttributes($user);
 		$user->save(false);
-		$this->createUserExternalAccount($externalAttributes['id'], $externalAttributes['authServiceName'], $user->getPrimaryKey());
+		$this->createUserExternalAccount($this->externalId, $externalAuthService->getName(), $user->getPrimaryKey());
 		return $user;
 	}
 
@@ -161,7 +176,9 @@ class SignupForm extends CFormModel {
 	 */
 	protected function applyUserModelAttributes(CActiveRecord $user) {
 		$excludedAttributeNames = array(
-			'verifyCode'
+			'verifyCode',
+			'externalId',
+			'externalAuthServiceId',
 		);
 		foreach ($this->getAttributes() as $attributeName => $attributeValue) {
 			if (array_search($attributeName, $excludedAttributeNames, true) !== false) {

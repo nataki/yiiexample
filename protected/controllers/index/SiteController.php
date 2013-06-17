@@ -92,6 +92,7 @@ class SiteController extends IndexController {
 	 */
 	public function actionLogin() {
 		if (!empty($_GET['service'])) {
+			// External Auth :
 			/* @var $externalAuth QsAuthExternalServiceCollection */
 			$serviceId = $_GET['service'];
 			$externalAuth = Yii::app()->getComponent('externalAuth');
@@ -110,27 +111,24 @@ class SiteController extends IndexController {
 					} else {
 						/* @var $session CHttpSession */
 						$session = Yii::app()->getComponent('session');
-						$externalAttributes = $userIdentity->getPersistentStates();
-						$session->add('signUpExternalAttributes', $externalAttributes);
+						$session->add('signUpExternalAttributes', $newUserModel->getAttributes());
 						$service->redirect($this->createUrl('signup/external'));
 					}
 				}
 			} else {
 				$service->redirectCancel();
 			}
-		}
-
-		$model = new LoginFormIndex();
-		// collect user input data
-		if (isset($_POST[get_class($model)])) {
-			$model->attributes = $_POST[get_class($model)];
-			// validate user input and redirect to the previous page if valid
-			if ($model->login()) {
-				$this->redirect(Yii::app()->getComponent('user')->getReturnUrl(array('account/index')));
+		} else {
+			// Normal login form :
+			$model = new LoginFormIndex();
+			if (isset($_POST[get_class($model)])) {
+				$model->attributes = $_POST[get_class($model)];
+				if ($model->login()) {
+					$this->redirect(Yii::app()->getComponent('user')->getReturnUrl(array('account/index')));
+				}
 			}
+			$this->render('login', array('model'=>$model));
 		}
-		// display the login form
-		$this->render('login', array('model'=>$model));
 	}
 
 	/**
@@ -153,6 +151,6 @@ class SiteController extends IndexController {
 				$this->refresh();
 			}
 		}
-		$this->render('forgot_password', array('model'=>$model));
+		$this->render('forgot_password', array('model' => $model));
 	}
 }
