@@ -70,7 +70,8 @@ class QsAuthExternalUserIdentity extends CBaseUserIdentity {
 			}
 			$this->setState('id', $this->fetchIdFromServiceAttributes($attributes));
 			$this->setState('name', $this->fetchNameFromServiceAttributes($attributes));
-			$this->setState('authService', $service->getName());
+			$this->setState('authServiceId', $service->getId());
+			$this->setState('authServiceName', $service->getName());
 			$this->errorCode = self::ERROR_NONE;
 		} else {
 			$this->errorCode = self::ERROR_EXTERNAL_SERVICE_AUTH_FAILED;

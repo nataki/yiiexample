@@ -64,7 +64,7 @@ class QsAuthExternalServiceFacebookOAuth extends QsAuthExternalServiceOAuth2 {
 			'authUrl' => 'https://www.facebook.com/dialog/oauth',
 			'tokenUrl' => 'https://graph.facebook.com/oauth/access_token',
 			'apiBaseUrl' => 'https://graph.facebook.com',
-			'scope' => '',
+			'scope' => 'email',
 		);
 	}
 

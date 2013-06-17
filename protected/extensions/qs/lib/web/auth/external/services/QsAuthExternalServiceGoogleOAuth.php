@@ -64,7 +64,10 @@ class QsAuthExternalServiceGoogleOAuth extends QsAuthExternalServiceOAuth2 {
 			'authUrl' => 'https://accounts.google.com/o/oauth2/auth',
 			'tokenUrl' => 'https://accounts.google.com/o/oauth2/token',
 			'apiBaseUrl' => 'https://www.googleapis.com/oauth2/v1',
-			'scope' => 'https://www.googleapis.com/auth/userinfo.profile',
+			'scope' => implode(' ', array(
+				'https://www.googleapis.com/auth/userinfo.profile',
+				'https://www.googleapis.com/auth/userinfo.email',
+			)),
 		);
 	}
 

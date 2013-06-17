@@ -59,7 +59,7 @@ class QsAuthExternalServiceGoogleOpenId extends QsAuthExternalServiceOpenId {
 	 * @return string service name.
 	 */
 	protected function defaultName() {
-		return 'google';
+		return 'google_openid';
 	}
 
 	/**

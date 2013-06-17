@@ -36,6 +36,12 @@ abstract class QsAuthExternalServiceOAuth1 extends QsAuthExternalServiceOAuth {
 		$httpRequest = Yii::app()->getComponent('request');
 		$oauthClient = $this->getOauthClient();
 
+		// user denied error
+		if (isset($_GET['denied'])) {
+			$this->redirectCancel();
+			return false;
+		}
+
 		if (isset($_REQUEST['oauth_token'])) {
 			$oauthToken = $_REQUEST['oauth_token'];
 		}
@@ -43,16 +49,13 @@ abstract class QsAuthExternalServiceOAuth1 extends QsAuthExternalServiceOAuth {
 		if (!isset($oauthToken)) {
 			// Get request token.
 			$requestToken = $oauthClient->fetchRequestToken();
-
 			// Get authorization URL.
 			$url = $oauthClient->buildAuthUrl($requestToken);
-
 			// Redirect to authorization URL.
 			$httpRequest->redirect($url);
 		} else {
 			// Upgrade to access token.
 			$accessToken = $oauthClient->fetchAccessToken();
-
 			$this->isAuthenticated = true;
 		}
 

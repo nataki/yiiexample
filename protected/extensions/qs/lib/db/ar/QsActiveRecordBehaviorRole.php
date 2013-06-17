@@ -264,7 +264,7 @@ class QsActiveRecordBehaviorRole extends CBehavior {
 			$foreignKey = $this->getRelationConfigParam('foreignKey');
 			$relatedModel->setAttribute($foreignKey, $ownerPrimaryKeyValue);
 
-			$relatedModel->save();
+			$relatedModel->save(false);
 		}
 	}
 
