@@ -234,29 +234,18 @@ class LoginExternalService extends CModel {
 			)
 		);
 
-		$normalizedExternalUserAttributes = $this->normalizeAttributes($externalUserAttributes);
-
 		// first name, last name :
 		if (!isset($attributes['first_name'])) {
-			if (!empty($normalizedExternalUserAttributes['firstname'])) {
-				$attributes['first_name'] = $normalizedExternalUserAttributes['firstname'];
-			}
-		}
-		if (!isset($attributes['last_name'])) {
-			if (!empty($normalizedExternalUserAttributes['lastname'])) {
-				$attributes['last_name'] = $normalizedExternalUserAttributes['lastname'];
-			}
-		}
-		if (!isset($attributes['first_name'])) {
 			$fullNameKeyCandidates = array(
+				'full_name',
 				'fullname',
-				'displayname',
-				'publicname',
+				'display_name',
+				'public_name',
 				'name',
 			);
 			foreach ($fullNameKeyCandidates as $key) {
-				if (!empty($normalizedExternalUserAttributes[$key])) {
-					$fullName = $normalizedExternalUserAttributes[$key];
+				if (!empty($externalUserAttributes[$key])) {
+					$fullName = $externalUserAttributes[$key];
 					$fullNameParts = explode(' ', $fullName, 2);
 					if (count($fullNameParts)>1) {
 						list($attributes['first_name'], $attributes['last_name']) = $fullNameParts;
@@ -264,6 +253,7 @@ class LoginExternalService extends CModel {
 						list($attributes['first_name']) = $fullNameParts;
 						$attributes['last_name'] = $attributes['first_name'];
 					}
+					break;
 				}
 			}
 		}
@@ -271,22 +261,6 @@ class LoginExternalService extends CModel {
 		// Add any other attribute composition here
 
 		return $attributes;
-	}
-
-	/**
-	 * Normalizes given attributes.
-	 * Attribute names will become lower case with any special character removed.
-	 * @param array $attributes attributes.
-	 * @return array normalized attributes.
-	 */
-	protected function normalizeAttributes(array $attributes) {
-		$normalizedAttributes = array();
-		foreach ($attributes as $name => $value) {
-			$specialChars = array(' ', '-', '_');
-			$name = strtolower(str_replace($specialChars, '', $name));
-			$normalizedAttributes[$name] = $value;
-		}
-		return $normalizedAttributes;
 	}
 
 	/**
