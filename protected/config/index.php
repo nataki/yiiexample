@@ -29,20 +29,11 @@ return CMap::mergeArray(
 			'externalAuth' => array(
 				'class' => 'ext.qs.lib.web.auth.external.QsAuthExternalServiceCollection',
 				'services' => array(
-					'googleOpenId' => array(
-						'class' => 'QsAuthExternalServiceGoogleOpenId',
-						'requiredAttributes' => array(
-							'first_name' => 'namePerson/first',
-							'last_name' => 'namePerson/last',
-							'email' => 'contact/email',
-							'language' => 'pref/language',
-						),
-					),
-					'googleOAuth' => array(
-						'class' => 'QsAuthExternalServiceGoogleOAuth',
+					'facebook' => array(
+						'class' => 'QsAuthExternalServiceFacebookOAuth',
 						'oAuthClient' => array(
-							'clientId' => '214767141763.apps.googleusercontent.com',
-							'clientSecret' => 'f5JwoEMgPlzdqa6uOhWKYOH6',
+							'clientId' => '344210389040383',
+							'clientSecret' => 'f81cd7421e7482e0300316554957f3aa',
 						),
 					),
 					'twitter' => array(
@@ -52,11 +43,18 @@ return CMap::mergeArray(
 							'consumerSecret' => 'ZKECSMGU6vmc4FYJ09Hk0VIOYtWYKSBKr4WrlOveLTc',
 						),
 					),
-					'facebook' => array(
-						'class' => 'QsAuthExternalServiceFacebookOAuth',
+					'googleOAuth' => array(
+						'class' => 'QsAuthExternalServiceGoogleOAuth',
 						'oAuthClient' => array(
-							'clientId' => '344210389040383',
-							'clientSecret' => 'f81cd7421e7482e0300316554957f3aa',
+							'clientId' => '214767141763.apps.googleusercontent.com',
+							'clientSecret' => 'f5JwoEMgPlzdqa6uOhWKYOH6',
+						),
+					),
+					'linkedin' => array(
+						'class' => 'QsAuthExternalServiceLinkedInOAuth',
+						'oAuthClient' => array(
+							'clientId' => 'k5v61734chwf',
+							'clientSecret' => 'r2YPg9mU7SHwYPZe',
 						),
 					),
 				),
