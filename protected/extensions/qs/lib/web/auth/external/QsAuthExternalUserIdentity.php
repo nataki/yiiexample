@@ -10,6 +10,17 @@
 
 /**
  * QsAuthExternalUserIdentity user identity, which provides authentication via external service.
+ *
+ * Example:
+ * <code>
+ * $userIdentity = new QsAuthExternalUserIdentity();
+ * $service = new QsAuthExternalServiceSome();
+ * $userIdentity->setService($service);
+ * if ($userIdentity->authenticate()) {
+ *     Yii::app()->getComponent('user')->login($userIdentity);
+ * }
+ * </code>
+ *
  * @see QsAuthExternalService
  *
  * @property QsAuthExternalService $service public alias of {@link _service}.

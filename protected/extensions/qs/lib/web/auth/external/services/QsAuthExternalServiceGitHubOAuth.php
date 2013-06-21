@@ -1,16 +1,16 @@
 <?php
 /**
- * QsAuthExternalServiceGoogleOAuth class file.
- *
+ * QsAuthExternalServiceGitHubOAuth class file.
+ * 
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
  * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
-
+ 
 /**
- * QsAuthExternalServiceGoogleOAuth allows authentication via Google OAuth.
- * In order to use Google OAuth you must register your application at {@link https://code.google.com/apis/console#access}.
+ * QsAuthExternalServiceGitHubOAuth allows authentication via GitHub OAuth.
+ * In order to use GitHub OAuth you must register your application at {@link https://github.com/settings/applications/new}.
  *
  * Example application configuration:
  * <code>
@@ -18,11 +18,11 @@
  *     'externalAuth' => array(
  *         'class' => 'ext.qs.lib.web.auth.external.QsAuthExternalServiceCollection',
  *         'services' => array(
- *             'google' => array(
- *                 'class' => 'QsAuthExternalServiceGoogleOAuth',
+ *             'github' => array(
+ *                 'class' => 'QsAuthExternalServiceGitHubOAuth',
  *                 'oAuthClient' => array(
- *                     'clientId' => 'google_client_id',
- *                     'clientSecret' => 'google_client_secret',
+ *                     'clientId' => 'github_client_id',
+ *                     'clientSecret' => 'github_client_secret',
  *                 ),
  *             ),
  *         ),
@@ -30,19 +30,19 @@
  * ),
  * </code>
  *
- * @see https://code.google.com/apis/console#access
- * @see https://developers.google.com/google-apps/contacts/v3/
+ * @see http://developer.github.com/v3/oauth/
+ * @see https://github.com/settings/applications/new
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.auth.external.services
  */
-class QsAuthExternalServiceGoogleOAuth extends QsAuthExternalServiceOAuth2 {
+class QsAuthExternalServiceGitHubOAuth extends QsAuthExternalServiceOAuth2 {
 	/**
 	 * Generates service name.
 	 * @return string service name.
 	 */
 	protected function defaultName() {
-		return 'google';
+		return 'github';
 	}
 
 	/**
@@ -50,7 +50,7 @@ class QsAuthExternalServiceGoogleOAuth extends QsAuthExternalServiceOAuth2 {
 	 * @return string service title.
 	 */
 	protected function defaultTitle() {
-		return 'Google';
+		return 'GitHub';
 	}
 
 	/**
@@ -61,12 +61,12 @@ class QsAuthExternalServiceGoogleOAuth extends QsAuthExternalServiceOAuth2 {
 		return array(
 			'clientId' => 'anonymous',
 			'clientSecret' => 'anonymous',
-			'authUrl' => 'https://accounts.google.com/o/oauth2/auth',
-			'tokenUrl' => 'https://accounts.google.com/o/oauth2/token',
-			'apiBaseUrl' => 'https://www.googleapis.com/oauth2/v1',
+			'authUrl' => 'https://github.com/login/oauth/authorize',
+			'tokenUrl' => 'https://github.com/login/oauth/access_token',
+			'apiBaseUrl' => 'https://api.github.com',
 			'scope' => implode(' ', array(
-				'https://www.googleapis.com/auth/userinfo.profile',
-				'https://www.googleapis.com/auth/userinfo.email',
+				'user',
+				'user:email',
 			)),
 		);
 	}
@@ -76,7 +76,7 @@ class QsAuthExternalServiceGoogleOAuth extends QsAuthExternalServiceOAuth2 {
 	 * @return array auth attributes.
 	 */
 	protected function initAttributes() {
-		$attributes = $this->api('userinfo', 'GET');
+		$attributes = $this->api('user', 'GET');
 		return $attributes;
 	}
 }

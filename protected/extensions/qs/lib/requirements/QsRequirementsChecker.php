@@ -437,15 +437,12 @@ class QsRequirementsChecker {
 
 	/**
 	 * Checks if given shell command available via "exec".
-	 * Warning: this check could be unreliable! It attempts to invoke shell command
-	 * with '--help' option. If no such option available the check will fail.
 	 * @param string $commandName shell command name
 	 * @return boolean success.
 	 */
 	function checkShellCommandAvailable($commandName) {
 		$output = array();
-		$returnStatus = null;
-		exec($commandName.' --help', $output, $returnStatus);
-		return (!empty($output) || $returnStatus==0);
+		@$output = exec('which ' . $commandName . ' 2>/dev/null', $output);
+		return (!empty($output));
 	}
 }

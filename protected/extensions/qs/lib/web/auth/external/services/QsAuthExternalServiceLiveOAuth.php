@@ -1,16 +1,15 @@
 <?php
 /**
- * QsAuthExternalServiceGoogleOAuth class file.
- *
+ * QsAuthExternalServiceLiveOAuth class file.
+ * 
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
  * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
-
+ 
 /**
- * QsAuthExternalServiceGoogleOAuth allows authentication via Google OAuth.
- * In order to use Google OAuth you must register your application at {@link https://code.google.com/apis/console#access}.
+ * QsAuthExternalServiceLiveOAuth allows authentication via Microsoft Live OAuth.
  *
  * Example application configuration:
  * <code>
@@ -18,11 +17,11 @@
  *     'externalAuth' => array(
  *         'class' => 'ext.qs.lib.web.auth.external.QsAuthExternalServiceCollection',
  *         'services' => array(
- *             'google' => array(
- *                 'class' => 'QsAuthExternalServiceGoogleOAuth',
+ *             'live' => array(
+ *                 'class' => 'QsAuthExternalServiceLiveOAuth',
  *                 'oAuthClient' => array(
- *                     'clientId' => 'google_client_id',
- *                     'clientSecret' => 'google_client_secret',
+ *                     'clientId' => 'live_client_id',
+ *                     'clientSecret' => 'live_client_secret',
  *                 ),
  *             ),
  *         ),
@@ -30,19 +29,18 @@
  * ),
  * </code>
  *
- * @see https://code.google.com/apis/console#access
- * @see https://developers.google.com/google-apps/contacts/v3/
+ * @see http://msdn.microsoft.com/en-us/library/live/hh243647.aspx
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.auth.external.services
  */
-class QsAuthExternalServiceGoogleOAuth extends QsAuthExternalServiceOAuth2 {
+class QsAuthExternalServiceLiveOAuth extends QsAuthExternalServiceOAuth2 {
 	/**
 	 * Generates service name.
 	 * @return string service name.
 	 */
 	protected function defaultName() {
-		return 'google';
+		return 'live';
 	}
 
 	/**
@@ -50,7 +48,7 @@ class QsAuthExternalServiceGoogleOAuth extends QsAuthExternalServiceOAuth2 {
 	 * @return string service title.
 	 */
 	protected function defaultTitle() {
-		return 'Google';
+		return 'Live';
 	}
 
 	/**
@@ -61,13 +59,10 @@ class QsAuthExternalServiceGoogleOAuth extends QsAuthExternalServiceOAuth2 {
 		return array(
 			'clientId' => 'anonymous',
 			'clientSecret' => 'anonymous',
-			'authUrl' => 'https://accounts.google.com/o/oauth2/auth',
-			'tokenUrl' => 'https://accounts.google.com/o/oauth2/token',
-			'apiBaseUrl' => 'https://www.googleapis.com/oauth2/v1',
-			'scope' => implode(' ', array(
-				'https://www.googleapis.com/auth/userinfo.profile',
-				'https://www.googleapis.com/auth/userinfo.email',
-			)),
+			'authUrl' => 'https://login.live.com/oauth20_authorize.srf',
+			'tokenUrl' => 'https://login.live.com/oauth20_token.srf',
+			'apiBaseUrl' => 'https://apis.live.net/v5.0',
+			'scope' => '',
 		);
 	}
 
@@ -76,7 +71,7 @@ class QsAuthExternalServiceGoogleOAuth extends QsAuthExternalServiceOAuth2 {
 	 * @return array auth attributes.
 	 */
 	protected function initAttributes() {
-		$attributes = $this->api('userinfo', 'GET');
+		$attributes = $this->api('me', 'GET');
 		return $attributes;
 	}
 }

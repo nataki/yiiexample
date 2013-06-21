@@ -13,9 +13,10 @@ class QsOAuthClientTest extends CTestCase {
 	 * @return QsOAuthClient oauth client.
 	 */
 	protected function createOAuthClient() {
-		$oauthClient = $this->getMock('QsOAuthClient', array('setState', 'getState', 'composeRequestCurlOptions', 'refreshAccessToken', 'api'));
+		$oauthClient = $this->getMock('QsOAuthClient', array('setState', 'getState', 'composeRequestCurlOptions', 'refreshAccessToken', 'apiInternal'));
 		$oauthClient->expects($this->any())->method('setState')->will($this->returnValue($oauthClient));
 		$oauthClient->expects($this->any())->method('getState')->will($this->returnValue(null));
+		//$oauthClient->expects($this->any())->method('apiInternal')->will($this->returnCallback());
 		return $oauthClient;
 	}
 
@@ -143,6 +144,12 @@ class QsOAuthClientTest extends CTestCase {
 			),
 			array(
 				array(
+					'content_type' => 'application/xml'
+				),
+				QsOAuthClient::CONTENT_TYPE_XML
+			),
+			array(
+				array(
 					'some_header' => 'some_header_value'
 				),
 				QsOAuthClient::CONTENT_TYPE_AUTO
@@ -177,6 +184,8 @@ class QsOAuthClientTest extends CTestCase {
 			array('{name: value}', QsOAuthClient::CONTENT_TYPE_JSON),
 			array('name=value', QsOAuthClient::CONTENT_TYPE_URLENCODED),
 			array('name1=value1&name2=value2', QsOAuthClient::CONTENT_TYPE_URLENCODED),
+			array('<?xml version="1.0" encoding="UTF-8"?><tag>Value</tag>', QsOAuthClient::CONTENT_TYPE_XML),
+			array('<tag>Value</tag>', QsOAuthClient::CONTENT_TYPE_XML),
 		);
 	}
 
@@ -190,5 +199,50 @@ class QsOAuthClientTest extends CTestCase {
 		$oauthClient = $this->createOAuthClient();
 		$responseType = $this->invokeOAuthClientMethod($oauthClient, 'determineContentTypeByRaw', array($rawResponse));
 		$this->assertEquals($expectedResponseType, $responseType);
+	}
+
+	/**
+	 * Data provider for {@link testApiUrl}.
+	 * @return array test data.
+	 */
+	public function apiUrlDataProvider() {
+		return array(
+			array(
+				'http://api.base.url',
+				'sub/url',
+				'http://api.base.url/sub/url',
+			),
+			array(
+				'http://api.base.url',
+				'http://api.base.url/sub/url',
+				'http://api.base.url/sub/url',
+			),
+			array(
+				'http://api.base.url',
+				'https://api.base.url/sub/url',
+				'https://api.base.url/sub/url',
+			),
+		);
+	}
+
+	/**
+	 * @dataProvider apiUrlDataProvider
+	 *
+	 * @param $apiBaseUrl
+	 * @param $apiSubUrl
+	 * @param $expectedApiFullUrl
+	 */
+	public function testApiUrl($apiBaseUrl, $apiSubUrl, $expectedApiFullUrl) {
+		$oauthClient = $this->createOAuthClient();
+		$oauthClient->expects($this->any())->method('apiInternal')->will($this->returnArgument(1));
+
+		$accessToken = new QsOAuthToken();
+		$accessToken->setToken('test_access_token');
+		$accessToken->setExpireDuration(1000);
+		$oauthClient->setAccessToken($accessToken);
+
+		$oauthClient->apiBaseUrl = $apiBaseUrl;
+
+		$this->assertEquals($expectedApiFullUrl, $oauthClient->api($apiSubUrl));
 	}
 }

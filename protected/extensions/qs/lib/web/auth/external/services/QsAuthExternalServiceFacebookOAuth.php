@@ -73,8 +73,7 @@ class QsAuthExternalServiceFacebookOAuth extends QsAuthExternalServiceOAuth2 {
 	 * @return array auth attributes.
 	 */
 	protected function initAttributes() {
-		$oauthClient = $this->getOauthClient();
-		$attributes = $oauthClient->api('me', 'GET');
+		$attributes = $this->api('me', 'GET');
 		return $attributes;
 	}
 }

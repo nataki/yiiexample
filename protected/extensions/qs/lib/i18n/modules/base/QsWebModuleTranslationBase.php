@@ -101,10 +101,9 @@ class QsWebModuleTranslationBase extends CWebModule {
 	 * Imports the base classes, which are based or necessary for any translation module.
 	 */
 	protected function importBaseClasses() {
-		$applicationAliasPath = Yii::getPathOfAlias('application');
 		$selfPath = dirname(__FILE__);
-		$baseAlias = str_replace($applicationAliasPath,'application',$selfPath);
-		$baseAlias = str_replace(DIRECTORY_SEPARATOR,'.',$baseAlias);
+		$baseAlias = __CLASS__;
+		Yii::setPathOfAlias($baseAlias, $selfPath);
 		Yii::import("{$baseAlias}.components.QsTranslationLanguageManager");
 		Yii::import("{$baseAlias}.components.QsControllerTranslationBase");
 	}

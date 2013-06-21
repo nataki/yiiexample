@@ -183,7 +183,8 @@ class QsActiveRecordBehaviorFileTransform extends QsActiveRecordBehaviorFile {
 		if (isset($fileTransforms[0])) {
 			$defaultFileTransformName = $fileTransforms[0];
 		} else {
-			$defaultFileTransformName = array_shift(array_keys($fileTransforms));
+			$transformNames = array_keys($fileTransforms);
+			$defaultFileTransformName = array_shift($transformNames);
 		}
 		$this->_defaultFileTransformName = $defaultFileTransformName;
 		return true;

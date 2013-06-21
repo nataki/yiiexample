@@ -18,7 +18,7 @@
  *     'externalAuth' => array(
  *         'class' => 'ext.qs.lib.web.auth.external.QsAuthExternalServiceCollection',
  *         'services' => array(
- *             'google' => array(
+ *             'twitter' => array(
  *                 'class' => 'QsAuthExternalServiceTwitterOAuth',
  *                 'oAuthClient' => array(
  *                     'consumerKey' => 'twitter_consumer_key',
@@ -76,8 +76,7 @@ class QsAuthExternalServiceTwitterOAuth extends QsAuthExternalServiceOAuth1 {
 	 * @return array auth attributes.
 	 */
 	protected function initAttributes() {
-		$oauthClient = $this->getOauthClient();
-		$attributes = $oauthClient->api('account/verify_credentials.json', 'GET');
+		$attributes = $this->api('account/verify_credentials.json', 'GET');
 		return $attributes;
 	}
 }

@@ -30,30 +30,61 @@ abstract class QsAuthExternalServiceOAuth2 extends QsAuthExternalServiceOAuth {
 	/**
 	 * Authenticate the user.
 	 * @return boolean whether user was successfully authenticated.
+	 * @throws CException on error.
 	 */
 	public function authenticate() {
 		/* @var $httpRequest CHttpRequest */
 		$httpRequest = Yii::app()->getComponent('request');
-		$oauthClient = $this->getOauthClient();
 
-		// user denied error
-		if (isset($_GET['error']) && $_GET['error'] == 'access_denied') {
-			$this->redirectCancel();
-			return false;
+		if (isset($_GET['error'])) {
+			if ($_GET['error'] == 'access_denied') {
+				// user denied error
+				$this->redirectCancel();
+				return false;
+			} else {
+				// request error
+				if (isset($_GET['error_description'])) {
+					$errorMessage = $_GET['error_description'];
+				} elseif (isset($_GET['error_message'])) {
+					$errorMessage = $_GET['error_message'];
+				} else {
+					$errorMessage = http_build_query($_GET);
+				}
+				throw new CException('Auth error: '.$errorMessage);
+			}
 		}
 
 		// Get the access_token and save them to the session.
 		if (isset($_GET['code'])) {
 			$code = $_GET['code'];
-			$token = $oauthClient->fetchAccessToken($code);
+			$token = $this->fetchAccessToken($code);
 			if (!empty($token)) {
 				$this->isAuthenticated = true;
 			}
 		} else {
-			$url = $oauthClient->buildAuthUrl();
+			$url = $this->buildAuthUrl();
 			$httpRequest->redirect($url);
 		}
 
 		return $this->isAuthenticated;
+	}
+
+	/**
+	 * Composes user authorization URL.
+	 * @param array $params additional request parameters.
+	 * @return string auth URL.
+	 */
+	protected function buildAuthUrl(array $params = array()) {
+		return $this->getOauthClient()->buildAuthUrl($params);
+	}
+
+	/**
+	 * Fetches access token from authorization code.
+	 * @param string $code authorization code.
+	 * @param array $params additional request parameters.
+	 * @return QsOAuthToken access token.
+	 */
+	protected function fetchAccessToken($code, array $params = array()) {
+		return $this->getOauthClient()->fetchAccessToken($code, $params);
 	}
 }

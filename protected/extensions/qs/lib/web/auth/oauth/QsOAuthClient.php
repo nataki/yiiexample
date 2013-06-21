@@ -19,6 +19,7 @@
 abstract class QsOAuthClient extends CComponent {
 	const CONTENT_TYPE_JSON = 'json'; // JSON format
 	const CONTENT_TYPE_URLENCODED = 'urlencoded'; // urlencoded query string, like name1=value1&name2=value2
+	const CONTENT_TYPE_XML = 'xml'; // XML format
 	const CONTENT_TYPE_AUTO = 'auto'; // attempts to determine format automatically
 
 	/**
@@ -251,11 +252,33 @@ abstract class QsOAuthClient extends CComponent {
 				$response = QsOAuthHelper::parseQueryString($rawResponse);
 				break;
 			}
+			case self::CONTENT_TYPE_XML: {
+				$response = $this->convertXmlToArray($rawResponse);
+				break;
+			}
 			default: {
 				throw new CException('Unknown response type "' . $contentType . '".');
 			}
 		}
 		return $response;
+	}
+
+	/**
+	 * Converts XML document to array.
+	 * @param string|SimpleXMLElement $xml xml to process.
+	 * @return array XML array representation.
+	 */
+	protected function convertXmlToArray($xml) {
+		if (!is_object($xml)) {
+			$xml = simplexml_load_string($xml);
+		}
+		$result = (array)$xml;
+		foreach ($result as $key => $value) {
+			if (is_object($value)) {
+				$result[$key] = $this->convertXmlToArray($value);
+			}
+		}
+		return $result;
 	}
 
 	/**
@@ -270,6 +293,9 @@ abstract class QsOAuthClient extends CComponent {
 			}
 			if (stripos($headers['content_type'], 'urlencoded') !== false) {
 				return self::CONTENT_TYPE_URLENCODED;
+			}
+			if (stripos($headers['content_type'], 'xml') !== false) {
+				return self::CONTENT_TYPE_XML;
 			}
 		}
 		return self::CONTENT_TYPE_AUTO;
@@ -286,6 +312,9 @@ abstract class QsOAuthClient extends CComponent {
 		}
 		if (preg_match('/^[^=|^&]+=[^=|^&]+(&[^=|^&]+=[^=|^&]+)*$/is', $rawContent)) {
 			return self::CONTENT_TYPE_URLENCODED;
+		}
+		if (preg_match('/^<.*>$/is', $rawContent)) {
+			return self::CONTENT_TYPE_XML;
 		}
 		return self::CONTENT_TYPE_AUTO;
 	}
@@ -408,6 +437,27 @@ abstract class QsOAuthClient extends CComponent {
 	}
 
 	/**
+	 * Performs request to the OAuth API.
+	 * @param string $apiSubUrl API sub URL, which will be append to {@link apiBaseUrl}, or absolute API URL.
+	 * @param string $method request method.
+	 * @param array $params request parameters.
+	 * @return array API response
+	 * @throws CException on failure.
+	 */
+	public function api($apiSubUrl, $method = 'GET', array $params = array()) {
+		if (preg_match('/^https?:\\/\\//is', $apiSubUrl)) {
+			$url = $apiSubUrl;
+		} else {
+			$url = $this->apiBaseUrl . '/' . $apiSubUrl;
+		}
+		$accessToken = $this->getAccessToken();
+		if (!is_object($accessToken) || !$accessToken->getIsValid()) {
+			throw new CException('Invalid access token.');
+		}
+		return $this->apiInternal($accessToken, $url, $method, $params);
+	}
+
+	/**
 	 * Composes HTTP request CUrl options, which will be merged with the default ones.
 	 * @param string $method request type.
 	 * @param string $url request URL.
@@ -423,4 +473,15 @@ abstract class QsOAuthClient extends CComponent {
 	 * @return QsOAuthToken new auth token.
 	 */
 	abstract public function refreshAccessToken(QsOAuthToken $token);
+
+	/**
+	 * Performs request to the OAuth API.
+	 * @param QsOAuthToken $accessToken actual access token.
+	 * @param string $url absolute API URL.
+	 * @param string $method request method.
+	 * @param array $params request parameters.
+	 * @return array API response.
+	 * @throws CException on failure.
+	 */
+	abstract protected function apiInternal($accessToken, $url, $method, array $params);
 }

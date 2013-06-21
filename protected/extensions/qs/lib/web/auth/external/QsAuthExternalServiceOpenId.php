@@ -29,14 +29,14 @@ abstract class QsAuthExternalServiceOpenId extends QsAuthExternalService {
 	 */
 	public $authUrl = '';
 	/**
-	 * @var array the OpenID required attributes in format: serviceAttributeName => openIdProviderAttributeName.
+	 * @var array the OpenID required attributes list.
 	 * For example:
 	 * array(
-	 *     'name' => 'personal/name',
-	 *     'email' => 'contact/email',
+	 *     'personal/name',
+	 *     'contact/email',
 	 * );
 	 */
-	protected $_requiredAttributes = array();
+	protected $_requiredAttributes;
 
 	/**
 	 * @param array|QsOpenIdClient $openIdClient OpenId client instance or its array configuration.
@@ -70,7 +70,18 @@ abstract class QsAuthExternalServiceOpenId extends QsAuthExternalService {
 	 * @return array OpenId required attributes
 	 */
 	public function getRequiredAttributes() {
+		if (!is_array($this->_requiredAttributes)) {
+			$this->_requiredAttributes = $this->defaultRequiredAttributes();
+		}
 		return $this->_requiredAttributes;
+	}
+
+	/**
+	 * Generates default {@link requiredAttributes} value.
+	 * @return array required attributes.
+	 */
+	protected function defaultRequiredAttributes() {
+		return array();
 	}
 
 	/**
@@ -101,9 +112,9 @@ abstract class QsAuthExternalServiceOpenId extends QsAuthExternalService {
 							'id' => $openId->identity
 						);
 						$rawAttributes = $openId->getAttributes();
-						foreach ($this->getRequiredAttributes() as $attributeName => $openIdAttributeName) {
+						foreach ($this->getRequiredAttributes() as $openIdAttributeName) {
 							if (isset($rawAttributes[$openIdAttributeName])) {
-								$attributes[$attributeName] = $rawAttributes[$openIdAttributeName];
+								$attributes[$openIdAttributeName] = $rawAttributes[$openIdAttributeName];
 							} else {
 								throw new CException('Unable to complete the authentication because the required data was not received.');
 							}
@@ -125,8 +136,8 @@ abstract class QsAuthExternalServiceOpenId extends QsAuthExternalService {
 		} else {
 			$openId->identity = $this->authUrl; // Setting identifier
 			$openId->required = array(); // Try to get info from openid provider
-			foreach ($this->getRequiredAttributes() as $attributeName => $openIdAttributeName) {
-				$openId->required[$attributeName] = $openIdAttributeName;
+			foreach ($this->getRequiredAttributes() as $openIdAttributeName) {
+				$openId->required[] = $openIdAttributeName;
 			}
 			/* @var $httpRequest CHttpRequest */
 			$httpRequest = Yii::app()->getComponent('request');

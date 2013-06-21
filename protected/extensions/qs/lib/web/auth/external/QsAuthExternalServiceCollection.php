@@ -15,6 +15,28 @@ Yii::import('ext.qs.lib.web.auth.external.services.*');
  * QsAuthExternalServiceCollection is a storage for all external auth services in the application.
  * @see QsAuthExternalService
  *
+ * Example application configuration:
+ * <code>
+ * 'components' => array(
+ *     'externalAuth' => array(
+ *         'class' => 'ext.qs.lib.web.auth.external.QsAuthExternalServiceCollection',
+ *         'services' => array(
+ *             'google' => array(
+ *                 'class' => 'QsAuthExternalServiceGoogleOpenId',
+ *             ),
+ *             'facebook' => array(
+ *                 'class' => 'QsAuthExternalServiceFacebookOAuth',
+ *                 'oAuthClient' => array(
+ *                     'clientId' => 'facebook_client_id',
+ *                     'clientSecret' => 'facebook_client_secret',
+ *                 ),
+ *             ),
+ *             ...
+ *         ),
+ *     ),
+ * ),
+ * </code>
+ *
  * @property array $services public alias of {@link _services}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>

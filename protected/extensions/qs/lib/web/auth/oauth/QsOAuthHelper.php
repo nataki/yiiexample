@@ -78,9 +78,9 @@ class QsOAuthHelper {
 	 * @return string query string.
 	 */
 	public static function buildQueryString(array $formData) {
-		/*if (defined(PHP_QUERY_RFC3986)) {
+		if (defined('PHP_QUERY_RFC3986')) {
 			return http_build_query($formData, null, null, PHP_QUERY_RFC3986);
-		}*/
+		}
 
 		// Parameters are sorted by name, using lexicographical byte value ordering. Ref: Spec: 9.1.1
 		uksort($formData, 'strcmp');

@@ -10,7 +10,28 @@
 
 /**
  * QsAuthExternalServiceChoice prints buttons for authentication via external auth services.
- * @see QsAuthExternalServiceHub
+ * By default this widget relies on presence of {@link QsAuthExternalServiceHub} among application components
+ * to get external services information.
+ *
+ * Example:
+ * <code>
+ * <?php $this->widget('ext.qs.lib.web.auth.external.widgets.QsAuthExternalServiceChoice'); ?>
+ * </code>
+ *
+ * You can customize of the widget appearance by setting {@link autoRender} to "false",
+ * using method {@link authLink()} or {@link composeExternalServiceUrl()}.
+ * For example:
+ * <code>
+ * <?php $authChoice = $this->beginWidget('ext.qs.lib.web.auth.external.widgets.QsAuthExternalServiceChoice', array(
+ *     'autoRender' => false,
+ * )); ?>
+ * <ul>
+ * <?php foreach ($authChoice->getServices() as $service): ?>
+ *     <li><?php $authChoice->authLink($service); ?></li>
+ * <?php endforeach; ?>
+ * </ul>
+ * <?php $this->endWidget(); ?>
+ * </code>
  *
  * @property QsAuthExternalService[] $externalServices public alias of {@link _services}.
  * @property array $baseAuthUrl public alias of {@link _baseAuthUrl}.

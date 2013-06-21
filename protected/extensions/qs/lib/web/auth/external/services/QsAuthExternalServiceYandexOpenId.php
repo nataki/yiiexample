@@ -1,16 +1,16 @@
 <?php
 /**
- * QsAuthExternalServiceGoogleOpenId class file.
- *
+ * QsAuthExternalServiceYandexOpenId class file.
+ * 
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @link http://www.quartsoft.com/
  * @copyright Copyright &copy; 2010-2013 QuartSoft ltd.
  * @license http://www.quartsoft.com/license/
  */
-
+ 
 /**
- * QsAuthExternalServiceGoogleOpenId allows authentication via Google OpenId.
- * Unlike Google OAuth you do not need to register your application anywhere in order to use Google OpenId.
+ * QsAuthExternalServiceYandexOpenId allows authentication via Yandex OpenId.
+ * Unlike Yandex OAuth you do not need to register your application anywhere in order to use Yandex OpenId.
  *
  * Example application configuration:
  * <code>
@@ -18,8 +18,8 @@
  *     'externalAuth' => array(
  *         'class' => 'ext.qs.lib.web.auth.external.QsAuthExternalServiceCollection',
  *         'services' => array(
- *             'google' => array(
- *                 'class' => 'QsAuthExternalServiceGoogleOpenId',
+ *             'yandex' => array(
+ *                 'class' => 'QsAuthExternalServiceYandexOpenId',
  *             ),
  *         ),
  *     ),
@@ -29,28 +29,28 @@
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.auth.external.services
  */
-class QsAuthExternalServiceGoogleOpenId extends QsAuthExternalServiceOpenId {
+class QsAuthExternalServiceYandexOpenId extends QsAuthExternalServiceOpenId {
 	/**
 	 * @var string the OpenID authorization url.
 	 */
-	public $authUrl = 'https://www.google.com/accounts/o8/id';
+	public $authUrl = 'http://openid.yandex.ru';
 	/**
 	 * @var integer auth popup window width in pixels.
 	 * @see QsAuthExternalServiceChoice
 	 */
-	public $popupWidth = 880;
+	public $popupWidth = 900;
 	/**
 	 * @var integer auth popup window height in pixels.
 	 * @see QsAuthExternalServiceChoice
 	 */
-	public $popupHeight = 520;
+	public $popupHeight = 550;
 
 	/**
 	 * Generates service name.
 	 * @return string service name.
 	 */
 	protected function defaultName() {
-		return 'google_openid';
+		return 'yandex_openid';
 	}
 
 	/**
@@ -58,7 +58,7 @@ class QsAuthExternalServiceGoogleOpenId extends QsAuthExternalServiceOpenId {
 	 * @return string service title.
 	 */
 	protected function defaultTitle() {
-		return 'Google';
+		return 'Yandex';
 	}
 
 	/**
@@ -67,10 +67,8 @@ class QsAuthExternalServiceGoogleOpenId extends QsAuthExternalServiceOpenId {
 	 */
 	protected function defaultRequiredAttributes() {
 		return array(
-			'namePerson/first',
-			'namePerson/last',
+			'namePerson',
 			'contact/email',
-			'pref/language',
 		);
 	}
 
@@ -80,10 +78,8 @@ class QsAuthExternalServiceGoogleOpenId extends QsAuthExternalServiceOpenId {
 	 */
 	protected function defaultNormalizeAttributeMap() {
 		return array(
-			'first_name' => 'namePerson/first',
-			'last_name' => 'namePerson/last',
+			'name' => 'namePerson',
 			'email' => 'contact/email',
-			'language' => 'pref/language',
 		);
 	}
 }

@@ -11,6 +11,16 @@
 /**
  * QsOAuthClient1 service client for the OAuth 1/1.0a flow.
  *
+ * In oder to acquire access token perform following sequence:
+ * <code>
+ * $oauthClient = new QsOAuthClient1();
+ * $requestToken = $oauthClient->fetchRequestToken(); // Get request token
+ * $url = $oauthClient->buildAuthUrl($requestToken); // Get authorization URL
+ * Yii::app()->getComponent('request')->redirect($url); // Redirect to authorization URL.
+ * // After user returns at our site:
+ * $accessToken = $oauthClient->fetchAccessToken($requestToken); // Upgrade to access token
+ * </code>
+ *
  * @see http://oauth.net/
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
@@ -48,19 +58,20 @@ class QsOAuthClient1 extends QsOAuthClient {
 
 	/**
 	 * Fetches the OAuth request token.
+	 * @param array $params additional request params.
 	 * @return QsOAuthToken request token.
 	 */
-	public function fetchRequestToken() {
-		$params = array(
+	public function fetchRequestToken(array $params = array()) {
+		$this->removeState('token');
+		$defaultParams = array(
 			'oauth_consumer_key' => $this->consumerKey,
 			'oauth_callback' => $this->getReturnUrl(),
 			//'xoauth_displayname' => Yii::app()->name,
 		);
 		if (!empty($this->scope)) {
-			$params['scope'] = $this->scope;
+			$defaultParams['scope'] = $this->scope;
 		}
-		$response = $this->sendSignedRequest($this->requestTokenMethod, $this->requestTokenUrl, $params);
-
+		$response = $this->sendSignedRequest($this->requestTokenMethod, $this->requestTokenUrl, array_merge($defaultParams, $params));
 		$token = $this->createToken(array(
 			'params' => $response
 		));
@@ -71,19 +82,18 @@ class QsOAuthClient1 extends QsOAuthClient {
 	/**
 	 * Composes user authorization URL.
 	 * @param QsOAuthToken $requestToken OAuth request token.
+	 * @param array $params additional request params.
 	 * @return string authorize URL
 	 * @throws CException on failure.
 	 */
-	public function buildAuthUrl(QsOAuthToken $requestToken = null) {
+	public function buildAuthUrl(QsOAuthToken $requestToken = null, array $params = array()) {
 		if (!is_object($requestToken)) {
 			$requestToken = $this->getState('requestToken');
 			if (!is_object($requestToken)) {
 				throw new CException('Request token is required to build authorize URL!');
 			}
 		}
-		$params = array(
-			'oauth_token' => $requestToken->getToken()
-		);
+		$params['oauth_token'] = $requestToken->getToken();
 		return $this->composeUrl($this->authUrl, $params);
 	}
 
@@ -91,10 +101,11 @@ class QsOAuthClient1 extends QsOAuthClient {
 	 * Fetches OAuth access token.
 	 * @param QsOAuthToken $requestToken OAuth request token.
 	 * @param string $oauthVerifier OAuth verifier.
+	 * @param array $params additional request params.
 	 * @return QsOAuthToken OAuth access token.
 	 * @throws CException on failure.
 	 */
-	public function fetchAccessToken(QsOAuthToken $requestToken = null, $oauthVerifier = null) {
+	public function fetchAccessToken(QsOAuthToken $requestToken = null, $oauthVerifier = null, array $params = array()) {
 		if (!is_object($requestToken)) {
 			$requestToken = $this->getState('requestToken');
 			if (!is_object($requestToken)) {
@@ -102,7 +113,7 @@ class QsOAuthClient1 extends QsOAuthClient {
 			}
 		}
 		$this->removeState('requestToken');
-		$params = array(
+		$defaultParams = array(
 			'oauth_consumer_key' => $this->consumerKey,
 			'oauth_token' => $requestToken->getToken()
 		);
@@ -112,9 +123,9 @@ class QsOAuthClient1 extends QsOAuthClient {
 			}
 		}
 		if (!empty($oauthVerifier)) {
-			$params['oauth_verifier'] = $oauthVerifier;
+			$defaultParams['oauth_verifier'] = $oauthVerifier;
 		}
-		$response = $this->sendSignedRequest($this->accessTokenMethod, $this->accessTokenUrl, $params);
+		$response = $this->sendSignedRequest($this->accessTokenMethod, $this->accessTokenUrl, array_merge($defaultParams, $params));
 
 		$token = $this->createToken(array(
 			'params' => $response
@@ -180,19 +191,15 @@ class QsOAuthClient1 extends QsOAuthClient {
 
 	/**
 	 * Performs request to the OAuth API.
-	 * @param string $apiSubUrl API sub URL, which will be append to {@link apiBaseUrl}
+	 * @param QsOAuthToken $accessToken actual access token.
+	 * @param string $url absolute API URL.
 	 * @param string $method request method.
 	 * @param array $params request parameters.
-	 * @return array API response
+	 * @return array API response.
 	 * @throws CException on failure.
 	 */
-	public function api($apiSubUrl, $method = 'GET', array $params = array()) {
-		$url = $this->apiBaseUrl . '/' . $apiSubUrl;
+	protected function apiInternal($accessToken, $url, $method, array $params) {
 		$params['oauth_consumer_key'] = $this->consumerKey;
-		$accessToken = $this->getAccessToken();
-		if (!is_object($accessToken) || !$accessToken->getIsValid()) {
-			throw new CException("Invalid access token.");
-		}
 		$params['oauth_token'] = $accessToken->getToken();
 		$response = $this->sendSignedRequest($method, $url, $params);
 		return $response;

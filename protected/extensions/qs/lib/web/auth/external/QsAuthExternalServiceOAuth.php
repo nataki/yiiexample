@@ -73,4 +73,15 @@ abstract class QsAuthExternalServiceOAuth extends QsAuthExternalService {
 	protected function defaultOAuthClientClassName() {
 		return 'QsOAuthClient';
 	}
+
+	/**
+	 * Performs request to the OAuth API.
+	 * @param string $apiSubUrl API sub URL, which will be append to {@link QsOAuthClient::apiBaseUrl}, or absolute API URL.
+	 * @param string $method request method.
+	 * @param array $params request parameters.
+	 * @return array API response
+	 */
+	public function api($apiSubUrl, $method = 'GET', array $params = array()) {
+		return $this->getOauthClient()->api($apiSubUrl, $method, $params);
+	}
 }

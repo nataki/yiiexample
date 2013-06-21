@@ -12,12 +12,15 @@
  * QsAuthExternalPopupWindowRedirect renders HTML page, which performs browser redirect via JavaScript.
  * If the current page is a popup page, it will be closed and its parent page will be redirected.
  *
+ * This widget is used inside {@link QsAuthExternalService::redirect()}.
+ *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.auth.external.widgets
  */
 class QsAuthExternalPopupWindowRedirect extends CWidget {
 	/**
-	 * @var mixed redirect URL.
+	 * @var mixed redirect URL. Could be a string or array config to generate a valid URL.
+	 * @see CHtml::normalizeUrl()
 	 */
 	public $url;
 	/**

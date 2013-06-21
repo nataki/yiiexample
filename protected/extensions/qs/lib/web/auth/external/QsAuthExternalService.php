@@ -11,12 +11,32 @@
 /**
  * QsAuthExternalService provides basic interface and functionality for the external authentication services.
  *
+ * Example:
+ * <code>
+ * $service = new QsAuthExternalServiceSome();
+ * $service->authenticate(); // attempts to perform authentication
+ * if ($service->isAuthenticated) { // authentication success
+ *     $attributes = $service->getAttributes(); // user account attributes
+ *     ...
+ * }
+ * </code>
+ *
+ * QsAuthExternalService can create own user identity, which could be used for login:
+ * <code>
+ * $service = new QsAuthExternalServiceSome();
+ * $userIdentity = $service->createUserIdentity();
+ * if ($userIdentity->authenticate()) {
+ *     Yii::app()->getComponent('user')->login($userIdentity);
+ * }
+ * </code>
+ *
  * @property string $id public alias of {@link _id}.
  * @property string $name public alias of {@link _name}.
  * @property string $title public alias of {@link _title}.
  * @property string $successUrl public alias of {@link _successUrl}.
  * @property string $cancelUrl public alias of {@link _cancelUrl}.
  * @property array $attributes public alias of {@link _attributes}.
+ * @property array $normalizeAttributeMap public alias of {@link _normalizeAttributeMap}.
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
  * @package qs.web.auth.external
@@ -52,6 +72,11 @@ abstract class QsAuthExternalService extends CComponent {
 	 * @var array authorization attributes.
 	 */
 	protected $_attributes;
+	/**
+	 * @var array map used to normalize user attributes fetched from external auth service
+	 * in format: normalizedAttributeName => actualAttributeName
+	 */
+	protected $_normalizeAttributeMap;
 	/**
 	 * @var integer auth popup window width in pixels.
 	 * If not set default value will be used.
@@ -139,11 +164,30 @@ abstract class QsAuthExternalService extends CComponent {
 	}
 
 	/**
+	 * @param array $normalizeAttributeMap normalize attribute map
+	 * @return QsAuthExternalService self instance.
+	 */
+	public function setNormalizeAttributeMap(array $normalizeAttributeMap) {
+		$this->_normalizeAttributeMap = $normalizeAttributeMap;
+		return $this;
+	}
+
+	/**
+	 * @return array normalize attribute map
+	 */
+	public function getNormalizeAttributeMap() {
+		if (!is_array($this->_normalizeAttributeMap)) {
+			$this->_normalizeAttributeMap = $this->defaultNormalizeAttributeMap();
+		}
+		return $this->_normalizeAttributeMap;
+	}
+
+	/**
 	 * @param array $attributes auth attributes.
 	 * @return QsAuthExternalService self instance
 	 */
 	public function setAttributes(array $attributes) {
-		$this->_attributes = $attributes;
+		$this->_attributes = $this->normalizeAttributes($attributes);
 		return $this;
 	}
 
@@ -152,7 +196,7 @@ abstract class QsAuthExternalService extends CComponent {
 	 */
 	public function getAttributes() {
 		if ($this->_attributes === null) {
-			$this->_attributes = $this->initAttributes();
+			$this->setAttributes($this->initAttributes());
 		}
 		return $this->_attributes;
 	}
@@ -200,7 +244,15 @@ abstract class QsAuthExternalService extends CComponent {
 	protected function defaultCancelUrl() {
 		/* @var $request CHttpRequest */
 		$request = Yii::app()->getComponent('request');
-		return $request->getHostInfo() . '/' . $request->getPathInfo();
+		return $request->getBaseUrl(true) . '/' . $request->getPathInfo();
+	}
+
+	/**
+	 * Creates default {@link normalizeAttributeMap} value.
+	 * @return array normalize attribute map.
+	 */
+	protected function defaultNormalizeAttributeMap() {
+		return array();
 	}
 
 	/**
@@ -212,8 +264,22 @@ abstract class QsAuthExternalService extends CComponent {
 	}
 
 	/**
+	 * Normalize given user attributes according to {@link normalizeAttributeMap}.
+	 * @param array $attributes raw attributes.
+	 * @return array normalized attributes.
+	 */
+	protected function normalizeAttributes(array $attributes) {
+		foreach ($this->getNormalizeAttributeMap() as $normalizedName => $actualName) {
+			if (array_key_exists($actualName, $attributes)) {
+				$attributes[$normalizedName] = $attributes[$actualName];
+			}
+		}
+		return $attributes;
+	}
+
+	/**
 	 * Redirect to the given URL or simply close the popup window.
-	 * @param string $url URL to redirect.
+	 * @param mixed $url URL to redirect, could be a string or array config to generate a valid URL.
 	 * @param boolean $enforceRedirect indicates if redirect should be performed even in case of popup window.
 	 * @param array $options {@link QsAuthExternalPopupWindowRedirect} widget options.
 	 * @param boolean $terminate whether to terminate the current application.
@@ -228,14 +294,12 @@ abstract class QsAuthExternalService extends CComponent {
 			array(
 				'url' => $url,
 				'enforceRedirect' => $enforceRedirect,
+				'terminate' => $terminate,
 			)
 		);
 		$widget = Yii::app()->getWidgetFactory()->createWidget($this, $widgetClassName, $widgetOptions);
 		$widget->init();
 		$widget->run();
-		if ($terminate) {
-			Yii::app()->end();
-		}
 	}
 
 	/**

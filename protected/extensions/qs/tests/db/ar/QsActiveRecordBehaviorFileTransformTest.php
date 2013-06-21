@@ -39,6 +39,10 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 							'default' => null,
 							'custom' => null
 						),
+						'defaultFileUrl' => array(
+							'default' => 'http://test.default.url',
+							'custom' => 'http://test.custom.url'
+						),
 					)
 				),
 			)
@@ -83,7 +87,7 @@ class QsActiveRecordBehaviorFileTransformTest extends CTestCase {
 	}
 
 	public function tearDown() {
-		$behaviorTempFilePath = Yii::getPathOfAlias('application.runtime').DIRECTORY_SEPARATOR.'QsActiveRecordBehaviorFileTransform';
+		$behaviorTempFilePath = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'QsActiveRecordBehaviorFileTransform';
 		$command = "rm -rf {$behaviorTempFilePath}";
 		exec($command);
 

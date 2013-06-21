@@ -11,6 +11,16 @@
 /**
  * QsOAuthClient2 service client for the OAuth 2 flow.
  *
+ * In oder to acquire access token perform following sequence:
+ * <code>
+ * $oauthClient = new QsOAuthClient2();
+ * $url = $oauthClient->buildAuthUrl(); // Build authorization URL
+ * Yii::app()->getComponent('request')->redirect($url); // Redirect to authorization URL.
+ * // After user returns at our site:
+ * $code = $_GET['code'];
+ * $accessToken = $oauthClient->fetchAccessToken($code); // Get access token
+ * </code>
+ *
  * @see http://oauth.net/2/
  *
  * @author Paul Klimov <pklimov@quartsoft.com>
@@ -36,39 +46,37 @@ class QsOAuthClient2 extends QsOAuthClient {
 
 	/**
 	 * Composes user authorization URL.
+	 * @param array $params additional auth GET params.
 	 * @return string authorization URL.
 	 */
-	public function buildAuthUrl() {
-		$params = array(
+	public function buildAuthUrl(array $params = array()) {
+		$defaultParams = array(
 			'client_id' => $this->clientId,
 			'response_type' => 'code',
 			'redirect_uri' => $this->getReturnUrl(),
 			'xoauth_displayname' => Yii::app()->name,
 		);
 		if (!empty($this->scope)) {
-			$params['scope'] = $this->scope;
+			$defaultParams['scope'] = $this->scope;
 		}
-		return $this->composeUrl($this->authUrl, $params);
+		return $this->composeUrl($this->authUrl, array_merge($defaultParams, $params));
 	}
 
 	/**
 	 * Fetches access token from authorization code.
 	 * @param string $authCode authorization code, usually comes at $_GET['code'].
-	 * @return array access token data.
+	 * @param array $params additional request params.
+	 * @return QsOAuthToken access token.
 	 */
-	public function fetchAccessToken($authCode) {
-		$params = array(
+	public function fetchAccessToken($authCode, array $params = array()) {
+		$defaultParams = array(
 			'client_id' => $this->clientId,
 			'client_secret' => $this->clientSecret,
 			'code' => $authCode,
 			'grant_type' => 'authorization_code',
+			'redirect_uri' => $this->getReturnUrl(),
 		);
-		if (!empty($oauthVerifier)) {
-			$params['oauth_verifier'] = $oauthVerifier;
-		}
-		$params['redirect_uri'] = $this->getReturnUrl();
-
-		$response = $this->sendRequest('POST', $this->tokenUrl, $params);
+		$response = $this->sendRequest('POST', $this->tokenUrl, array_merge($defaultParams, $params));
 		$token = $this->createToken(array('params' => $response));
 		$this->setAccessToken($token);
 		return $token;
@@ -113,18 +121,14 @@ class QsOAuthClient2 extends QsOAuthClient {
 
 	/**
 	 * Performs request to the OAuth API.
-	 * @param string $apiSubUrl API sub URL, which will be append to {@link apiBaseUrl}
+	 * @param QsOAuthToken $accessToken actual access token.
+	 * @param string $url absolute API URL.
 	 * @param string $method request method.
 	 * @param array $params request parameters.
-	 * @return array API response
+	 * @return array API response.
 	 * @throws CException on failure.
 	 */
-	public function api($apiSubUrl, $method = 'GET', array $params = array()) {
-		$url = $this->apiBaseUrl . '/' . $apiSubUrl;
-		$accessToken = $this->getAccessToken();
-		if (!is_object($accessToken) || !$accessToken->getIsValid()) {
-			throw new CException('Invalid access token.');
-		}
+	protected function apiInternal($accessToken, $url, $method, array $params) {
 		$params['access_token'] = $accessToken->getToken();
 		return $this->sendRequest($method, $url, $params);
 	}

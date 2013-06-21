@@ -38,6 +38,13 @@ class QsAuthExternalServiceTest extends CTestCase {
 		);
 		$authExternalService->setAttributes($attributes);
 		$this->assertEquals($attributes, $authExternalService->getAttributes(), 'Unable to setup attributes!');
+
+		$normalizeAttributeMap = array(
+			'test_normalized_attribute_name_1' => 'test_attribute_name_1',
+			'test_normalized_attribute_name_2' => 'test_attribute_name_2',
+		);
+		$authExternalService->setNormalizeAttributeMap($normalizeAttributeMap);
+		$this->assertEquals($normalizeAttributeMap, $authExternalService->getNormalizeAttributeMap(), 'Unable to setup normalize attribute map!');
 	}
 
 	public function testGetDescriptiveData() {
@@ -71,7 +78,7 @@ class QsAuthExternalServiceTest extends CTestCase {
 		$url = 'http://test.url';
 		$this->expectOutputRegex('/' . str_replace('/', '\\/', $url) . '/is');
 
-		$authExternalService->redirect($url, true, array('terminate' => false));
+		$authExternalService->redirect($url, true, array(), false);
 	}
 
 	public function testCreateUserIdentity() {
@@ -80,5 +87,31 @@ class QsAuthExternalServiceTest extends CTestCase {
 		$userIdentity = $authExternalService->createUserIdentity();
 		$this->assertTrue(is_object($userIdentity), 'Unable to create user identity!');
 		$this->assertEquals($authExternalService, $userIdentity->getService(), 'Unable to setup service for created user identity!');
+	}
+
+	/**
+	 * @depends testSetGet
+	 */
+	public function testNormalizeAttributes() {
+		$authExternalService = $this->createTestAuthExternalService();
+
+		$attributes = array(
+			'attribute_1' => 'value_1',
+			'attribute_2' => 'value_2',
+		);
+		$normalizedNameSuffix = '_normalized';
+		$normalizeAttributeMap = array();
+		foreach ($attributes as $name => $value) {
+			$normalizeAttributeMap[$name . $normalizedNameSuffix] = $name;
+		}
+
+		$authExternalService->setNormalizeAttributeMap($normalizeAttributeMap);
+		$authExternalService->setAttributes($attributes);
+
+		$normalizedAttributes = $authExternalService->getAttributes();
+
+		foreach ($normalizeAttributeMap as $normalizedName => $actualName) {
+			$this->assertEquals($attributes[$actualName], $normalizedAttributes[$normalizedName]);
+		}
 	}
 }

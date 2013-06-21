@@ -142,13 +142,14 @@ class QsFileStorageHub extends CApplicationComponent implements IQsFileStorage {
 	}
 
 	/**
-	 * Returns the default file storage, meaning the first one in the
-	 * {@link storages} list.
+	 * Returns the default file storage, meaning the first one in the {@link storages} list.
+	 * @throws CException on failure.
 	 * @return IQsFileStorage file storage instance.
 	 */
 	protected function getDefaultStorage() {
-		$storagesList = $this->_storages;
-		$defaultStorageName = array_shift(array_keys($storagesList));
+		$storageList = $this->_storages;
+		$storageNames = array_keys($storageList);
+		$defaultStorageName = array_shift($storageNames);
 		if (empty($defaultStorageName)) {
 			throw new CException('Unable to determine default storage in the hub!');
 		}
