@@ -4,6 +4,11 @@
  * SignupForm class.
  * SignupForm is the data structure for keeping signup form data.
  * This model creates new user account and sent email notification to its owner.
+ *
+ * This model supports 2 different scenarios:
+ * - 'default' - signup via web form
+ * - 'external' - signup via external auth service account.
+ *
  * @see Member
  */
 class SignupForm extends CFormModel {
@@ -15,6 +20,12 @@ class SignupForm extends CFormModel {
 
 	public $new_password;
 	public $new_password_repeat;
+
+	/**
+	 * @var integer new user id.
+	 * This value will be filled after successful sign up.
+	 */
+	public $id;
 
 	/**
 	 * @var string CAPTCHA verification code.
@@ -59,6 +70,7 @@ class SignupForm extends CFormModel {
 	 */
 	public function rules() {
 		return array(
+			array('id', 'unsafe'),
 			array('name, email', 'required'),
 			array('new_password, new_password_repeat', 'required', 'on'=>'default'),
 			array('first_name, last_name', 'required'),
@@ -128,6 +140,7 @@ class SignupForm extends CFormModel {
 				}
 			}
 			$this->sendConfirmationEmail($user);
+			$this->id = $user->getPrimaryKey();
 			return $user;
 		} else {
 			return false;
@@ -176,6 +189,7 @@ class SignupForm extends CFormModel {
 	 */
 	protected function applyUserModelAttributes(CActiveRecord $user) {
 		$excludedAttributeNames = array(
+			'id',
 			'verifyCode',
 			'externalId',
 			'externalAuthServiceId',
