@@ -39,7 +39,7 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 
 	public function setConnectionId($connectionId) {
 		if (!is_string($connectionId)) {
-			throw new CException('"'.get_class($this).'::connectionId" should be a string!');
+			throw new CException('"' . get_class($this) . '::connectionId" should be a string!');
 		}
 		$this->_connectionId = $connectionId;
 		return true;
@@ -54,7 +54,7 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 
 	public function setSourceMessageTable($sourceMessageTable) {
 		if (!is_string($sourceMessageTable)) {
-			throw new CException('"'.get_class($this).'::sourceMessageTable" should be a string!');
+			throw new CException('"' . get_class($this) . '::sourceMessageTable" should be a string!');
 		}
 		$this->_sourceMessageTable = $sourceMessageTable;
 		return true;
@@ -69,7 +69,7 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 
 	public function setTranslatedMessageTable($translatedMessageTable) {
 		if (!is_string($translatedMessageTable)) {
-			throw new CException('"'.get_class($this).'::translatedMessageTable" should be a string!');
+			throw new CException('"' . get_class($this) . '::translatedMessageTable" should be a string!');
 		}
 		$this->_translatedMessageTable = $translatedMessageTable;
 		return true;
@@ -231,7 +231,7 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 			'id' => $sourceMessageId,
 			'language' => $language
 		);
-		$translatedMessage = $dbCommand->queryRow(true,$params);
+		$translatedMessage = $dbCommand->queryRow(true, $params);
 		return $translatedMessage;
 	}
 
@@ -250,7 +250,7 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 			'translation' => $content,
 		);
 		$insertResult = $dbCommand->insert($this->getTranslatedMessageTable(), $columns);
-		return ($insertResult>0);
+		return ($insertResult > 0);
 	}
 
 	/**
@@ -270,7 +270,7 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 			'language' => $language,
 		);
 		$updateResult = $dbCommand->update($this->getTranslatedMessageTable(), $columns, 'id=:id AND language=:language', $params);
-		return ($updateResult>0);
+		return ($updateResult > 0);
 	}
 
 	/**
@@ -287,8 +287,8 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 
 		$dbCommand
 			->select('t.language AS language, t.translation AS content, s.message AS name, s.category AS category')
-			->from($this->getTranslatedMessageTable().' AS t')
-			->join($this->getSourceMessageTable().' AS s','s.id = t.id');
+			->from($this->getTranslatedMessageTable() . ' AS t')
+			->join($this->getSourceMessageTable() . ' AS s', 's.id = t.id');
 
 		$params = array();
 		// Apply filter to save performance:
@@ -298,11 +298,11 @@ class MessageTranslationMapperDb extends MessageTranslationMapper {
 			);
 			if (!empty($filter->category_name)) {
 				$where[] = 's.category LIKE :category_name';
-				$params[':category_name'] = '%'.$filter->category_name.'%';
+				$params[':category_name'] = '%' . $filter->category_name . '%';
 			}
 			if (!empty($filter->name)) {
 				$where[] = 's.message LIKE :name';
-				$params[':name'] = '%'.$filter->name.'%';
+				$params[':name'] = '%' . $filter->name . '%';
 			}
 			if (count($where)>1) {
 				$dbCommand->where($where);

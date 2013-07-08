@@ -54,7 +54,7 @@ class MessageTranslationDynamicContentWidget extends CWidget {
 
 	public function setLanguageInputId($languageInputId) {
 		if (!is_string($languageInputId)) {
-			throw new CException('"'.get_class($this).'::languageInputId" should be a string!');
+			throw new CException('"' . get_class($this) . '::languageInputId" should be a string!');
 		}
 		$this->_languageInputId = $languageInputId;
 		return true;
@@ -69,7 +69,7 @@ class MessageTranslationDynamicContentWidget extends CWidget {
 
 	public function setContentInputId($contentInputId) {
 		if (!is_string($contentInputId)) {
-			throw new CException('"'.get_class($this).'::contentInputId" should be a string!');
+			throw new CException('"' . get_class($this) . '::contentInputId" should be a string!');
 		}
 		$this->_contentInputId = $contentInputId;
 		return true;
@@ -167,7 +167,7 @@ class MessageTranslationDynamicContentWidget extends CWidget {
 	public function init() {
 		$model = $this->getModel();
 		if (!is_object($model)) {
-			throw new CException('"'.get_class($this).'::model" should be setup!');
+			throw new CException('"' . get_class($this) . '::model" should be setup!');
 		}
 		$this->echoJavaScript();
 	}
@@ -185,13 +185,13 @@ class MessageTranslationDynamicContentWidget extends CWidget {
 		foreach ($this->getLanguages() as $language ) {
 			$translation = $model->getTranslation($language);
 			$translation = str_replace("'","\\'", $translation);
-			$caseStrings[] = "case '{$language}': contentValue = '".$translation."'; break;";
+			$caseStrings[] = "case '{$language}': contentValue = '" . $translation . "'; break;";
 		}
 
 		$updateContentInputCode = "
 			var language = this.value;
 			var contentValue = '';
-			switch (language) { ".implode(' ', $caseStrings)." }
+			switch (language) { " . implode(' ', $caseStrings) . " }
 			$('#".$this->getContentInputId()."').attr('value', contentValue);
 		";
 

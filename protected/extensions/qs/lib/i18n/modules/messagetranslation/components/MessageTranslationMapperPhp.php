@@ -100,10 +100,10 @@ class MessageTranslationMapperPhp extends MessageTranslationMapper {
 		$translations = array();
 
 		foreach ($translationFiles as $translationFile) {
-			$categoryName = basename($translationFile,'.php');
+			$categoryName = basename($translationFile, '.php');
 			// Apply filter to save performance:
 			if (!empty($filter->category_name)) {
-				if (strpos($categoryName, $filter->category_name)===false) {
+				if (strpos($categoryName, $filter->category_name) === false) {
 					continue;
 				}
 			}
@@ -131,7 +131,7 @@ class MessageTranslationMapperPhp extends MessageTranslationMapper {
 	 * @return boolean success.
 	 */
 	protected function saveTranslation($category, $name, $language, $content) {
-		$translationFileName = $this->getBasePath().DIRECTORY_SEPARATOR.$language.DIRECTORY_SEPARATOR.$category.'.php';
+		$translationFileName = $this->getBasePath() . DIRECTORY_SEPARATOR . $language . DIRECTORY_SEPARATOR . $category . '.php';
 		if (file_exists($translationFileName)) {
 			$translations = require($translationFileName);
 		} else {
@@ -181,7 +181,7 @@ return $arrayString;
 
 EOD;
 		$bytesWritten = file_put_contents($fileName, $content);
-		return ($bytesWritten>0);
+		return ($bytesWritten > 0);
 	}
 
 	/**

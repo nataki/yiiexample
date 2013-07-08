@@ -45,7 +45,7 @@ abstract class QsFileStorageBucketSubDirTemplate extends QsFileStorageBucket {
 	
 	public function setFileSubDirTemplate($fileSubDirTemplate) {
 		if (!is_string($fileSubDirTemplate)) {
-			throw new CException('"'.get_class($this).'::fileSubDirTemplate" should be a string!');
+			throw new CException('"' . get_class($this) . '::fileSubDirTemplate" should be a string!');
 		}
 		$this->_fileSubDirTemplate = $fileSubDirTemplate;
 		return true;
@@ -75,7 +75,7 @@ abstract class QsFileStorageBucketSubDirTemplate extends QsFileStorageBucket {
 			return $subDirTemplate;
 		}
 		$this->_internalCache['getFileSubDirFileName'] = $fileName;
-		$result = preg_replace_callback("/{(\^*(\w+))}/", array($this,'getFileSubDirPlaceholderValue'), $subDirTemplate);
+		$result = preg_replace_callback("/{(\^*(\w+))}/", array($this, 'getFileSubDirPlaceholderValue'), $subDirTemplate);
 		unset($this->_internalCache['getFileSubDirFileName']);
 		return $result;
 	}
@@ -83,11 +83,12 @@ abstract class QsFileStorageBucketSubDirTemplate extends QsFileStorageBucket {
 	/**
 	 * Internal callback function for {@link getFileSubDir}.
 	 * @param array $matches set of regular expression matches.
+	 * @throws CException on failure.
 	 * @return string value of the placeholder.
 	 */
 	protected function getFileSubDirPlaceholderValue($matches) {
 		$placeholderName = $matches[1];
-		$placeholderPartSymbolPosition = strspn($placeholderName, '^')-1;
+		$placeholderPartSymbolPosition = strspn($placeholderName, '^') - 1;
 		if ($placeholderPartSymbolPosition >= 0) {
 			$placeholderName = $matches[2];
 		}
@@ -119,9 +120,24 @@ abstract class QsFileStorageBucketSubDirTemplate extends QsFileStorageBucket {
 			}
 		}
 
-		if (strlen($placeholderValue)<=0 || in_array($placeholderValue,array('.'))) {
+		if (strlen($placeholderValue) <= 0 || in_array($placeholderValue, array('.'))) {
 			$placeholderValue = $defaultPlaceholderValue;
 		}
 		return $placeholderValue;
+	}
+
+	/**
+	 * Returns the file name, including path resolved from {@link fileSubDirTemplate}.
+	 * @param string $fileName - name of the file.
+	 * @return string name of the file including sub path.
+	 */
+	public function getFileNameWithSubDir($fileName) {
+		$fileSubDir = $this->getFileSubDir($fileName);
+		if (!empty($fileSubDir)) {
+			$fullFileName = $fileSubDir . '/' . $fileName;
+		} else {
+			$fullFileName = $fileName;
+		}
+		return $fullFileName;
 	}
 }

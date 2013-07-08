@@ -57,16 +57,16 @@ class MessageTranslationFilter extends CModel {
 	 */
 	public $default_content;
 
-	public function __set($name,$value) {
+	public function __set($name, $value) {
 		if (in_array($name, $this->contentAttributeNames())) {
 			$language = str_replace('content_', '', $name);
 			if (in_array($language, $this->getLanguages())) {
 				return $this->setContent($language, $value);
 			} else {
-				return parent::__set($name,$value);
+				return parent::__set($name, $value);
 			}
 		} else {
-			return parent::__set($name,$value);
+			return parent::__set($name, $value);
 		}
 	}
 
@@ -153,7 +153,7 @@ class MessageTranslationFilter extends CModel {
 	public function contentAttributeNames() {
 		$attributeNames = array();
 		foreach ($this->getLanguages() as $language) {
-			$attributeNames[] = 'content_'.$language;
+			$attributeNames[] = 'content_' . $language;
 		}
 		return $attributeNames;
 	}
@@ -225,7 +225,7 @@ class MessageTranslationFilter extends CModel {
 		if ($this->isEmpty()) {
 			return $models;
 		}
-		$models = array_filter($models, array($this,'checkModelAllowed'));
+		$models = array_filter($models, array($this, 'checkModelAllowed'));
 		return $models;
 	}
 
@@ -236,17 +236,17 @@ class MessageTranslationFilter extends CModel {
 	 */
 	public function checkModelAllowed(CModel $model) {
 		if (!empty($this->name)) {
-			if (strpos($model->name, $this->name)===false) {
+			if (strpos($model->name, $this->name) === false) {
 				return false;
 			}
 		}
 		if (!empty($this->category_name)) {
-			if (strpos($model->category_name, $this->category_name)===false) {
+			if (strpos($model->category_name, $this->category_name) === false) {
 				return false;
 			}
 		}
 		if (!empty($this->default_content)) {
-			if (strpos($model->default_content, $this->default_content)===false) {
+			if (strpos($model->default_content, $this->default_content) === false) {
 				return false;
 			}
 		}

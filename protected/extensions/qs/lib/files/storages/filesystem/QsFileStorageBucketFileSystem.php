@@ -50,7 +50,7 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 
 	public function setBaseSubPath($baseSubPath) {
 		if (!is_string($baseSubPath)) {
-			throw new CException('"'.get_class($this).'::baseSubPath" should be a string!');
+			throw new CException('"' . get_class($this) . '::baseSubPath" should be a string!');
 		}
 		$this->_baseSubPath = $baseSubPath;
 		return true;
@@ -79,8 +79,8 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 	 * @return string bucket full base path.
 	 */
 	public function getFullBasePath() {
-		$fullBasePath = $this->getStorage()->getBasePath().DIRECTORY_SEPARATOR.$this->getBaseSubPath();
-		$fullBasePath = rtrim($fullBasePath, DIRECTORY_SEPARATOR);
+		$fullBasePath = $this->getStorage()->getBasePath() . '/' . $this->getBaseSubPath();
+		$fullBasePath = rtrim($fullBasePath, '/');
 		return $fullBasePath;
 	}
 
@@ -114,14 +114,7 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 	 * @return string full file name.
 	 */
 	protected function composeFullFileName($fileName) {
-		$fullBasePath = $this->resolveFullBasePath();
-		$fullFileName = $fullBasePath.DIRECTORY_SEPARATOR;
-		$fileSubDir = $this->getFileSubDir($fileName);
-		if (!empty($fileSubDir)) {
-			$fullFileName .= $fileSubDir.DIRECTORY_SEPARATOR;
-		}
-		$fullFileName .= $fileName;
-		return $fullFileName;
+		return $this->resolveFullBasePath() . '/' . $this->getFileNameWithSubDir($fileName);
 	}
 
 	/**
@@ -196,7 +189,7 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 	 */
 	public function destroy() {
 		$fullBasePath = $this->resolveFullBasePath();
-		$command = 'rm -r '.escapeshellarg($fullBasePath);
+		$command = 'rm -r ' . escapeshellarg($fullBasePath);
 		exec($command);
 		$this->log("bucket has been destroyed at base path '{$fullBasePath}'");
 		$this->clearInternalCache();
@@ -283,7 +276,7 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 		$result = copy($srcFileName, $fullFileName);
 		if ($result) {
 			$this->log("file '{$srcFileName}' has been copied to '{$fullFileName}'");
-			chmod($fullFileName, $this->getStorage()->getFilePermission() );
+			chmod($fullFileName, $this->getStorage()->getFilePermission());
 		} else {
 			$this->log("unable to copy file from '{$srcFileName}' to '{$fullFileName}'!", CLogger::LEVEL_ERROR);
 		}
@@ -379,12 +372,12 @@ class QsFileStorageBucketFileSystem extends QsFileStorageBucketSubDirTemplate {
 	 */
 	public function getFileUrl($fileName) {
 		$baseUrl = $this->getStorage()->getBaseUrl();
-		$baseUrl .= '/'.$this->getBaseSubPath();
+		$baseUrl .= '/' . $this->getBaseSubPath();
 		$fileSubDir = $this->getFileSubDir($fileName);
 		if (!empty($fileSubDir)) {
-			$baseUrl .= '/'.$fileSubDir;
+			$baseUrl .= '/' . $fileSubDir;
 		}
-		$fileUrl = $baseUrl.'/'.$fileName;
+		$fileUrl = $baseUrl . '/' . $fileName;
 		return $fileUrl;
 	}
 }

@@ -77,7 +77,7 @@ class MessageTranslation extends CModel {
 	}
 
 	public function getId() {
-		$rawId = $this->category_name.DIRECTORY_SEPARATOR.$this->name;
+		$rawId = $this->category_name . DIRECTORY_SEPARATOR . $this->name;
 		$id = base64_encode($rawId);
 		return $id;
 	}
@@ -110,7 +110,7 @@ class MessageTranslation extends CModel {
 	 * @return string encoded id value.
 	 */
 	protected function encodeId($name, $categoryName) {
-		$rawId = $categoryName.DIRECTORY_SEPARATOR.$name;
+		$rawId = $categoryName . DIRECTORY_SEPARATOR . $name;
 		$id = base64_encode($rawId);
 		return $id;
 	}
@@ -125,7 +125,7 @@ class MessageTranslation extends CModel {
 		$rawId = base64_decode($id);
 		list($category_name, $name) = explode(DIRECTORY_SEPARATOR, $rawId, 2);
 		if (empty($category_name) || empty($name)) {
-			throw new CException('Wrong value for the "'.get_class($this).'::id" has been set!');
+			throw new CException('Wrong value for the "' . get_class($this) . '::id" has been set!');
 		}
 		$result = array(
 			'category_name' => $category_name,
@@ -263,7 +263,7 @@ class MessageTranslation extends CModel {
 		$module = $this->getMessageTranslationModule();
 		$languageManager = $module->getComponent('languageManager');
 		foreach ($languageManager->getLanguages() as $language) {
-			$sortAttributes[] = 'content_'.$language->locale_code;
+			$sortAttributes[] = 'content_' . $language->locale_code;
 		}
 		$options = array(
 			'id' => get_class($this),

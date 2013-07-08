@@ -31,7 +31,7 @@ class DefaultController extends QsControllerTranslationBase {
 				$actionTitle = ucfirst($this->action->id);
 			}
 		}
-		return Yii::app()->name.' - Message Translation - '.$actionTitle;
+		return Yii::app()->name . ' - Message Translation - ' . $actionTitle;
 	}
 
 	/**
@@ -92,7 +92,7 @@ class DefaultController extends QsControllerTranslationBase {
 		if (array_key_exists(get_class($model), $_POST)) {
 			$model->attributes = $_POST[get_class($model)];
 			if ($model->save()) {
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('view', 'id' => $model->id));
 			}
 		}
 		$viewData = array(

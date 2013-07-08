@@ -8,12 +8,16 @@
  * @license http://www.quartsoft.com/license/
  */
 
-require_once( dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'QsWebModuleTranslationBase.php' );
+require_once(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'base' . DIRECTORY_SEPARATOR . 'QsWebModuleTranslationBase.php');
 
 /**
  * MessagetranslationModule is a web module, which provides the ability to manage
  * translation messages.
  * This module should be a part of the web application administration panel.
+ *
+ * This module requires the blank translation PHP source files for the default application language,
+ * which will serve as a map for the future translations. These message files should be created separately
+ * before module usage. This could be done using "yiic message" command.
  *
  * Example application configuration:
  * <code>

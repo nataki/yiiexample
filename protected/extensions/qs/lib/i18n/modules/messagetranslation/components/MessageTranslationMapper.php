@@ -10,6 +10,8 @@
 
 /**
  * MessageTranslationMapper is a base message translation model mapper.
+ * Translation mapper uses source translation files for the default site language as a map
+ * for new translations.
  * 
  * @see MessageTranslation.
  *
@@ -22,6 +24,7 @@
 abstract class MessageTranslationMapper extends CApplicationComponent {
 	/**
 	 * @var string path to the default message translation files.
+	 * For example: "/path/to/application/messages/en_us"
 	 */
 	protected $_defaultMessagePath = '';
 	/**
@@ -34,7 +37,7 @@ abstract class MessageTranslationMapper extends CApplicationComponent {
 
 	public function setDefaultMessagePath($defaultMessagePath) {
 		if (!is_string($defaultMessagePath)) {
-			throw new CException('"'.get_class($this).'::defaultMessagePath" should be a string!');
+			throw new CException('"' . get_class($this) . '::defaultMessagePath" should be a string!');
 		}
 		$this->_defaultMessagePath = $defaultMessagePath;
 		return true;
@@ -76,7 +79,7 @@ abstract class MessageTranslationMapper extends CApplicationComponent {
 		}
 
 		$defaultLanguage = $messageSource->getLanguage();
-		$defaultMessagePath .= DIRECTORY_SEPARATOR.$defaultLanguage;
+		$defaultMessagePath .= DIRECTORY_SEPARATOR . $defaultLanguage;
 
 		$this->_defaultMessagePath = $defaultMessagePath;
 		return true;
@@ -174,7 +177,7 @@ abstract class MessageTranslationMapper extends CApplicationComponent {
 	 * @return string message id.
 	 */
 	protected function composeMessageId($category, $name) {
-		return $category.DIRECTORY_SEPARATOR.$name;
+		return $category . DIRECTORY_SEPARATOR . $name;
 	}
 
 	/**
